@@ -142,9 +142,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DetectCollisions.cpp" />
-    <ClCompile Include="Draw.cpp" />
+    <ClCompile Include="GameDraw.cpp" />
     <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="Input.cpp" />
+    <ClCompile Include="GameInput.cpp" />
     <ClCompile Include="LoadMap.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MapManager.cpp" />
@@ -154,7 +154,7 @@
     <ClCompile Include="PlayerUpdate.cpp" />
     <ClCompile Include="TextureHolder.cpp" />
     <ClCompile Include="TheLibraryEscapes.cpp" />
-    <ClCompile Include="Update.cpp" />
+    <ClCompile Include="GameUpdate.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h" />
