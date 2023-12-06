@@ -14,17 +14,23 @@ void Engine::detectCollisions(Player& player) {
 	// Build a zone around the player to detect collisions
 	int startX = (int)(detectionZone.left / TILE_SIZE);
 	int startY = (int)(detectionZone.top / TILE_SIZE);
-	int endX = (int)(detectionZone.left / TILE_SIZE) + 5;
-	int endY = (int)(detectionZone.top / TILE_SIZE) + 5;
+	int endX = (int)(detectionZone.left / TILE_SIZE) + MAX_RANGE_COLLISIONS_DETECTION;
+	int endY = (int)(detectionZone.top / TILE_SIZE) + MAX_RANGE_COLLISIONS_DETECTION;
 
 	// Make sure we don't test positions lower than zero
 	// Or higher than the end of the array
-	if (startX < 0)startX = 0;
-	if (startY < 0)startY = 0;
-	if (endX >= m_Map.getMapSize().x)
+	if (startX < 0) {
+		startX = 0;
+	}
+	if (startY < 0) {
+		startY = 0;
+	}
+	if (endX >= m_Map.getMapSize().x) {
 		endX = m_Map.getMapSize().x;
-	if (endY >= m_Map.getMapSize().y)
+	}
+	if (endY >= m_Map.getMapSize().y) {
 		endY = m_Map.getMapSize().y;
+	}
 
 	for (int x = startX; x < endX; x++)
 	{

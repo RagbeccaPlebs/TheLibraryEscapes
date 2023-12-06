@@ -8,7 +8,7 @@ using namespace std;
 Map::Map(string name)
 {
     m_TexureTiles = TextureHolder::GetTexture("assets/graphics/map/" + name + ".png");
-    MapManager::MapValues mapValues = m_MM.mapLoader(m_VACollisionLevel, m_VABackgroundLevel, m_VAInteractableLevel, name);
+    MapManager::MapValues mapValues = m_MM.mapLoader(m_VACollisionLevel, m_VABackgroundLevelUnder, m_VAInteractableLevel, name);
     m_ArrayCollisionLevel = mapValues.collisionsMap;
     m_ArrayInteractableLevel = mapValues.interactablesMap;
     m_MapSize = mapValues.mapSize;
@@ -24,7 +24,8 @@ Map& Map::operator=(const Map& other)
     if (this != &other) {
         this->m_ArrayCollisionLevel = other.m_ArrayCollisionLevel;
         this->m_ArrayInteractableLevel = other.m_ArrayInteractableLevel;
-        this->m_VABackgroundLevel = other.m_VABackgroundLevel;
+        this->m_VABackgroundLevelUnder = other.m_VABackgroundLevelUnder;
+        this->m_VABackgroundLevelUpper = other.m_VABackgroundLevelUpper;
         this->m_VACollisionLevel = other.m_VACollisionLevel;
         this->m_VAInteractableLevel = other.m_VAInteractableLevel;
         this->m_TexureTiles = other.m_TexureTiles;
@@ -39,9 +40,14 @@ Vector2i Map::getMapSize()
     return m_MapSize;
 }
 
-VertexArray Map::getVABackgroundLevel()
+VertexArray Map::getVABackgroundLevelUnder()
 {
-    return m_VABackgroundLevel;
+    return m_VABackgroundLevelUnder;
+}
+
+VertexArray Map::getVABackgroundLevelUpper()
+{
+    return m_VABackgroundLevelUpper;
 }
 
 int** Map::getArrayCollisionLevel()

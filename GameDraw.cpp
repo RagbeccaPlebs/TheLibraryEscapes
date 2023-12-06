@@ -11,7 +11,7 @@ void Engine::draw()
 	m_Window.setView(m_MainView);
 
 	if (m_Map.getArrayCollisionLevel() != NULL) {
-		m_Window.draw(m_Map.getVABackgroundLevel(), &m_Map.getTextureTiles());
+		m_Window.draw(m_Map.getVABackgroundLevelUnder(), &m_Map.getTextureTiles());
 		m_Window.draw(m_Map.getVACollisionLevel(), &m_Map.getTextureTiles());
 		m_Window.draw(m_Map.getVAInteractableLevel(), &m_Map.getTextureTiles());
 	}

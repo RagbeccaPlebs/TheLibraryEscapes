@@ -35,6 +35,8 @@ private:
 	void input();
 	void update(float dtAsSeconds);
 	void draw();
+
+	const int MAX_RANGE_COLLISIONS_DETECTION = 5;
 public:
 	Engine();
 

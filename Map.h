@@ -6,7 +6,8 @@ class Map {
 private:
 	MapManager m_MM;
 
-	sf::VertexArray m_VABackgroundLevel;
+	sf::VertexArray m_VABackgroundLevelUnder;
+	sf::VertexArray m_VABackgroundLevelUpper;
 
 	int** m_ArrayCollisionLevel = NULL;
 	sf::VertexArray m_VACollisionLevel;
@@ -25,7 +26,8 @@ public:
 	Map& operator=(const Map& other);
 
 	sf::Vector2i getMapSize();
-	sf::VertexArray getVABackgroundLevel();
+	sf::VertexArray getVABackgroundLevelUnder();
+	sf::VertexArray getVABackgroundLevelUpper();
 	int** getArrayCollisionLevel();
 	sf::VertexArray getVACollisionLevel();
 	int** getArrayInteractableLevel();
