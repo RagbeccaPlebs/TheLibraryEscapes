@@ -11,7 +11,6 @@ Engine::Engine()
 
 	m_Window.create(VideoMode(resolution.x, resolution.y), "The Library Escapes", Style::Fullscreen);
 
-
 	//Temp fix
 	m_Playing = false;
 	m_Inventory = false;

@@ -40,7 +40,7 @@ void Engine::detectCollisions(Player& player) {
 
 				if (player.getRight().intersects(block))
 				{
-					player.stopRight(block.left - (player.getRight().left - player.getPosition().left));
+					player.stopRight(block.left - (player.getRight().left - player.getPosition().left + player.getRight().width));
 				}
 				else if (player.getLeft().intersects(block))
 				{
