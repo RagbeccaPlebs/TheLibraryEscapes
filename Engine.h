@@ -7,9 +7,10 @@
 class Engine {
 private:
 	//TextureHolder
-	TextureHolder th;
+	TextureHolder m_th;
 
-	PlayerMovement pM;
+	//PlayerMovement
+	PlayerMovement m_PM;
 
 	//Player
 	Player m_Player;

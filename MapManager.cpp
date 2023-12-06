@@ -40,7 +40,7 @@ int** MapManager::singleMapType(VertexArray& rVA, mapType type, string name) {
 
 	switch (type) {
 	case COLLISIONS:
-		levelToLoad += name + ".txt";
+		levelToLoad += name + "-collisions.txt";
 		break;
 	case BACKGROUND:
 		levelToLoad += name + "-background.txt";
