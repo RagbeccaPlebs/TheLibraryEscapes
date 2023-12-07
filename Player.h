@@ -5,7 +5,7 @@
 
 class Player {
 private:
-	enum lastPressed {
+	enum LastPressed {
 		LEFT,
 		RIGHT,
 		UP,
@@ -13,18 +13,18 @@ private:
 		NONE
 	};
 
-	lastPressed m_lastButtonPressed = lastPressed::DOWN;
+	LastPressed m_LastButtonPressed = LastPressed::DOWN;
 	//Make sure buttons aren't equal to force correct placement of player
-	lastPressed m_oldLastButtonPressed;
+	LastPressed m_OldLastButtonPressed;
 
-	int textureLocationX = 0;
-	int textureLocationY = 0;
+	int m_TextureLocationX = 0;
+	int m_TextureLocationY = 0;
 
-	//PlayerMovement
-	PlayerMovement m_PM;
+	//Player Movement & Animation
+	PlayerMovement m_PlayerMovement;
 
-	PlayerMovement::SpriteSheet m_currentSpriteSheet;
-	PlayerMovement::SingleSprite m_currentSprite;
+	PlayerMovement::SpriteSheet m_CurrentSpriteSheet;
+	PlayerMovement::SingleSprite m_CurrentSprite;
 	float m_SecondsSinceLastAnimationUpdate = 0;
 
 	//The Sprites of the player (Of the layers)

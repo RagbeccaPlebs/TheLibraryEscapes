@@ -1,24 +1,18 @@
-#include "Engine.h"
-#include "TextureHolder.h"
+﻿#include "GameEngine.h"
 
 using namespace sf;
 
-void Engine::draw()
+void GameEngine::draw(RenderWindow& mainWindow)
 {
-	// Rub out the last frame
-	m_Window.clear();
-
-	m_Window.setView(m_MainView);
-
-	if (m_Map.getArrayCollisionLevel() != NULL) {
-		m_Window.draw(m_Map.getVABackgroundLevelUnder(), &m_Map.getTextureTiles());
-		m_Window.draw(m_Map.getVACollisionLevel(), &m_Map.getTextureTiles());
-		m_Window.draw(m_Map.getVAInteractableLevel(), &m_Map.getTextureTiles());
+	if (m_Map.getArrayCollisionLevel() != nullptr) {
+		mainWindow.draw(m_Map.getVaBackgroundLevelUnder(), &m_Map.getTextureTiles());
+		mainWindow.draw(m_Map.getVaCollisionLevel(), &m_Map.getTextureTiles());
+		mainWindow.draw(m_Map.getVaInteractableLevel(), &m_Map.getTextureTiles());
 	}
 
-	for (Sprite sprite : m_Player.getSprites()) {
+	for (const Sprite& sprite : m_Player.getSprites()) {
 		if (sprite.getTexture() != nullptr) {
-			m_Window.draw(sprite);
+			mainWindow.draw(sprite);
 		}
 	}
 
@@ -27,7 +21,6 @@ void Engine::draw()
 	RectangleShape rs2;
 	RectangleShape rs3;
 	RectangleShape rs4;
-	//RectangleShape block;
 
 	rs1.setFillColor(Color::Red);
 	rs1.setPosition(Vector2f(m_Player.getHead().left, m_Player.getHead().top));
@@ -45,10 +38,8 @@ void Engine::draw()
 	rs4.setPosition(Vector2f(m_Player.getRight().left, m_Player.getRight().top));
 	rs4.setSize(Vector2f(m_Player.getRight().width, m_Player.getRight().height));
 
-	m_Window.draw(rs1);
-	m_Window.draw(rs2);
-	m_Window.draw(rs3);
-	m_Window.draw(rs4);
-
-	m_Window.display();
+	mainWindow.draw(rs1);
+	mainWindow.draw(rs2);
+	mainWindow.draw(rs3);
+	mainWindow.draw(rs4);
 }

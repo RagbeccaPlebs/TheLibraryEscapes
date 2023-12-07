@@ -2,7 +2,7 @@
 
 using namespace sf;
 
-void Player::update(float elapsedTime)
+void Player::update(const float elapsedTime)
 {
 	if (m_RightPressed) {
 		m_Position.x += m_Speed * elapsedTime;
@@ -28,7 +28,7 @@ void Player::update(float elapsedTime)
 	}
 	else {
 		m_SecondsSinceLastAnimationUpdate = 0;
-		m_lastButtonPressed = NONE;
+		m_LastButtonPressed = NONE;
 		playerAnimationUpdate(false);
 	}
 
@@ -64,74 +64,74 @@ void Player::update(float elapsedTime)
 void Player::playerAnimationUpdate(bool isMoving)
 {
 	bool changedSheet = false;
-	if (m_oldLastButtonPressed != m_lastButtonPressed && m_lastButtonPressed != NONE) {
-		if (m_lastButtonPressed == UP) {
-			m_oldLastButtonPressed = m_lastButtonPressed;
-			if (isMoving) m_currentSpriteSheet = m_PM.getWalkNorth();
-			else m_currentSpriteSheet = m_PM.getIdleNorth();
+	if (m_OldLastButtonPressed != m_LastButtonPressed && m_LastButtonPressed != NONE) {
+		if (m_LastButtonPressed == UP) {
+			m_OldLastButtonPressed = m_LastButtonPressed;
+			if (isMoving) m_CurrentSpriteSheet = m_PlayerMovement.getWalkNorth();
+			else m_CurrentSpriteSheet = m_PlayerMovement.getIdleNorth();
 		}
-		else if (m_lastButtonPressed == RIGHT) {
-			m_oldLastButtonPressed = m_lastButtonPressed;
-			if (isMoving) m_currentSpriteSheet = m_PM.getWalkEast();
-			else m_currentSpriteSheet = m_PM.getIdleEast();
+		else if (m_LastButtonPressed == RIGHT) {
+			m_OldLastButtonPressed = m_LastButtonPressed;
+			if (isMoving) m_CurrentSpriteSheet = m_PlayerMovement.getWalkEast();
+			else m_CurrentSpriteSheet = m_PlayerMovement.getIdleEast();
 		}
-		else if (m_lastButtonPressed == LEFT) {
-			m_oldLastButtonPressed = m_lastButtonPressed;
-			if (isMoving) m_currentSpriteSheet = m_PM.getWalkWest();
-			else m_currentSpriteSheet = m_PM.getIdleWest();
+		else if (m_LastButtonPressed == LEFT) {
+			m_OldLastButtonPressed = m_LastButtonPressed;
+			if (isMoving) m_CurrentSpriteSheet = m_PlayerMovement.getWalkWest();
+			else m_CurrentSpriteSheet = m_PlayerMovement.getIdleWest();
 		}
-		else if (m_lastButtonPressed == DOWN) {
-			m_oldLastButtonPressed = m_lastButtonPressed;
-			if (isMoving) m_currentSpriteSheet = m_PM.getWalkSouth();
-			else m_currentSpriteSheet = m_PM.getIdleSouth();
-		}
-		changedSheet = true;
-	}
-	else if (m_lastButtonPressed == NONE) {
-		if (m_oldLastButtonPressed == UP) {
-			m_oldLastButtonPressed = m_lastButtonPressed;
-			m_currentSpriteSheet = m_PM.getIdleNorth();
-		}
-		else if (m_oldLastButtonPressed == RIGHT) {
-			m_oldLastButtonPressed = m_lastButtonPressed;
-			m_currentSpriteSheet = m_PM.getIdleEast();
-		}
-		else if (m_oldLastButtonPressed == LEFT) {
-			m_oldLastButtonPressed = m_lastButtonPressed;
-			m_currentSpriteSheet = m_PM.getIdleWest();
-		}
-		else if (m_oldLastButtonPressed == DOWN) {
-			m_oldLastButtonPressed = m_lastButtonPressed;
-			m_currentSpriteSheet = m_PM.getIdleSouth();
+		else if (m_LastButtonPressed == DOWN) {
+			m_OldLastButtonPressed = m_LastButtonPressed;
+			if (isMoving) m_CurrentSpriteSheet = m_PlayerMovement.getWalkSouth();
+			else m_CurrentSpriteSheet = m_PlayerMovement.getIdleSouth();
 		}
 		changedSheet = true;
 	}
-	PlayerMovement::SingleSprite& currentSprite = m_currentSprite;
+	else if (m_LastButtonPressed == NONE) {
+		if (m_OldLastButtonPressed == UP) {
+			m_OldLastButtonPressed = m_LastButtonPressed;
+			m_CurrentSpriteSheet = m_PlayerMovement.getIdleNorth();
+		}
+		else if (m_OldLastButtonPressed == RIGHT) {
+			m_OldLastButtonPressed = m_LastButtonPressed;
+			m_CurrentSpriteSheet = m_PlayerMovement.getIdleEast();
+		}
+		else if (m_OldLastButtonPressed == LEFT) {
+			m_OldLastButtonPressed = m_LastButtonPressed;
+			m_CurrentSpriteSheet = m_PlayerMovement.getIdleWest();
+		}
+		else if (m_OldLastButtonPressed == DOWN) {
+			m_OldLastButtonPressed = m_LastButtonPressed;
+			m_CurrentSpriteSheet = m_PlayerMovement.getIdleSouth();
+		}
+		changedSheet = true;
+	}
+	PlayerMovement::SingleSprite& currentSprite = m_CurrentSprite;
 
 	if (changedSheet) {
-		if (m_SecondsSinceLastAnimationUpdate >= m_currentSpriteSheet.animation_speed[0] && m_currentSpriteSheet.spriteLocation.size() > 1) {
-			currentSprite.animation_speed = m_currentSpriteSheet.animation_speed[1];
-			currentSprite.spriteLocation = m_currentSpriteSheet.spriteLocation[1];
+		if (m_SecondsSinceLastAnimationUpdate >= m_CurrentSpriteSheet.animationSpeed[0] && m_CurrentSpriteSheet.spriteLocation.size() > 1) {
+			currentSprite.animationSpeed = m_CurrentSpriteSheet.animationSpeed[1];
+			currentSprite.spriteLocation = m_CurrentSpriteSheet.spriteLocation[1];
 			currentSprite.index = 1;
 		}
 		else {
-			currentSprite.animation_speed = m_currentSpriteSheet.animation_speed[0];
-			currentSprite.spriteLocation = m_currentSpriteSheet.spriteLocation[0];
+			currentSprite.animationSpeed = m_CurrentSpriteSheet.animationSpeed[0];
+			currentSprite.spriteLocation = m_CurrentSpriteSheet.spriteLocation[0];
 			currentSprite.index = 0;
 		}
 	}
 	else {
-		if ((m_SecondsSinceLastAnimationUpdate >= currentSprite.animation_speed) &&
-			(m_currentSpriteSheet.spriteLocation.size() > static_cast<unsigned long long>(currentSprite.index) + 1)) {
+		if ((m_SecondsSinceLastAnimationUpdate >= currentSprite.animationSpeed) &&
+			(m_CurrentSpriteSheet.spriteLocation.size() > static_cast<unsigned long long>(currentSprite.index) + 1)) {
 			m_SecondsSinceLastAnimationUpdate = 0;
-			currentSprite.animation_speed = m_currentSpriteSheet.animation_speed[currentSprite.index + 1];
-			currentSprite.spriteLocation = m_currentSpriteSheet.spriteLocation[currentSprite.index + 1];
+			currentSprite.animationSpeed = m_CurrentSpriteSheet.animationSpeed[currentSprite.index + 1];
+			currentSprite.spriteLocation = m_CurrentSpriteSheet.spriteLocation[currentSprite.index + 1];
 			currentSprite.index += currentSprite.index + 1;
 		}
-		else if (m_SecondsSinceLastAnimationUpdate >= currentSprite.animation_speed) {
+		else if (m_SecondsSinceLastAnimationUpdate >= currentSprite.animationSpeed) {
 			m_SecondsSinceLastAnimationUpdate = 0;
-			currentSprite.animation_speed = m_currentSpriteSheet.animation_speed[0];
-			currentSprite.spriteLocation = m_currentSpriteSheet.spriteLocation[0];
+			currentSprite.animationSpeed = m_CurrentSpriteSheet.animationSpeed[0];
+			currentSprite.spriteLocation = m_CurrentSpriteSheet.spriteLocation[0];
 			currentSprite.index = 0;
 		}
 	}
@@ -139,25 +139,25 @@ void Player::playerAnimationUpdate(bool isMoving)
 }
 
 //Stop versions
-void Player::stopDown(float position)
+void Player::stopDown(const float position)
 {
 	m_Position.y = position;
 	setPositionAllSprites();
 }
 
-void Player::stopRight(float position)
+void Player::stopRight(const float position)
 {
 	m_Position.x = position;
 	setPositionAllSprites();
 }
 
-void Player::stopLeft(float position)
+void Player::stopLeft(const float position)
 {
 	m_Position.x = position;
 	setPositionAllSprites();
 }
 
-void Player::stopUp(float position)
+void Player::stopUp(const float position)
 {
 	m_Position.y = position;
 	setPositionAllSprites();

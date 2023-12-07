@@ -10,10 +10,10 @@ Player::Player() {
 	m_SpriteCloak = Sprite(TextureHolder::GetTexture("assets/graphics/player/char_a_p1_2clo_lnpl_v07.png"));
 	m_SpriteHair = Sprite(TextureHolder::GetTexture("assets/graphics/player/char_a_p1_5hat_pnty_v03.png"));
 
-	m_currentSpriteSheet = m_PM.getIdleSouth();
+	m_CurrentSpriteSheet = m_PlayerMovement.getIdleSouth();
 }
 
-void Player::spawn(Vector2f startPosition)
+void Player::spawn(const Vector2f startPosition)
 {
 	m_Position.x = startPosition.x;
 	m_Position.y = startPosition.y;
@@ -25,7 +25,7 @@ void Player::handleInput()
 {
 	if (Keyboard::isKeyPressed(Keyboard::A))
 	{
-		m_lastButtonPressed = lastPressed::LEFT;
+		m_LastButtonPressed = LastPressed::LEFT;
 		m_LeftPressed = true;
 	}
 	else
@@ -35,7 +35,7 @@ void Player::handleInput()
 
 	if (Keyboard::isKeyPressed(Keyboard::D))
 	{
-		m_lastButtonPressed = lastPressed::RIGHT;
+		m_LastButtonPressed = LastPressed::RIGHT;
 		m_RightPressed = true;
 	}
 	else
@@ -45,7 +45,7 @@ void Player::handleInput()
 
 	if (Keyboard::isKeyPressed(Keyboard::W))
 	{
-		m_lastButtonPressed = lastPressed::UP;
+		m_LastButtonPressed = LastPressed::UP;
 		m_UpPressed = true;
 	}
 	else
@@ -55,7 +55,7 @@ void Player::handleInput()
 
 	if (Keyboard::isKeyPressed(Keyboard::S))
 	{
-		m_lastButtonPressed = lastPressed::DOWN;
+		m_LastButtonPressed = LastPressed::DOWN;
 		m_DownPressed = true;
 	}
 	else
@@ -91,8 +91,9 @@ FloatRect Player::getRight()
 
 Vector2f Player::getCenter()
 {
-	return Vector2f(
+	const Vector2f centerLocation(
 		m_Position.x + m_SpriteBase.getGlobalBounds().width / 2,
 		m_Position.y + m_SpriteBase.getGlobalBounds().height / 2
 	);
+	return centerLocation;
 }

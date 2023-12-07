@@ -1,21 +1,32 @@
-#include "Engine.h"
+﻿#include "GameEngine.h"
 
 using namespace sf;
 
-void Engine::input() {
-
+void GameEngine::input(RenderWindow& mainWindow)
+{
 	Event event;
-	while (m_Window.pollEvent(event)) {
+	while (mainWindow.pollEvent(event)) {
 		if (event.type == Event::KeyPressed) {
 			if (event.type == Event::KeyPressed)
 			{
 				// Handle the player quitting
 				if (Keyboard::isKeyPressed(Keyboard::Escape))
 				{
-					m_Window.close();
+					m_Paused = !m_Paused;
 				}
 			}
 		}
 	}
-	m_Player.handleInput();
+
+	if (m_Paused)
+	{
+		
+	}
+	else
+	{
+
+		m_Player.handleInput();
+	}
+
 }
+

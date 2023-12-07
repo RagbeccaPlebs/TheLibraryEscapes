@@ -1,21 +1,21 @@
 #include "Engine.h"
-#include "MapManager.h"
+#include "MapLoader.h"
 
 using namespace sf;
 
-void Engine::detectCollisions(Player& player) {
-	FloatRect detectionZone = player.getPosition();
+void GameEngine::detectCollisions(Player& player) {
+	const FloatRect detectionZone = player.getPosition();
 
-	const int TILE_SIZE = MapManager::TILE_SIZE;
+	constexpr int TILE_SIZE = MapLoader::TILE_SIZE;
 
 	// Make a FloatRect to test each block
 	FloatRect block(0, 0, TILE_SIZE, TILE_SIZE);
 
 	// Build a zone around the player to detect collisions
-	int startX = (int)(detectionZone.left / TILE_SIZE);
-	int startY = (int)(detectionZone.top / TILE_SIZE);
-	int endX = (int)(detectionZone.left / TILE_SIZE) + MAX_RANGE_COLLISIONS_DETECTION;
-	int endY = (int)(detectionZone.top / TILE_SIZE) + MAX_RANGE_COLLISIONS_DETECTION;
+	int startX = static_cast<int>(detectionZone.left / TILE_SIZE);
+	int startY = static_cast<int>(detectionZone.top / TILE_SIZE);
+	int endX = static_cast<int>(detectionZone.left / TILE_SIZE) + MAX_RANGE_COLLISIONS_DETECTION;
+	int endY = static_cast<int>(detectionZone.top / TILE_SIZE) + MAX_RANGE_COLLISIONS_DETECTION;
 
 	// Make sure we don't test positions lower than zero
 	// Or higher than the end of the array

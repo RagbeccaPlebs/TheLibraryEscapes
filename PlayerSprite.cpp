@@ -25,7 +25,7 @@ array<Sprite, 5> Player::getSprites()
 
 Sprite Player::setSpriteTextureLocation(Sprite& sprite) {
 	if (sprite.getTexture() != nullptr) {
-		sprite.setTextureRect(IntRect(textureLocationX, textureLocationY, 32, 40));
+		sprite.setTextureRect(IntRect(m_TextureLocationX, m_TextureLocationY, 32, 40));
 		return sprite;
 	}
 	else {
@@ -33,14 +33,14 @@ Sprite Player::setSpriteTextureLocation(Sprite& sprite) {
 	}
 }
 
-void Player::setTextureLocation(Vector2i location)
+void Player::setTextureLocation(const Vector2i location)
 {
 
-	textureLocationX = location.x == 0 ? 16 : (getSequenceWithFour(location.x) * 16 - 2);
-	textureLocationY = location.y == 0 ? 8 : (getSequenceWithEight(location.y) * 8 - 2);
+	m_TextureLocationX = location.x == 0 ? 16 : (getSequenceWithFour(location.x) * 16 - 2);
+	m_TextureLocationY = location.y == 0 ? 8 : (getSequenceWithEight(location.y) * 8 - 2);
 }
 
-int Player::getSequenceWithFour(int index) {
+int Player::getSequenceWithFour(const int index) {
 	int sequenceNumber = 1;
 	for (int i = 0; i < index; i++) {
 		sequenceNumber += 4;
@@ -48,7 +48,7 @@ int Player::getSequenceWithFour(int index) {
 	return sequenceNumber;
 }
 
-int Player::getSequenceWithEight(int index) {
+int Player::getSequenceWithEight(const int index) {
 	int sequenceNumber = 1;
 	for (int i = 0; i < index; i++) {
 		sequenceNumber += 8;

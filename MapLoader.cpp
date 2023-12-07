@@ -1,28 +1,28 @@
-#include "MapManager.h"
+#include "MapLoader.h"
 #include <sstream>
 #include <fstream>
 
 using namespace sf;
 using namespace std;
 
-vector<int> MapManager::getAllValuesFromFileRow(string str) {
+vector<int> MapLoader::getAllValuesFromFileRow(string& str) {
 	vector<int> values;
 	string value;
 
 	istringstream iss(str);
 
 	while (getline(iss, value, ' ')) {
-		values.push_back(stoi(value.c_str()));
+		values.push_back(stoi(value));
 	}
 	return values;
 }
 
-Vector2i MapManager::getMapSize()
+Vector2i MapLoader::getMapSize()
 {
 	return m_MapSize;
 }
 
-MapManager::MapValues MapManager::mapLoader(VertexArray& rVaCollisions, VertexArray& rVaBackground, VertexArray& rVaInteractables, string name) {
+MapLoader::MapValues MapLoader::mapLoader(VertexArray& rVaCollisions, VertexArray& rVaBackground, VertexArray& rVaInteractables, const string& name) {
 	int** arrayLevelCollisions = singleMapType(rVaCollisions, COLLISIONS, name);
 	singleMapType(rVaBackground, BACKGROUND, name); //Ignore values since not interactable
 	int** arrayLevelInteractables = singleMapType(rVaInteractables, INTERACTABLES, name);
@@ -33,7 +33,7 @@ MapManager::MapValues MapManager::mapLoader(VertexArray& rVaCollisions, VertexAr
 	return mapValues;
 }
 
-int** MapManager::singleMapType(VertexArray& rVA, mapType type, string name) {
+int** MapLoader::singleMapType(VertexArray& rVertexArray, MapType type, const string& name) {
 
 	// Load the appropriate level from a text file
 	string levelToLoad = "assets/map/";
@@ -97,10 +97,10 @@ int** MapManager::singleMapType(VertexArray& rVA, mapType type, string name) {
 	inputFile.close();
 
 	// What type of primitive are we using?
-	rVA.setPrimitiveType(Quads);
+	rVertexArray.setPrimitiveType(Quads);
 
 	// Set the size of the vertex array
-	rVA.resize(m_MapSize.x * m_MapSize.y * VERTS_IN_QUAD);
+	rVertexArray.resize(m_MapSize.x * m_MapSize.y * VERTS_IN_QUAD);
 
 	// Start at the beginning of the vertex array
 	int currentVertex = 0;
@@ -110,31 +110,31 @@ int** MapManager::singleMapType(VertexArray& rVA, mapType type, string name) {
 		for (int y = 0; y < m_MapSize.y; y++)
 		{
 			// Position each vertex in the current quad
-			rVA[static_cast<size_t>(currentVertex) + 0].position =
+			rVertexArray[static_cast<size_t>(currentVertex) + 0].position =
 				Vector2f(x * TILE_SIZE, y * TILE_SIZE);
 
-			rVA[static_cast<size_t>(currentVertex) + 1].position =
+			rVertexArray[static_cast<size_t>(currentVertex) + 1].position =
 				Vector2f((x * TILE_SIZE) + TILE_SIZE, y * TILE_SIZE);
 
-			rVA[static_cast<size_t>(currentVertex) + 2].position =
+			rVertexArray[static_cast<size_t>(currentVertex) + 2].position =
 				Vector2f((x * TILE_SIZE) + TILE_SIZE, (y * TILE_SIZE) + TILE_SIZE);
 
-			rVA[static_cast<size_t>(currentVertex) + 3].position =
+			rVertexArray[static_cast<size_t>(currentVertex) + 3].position =
 				Vector2f((x * TILE_SIZE), (y * TILE_SIZE) + TILE_SIZE);
 
 			// Which tile from the sprite sheet should we use
 			int verticalOffset = arrayLevel[y][x] * TILE_SIZE;
 
-			rVA[static_cast<size_t>(currentVertex) + 0].texCoords =
+			rVertexArray[static_cast<size_t>(currentVertex) + 0].texCoords =
 				Vector2f(0, 0 + verticalOffset);
 
-			rVA[static_cast<size_t>(currentVertex) + 1].texCoords =
+			rVertexArray[static_cast<size_t>(currentVertex) + 1].texCoords =
 				Vector2f(TILE_SIZE, 0 + verticalOffset);
 
-			rVA[static_cast<size_t>(currentVertex) + 2].texCoords =
+			rVertexArray[static_cast<size_t>(currentVertex) + 2].texCoords =
 				Vector2f(TILE_SIZE, TILE_SIZE + verticalOffset);
 
-			rVA[static_cast<size_t>(currentVertex) + 3].texCoords =
+			rVertexArray[static_cast<size_t>(currentVertex) + 3].texCoords =
 				Vector2f(0, TILE_SIZE + verticalOffset);
 
 			// Position ready for the next four vertices
