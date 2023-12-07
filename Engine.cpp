@@ -11,12 +11,11 @@ Engine::Engine()
 
 	m_Window.create(VideoMode(VideoMode::getDesktopMode().width, VideoMode::getDesktopMode().height), "The Library Escapes", Style::Fullscreen);
 
-	//Temp fix
-	m_Playing = true;
+	m_GameView.setSize(resolution);
+
+	m_GameView.zoom(0.4f);
 
 	m_MainView.setSize(resolution);
-
-	m_MainView.zoom(0.4f);
 
 	m_HudView.setViewport(FloatRect(0, 0, resolution.x, resolution.y));
 }

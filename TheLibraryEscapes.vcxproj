@@ -141,6 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="GameEngineDetectCollisions.cpp" />
     <ClCompile Include="EngineDraw.cpp" />
     <ClCompile Include="Engine.cpp" />
@@ -156,17 +157,23 @@
     <ClCompile Include="PlayerMovement.cpp" />
     <ClCompile Include="PlayerSprite.cpp" />
     <ClCompile Include="PlayerUpdate.cpp" />
+    <ClCompile Include="StartMenuEngine.cpp" />
+    <ClCompile Include="StartMenuEngineDraw.cpp" />
+    <ClCompile Include="StartMenuEngineInput.cpp" />
+    <ClCompile Include="StartMenuEngineUpdate.cpp" />
     <ClCompile Include="TextureHolder.cpp" />
     <ClCompile Include="TheLibraryEscapes.cpp" />
     <ClCompile Include="EngineUpdate.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Button.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapLoader.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerMovement.h" />
+    <ClInclude Include="StartMenuEngine.h" />
     <ClInclude Include="TextureHolder.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

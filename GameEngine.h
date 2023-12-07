@@ -1,13 +1,12 @@
 ﻿#pragma once
 #include <SFML/Graphics.hpp>
-#include "TextureHolder.h"
 #include "Player.h"
 #include "Map.h"
 
 class GameEngine {
 private:
-	//TextureHolder
-	TextureHolder m_TextureHolder;
+	//Window
+	sf::RenderWindow m_Window;
 
 	//PlayerMovement
 	PlayerMovement m_PlayerMovement;
@@ -29,7 +28,6 @@ private:
 public:
 	GameEngine();
 
-	//To run the game, will call private functions inside here
 	void draw(sf::RenderWindow& mainWindow);
 	void update(float dtAsSeconds);
 	void input(sf::RenderWindow& mainWindow);

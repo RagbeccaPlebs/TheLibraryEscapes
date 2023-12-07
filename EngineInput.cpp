@@ -10,18 +10,6 @@ void Engine::input() {
 	}
 	else
 	{
-		Event event;
-		while (m_Window.pollEvent(event)) {
-			if (event.type == Event::KeyPressed) {
-				if (event.type == Event::KeyPressed)
-				{
-					// Handle the player quitting
-					if (Keyboard::isKeyPressed(Keyboard::Escape))
-					{
-						m_Window.close();
-					}
-				}
-			}
-		}
+		m_StartMenuEngine.input(m_Window);
 	}
 }

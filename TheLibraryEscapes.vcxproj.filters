@@ -22,9 +22,6 @@
     <Filter Include="Header Files\Engine">
       <UniqueIdentifier>{54a0b714-b61f-445b-8000-0254ec6e5e0a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Screens">
-      <UniqueIdentifier>{04292c9d-ceb4-45e9-85ad-8257df3472ed}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Engine">
       <UniqueIdentifier>{56eca5cf-cf82-482c-b0d5-aa667bfa8fe9}</UniqueIdentifier>
     </Filter>
@@ -42,6 +39,18 @@
     </Filter>
     <Filter Include="Header Files\Map">
       <UniqueIdentifier>{d55913df-ddcc-4e3d-8c56-446edc0f8fee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Misc\Screen">
+      <UniqueIdentifier>{86100f8b-976a-4fa7-a3b4-7d64d6ac2bfd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Misc">
+      <UniqueIdentifier>{de375a04-190b-4b24-8b0a-11b4f22041bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Misc\Screen">
+      <UniqueIdentifier>{c05b1f03-cedd-4724-ad93-c8046f2c02c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\StartMenu">
+      <UniqueIdentifier>{8914100f-cac1-48cd-84fd-dad3cf3fece0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -99,11 +108,23 @@
     <ClCompile Include="GameEngineMapLoader.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Source Files\Misc\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="StartMenuEngine.cpp">
+      <Filter>Source Files\StartMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="StartMenuEngineUpdate.cpp">
+      <Filter>Source Files\StartMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="StartMenuEngineDraw.cpp">
+      <Filter>Source Files\StartMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="StartMenuEngineInput.cpp">
+      <Filter>Source Files\StartMenu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TextureHolder.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -121,6 +142,15 @@
     </ClInclude>
     <ClInclude Include="MapLoader.h">
       <Filter>Header Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureHolder.h">
+      <Filter>Header Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Header Files\Misc\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="StartMenuEngine.h">
+      <Filter>Header Files\StartMenu</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
