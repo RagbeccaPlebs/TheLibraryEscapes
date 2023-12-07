@@ -1,5 +1,5 @@
 #include "TextureHolder.h"
-#include <assert.h>
+#include <cassert>
 
 using namespace sf;
 using namespace std;

@@ -10,6 +10,6 @@ void Engine::input() {
 	}
 	else
 	{
-		m_StartMenuEngine.input(m_Window);
+		m_StartMenuEngine.input(m_Window, m_Playing);
 	}
 }

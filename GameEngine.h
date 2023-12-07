@@ -29,7 +29,6 @@ public:
 	GameEngine();
 
 	void draw(sf::RenderWindow& mainWindow);
-	void update(float dtAsSeconds);
+	void update(float dtAsSeconds, sf::View* mainView);
 	void input(sf::RenderWindow& mainWindow);
-	void setCenter(sf::View& mainView);
 };

@@ -1,15 +1,12 @@
 ﻿#include "GameEngine.h"
 
-void GameEngine::update(float dtAsSeconds)
+void GameEngine::update(float dtAsSeconds, sf::View* mainView)
 {
 	m_Player.update(dtAsSeconds);
 
 	//Detect collisions
 	detectCollisions(m_Player);
-}
 
-void GameEngine::setCenter(sf::View& mainView)
-{
-	mainView.setCenter(m_Player.getCenter());
+	mainView->setCenter(m_Player.getCenter());
 }
 

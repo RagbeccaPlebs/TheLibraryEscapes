@@ -13,7 +13,6 @@ class Button
 	ButtonState m_ButtonState;
 
 	sf::RectangleShape m_Shape;
-	sf::Font m_Font;
 	sf::Text m_Text;
 
 	sf::Color m_IdleColor;
@@ -21,7 +20,7 @@ class Button
 	sf::Color m_ActiveColor;
 public:
 	Button() = default;
-	Button(sf::Vector2f position, sf::Vector2f dimension, sf::Font* font, std::string text,
+	Button(sf::Vector2f position, sf::Vector2f dimension, std::string fontPath, std::string text,
 		sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor);
 
 	//Getters

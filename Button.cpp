@@ -1,16 +1,19 @@
 #include "Button.h"
 
+#include "Engine.h"
+
 using namespace sf;
 using namespace std;
 
-Button::Button(Vector2f position, Vector2f dimension, Font* font, string text, Color idleColor, Color hoverColor, Color activeColor)
+Button::Button(Vector2f position, Vector2f dimension, string fontPath, string text, Color idleColor, Color hoverColor, Color activeColor)
 {
-	m_Font = *font;
 	m_ButtonState = ButtonState::BTN_IDLE;
 	m_Shape.setSize(dimension);
 	m_Shape.setPosition(position);
-	m_Text.setFont(m_Font);
 	m_Text.setString(text);
+	Font font;
+	font.loadFromFile(fontPath);
+	m_Text.setFont(font);
 	m_Text.setFillColor(sf::Color::White);
 	m_Text.setCharacterSize(10);
 	m_Text.setPosition(100.f, 100.f);
