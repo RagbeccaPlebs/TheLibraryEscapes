@@ -1,59 +1,52 @@
-#include "MapLoader.h"
-#include <sstream>
+#include "TiledMapLoader.h"
+#include "nlohmann/json.hpp"
 #include <fstream>
 
 using namespace sf;
 using namespace std;
+using json = nlohmann::json;
 
-vector<int> MapLoader::GetAllValuesFromFileRow(string& str)
+sf::VertexArray TiledMapLoader::GetVertexArrayFromData(vector<int> data)
 {
-	vector<int> values;
-	string value;
-
-	istringstream iss(str);
-
-	while (getline(iss, value, ' ')) {
-		values.push_back(stoi(value));
-	}
-	return values;
+	return sf::VertexArray();
 }
 
-Vector2i MapLoader::GetMapSize()
+TiledMapLoader::MapLayer TiledMapLoader::GetMapLayerFromData(vector<int> data, int id)
 {
-	return m_MapSize;
+	return MapLayer();
 }
 
-MapLoader::MapValues MapLoader::MapTypeLoader(VertexArray& rVaCollisions, VertexArray& rVaBackground, VertexArray& rVaInteractables, const string& name)
+TiledMapLoader::MapValues TiledMapLoader::MapLoader(const std::string& name)
 {
-	int** arrayLevelCollisions = SingleMapTypeLoader(rVaCollisions, COLLISIONS, name);
-	SingleMapTypeLoader(rVaBackground, BACKGROUND, name); //Ignore values since not interactable
-	int** arrayLevelInteractables = SingleMapTypeLoader(rVaInteractables, INTERACTABLES, name);
-	MapValues mapValues;
-	mapValues.collisionsMap = arrayLevelCollisions;
-	mapValues.interactablesMap = arrayLevelInteractables;
-	mapValues.mapSize = m_MapSize;
-	return mapValues;
-}
-
-int** MapLoader::SingleMapTypeLoader(VertexArray& rVertexArray, MapType type, const string& name)
-{
-
 	// Load the appropriate level from a text file
-	string levelToLoad = "assets/map/";
+	string itemToLoad = FILE_PATH;
 
-	switch (type) {
-	case COLLISIONS:
-		levelToLoad += name + "-collisions.txt";
-		break;
-	case BACKGROUND:
-		levelToLoad += name + "-background.txt";
-		break;
-	case INTERACTABLES:
-		levelToLoad += name + "-interactables.txt";
-		break;
+	itemToLoad += name + ".json";
+
+	ifstream file(itemToLoad);
+	json data = json::parse(file);
+	file.close();
+
+	int amountOfLayers = data.at("layers").size();
+	vector<MapLayer> mapLayers;
+	int** collisionsMap;
+
+	for (int layer = 0; layer < amountOfLayers; layer++) 
+	{
+		string layerName = data.at("layers").at(layer).at("name");
+		if (layerName.find("Collision") != string::npos)
+		{
+			vector<int> tempData = data.at("layers").at(layer).at("data");
+			mapLayers.push_back(GetMapLayerFromData(tempData, data.at("layers").at(layer).at("id")));
+		} else
+		{
+			
+		}
 	}
+	
+	return MapValues();
 
-	ifstream inputFile(levelToLoad);
+	/*ifstream inputFile(levelToLoad);
 	string s;
 	vector<int> rowValues;
 
@@ -145,5 +138,5 @@ int** MapLoader::SingleMapTypeLoader(VertexArray& rVertexArray, MapType type, co
 		}
 	}
 
-	return arrayLevel;
+	return arrayLevel;*/
 }

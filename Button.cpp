@@ -11,12 +11,16 @@ Button::Button(Vector2f position, Vector2f dimension, string fontPath, string te
 	m_Shape.setSize(dimension);
 	m_Shape.setPosition(position);
 	m_Text.setString(text);
-	Font font;
-	font.loadFromFile(fontPath);
-	m_Text.setFont(font);
+
+	m_Font = new Font();
+	m_Font->loadFromFile(fontPath);
+
+	m_Text.setFont(*m_Font);
 	m_Text.setFillColor(sf::Color::White);
-	m_Text.setCharacterSize(10);
-	m_Text.setPosition(100.f, 100.f);
+	m_Text.setCharacterSize(40);
+	const float positionX = ((position.x + (dimension.x / 2.0f)) - (m_Text.getGlobalBounds().width / 2.0f));
+	const float positionY = ((position.y + (dimension.y / 2.0f))  - (m_Text.getGlobalBounds().height));
+	m_Text.setPosition(positionX, positionY);
 
 	//Colors
 	m_IdleColor = idleColor;
@@ -69,5 +73,5 @@ void Button::Update(const Vector2f mousePosition)
 void Button::Draw(sf::RenderWindow& window)
 {
 	window.draw(m_Shape);
-	//window.draw(m_Text);
+	window.draw(m_Text);
 }

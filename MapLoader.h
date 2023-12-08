@@ -11,6 +11,10 @@ private:
 		BACKGROUND,
 		INTERACTABLES
 	};
+	struct MapTypeValues {
+		int** collisionsMap;
+		int** interactablesMap;
+	};
 
 	sf::Vector2i m_MapSize;
 	sf::Vector2f m_StartPosition;

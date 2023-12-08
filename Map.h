@@ -1,10 +1,12 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "MapLoader.h"
+#include "TiledMapLoader.h"
 
 class Map {
 private:
 	MapLoader m_MapLoader;
+	TiledMapLoader m_TiledMapLoader;
 
 	sf::VertexArray m_VaBackgroundLevelUnder;
 	sf::VertexArray m_VaBackgroundLevelUpper;

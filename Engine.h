@@ -20,7 +20,7 @@ private:
 	StartMenuEngine m_StartMenuEngine;
 
 	//Game state
-	bool m_Playing = false;
+	bool b_Playing = false;
 
 	void Input();
 	void Update(const float dtAsSeconds);

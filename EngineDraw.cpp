@@ -8,7 +8,7 @@ void Engine::Draw()
 	// Rub out the last frame
 	m_Window.clear();
 
-	if (m_Playing)
+	if (b_Playing)
 	{
 		m_Window.setView(m_GameView);
 		m_GameEngine.Draw(m_Window);

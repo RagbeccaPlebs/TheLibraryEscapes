@@ -6,8 +6,8 @@ Engine::Engine()
 {
 	//Get screen resolution
 	Vector2f resolution;
-	resolution.x = VideoMode::getDesktopMode().width;
-	resolution.y = VideoMode::getDesktopMode().height;
+	resolution.x = static_cast<float>(VideoMode::getDesktopMode().width);
+	resolution.y = static_cast<float>(VideoMode::getDesktopMode().height);
 
 	m_Window.create(VideoMode(VideoMode::getDesktopMode().width, VideoMode::getDesktopMode().height), "The Library Escapes", Style::Fullscreen);
 

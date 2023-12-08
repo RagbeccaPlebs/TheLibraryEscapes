@@ -15,6 +15,8 @@ class Button
 	sf::RectangleShape m_Shape;
 	sf::Text m_Text;
 
+	sf::Font* m_Font;
+
 	sf::Color m_IdleColor;
 	sf::Color m_HoverColor;
 	sf::Color m_ActiveColor;

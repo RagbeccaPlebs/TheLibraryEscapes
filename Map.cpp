@@ -12,6 +12,7 @@ Map::Map(string name)
     m_ArrayCollisionLevel = mapValues.collisionsMap;
     m_ArrayInteractableLevel = mapValues.interactablesMap;
     m_MapSize = mapValues.mapSize;
+    m_TiledMapLoader.MapLoader("bridge");
 }
 
 Map::Map(Map& m) {
