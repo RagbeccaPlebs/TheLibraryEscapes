@@ -1,7 +1,7 @@
 ﻿#include "GameEngine.h"
 
-void GameEngine::loadMap()
+void GameEngine::LoadMap()
 {
 	m_Map = Map("bridge");
-	m_Player.spawn(m_Map.getPlayerSpawnLocation("north"));
+	m_Player.Spawn(m_Map.GetPlayerSpawnLocation("north"));
 }

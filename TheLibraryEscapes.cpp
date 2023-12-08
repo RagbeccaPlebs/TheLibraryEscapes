@@ -7,7 +7,7 @@ int main()
 {
     Engine engine;
 
-    engine.run();
+    engine.Run();
 
     return 0;
 }

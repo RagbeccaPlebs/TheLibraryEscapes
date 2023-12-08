@@ -3,7 +3,7 @@
 using namespace sf;
 using namespace std;
 
-PlayerMovement::SpriteSheet PlayerMovement::getIdleSouth()
+PlayerMovement::SpriteSheet PlayerMovement::GetIdleSouth()
 {
     SpriteSheet spriteSheet;
     spriteSheet.spriteLocation = m_IdleSouth;
@@ -11,7 +11,7 @@ PlayerMovement::SpriteSheet PlayerMovement::getIdleSouth()
     return spriteSheet;
 }
 
-PlayerMovement::SpriteSheet PlayerMovement::getIdleNorth()
+PlayerMovement::SpriteSheet PlayerMovement::GetIdleNorth()
 {
     SpriteSheet spriteSheet;
     spriteSheet.spriteLocation = m_IdleNorth;
@@ -19,7 +19,7 @@ PlayerMovement::SpriteSheet PlayerMovement::getIdleNorth()
     return spriteSheet;
 }
 
-PlayerMovement::SpriteSheet PlayerMovement::getIdleEast()
+PlayerMovement::SpriteSheet PlayerMovement::GetIdleEast()
 {
     SpriteSheet spriteSheet;
     spriteSheet.spriteLocation = m_IdleEast;
@@ -27,7 +27,7 @@ PlayerMovement::SpriteSheet PlayerMovement::getIdleEast()
     return spriteSheet;
 }
 
-PlayerMovement::SpriteSheet PlayerMovement::getIdleWest()
+PlayerMovement::SpriteSheet PlayerMovement::GetIdleWest()
 {
     SpriteSheet spriteSheet;
     spriteSheet.spriteLocation = m_IdleWest;
@@ -35,7 +35,7 @@ PlayerMovement::SpriteSheet PlayerMovement::getIdleWest()
     return spriteSheet;
 }
 
-PlayerMovement::SpriteSheet PlayerMovement::getWalkSouth()
+PlayerMovement::SpriteSheet PlayerMovement::GetWalkSouth()
 {
     SpriteSheet spriteSheet;
     spriteSheet.spriteLocation = m_WalkSouth;
@@ -43,7 +43,7 @@ PlayerMovement::SpriteSheet PlayerMovement::getWalkSouth()
     return spriteSheet;
 }
 
-PlayerMovement::SpriteSheet PlayerMovement::getWalkNorth()
+PlayerMovement::SpriteSheet PlayerMovement::GetWalkNorth()
 {
     SpriteSheet spriteSheet;
     spriteSheet.spriteLocation = m_WalkNorth;
@@ -51,7 +51,7 @@ PlayerMovement::SpriteSheet PlayerMovement::getWalkNorth()
     return spriteSheet;
 }
 
-PlayerMovement::SpriteSheet PlayerMovement::getWalkEast()
+PlayerMovement::SpriteSheet PlayerMovement::GetWalkEast()
 {
     SpriteSheet spriteSheet;
     spriteSheet.spriteLocation = m_WalkEast;
@@ -59,7 +59,7 @@ PlayerMovement::SpriteSheet PlayerMovement::getWalkEast()
     return spriteSheet;
 }
 
-PlayerMovement::SpriteSheet PlayerMovement::getWalkWest()
+PlayerMovement::SpriteSheet PlayerMovement::GetWalkWest()
 {
     SpriteSheet spriteSheet;
     spriteSheet.spriteLocation = m_WalkWest;

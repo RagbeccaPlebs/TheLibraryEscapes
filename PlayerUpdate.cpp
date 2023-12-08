@@ -2,7 +2,7 @@
 
 using namespace sf;
 
-void Player::update(const float elapsedTime)
+void Player::Update(const float elapsedTime)
 {
 	if (m_RightPressed) {
 		m_Position.x += m_Speed * elapsedTime;
@@ -20,20 +20,20 @@ void Player::update(const float elapsedTime)
 		m_Position.y += m_Speed * elapsedTime;
 	}
 
-	setPositionAllSprites();
+	SetPositionAllSprites();
 
 	if (m_DownPressed || m_UpPressed || m_LeftPressed || m_RightPressed) {
 		m_SecondsSinceLastAnimationUpdate += elapsedTime;
-		playerAnimationUpdate(true);
+		PlayerAnimationUpdate(true);
 	}
 	else {
 		m_SecondsSinceLastAnimationUpdate = 0;
 		m_LastButtonPressed = NONE;
-		playerAnimationUpdate(false);
+		PlayerAnimationUpdate(false);
 	}
 
 	// Update the rect for all body parts
-	FloatRect r = getPosition();
+	FloatRect r = GetPosition();
 
 	// Feet
 	m_Feet.left = r.left + (r.width * .25);
@@ -61,48 +61,48 @@ void Player::update(const float elapsedTime)
 }
 
 //Player animation
-void Player::playerAnimationUpdate(bool isMoving)
+void Player::PlayerAnimationUpdate(bool isMoving)
 {
 	bool changedSheet = false;
 	if (m_OldLastButtonPressed != m_LastButtonPressed && m_LastButtonPressed != NONE) {
 		if (m_LastButtonPressed == UP) {
 			m_OldLastButtonPressed = m_LastButtonPressed;
-			if (isMoving) m_CurrentSpriteSheet = m_PlayerMovement.getWalkNorth();
-			else m_CurrentSpriteSheet = m_PlayerMovement.getIdleNorth();
+			if (isMoving) m_CurrentSpriteSheet = m_PlayerMovement.GetWalkNorth();
+			else m_CurrentSpriteSheet = m_PlayerMovement.GetIdleNorth();
 		}
 		else if (m_LastButtonPressed == RIGHT) {
 			m_OldLastButtonPressed = m_LastButtonPressed;
-			if (isMoving) m_CurrentSpriteSheet = m_PlayerMovement.getWalkEast();
-			else m_CurrentSpriteSheet = m_PlayerMovement.getIdleEast();
+			if (isMoving) m_CurrentSpriteSheet = m_PlayerMovement.GetWalkEast();
+			else m_CurrentSpriteSheet = m_PlayerMovement.GetIdleEast();
 		}
 		else if (m_LastButtonPressed == LEFT) {
 			m_OldLastButtonPressed = m_LastButtonPressed;
-			if (isMoving) m_CurrentSpriteSheet = m_PlayerMovement.getWalkWest();
-			else m_CurrentSpriteSheet = m_PlayerMovement.getIdleWest();
+			if (isMoving) m_CurrentSpriteSheet = m_PlayerMovement.GetWalkWest();
+			else m_CurrentSpriteSheet = m_PlayerMovement.GetIdleWest();
 		}
 		else if (m_LastButtonPressed == DOWN) {
 			m_OldLastButtonPressed = m_LastButtonPressed;
-			if (isMoving) m_CurrentSpriteSheet = m_PlayerMovement.getWalkSouth();
-			else m_CurrentSpriteSheet = m_PlayerMovement.getIdleSouth();
+			if (isMoving) m_CurrentSpriteSheet = m_PlayerMovement.GetWalkSouth();
+			else m_CurrentSpriteSheet = m_PlayerMovement.GetIdleSouth();
 		}
 		changedSheet = true;
 	}
 	else if (m_LastButtonPressed == NONE) {
 		if (m_OldLastButtonPressed == UP) {
 			m_OldLastButtonPressed = m_LastButtonPressed;
-			m_CurrentSpriteSheet = m_PlayerMovement.getIdleNorth();
+			m_CurrentSpriteSheet = m_PlayerMovement.GetIdleNorth();
 		}
 		else if (m_OldLastButtonPressed == RIGHT) {
 			m_OldLastButtonPressed = m_LastButtonPressed;
-			m_CurrentSpriteSheet = m_PlayerMovement.getIdleEast();
+			m_CurrentSpriteSheet = m_PlayerMovement.GetIdleEast();
 		}
 		else if (m_OldLastButtonPressed == LEFT) {
 			m_OldLastButtonPressed = m_LastButtonPressed;
-			m_CurrentSpriteSheet = m_PlayerMovement.getIdleWest();
+			m_CurrentSpriteSheet = m_PlayerMovement.GetIdleWest();
 		}
 		else if (m_OldLastButtonPressed == DOWN) {
 			m_OldLastButtonPressed = m_LastButtonPressed;
-			m_CurrentSpriteSheet = m_PlayerMovement.getIdleSouth();
+			m_CurrentSpriteSheet = m_PlayerMovement.GetIdleSouth();
 		}
 		changedSheet = true;
 	}
@@ -135,30 +135,30 @@ void Player::playerAnimationUpdate(bool isMoving)
 			currentSprite.index = 0;
 		}
 	}
-	setTextureLocation(currentSprite.spriteLocation);
+	SetTextureLocation(currentSprite.spriteLocation);
 }
 
 //Stop versions
-void Player::stopDown(const float position)
+void Player::StopDown(const float position)
 {
 	m_Position.y = position;
-	setPositionAllSprites();
+	SetPositionAllSprites();
 }
 
-void Player::stopRight(const float position)
+void Player::StopRight(const float position)
 {
 	m_Position.x = position;
-	setPositionAllSprites();
+	SetPositionAllSprites();
 }
 
-void Player::stopLeft(const float position)
+void Player::StopLeft(const float position)
 {
 	m_Position.x = position;
-	setPositionAllSprites();
+	SetPositionAllSprites();
 }
 
-void Player::stopUp(const float position)
+void Player::StopUp(const float position)
 {
 	m_Position.y = position;
-	setPositionAllSprites();
+	SetPositionAllSprites();
 }

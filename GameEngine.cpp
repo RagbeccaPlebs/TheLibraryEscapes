@@ -4,7 +4,7 @@ using namespace sf;
 
 GameEngine::GameEngine()
 {
-	loadMap();
+	LoadMap();
 }
 
 

@@ -2,7 +2,7 @@
 
 using namespace sf;
 
-void StartMenuEngine::input(sf::RenderWindow& mainWindow, bool& isPlayingState)
+void StartMenuEngine::Input(sf::RenderWindow& mainWindow, bool& isPlayingState)
 {
 	Event event;
 	while (mainWindow.pollEvent(event)) {
@@ -18,12 +18,12 @@ void StartMenuEngine::input(sf::RenderWindow& mainWindow, bool& isPlayingState)
 		}
 	}
 
-	if (m_StartButton.isPressed())
+	if (m_StartButton.IsPressed())
 	{
 		isPlayingState = true;
 	}
 
-	if (m_ExitButton.isPressed())
+	if (m_ExitButton.IsPressed())
 	{
 		mainWindow.close();
 	}

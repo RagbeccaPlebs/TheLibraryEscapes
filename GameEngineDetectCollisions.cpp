@@ -3,8 +3,8 @@
 
 using namespace sf;
 
-void GameEngine::detectCollisions(Player& player) {
-	const FloatRect detectionZone = player.getPosition();
+void GameEngine::DetectCollisions(Player& player) {
+	const FloatRect detectionZone = player.GetPosition();
 
 	constexpr int TILE_SIZE = MapLoader::TILE_SIZE;
 
@@ -25,11 +25,11 @@ void GameEngine::detectCollisions(Player& player) {
 	if (startY < 0) {
 		startY = 0;
 	}
-	if (endX >= m_Map.getMapSize().x) {
-		endX = m_Map.getMapSize().x;
+	if (endX >= m_Map.GetMapSize().x) {
+		endX = m_Map.GetMapSize().x;
 	}
-	if (endY >= m_Map.getMapSize().y) {
-		endY = m_Map.getMapSize().y;
+	if (endY >= m_Map.GetMapSize().y) {
+		endY = m_Map.GetMapSize().y;
 	}
 
 	for (int x = startX; x < endX; x++)
@@ -38,28 +38,28 @@ void GameEngine::detectCollisions(Player& player) {
 		{
 
 			// Is character colliding with a regular block
-			if (m_Map.getArrayCollisionLevel()[y][x] >= 1)
+			if (m_Map.GetArrayCollisionLevel()[y][x] >= 1)
 			{
 				// Initialize the starting position of the current block
 				block.left = x * TILE_SIZE;
 				block.top = y * TILE_SIZE;
 
-				if (player.getRight().intersects(block))
+				if (player.GetRight().intersects(block))
 				{
-					player.stopRight(block.left - (player.getRight().left - player.getPosition().left + player.getRight().width));
+					player.StopRight(block.left - (player.GetRight().left - player.GetPosition().left + player.GetRight().width));
 				}
-				else if (player.getLeft().intersects(block))
+				else if (player.GetLeft().intersects(block))
 				{
-					player.stopLeft(block.left + (player.getCenter().x - player.getLeft().left));
+					player.StopLeft(block.left + (player.GetCenter().x - player.GetLeft().left));
 				}
 
-				if (player.getFeet().intersects(block))
+				if (player.GetFeet().intersects(block))
 				{
-					player.stopDown(block.top - player.getFeet().top + player.getPosition().top - 1);
+					player.StopDown(block.top - player.GetFeet().top + player.GetPosition().top - 1);
 				}
-				else if (player.getHead().intersects(block))
+				else if (player.GetHead().intersects(block))
 				{
-					player.stopUp(block.top + block.height - (player.getHead().top - player.getPosition().top));
+					player.StopUp(block.top + block.height - (player.GetHead().top - player.GetPosition().top));
 				}
 			}
 

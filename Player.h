@@ -34,14 +34,14 @@ private:
 	sf::Sprite m_SpriteFaceItem;
 	sf::Sprite m_SpriteHair;
 
-	sf::Sprite setSpriteTextureLocation(sf::Sprite& sprite);
+	sf::Sprite SetSpriteTextureLocation(sf::Sprite& sprite);
 
 	//Send a part of the sprite
-	sf::Sprite getSpriteBase();
-	sf::Sprite getSpriteLowerLayer();
-	sf::Sprite getSpriteCloak();
-	sf::Sprite getSpriteFaceItem();
-	sf::Sprite getSpriteHair();
+	sf::Sprite GetSpriteBase();
+	sf::Sprite GetSpriteLowerLayer();
+	sf::Sprite GetSpriteCloak();
+	sf::Sprite GetSpriteFaceItem();
+	sf::Sprite GetSpriteHair();
 
 	// Which directions is the character currently moving in
 	bool m_LeftPressed;
@@ -62,42 +62,42 @@ private:
 	sf::FloatRect m_Left;
 
 	//Texture method
-	void playerAnimationUpdate(bool isMoving);
+	void PlayerAnimationUpdate(bool isMoving);
 
-	void setPositionAllSprites();
+	void SetPositionAllSprites();
 
 	//Math
-	int getSequenceWithFour(int index);
-	int getSequenceWithEight(int index);
+	int GetSequenceWithFour(int index);
+	int GetSequenceWithEight(int index);
 public:
 	Player();
 
-	void spawn(sf::Vector2f startPosition);
+	void Spawn(sf::Vector2f startPosition);
 
-	void handleInput();
+	void HandleInput();
 
-	sf::FloatRect getPosition();
+	sf::FloatRect GetPosition();
 
 	// A rectangle representing the position of different parts of the sprite
-	sf::FloatRect getFeet();
-	sf::FloatRect getHead();
-	sf::FloatRect getRight();
-	sf::FloatRect getLeft();
+	sf::FloatRect GetFeet();
+	sf::FloatRect GetHead();
+	sf::FloatRect GetRight();
+	sf::FloatRect GetLeft();
 
 	//Stop movement
-	void stopDown(float position);
-	void stopRight(float position);
-	void stopLeft(float position);
-	void stopUp(float position);
+	void StopDown(float position);
+	void StopRight(float position);
+	void StopLeft(float position);
+	void StopUp(float position);
 
 	// Send a copy of the sprite to main
-	std::array<sf::Sprite, 5> getSprites();
+	std::array<sf::Sprite, 5> GetSprites();
 
-	void setTextureLocation(sf::Vector2i location);
+	void SetTextureLocation(sf::Vector2i location);
 
 	// Where is the center of the character
-	sf::Vector2f getCenter();
+	sf::Vector2f GetCenter();
 
 	// We will call this function once every frame
-	void update(float elapsedTime);
+	void Update(float elapsedTime);
 };

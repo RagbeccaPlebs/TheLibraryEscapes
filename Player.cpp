@@ -10,18 +10,18 @@ Player::Player() {
 	m_SpriteCloak = Sprite(TextureHolder::GetTexture("assets/graphics/player/char_a_p1_2clo_lnpl_v07.png"));
 	m_SpriteHair = Sprite(TextureHolder::GetTexture("assets/graphics/player/char_a_p1_5hat_pnty_v03.png"));
 
-	m_CurrentSpriteSheet = m_PlayerMovement.getIdleSouth();
+	m_CurrentSpriteSheet = m_PlayerMovement.GetIdleSouth();
 }
 
-void Player::spawn(const Vector2f startPosition)
+void Player::Spawn(const Vector2f startPosition)
 {
 	m_Position.x = startPosition.x;
 	m_Position.y = startPosition.y;
 
-	setPositionAllSprites();
+	SetPositionAllSprites();
 }
 
-void Player::handleInput()
+void Player::HandleInput()
 {
 	if (Keyboard::isKeyPressed(Keyboard::A))
 	{
@@ -64,32 +64,32 @@ void Player::handleInput()
 	}
 }
 
-FloatRect Player::getPosition()
+FloatRect Player::GetPosition()
 {
 	return m_SpriteBase.getGlobalBounds();
 }
 
-FloatRect Player::getFeet()
+FloatRect Player::GetFeet()
 {
 	return m_Feet;
 }
 
-FloatRect Player::getHead()
+FloatRect Player::GetHead()
 {
 	return m_Head;
 }
 
-FloatRect Player::getLeft()
+FloatRect Player::GetLeft()
 {
 	return m_Left;
 }
 
-FloatRect Player::getRight()
+FloatRect Player::GetRight()
 {
 	return m_Right;
 }
 
-Vector2f Player::getCenter()
+Vector2f Player::GetCenter()
 {
 	const Vector2f centerLocation(
 		m_Position.x + m_SpriteBase.getGlobalBounds().width / 2,

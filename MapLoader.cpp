@@ -5,7 +5,7 @@
 using namespace sf;
 using namespace std;
 
-vector<int> MapLoader::getAllValuesFromFileRow(string& str) {
+vector<int> MapLoader::GetAllValuesFromFileRow(string& str) {
 	vector<int> values;
 	string value;
 
@@ -17,15 +17,15 @@ vector<int> MapLoader::getAllValuesFromFileRow(string& str) {
 	return values;
 }
 
-Vector2i MapLoader::getMapSize()
+Vector2i MapLoader::GetMapSize()
 {
 	return m_MapSize;
 }
 
-MapLoader::MapValues MapLoader::mapLoader(VertexArray& rVaCollisions, VertexArray& rVaBackground, VertexArray& rVaInteractables, const string& name) {
-	int** arrayLevelCollisions = singleMapType(rVaCollisions, COLLISIONS, name);
-	singleMapType(rVaBackground, BACKGROUND, name); //Ignore values since not interactable
-	int** arrayLevelInteractables = singleMapType(rVaInteractables, INTERACTABLES, name);
+MapLoader::MapValues MapLoader::MapTypeLoader(VertexArray& rVaCollisions, VertexArray& rVaBackground, VertexArray& rVaInteractables, const string& name) {
+	int** arrayLevelCollisions = SingleMapTypeLoader(rVaCollisions, COLLISIONS, name);
+	SingleMapTypeLoader(rVaBackground, BACKGROUND, name); //Ignore values since not interactable
+	int** arrayLevelInteractables = SingleMapTypeLoader(rVaInteractables, INTERACTABLES, name);
 	MapValues mapValues{};
 	mapValues.collisionsMap = arrayLevelCollisions;
 	mapValues.interactablesMap = arrayLevelInteractables;
@@ -33,7 +33,7 @@ MapLoader::MapValues MapLoader::mapLoader(VertexArray& rVaCollisions, VertexArra
 	return mapValues;
 }
 
-int** MapLoader::singleMapType(VertexArray& rVertexArray, MapType type, const string& name) {
+int** MapLoader::SingleMapTypeLoader(VertexArray& rVertexArray, MapType type, const string& name) {
 
 	// Load the appropriate level from a text file
 	string levelToLoad = "assets/map/";
@@ -66,7 +66,7 @@ int** MapLoader::singleMapType(VertexArray& rVertexArray, MapType type, const st
 		}
 
 		// Store the length of the rows
-		m_MapSize.x = getAllValuesFromFileRow(s).size();
+		m_MapSize.x = GetAllValuesFromFileRow(s).size();
 
 		//Reset file ifstream
 		inputFile.clear();
@@ -85,7 +85,7 @@ int** MapLoader::singleMapType(VertexArray& rVertexArray, MapType type, const st
 	string row;
 	int y = 0;
 	while (getline(inputFile, row)) {
-		rowValues = getAllValuesFromFileRow(row);
+		rowValues = GetAllValuesFromFileRow(row);
 		for (int x = 0; x < m_MapSize.x; x++) {
 			arrayLevel[y][x] = rowValues[x];
 		}

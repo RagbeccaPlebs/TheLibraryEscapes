@@ -24,9 +24,9 @@ public:
 		sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor);
 
 	//Getters
-	bool isPressed();
+	bool IsPressed();
 
 	//Functions
-	void update(sf::Vector2f mousePosition);
-	void draw(sf::RenderWindow& window);
+	void Update(sf::Vector2f mousePosition);
+	void Draw(sf::RenderWindow& window);
 };

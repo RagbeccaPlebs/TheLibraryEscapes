@@ -2,14 +2,14 @@
 
 using namespace sf;
 
-void StartMenuEngine::update(float dtAsSeconds, RenderWindow& mainWindow)
+void StartMenuEngine::Update(float dtAsSeconds, RenderWindow& mainWindow)
 {
-	updateMousePositions(mainWindow);
-	m_ExitButton.update(m_MousePosView);
-	m_StartButton.update(m_MousePosView);
+	UpdateMousePositions(mainWindow);
+	m_ExitButton.Update(m_MousePosView);
+	m_StartButton.Update(m_MousePosView);
 }
 
-void StartMenuEngine::updateMousePositions(RenderWindow& mainWindow)
+void StartMenuEngine::UpdateMousePositions(RenderWindow& mainWindow)
 {
 	m_MousePosScreen = sf::Mouse::getPosition();
 	m_MousePosWindow = sf::Mouse::getPosition(mainWindow);

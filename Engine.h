@@ -22,12 +22,12 @@ private:
 	//Game state
 	bool m_Playing = false;
 
-	void input();
-	void update(const float dtAsSeconds);
-	void draw();
+	void Input();
+	void Update(const float dtAsSeconds);
+	void Draw();
 public:
 	Engine();
 
 	//To run the game, will call private functions inside here
-	void run();
+	void Run();
 };

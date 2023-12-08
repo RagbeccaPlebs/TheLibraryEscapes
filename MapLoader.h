@@ -16,9 +16,9 @@ private:
 	sf::Vector2f m_StartPosition;
 	sf::Vector2i m_CurrentLevel;
 
-	int** singleMapType(sf::VertexArray& rVertexArray, MapLoader::MapType type, const std::string& name);
+	int** SingleMapTypeLoader(sf::VertexArray& rVertexArray, MapLoader::MapType type, const std::string& name);
 
-	std::vector<int> getAllValuesFromFileRow(std::string& str);
+	std::vector<int> GetAllValuesFromFileRow(std::string& str);
 public:
 	struct MapValues {
 		int** collisionsMap;
@@ -29,8 +29,8 @@ public:
 	static constexpr int VERTS_IN_QUAD = 4;
 
 	//Map working 
-	sf::Vector2i getMapSize();
+	sf::Vector2i GetMapSize();
 
 	//Next map 
-	MapValues mapLoader(sf::VertexArray& rVaCollisions, sf::VertexArray& rVaBackground, sf::VertexArray& rVaInteractables, const std::string& name);
+	MapValues MapTypeLoader(sf::VertexArray& rVaCollisions, sf::VertexArray& rVaBackground, sf::VertexArray& rVaInteractables, const std::string& name);
 };

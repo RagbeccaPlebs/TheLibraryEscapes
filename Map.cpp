@@ -8,7 +8,7 @@ using namespace std;
 Map::Map(string name)
 {
     m_TextureTiles = TextureHolder::GetTexture("assets/graphics/map/" + name + ".png");
-    const MapLoader::MapValues mapValues = m_MapLoader.mapLoader(m_VaCollisionLevel, m_VaBackgroundLevelUnder, m_VaInteractableLevel, name);
+    const MapLoader::MapValues mapValues = m_MapLoader.MapTypeLoader(m_VaCollisionLevel, m_VaBackgroundLevelUnder, m_VaInteractableLevel, name);
     m_ArrayCollisionLevel = mapValues.collisionsMap;
     m_ArrayInteractableLevel = mapValues.interactablesMap;
     m_MapSize = mapValues.mapSize;
@@ -41,47 +41,47 @@ Map& Map::operator=(const Map& other)
 }
 
 //Getters
-Vector2i Map::getMapSize()
+Vector2i Map::GetMapSize()
 {
     return m_MapSize;
 }
 
-VertexArray Map::getVaBackgroundLevelUnder()
+VertexArray Map::GetVaBackgroundLevelUnder()
 {
     return m_VaBackgroundLevelUnder;
 }
 
-VertexArray Map::getVaBackgroundLevelUpper()
+VertexArray Map::GetVaBackgroundLevelUpper()
 {
     return m_VaBackgroundLevelUpper;
 }
 
-int** Map::getArrayCollisionLevel()
+int** Map::GetArrayCollisionLevel()
 {
     return m_ArrayCollisionLevel;
 }
 
-VertexArray Map::getVaCollisionLevel()
+VertexArray Map::GetVaCollisionLevel()
 {
     return m_VaCollisionLevel;
 }
 
-int** Map::getArrayInteractableLevel()
+int** Map::GetArrayInteractableLevel()
 {
     return m_ArrayInteractableLevel;
 }
 
-VertexArray Map::getVaInteractableLevel()
+VertexArray Map::GetVaInteractableLevel()
 {
     return m_VaInteractableLevel;
 }
 
-Texture& Map::getTextureTiles()
+Texture& Map::GetTextureTiles()
 {
     return m_TextureTiles;
 }
 
-Vector2f Map::getPlayerSpawnLocation(string direction)
+Vector2f Map::GetPlayerSpawnLocation(string direction)
 {
     //TODO Make sure direction is used
     const Vector2f spawnLocation(104.f, 48.f);

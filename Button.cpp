@@ -27,13 +27,13 @@ Button::Button(Vector2f position, Vector2f dimension, string fontPath, string te
 }
 
 //Getters
-bool Button::isPressed()
+bool Button::IsPressed()
 {
 	return m_ButtonState == BTN_PRESSED;
 }
 
 
-void Button::update(const Vector2f mousePosition)
+void Button::Update(const Vector2f mousePosition)
 {
 	//Hover
 	if (m_Shape.getGlobalBounds().contains(mousePosition))
@@ -66,7 +66,7 @@ void Button::update(const Vector2f mousePosition)
 	}
 }
 
-void Button::draw(sf::RenderWindow& window)
+void Button::Draw(sf::RenderWindow& window)
 {
 	window.draw(m_Shape);
 	//window.draw(m_Text);

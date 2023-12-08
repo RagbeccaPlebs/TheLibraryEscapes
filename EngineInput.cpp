@@ -2,14 +2,14 @@
 
 using namespace sf;
 
-void Engine::input() {
+void Engine::Input() {
 
 	if (m_Playing)
 	{
-		m_GameEngine.input(m_Window);
+		m_GameEngine.Input(m_Window);
 	}
 	else
 	{
-		m_StartMenuEngine.input(m_Window, m_Playing);
+		m_StartMenuEngine.Input(m_Window, m_Playing);
 	}
 }

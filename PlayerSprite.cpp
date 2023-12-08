@@ -4,7 +4,7 @@
 using namespace sf;
 using namespace std;
 
-void Player::setPositionAllSprites() {
+void Player::SetPositionAllSprites() {
 	m_SpriteBase.setPosition(m_Position);
 	m_SpriteLowerLayer.setPosition(m_Position);
 	m_SpriteCloak.setPosition(m_Position);
@@ -12,18 +12,18 @@ void Player::setPositionAllSprites() {
 	m_SpriteHair.setPosition(m_Position);
 }
 
-array<Sprite, 5> Player::getSprites()
+array<Sprite, 5> Player::GetSprites()
 {
 	array<Sprite, 5> a;
-	a[0] = getSpriteBase();
-	a[1] = getSpriteLowerLayer();
-	a[2] = getSpriteCloak();
-	a[3] = getSpriteFaceItem();
-	a[4] = getSpriteHair();
+	a[0] = GetSpriteBase();
+	a[1] = GetSpriteLowerLayer();
+	a[2] = GetSpriteCloak();
+	a[3] = GetSpriteFaceItem();
+	a[4] = GetSpriteHair();
 	return a;
 }
 
-Sprite Player::setSpriteTextureLocation(Sprite& sprite) {
+Sprite Player::SetSpriteTextureLocation(Sprite& sprite) {
 	if (sprite.getTexture() != nullptr) {
 		sprite.setTextureRect(IntRect(m_TextureLocationX, m_TextureLocationY, 32, 40));
 		return sprite;
@@ -33,14 +33,14 @@ Sprite Player::setSpriteTextureLocation(Sprite& sprite) {
 	}
 }
 
-void Player::setTextureLocation(const Vector2i location)
+void Player::SetTextureLocation(const Vector2i location)
 {
 
-	m_TextureLocationX = location.x == 0 ? 16 : (getSequenceWithFour(location.x) * 16 - 2);
-	m_TextureLocationY = location.y == 0 ? 8 : (getSequenceWithEight(location.y) * 8 - 2);
+	m_TextureLocationX = location.x == 0 ? 16 : (GetSequenceWithFour(location.x) * 16 - 2);
+	m_TextureLocationY = location.y == 0 ? 8 : (GetSequenceWithEight(location.y) * 8 - 2);
 }
 
-int Player::getSequenceWithFour(const int index) {
+int Player::GetSequenceWithFour(const int index) {
 	int sequenceNumber = 1;
 	for (int i = 0; i < index; i++) {
 		sequenceNumber += 4;
@@ -48,7 +48,7 @@ int Player::getSequenceWithFour(const int index) {
 	return sequenceNumber;
 }
 
-int Player::getSequenceWithEight(const int index) {
+int Player::GetSequenceWithEight(const int index) {
 	int sequenceNumber = 1;
 	for (int i = 0; i < index; i++) {
 		sequenceNumber += 8;
@@ -56,26 +56,26 @@ int Player::getSequenceWithEight(const int index) {
 	return sequenceNumber;
 }
 
-Sprite Player::getSpriteBase() {
-	return setSpriteTextureLocation(m_SpriteBase);
+Sprite Player::GetSpriteBase() {
+	return SetSpriteTextureLocation(m_SpriteBase);
 }
 
-Sprite Player::getSpriteLowerLayer()
+Sprite Player::GetSpriteLowerLayer()
 {
-	return setSpriteTextureLocation(m_SpriteLowerLayer);
+	return SetSpriteTextureLocation(m_SpriteLowerLayer);
 }
 
-Sprite Player::getSpriteCloak()
+Sprite Player::GetSpriteCloak()
 {
-	return setSpriteTextureLocation(m_SpriteCloak);
+	return SetSpriteTextureLocation(m_SpriteCloak);
 }
 
-Sprite Player::getSpriteFaceItem()
+Sprite Player::GetSpriteFaceItem()
 {
-	return setSpriteTextureLocation(m_SpriteFaceItem);
+	return SetSpriteTextureLocation(m_SpriteFaceItem);
 }
 
-Sprite Player::getSpriteHair()
+Sprite Player::GetSpriteHair()
 {
-	return setSpriteTextureLocation(m_SpriteHair);
+	return SetSpriteTextureLocation(m_SpriteHair);
 }

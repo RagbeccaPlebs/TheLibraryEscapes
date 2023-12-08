@@ -20,15 +20,15 @@ private:
 	//Game states
 	bool m_Paused;
 
-	void loadMap();
+	void LoadMap();
 
-	void detectCollisions(Player& player);
+	void DetectCollisions(Player& player);
 
 	const int MAX_RANGE_COLLISIONS_DETECTION = 5;
 public:
 	GameEngine();
 
-	void draw(sf::RenderWindow& mainWindow);
-	void update(float dtAsSeconds, sf::View* mainView);
-	void input(sf::RenderWindow& mainWindow);
+	void Draw(sf::RenderWindow& mainWindow);
+	void Update(float dtAsSeconds, sf::View* mainView);
+	void Input(sf::RenderWindow& mainWindow);
 };

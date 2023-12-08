@@ -27,13 +27,13 @@ public:
 
 	Map& operator=(const Map& other);
 
-	sf::Vector2i getMapSize();
-	sf::VertexArray getVaBackgroundLevelUnder();
-	sf::VertexArray getVaBackgroundLevelUpper();
-	int** getArrayCollisionLevel();
-	sf::VertexArray getVaCollisionLevel();
-	int** getArrayInteractableLevel();
-	sf::VertexArray getVaInteractableLevel();
-	sf::Texture& getTextureTiles();
-	sf::Vector2f getPlayerSpawnLocation(std::string direction);
+	sf::Vector2i GetMapSize();
+	sf::VertexArray GetVaBackgroundLevelUnder();
+	sf::VertexArray GetVaBackgroundLevelUpper();
+	int** GetArrayCollisionLevel();
+	sf::VertexArray GetVaCollisionLevel();
+	int** GetArrayInteractableLevel();
+	sf::VertexArray GetVaInteractableLevel();
+	sf::Texture& GetTextureTiles();
+	sf::Vector2f GetPlayerSpawnLocation(std::string direction);
 };

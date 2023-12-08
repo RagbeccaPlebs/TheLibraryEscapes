@@ -20,7 +20,7 @@ Engine::Engine()
 	m_HudView.setViewport(FloatRect(0, 0, resolution.x, resolution.y));
 }
 
-void Engine::run() {
+void Engine::Run() {
 	//Timing
 	Clock clock;
 
@@ -29,8 +29,8 @@ void Engine::run() {
 		// Make a decimal fraction from the delta time
 		const float dtAsSeconds = dt.asSeconds();
 
-		input();
-		update(dtAsSeconds);
-		draw();
+		Input();
+		Update(dtAsSeconds);
+		Draw();
 	}
 }

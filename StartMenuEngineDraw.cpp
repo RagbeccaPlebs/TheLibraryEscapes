@@ -2,9 +2,9 @@
 
 using namespace sf;
 
-void StartMenuEngine::draw(RenderWindow& mainWindow)
+void StartMenuEngine::Draw(RenderWindow& mainWindow)
 {
-	m_ExitButton.draw(mainWindow);
-	m_StartButton.draw(mainWindow);
+	m_ExitButton.Draw(mainWindow);
+	m_StartButton.Draw(mainWindow);
 }
 

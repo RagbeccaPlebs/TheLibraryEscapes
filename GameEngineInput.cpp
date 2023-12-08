@@ -2,7 +2,7 @@
 
 using namespace sf;
 
-void GameEngine::input(RenderWindow& mainWindow)
+void GameEngine::Input(RenderWindow& mainWindow)
 {
 	Event event;
 	while (mainWindow.pollEvent(event)) {
@@ -25,7 +25,7 @@ void GameEngine::input(RenderWindow& mainWindow)
 	else
 	{
 
-		m_Player.handleInput();
+		m_Player.HandleInput();
 	}
 
 }

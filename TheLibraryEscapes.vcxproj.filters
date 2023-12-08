@@ -52,6 +52,9 @@
     <Filter Include="Source Files\StartMenu">
       <UniqueIdentifier>{8914100f-cac1-48cd-84fd-dad3cf3fece0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Player">
+      <UniqueIdentifier>{b419b2a7-cab3-4c31-938b-e23b88f51ba7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TheLibraryEscapes.cpp">
@@ -125,12 +128,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerMovement.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Engine.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
@@ -151,6 +148,12 @@
     </ClInclude>
     <ClInclude Include="StartMenuEngine.h">
       <Filter>Header Files\StartMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerMovement.h">
+      <Filter>Header Files\Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

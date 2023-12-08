@@ -13,11 +13,11 @@ class StartMenuEngine {
 	Button m_StartButton;
 	Button m_ExitButton;
 
-	void updateMousePositions(sf::RenderWindow& mainWindow);
+	void UpdateMousePositions(sf::RenderWindow& mainWindow);
 public:
 	StartMenuEngine();
 
-	void draw(sf::RenderWindow& mainWindow);
-	void update(float dtAsSeconds, sf::RenderWindow& mainWindow);
-	void input(sf::RenderWindow& mainWindow, bool& isPlayingState);
+	void Draw(sf::RenderWindow& mainWindow);
+	void Update(float dtAsSeconds, sf::RenderWindow& mainWindow);
+	void Input(sf::RenderWindow& mainWindow, bool& isPlayingState);
 };
