@@ -55,6 +55,12 @@
     <Filter Include="Header Files\Player">
       <UniqueIdentifier>{b419b2a7-cab3-4c31-938b-e23b88f51ba7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Game\Logic">
+      <UniqueIdentifier>{da10d00b-cb62-4650-9232-491e9ac7787e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\PauseMenu">
+      <UniqueIdentifier>{07886281-c881-4b97-8bd0-9e687472d114}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TheLibraryEscapes.cpp">
@@ -75,9 +81,6 @@
     <ClCompile Include="Map.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>
-    <ClCompile Include="MapLoader.cpp">
-      <Filter>Source Files\Map</Filter>
-    </ClCompile>
     <ClCompile Include="Engine.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
@@ -89,9 +92,6 @@
     </ClCompile>
     <ClCompile Include="EngineUpdate.cpp">
       <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngine.cpp">
-      <Filter>Source Files\Game</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineDraw.cpp">
       <Filter>Source Files\Game</Filter>
@@ -117,9 +117,6 @@
     <ClCompile Include="StartMenuEngine.cpp">
       <Filter>Source Files\StartMenu</Filter>
     </ClCompile>
-    <ClCompile Include="StartMenuEngineUpdate.cpp">
-      <Filter>Source Files\StartMenu</Filter>
-    </ClCompile>
     <ClCompile Include="StartMenuEngineDraw.cpp">
       <Filter>Source Files\StartMenu</Filter>
     </ClCompile>
@@ -128,6 +125,33 @@
     </ClCompile>
     <ClCompile Include="TiledMapLoader.cpp">
       <Filter>Source Files\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineLogicUpdate.cpp">
+      <Filter>Source Files\Game\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineLogicDraw.cpp">
+      <Filter>Source Files\Game\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineLogicInput.cpp">
+      <Filter>Source Files\Game\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineLogic.cpp">
+      <Filter>Source Files\Game\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="GamePauseMenu.cpp">
+      <Filter>Source Files\Game\PauseMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="GamePauseMenuDraw.cpp">
+      <Filter>Source Files\Game\PauseMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="StartMenuEngineUpdate.cpp">
+      <Filter>Source Files\StartMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="GamePauseMenuUpdate.cpp">
+      <Filter>Source Files\Game\PauseMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="GamePauseMenuInput.cpp">
+      <Filter>Source Files\Game\PauseMenu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -138,9 +162,6 @@
       <Filter>Header Files\Game</Filter>
     </ClInclude>
     <ClInclude Include="Map.h">
-      <Filter>Header Files\Map</Filter>
-    </ClInclude>
-    <ClInclude Include="MapLoader.h">
       <Filter>Header Files\Map</Filter>
     </ClInclude>
     <ClInclude Include="TextureHolder.h">
@@ -163,6 +184,12 @@
     </ClInclude>
     <ClInclude Include="TiledMapLoader.h">
       <Filter>Header Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineLogic.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GamePauseMenu.h">
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

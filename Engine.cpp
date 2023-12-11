@@ -17,7 +17,7 @@ Engine::Engine()
 
 	m_MainView.setSize(resolution);
 
-	m_HudView.setViewport(FloatRect(0, 0, resolution.x, resolution.y));
+	m_HudView.setSize(resolution);
 }
 
 void Engine::Run() {

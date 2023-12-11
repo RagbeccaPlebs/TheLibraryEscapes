@@ -1,34 +1,19 @@
 ﻿#pragma once
 #include <SFML/Graphics.hpp>
-#include "Player.h"
-#include "Map.h"
+
+#include "GameEngineLogic.h"
+#include "GamePauseMenu.h"
 
 class GameEngine {
 private:
-	//Window
-	sf::RenderWindow m_Window;
+	//Game state
+	bool b_Paused = false;
 
-	//PlayerMovement
-	PlayerMovement m_PlayerMovement;
-
-	//Player
-	Player m_Player;
-
-	//Map
-	Map m_Map;
-
-	//Game states
-	bool m_Paused;
-
-	void LoadMap();
-
-	void DetectCollisions(Player& player);
-
-	const int MAX_RANGE_COLLISIONS_DETECTION = 5;
+	//Game Logics
+	GameEngineLogic m_GameEngineLogic;
+	GamePauseMenu m_GamePausedMenu;
 public:
-	GameEngine();
-
-	void Draw(sf::RenderWindow& mainWindow);
-	void Update(float dtAsSeconds, sf::View* mainView);
-	void Input(sf::RenderWindow& mainWindow);
+	void Draw(sf::RenderWindow& mainWindow, sf::View& hudView);
+	void Update(float dtAsSeconds, sf::View* mainView, sf::View* hudView, sf::RenderWindow& mainWindow);
+	void Input(sf::RenderWindow& mainWindow, bool& isPlaying);
 };

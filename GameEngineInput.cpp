@@ -2,7 +2,7 @@
 
 using namespace sf;
 
-void GameEngine::Input(RenderWindow& mainWindow)
+void GameEngine::Input(RenderWindow& mainWindow, bool& isPlaying)
 {
 	Event event;
 	while (mainWindow.pollEvent(event)) {
@@ -12,20 +12,19 @@ void GameEngine::Input(RenderWindow& mainWindow)
 				// Handle the player quitting
 				if (Keyboard::isKeyPressed(Keyboard::Escape))
 				{
-					m_Paused = !m_Paused;
+					b_Paused = !b_Paused;
 				}
 			}
 		}
 	}
 
-	if (m_Paused)
+	if (b_Paused)
 	{
-		
+		m_GamePausedMenu.Input(isPlaying, b_Paused);
 	}
 	else
 	{
-
-		m_Player.HandleInput();
+		m_GameEngineLogic.Input(mainWindow);
 	}
 
 }

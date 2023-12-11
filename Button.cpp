@@ -33,7 +33,12 @@ Button::Button(Vector2f position, Vector2f dimension, string fontPath, string te
 //Getters
 bool Button::IsPressed()
 {
-	return m_ButtonState == BTN_PRESSED;
+	if (m_ButtonState == BTN_PRESSED)
+	{
+		m_ButtonState = BTN_IDLE;
+		return true;
+	}
+	return false;
 }
 
 

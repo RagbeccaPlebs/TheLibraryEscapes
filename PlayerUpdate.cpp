@@ -33,35 +33,35 @@ void Player::Update(const float elapsedTime)
 	}
 
 	// Update the rect for all body parts
-	FloatRect r = GetPosition();
+	const FloatRect r = GetPosition();
 
 	// Feet
-	m_Feet.left = r.left + (r.width * .25);
-	m_Feet.top = r.top + (r.height * .95);
-	m_Feet.width = r.width - (r.width * .5);
+	m_Feet.left = static_cast<float>(r.left + (r.width * .25));
+	m_Feet.top = static_cast<float>(r.top + (r.height * .95));
+	m_Feet.width = static_cast<float>(r.width - (r.width * .5));
 	m_Feet.height = 1;
 
 	// Head
-	m_Head.left = r.left + (r.width * .25);
-	m_Head.top = r.top + (r.height * .21);
-	m_Head.width = r.width - (r.width * .5);
+	m_Head.left = static_cast<float>(r.left + (r.width * .25));
+	m_Head.top = static_cast<float>(r.top + (r.height * .21));
+	m_Head.width = static_cast<float>(r.width - (r.width * .5));
 	m_Head.height = 1;
 
 	// Right
-	m_Right.left = r.left + (r.width * .8);
-	m_Right.top = r.top + (r.height * .235);
+	m_Right.left = static_cast<float>(r.left + (r.width * .8));
+	m_Right.top = static_cast<float>(r.top + (r.height * .235));
 	m_Right.width = 1;
-	m_Right.height = r.height - (r.height * .3);
+	m_Right.height = static_cast<float>(r.height - (r.height * .3));
 
 	// Left
-	m_Left.left = r.left + (r.width * .2);
-	m_Left.top = r.top + (r.height * .25);
+	m_Left.left = static_cast<float>(r.left + (r.width * .2));
+	m_Left.top = static_cast<float>(r.top + (r.height * .25));
 	m_Left.width = 1;
-	m_Left.height = r.height - (r.height * 0.3);
+	m_Left.height = static_cast<float>(r.height - (r.height * 0.3));
 }
 
 //Player animation
-void Player::PlayerAnimationUpdate(bool isMoving)
+void Player::PlayerAnimationUpdate(const bool isMoving)
 {
 	bool changedSheet = false;
 	if (m_OldLastButtonPressed != m_LastButtonPressed && m_LastButtonPressed != NONE) {

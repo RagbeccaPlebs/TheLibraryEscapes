@@ -1,7 +1,9 @@
-﻿#include "GameEngine.h"
+﻿#include "GameEngineLogic.h"
 
-void GameEngine::LoadMap()
+using namespace std;
+
+void GameEngineLogic::LoadMap(const string& mapName)
 {
-	m_Map = Map("bridge");
-	m_Player.Spawn(m_Map.GetPlayerSpawnLocation("north"));
+	m_Map = Map(mapName);
+	m_Player.Spawn(m_Map.GetPlayerSpawnLocation("south"));
 }

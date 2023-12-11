@@ -1,21 +1,15 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "MapLoader.h"
 #include "TiledMapLoader.h"
 
 class Map {
 private:
-	MapLoader m_MapLoader;
 	TiledMapLoader m_TiledMapLoader;
 
-	sf::VertexArray m_VaBackgroundLevelUnder;
-	sf::VertexArray m_VaBackgroundLevelUpper;
-
 	int** m_ArrayCollisionLevel = nullptr;
-	sf::VertexArray m_VaCollisionLevel;
 
-	int** m_ArrayInteractableLevel = nullptr;
-	sf::VertexArray m_VaInteractableLevel;
+	std::string m_MapName;
+	std::vector<TiledMapLoader::MapLayer> m_MapLayers;
 
 	sf::Vector2i m_MapSize;
 
@@ -23,19 +17,16 @@ private:
 	std::map<std::string, sf::Vector2f> m_PlayerSpawnLocations;
 public:
 	Map() = default;
-	Map(std::string name);
+	Map(const std::string& name);
 	Map(Map& m);
 	~Map();
 
 	Map& operator=(const Map& other);
 
 	sf::Vector2i GetMapSize();
-	sf::VertexArray GetVaBackgroundLevelUnder();
-	sf::VertexArray GetVaBackgroundLevelUpper();
 	int** GetArrayCollisionLevel();
-	sf::VertexArray GetVaCollisionLevel();
-	int** GetArrayInteractableLevel();
-	sf::VertexArray GetVaInteractableLevel();
+	std::string GetMapName();
+	std::vector<TiledMapLoader::MapLayer> GetMapLayers();
 	sf::Texture& GetTextureTiles();
 	sf::Vector2f GetPlayerSpawnLocation(std::string direction);
 };

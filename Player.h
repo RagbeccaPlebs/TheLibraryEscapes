@@ -13,7 +13,7 @@ private:
 		NONE
 	};
 
-	LastPressed m_LastButtonPressed = LastPressed::DOWN;
+	LastPressed m_LastButtonPressed = LastPressed::UP;
 	//Make sure buttons aren't equal to force correct placement of player
 	LastPressed m_OldLastButtonPressed;
 

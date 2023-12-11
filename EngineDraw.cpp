@@ -11,7 +11,7 @@ void Engine::Draw()
 	if (b_Playing)
 	{
 		m_Window.setView(m_GameView);
-		m_GameEngine.Draw(m_Window);
+		m_GameEngine.Draw(m_Window, m_HudView);
 	} else
 	{
 		m_Window.setView(m_MainView);

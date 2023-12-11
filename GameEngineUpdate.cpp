@@ -1,12 +1,16 @@
 ﻿#include "GameEngine.h"
 
-void GameEngine::Update(float dtAsSeconds, sf::View* mainView)
+using namespace sf;
+
+void GameEngine::Update(float dtAsSeconds, View* mainView, View* hudView, RenderWindow& mainWindow)
 {
-	m_Player.Update(dtAsSeconds);
-
-	//Detect collisions
-	DetectCollisions(m_Player);
-
-	mainView->setCenter(m_Player.GetCenter());
+	if (b_Paused)
+	{
+		hudView->setCenter(mainWindow.getSize().x / 2.f, mainWindow.getSize().y / 2.f);
+		m_GamePausedMenu.Update(dtAsSeconds, mainWindow);
+	} else
+	{
+		m_GameEngineLogic.Update(dtAsSeconds, mainView);
+	}
 }
 

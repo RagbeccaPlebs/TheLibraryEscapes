@@ -6,7 +6,7 @@ void Engine::Input() {
 
 	if (b_Playing)
 	{
-		m_GameEngine.Input(m_Window);
+		m_GameEngine.Input(m_Window, b_Playing);
 	}
 	else
 	{

@@ -1,19 +1,80 @@
 #include "TiledMapLoader.h"
 #include "nlohmann/json.hpp"
+#include "TextureHolder.h"
 #include <fstream>
+#include <map>
 
 using namespace sf;
 using namespace std;
 using json = nlohmann::json;
 
-sf::VertexArray TiledMapLoader::GetVertexArrayFromData(vector<int> data)
+VertexArray TiledMapLoader::GetVertexArrayFromData(vector<int>& data, Vector2i mapSize, const int TILE_SIZE)
 {
-	return sf::VertexArray();
+	VertexArray rVa;
+	// What type of primitive are we using?
+	rVa.setPrimitiveType(Quads);
+
+	// Set the size of the vertex array
+	rVa.resize(static_cast<size_t>(mapSize.x) * mapSize.y * VERTS_IN_QUAD);
+
+	// Start at the beginning of the vertex array
+	int currentVertex = 0;
+
+	for (int x = 0; x < mapSize.y; x++)
+	{
+		for (int y = 0; y < mapSize.x; y++)
+		{
+			// Position each vertex in the current quad
+			rVa[static_cast<size_t>(currentVertex)].position =
+				Vector2f(static_cast<float>(y * TILE_SIZE), 
+					static_cast<float>(x * TILE_SIZE));
+
+			rVa[(currentVertex + 1)].position =
+				Vector2f(static_cast<float>((y * TILE_SIZE) + TILE_SIZE),
+					static_cast<float>(x * TILE_SIZE));
+
+			rVa[(currentVertex + 2)].position =
+				Vector2f(static_cast<float>((y * TILE_SIZE) + TILE_SIZE),
+					static_cast<float>((x * TILE_SIZE) + TILE_SIZE));
+
+			rVa[(currentVertex) + 3].position =
+				Vector2f(static_cast<float>((y * TILE_SIZE)), 
+					static_cast<float>((x * TILE_SIZE) + TILE_SIZE));
+
+			const int dataIndex = (mapSize.x * x) + y;
+			//Adjust with -1 otherwise it will grab the data 1 too far, but only if bigger than 0
+			const int correctData = data[dataIndex] > 0 ? data[dataIndex] - 1 : 0;
+
+			// Which tile from the sprite sheet should we use
+			const int horizontalOffset = static_cast<int>((correctData * TILE_SIZE) % m_Texture.getSize().x);
+			const int verticalOffset = static_cast<int>((correctData * TILE_SIZE) / m_Texture.getSize().x);
+
+			rVa[currentVertex].texCoords =
+				Vector2f(static_cast<float>(horizontalOffset), static_cast<float>(TILE_SIZE * verticalOffset));
+
+			rVa[static_cast<size_t>(currentVertex) + 1].texCoords =
+				Vector2f(static_cast<float>(TILE_SIZE + horizontalOffset), static_cast<float>(TILE_SIZE * verticalOffset));
+
+			rVa[static_cast<size_t>(currentVertex) + 2].texCoords =
+				Vector2f(static_cast<float>(TILE_SIZE + horizontalOffset), static_cast<float>((TILE_SIZE * verticalOffset) + TILE_SIZE));
+
+			rVa[static_cast<size_t>(currentVertex) + 3].texCoords =
+				Vector2f(static_cast<float>(horizontalOffset), static_cast<float>((TILE_SIZE * verticalOffset) + TILE_SIZE));
+
+			// Position ready for the next four vertices
+			currentVertex += VERTS_IN_QUAD;
+		}
+	}
+	return rVa;
 }
 
-TiledMapLoader::MapLayer TiledMapLoader::GetMapLayerFromData(vector<int> data, int id)
+TiledMapLoader::MapLayer TiledMapLoader::GetMapLayerFromData(vector<int>& data, int id, Vector2i mapSize, const int TILE_SIZE, const string& name)
 {
-	return MapLayer();
+	MapLayer mapLayer;
+	mapLayer.id = id;
+	mapLayer.name = name;
+	mapLayer.rVa = GetVertexArrayFromData(data, mapSize, TILE_SIZE);
+	return mapLayer;
 }
 
 TiledMapLoader::MapValues TiledMapLoader::MapLoader(const std::string& name)
@@ -29,114 +90,55 @@ TiledMapLoader::MapValues TiledMapLoader::MapLoader(const std::string& name)
 
 	int amountOfLayers = data.at("layers").size();
 	vector<MapLayer> mapLayers;
-	int** collisionsMap;
+	auto** collisionsMap = new int* [1];
+	MapValues mapValues;
 
-	for (int layer = 0; layer < amountOfLayers; layer++) 
+	m_Texture = TextureHolder::GetTexture("assets/graphics/map/" + name + ".png");
+
+	int tileSize = static_cast<int>(data.at("tilewidth"));
+
+	for (int layer = 0; layer < amountOfLayers; layer++)
 	{
 		string layerName = data.at("layers").at(layer).at("name");
+		int mapSizeX = data.at("layers").at(layer).at("width");
+		int mapSizeY = data.at("layers").at(layer).at("height");
 		if (layerName.find("Collision") != string::npos)
 		{
 			vector<int> tempData = data.at("layers").at(layer).at("data");
-			mapLayers.push_back(GetMapLayerFromData(tempData, data.at("layers").at(layer).at("id")));
-		} else
+			collisionsMap = new int* [mapSizeY];
+			for (int i = 0; i < mapSizeY; ++i)
+			{
+				// Add a new array into each array element
+				collisionsMap[i] = new int[mapSizeX];
+			}
+			int index = 0;
+			for (int y = 0; y < mapSizeY; y++)
+			{
+				for (int x = 0; x < mapSizeX; x++) {
+					collisionsMap[y][x] = tempData.at(index);
+					index++;
+				}
+			}
+			mapValues.mapSize = Vector2i(mapSizeX, mapSizeY);
+			mapLayers.push_back(GetMapLayerFromData(tempData, data.at("layers").at(layer).at("id"), mapValues.mapSize, tileSize, layerName));
+		}
+		else
 		{
-			
-		}
-	}
-	
-	return MapValues();
-
-	/*ifstream inputFile(levelToLoad);
-	string s;
-	vector<int> rowValues;
-
-	if (!inputFile) {
-		throw "This file isn't there yet.";
-	}
-
-	// Count the number of rows in the file
-	if (type == COLLISIONS) {
-		while (getline(inputFile, s))
-		{
-			++m_MapSize.y;
-		}
-
-		// Store the length of the rows
-		m_MapSize.x = GetAllValuesFromFileRow(s).size();
-
-		//Reset file ifstream
-		inputFile.clear();
-		inputFile.seekg(0, ios::beg);
-	}
-
-	// Prepare the 2d array to hold the int values from the file
-	int** arrayLevel = new int* [m_MapSize.y];
-	for (int i = 0; i < m_MapSize.y; ++i)
-	{
-		// Add a new array into each array element
-		arrayLevel[i] = new int[m_MapSize.x];
-	}
-
-	// Loop through the file and store all the values in the 2d array
-	string row;
-	int y = 0;
-	while (getline(inputFile, row)) {
-		rowValues = GetAllValuesFromFileRow(row);
-		for (int x = 0; x < m_MapSize.x; x++) {
-			arrayLevel[y][x] = rowValues[x];
-		}
-
-		y++;
-	}
-
-	// close the file
-	inputFile.close();
-
-	// What type of primitive are we using?
-	rVertexArray.setPrimitiveType(Quads);
-
-	// Set the size of the vertex array
-	rVertexArray.resize(m_MapSize.x * m_MapSize.y * VERTS_IN_QUAD);
-
-	// Start at the beginning of the vertex array
-	int currentVertex = 0;
-
-	for (int x = 0; x < m_MapSize.x; x++)
-	{
-		for (int y = 0; y < m_MapSize.y; y++)
-		{
-			// Position each vertex in the current quad
-			rVertexArray[static_cast<size_t>(currentVertex) + 0].position =
-				Vector2f(x * TILE_SIZE, y * TILE_SIZE);
-
-			rVertexArray[static_cast<size_t>(currentVertex) + 1].position =
-				Vector2f((x * TILE_SIZE) + TILE_SIZE, y * TILE_SIZE);
-
-			rVertexArray[static_cast<size_t>(currentVertex) + 2].position =
-				Vector2f((x * TILE_SIZE) + TILE_SIZE, (y * TILE_SIZE) + TILE_SIZE);
-
-			rVertexArray[static_cast<size_t>(currentVertex) + 3].position =
-				Vector2f((x * TILE_SIZE), (y * TILE_SIZE) + TILE_SIZE);
-
-			// Which tile from the sprite sheet should we use
-			int verticalOffset = arrayLevel[y][x] * TILE_SIZE;
-
-			rVertexArray[static_cast<size_t>(currentVertex) + 0].texCoords =
-				Vector2f(0, 0 + verticalOffset);
-
-			rVertexArray[static_cast<size_t>(currentVertex) + 1].texCoords =
-				Vector2f(TILE_SIZE, 0 + verticalOffset);
-
-			rVertexArray[static_cast<size_t>(currentVertex) + 2].texCoords =
-				Vector2f(TILE_SIZE, TILE_SIZE + verticalOffset);
-
-			rVertexArray[static_cast<size_t>(currentVertex) + 3].texCoords =
-				Vector2f(0, TILE_SIZE + verticalOffset);
-
-			// Position ready for the next four vertices
-			currentVertex = currentVertex + VERTS_IN_QUAD;
+			vector<int> tempData = data.at("layers").at(layer).at("data");
+			auto mapSize = Vector2i(mapSizeX, mapSizeY);
+			mapLayers.push_back(GetMapLayerFromData(tempData, data.at("layers").at(layer).at("id"), mapSize, tileSize, layerName));
 		}
 	}
 
-	return arrayLevel;*/
+	mapValues.collisionsMap = collisionsMap;
+	mapValues.mapName = name;
+	// TODO Fix starting pos
+	map<string, Vector2f> playerSpawnLocations;
+	playerSpawnLocations.insert({ "south", Vector2f(784.f, 920.f) });
+	mapValues.playerSpawnLocations = playerSpawnLocations;
+	ranges::sort(mapLayers.begin(), mapLayers.end(), greater<>());
+	mapValues.mapLayers = mapLayers;
+	mapValues.texture = m_Texture;
+
+	return mapValues;
 }

@@ -1,12 +1,12 @@
-#include "Engine.h"
-#include "MapLoader.h"
+#include "GameEngineLogic.h"
+#include "TiledMapLoader.h"
 
 using namespace sf;
 
-void GameEngine::DetectCollisions(Player& player) {
+void GameEngineLogic::DetectCollisions(Player& player) {
 	const FloatRect detectionZone = player.GetPosition();
 
-	constexpr int TILE_SIZE = MapLoader::TILE_SIZE;
+	constexpr int TILE_SIZE = TiledMapLoader::STANDARD_TILE_SIZE;
 
 	// Make a FloatRect to test each block
 	FloatRect block(0, 0, TILE_SIZE, TILE_SIZE);
@@ -41,8 +41,8 @@ void GameEngine::DetectCollisions(Player& player) {
 			if (m_Map.GetArrayCollisionLevel()[y][x] >= 1)
 			{
 				// Initialize the starting position of the current block
-				block.left = x * TILE_SIZE;
-				block.top = y * TILE_SIZE;
+				block.left = static_cast<float>(x * TILE_SIZE);
+				block.top = static_cast<float>(y * TILE_SIZE);
 
 				if (player.GetRight().intersects(block))
 				{
