@@ -5,10 +5,37 @@ using namespace sf;
 using namespace std;
 
 Player::Player() {
-	m_SpriteBase = Sprite(TextureHolder::GetTexture("assets/graphics/player/char_a_p1_0bas_humn_v00.png"));
-	m_SpriteLowerLayer = Sprite(TextureHolder::GetTexture("assets/graphics/player/char_a_p1_1out_pfpn_v01.png"));
-	m_SpriteCloak = Sprite(TextureHolder::GetTexture("assets/graphics/player/char_a_p1_2clo_lnpl_v07.png"));
-	m_SpriteHair = Sprite(TextureHolder::GetTexture("assets/graphics/player/char_a_p1_5hat_pnty_v03.png"));
+	SetInitialTextures();
+
+	if (m_TextureBase.getSize().x > 0)
+	{
+		m_SpriteBase = Sprite(m_TextureBase);
+	}
+
+	if (m_TextureLowerLayer.getSize().x > 0)
+	{
+		m_SpriteLowerLayer = Sprite(m_TextureLowerLayer);
+	}
+
+	if (m_TextureCloak.getSize().x > 0)
+	{
+		m_SpriteCloak = Sprite(m_TextureCloak);
+	}
+
+	if (m_TextureFaceItem.getSize().x > 0)
+	{
+		m_SpriteFaceItem = Sprite(m_TextureFaceItem);
+	}
+
+	if (m_TextureHair.getSize().x > 0)
+	{
+		m_SpriteHair = Sprite(m_TextureHair);
+	}
+
+	if (m_TextureHat.getSize().x > 0)
+	{
+		m_SpriteHat = Sprite(m_TextureHat);
+	}
 
 	m_CurrentSpriteSheet = m_PlayerMovement.GetIdleSouth();
 }
@@ -26,41 +53,41 @@ void Player::HandleInput()
 	if (Keyboard::isKeyPressed(Keyboard::A))
 	{
 		m_LastButtonPressed = LastPressed::LEFT;
-		m_LeftPressed = true;
+		b_LeftPressed = true;
 	}
 	else
 	{
-		m_LeftPressed = false;
+		b_LeftPressed = false;
 	}
 
 	if (Keyboard::isKeyPressed(Keyboard::D))
 	{
 		m_LastButtonPressed = LastPressed::RIGHT;
-		m_RightPressed = true;
+		b_RightPressed = true;
 	}
 	else
 	{
-		m_RightPressed = false;
+		b_RightPressed = false;
 	}
 
 	if (Keyboard::isKeyPressed(Keyboard::W))
 	{
 		m_LastButtonPressed = LastPressed::UP;
-		m_UpPressed = true;
+		b_UpPressed = true;
 	}
 	else
 	{
-		m_UpPressed = false;
+		b_UpPressed = false;
 	}
 
 	if (Keyboard::isKeyPressed(Keyboard::S))
 	{
 		m_LastButtonPressed = LastPressed::DOWN;
-		m_DownPressed = true;
+		b_DownPressed = true;
 	}
 	else
 	{
-		m_DownPressed = false;
+		b_DownPressed = false;
 	}
 }
 

@@ -4,6 +4,8 @@ using namespace sf;
 
 void GamePauseMenu::Update(float dtAsSeconds, RenderWindow& mainWindow)
 {
+	mainWindow.setMouseCursorVisible(true);
+
 	UpdateMousePositions(mainWindow);
 	m_ContinueButton.Update(m_MousePosView);
 	m_BackToMenuButton.Update(m_MousePosView);

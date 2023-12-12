@@ -12,6 +12,8 @@ class Button
 {
 	ButtonState m_ButtonState;
 
+	bool b_IsEnabled = false;
+
 	sf::RectangleShape m_Shape;
 	sf::Text m_Text;
 

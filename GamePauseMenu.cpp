@@ -13,10 +13,8 @@ GamePauseMenu::GamePauseMenu()
 	const float middleHeight = (VideoMode::getDesktopMode().height / 2.0f);
 	const Vector2f continueButtonLocation((middleWidth - (sizeButtons.x / 2.f)), middleHeight - 100.f);
 	const Vector2f backToMenuButtonLocation((middleWidth - (sizeButtons.x / 2.f)), middleHeight + 100.f);
-	m_ContinueButton = Button(continueButtonLocation, sizeButtons, "assets/fonts/Roboto-Bold.ttf",
+	m_ContinueButton = Button(continueButtonLocation, sizeButtons, "assets/fonts/PixelifySans-Regular.ttf",
 		"Continue", idleColor, hoverColor, activeColor);
-	m_BackToMenuButton = Button(backToMenuButtonLocation, sizeButtons, "assets/fonts/Roboto-Bold.ttf",
+	m_BackToMenuButton = Button(backToMenuButtonLocation, sizeButtons, "assets/fonts/PixelifySans-Regular.ttf",
 		"Exit To Menu", idleColor, hoverColor, activeColor);
 }
-
-

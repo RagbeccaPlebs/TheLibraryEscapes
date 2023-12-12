@@ -10,16 +10,18 @@ void Player::SetPositionAllSprites() {
 	m_SpriteCloak.setPosition(m_Position);
 	m_SpriteFaceItem.setPosition(m_Position);
 	m_SpriteHair.setPosition(m_Position);
+	m_SpriteHat.setPosition(m_Position);
 }
 
-array<Sprite, 5> Player::GetSprites()
+array<Sprite, 6> Player::GetSprites()
 {
-	array<Sprite, 5> a;
+	array<Sprite, 6> a;
 	a[0] = GetSpriteBase();
 	a[1] = GetSpriteLowerLayer();
 	a[2] = GetSpriteCloak();
 	a[3] = GetSpriteFaceItem();
 	a[4] = GetSpriteHair();
+	a[5] = GetSpriteHat();
 	return a;
 }
 
@@ -78,4 +80,9 @@ Sprite Player::GetSpriteFaceItem()
 Sprite Player::GetSpriteHair()
 {
 	return SetSpriteTextureLocation(m_SpriteHair);
+}
+
+sf::Sprite Player::GetSpriteHat()
+{
+	return SetSpriteTextureLocation(m_SpriteHat);
 }

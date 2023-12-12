@@ -4,16 +4,16 @@
 using namespace sf;
 using namespace std;
 
-TextureHolder* TextureHolder::m_s_Instance = nullptr;
+TextureHolder* TextureHolder::m_SingleInstance = nullptr;
 
 TextureHolder::TextureHolder()
 {
-	assert(m_s_Instance == nullptr);
-	m_s_Instance = this;
+	assert(m_SingleInstance == nullptr);
+	m_SingleInstance = this;
 }
 
 Texture& TextureHolder::GetTexture(string const& filename) {
-	map<string, Texture>& m = m_s_Instance->m_Textures;
+	map<string, Texture>& m = m_SingleInstance->m_Textures;
 
 	map<string, Texture>::iterator keyValuePair = m.find(filename);
 

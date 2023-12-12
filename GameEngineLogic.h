@@ -23,6 +23,6 @@ public:
 	GameEngineLogic();
 
 	void Draw(sf::RenderWindow& mainWindow);
-	void Update(float dtAsSeconds, sf::View* mainView);
+	void Update(float dtAsSeconds, sf::RenderWindow& mainWindow, sf::View* mainView);
 	void Input(sf::RenderWindow& mainWindow);
 };

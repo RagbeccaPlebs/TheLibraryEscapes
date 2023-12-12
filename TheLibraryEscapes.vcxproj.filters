@@ -153,6 +153,9 @@
     <ClCompile Include="GamePauseMenuInput.cpp">
       <Filter>Source Files\Game\PauseMenu</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerTexture.cpp">
+      <Filter>Source Files\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -179,9 +182,6 @@
     <ClInclude Include="PlayerMovement.h">
       <Filter>Header Files\Player</Filter>
     </ClInclude>
-    <ClInclude Include="FontHolder.h">
-      <Filter>Header Files\Misc</Filter>
-    </ClInclude>
     <ClInclude Include="TiledMapLoader.h">
       <Filter>Header Files\Map</Filter>
     </ClInclude>
@@ -190,6 +190,9 @@
     </ClInclude>
     <ClInclude Include="GamePauseMenu.h">
       <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerTexture.h">
+      <Filter>Header Files\Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

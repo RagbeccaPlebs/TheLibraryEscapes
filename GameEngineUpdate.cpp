@@ -10,7 +10,7 @@ void GameEngine::Update(float dtAsSeconds, View* mainView, View* hudView, Render
 		m_GamePausedMenu.Update(dtAsSeconds, mainWindow);
 	} else
 	{
-		m_GameEngineLogic.Update(dtAsSeconds, mainView);
+		m_GameEngineLogic.Update(dtAsSeconds, mainWindow, mainView);
 	}
 }
 

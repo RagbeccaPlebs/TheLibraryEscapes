@@ -11,7 +11,7 @@ private:
 	std::map<std::string, sf::Texture> m_Textures;
 
 	//A pointer of the same type as the class itself
-	static TextureHolder* m_s_Instance;
+	static TextureHolder* m_SingleInstance;
 
 public:
 	TextureHolder();

@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <array>
 #include "PlayerMovement.h"
+#include "PlayerTexture.h"
 
 class Player {
 private:
@@ -27,12 +28,24 @@ private:
 	PlayerMovement::SingleSprite m_CurrentSprite;
 	float m_SecondsSinceLastAnimationUpdate = 0;
 
+	//Player looks
+	PlayerTexture m_PlayerTexture;
+	void SetInitialTextures();
+
+	sf::Texture m_TextureBase;
+	sf::Texture m_TextureLowerLayer;
+	sf::Texture m_TextureCloak;
+	sf::Texture m_TextureFaceItem;
+	sf::Texture m_TextureHair;
+	sf::Texture m_TextureHat;
+
 	//The Sprites of the player (Of the layers)
 	sf::Sprite m_SpriteBase;
 	sf::Sprite m_SpriteLowerLayer;
 	sf::Sprite m_SpriteCloak;
 	sf::Sprite m_SpriteFaceItem;
 	sf::Sprite m_SpriteHair;
+	sf::Sprite m_SpriteHat;
 
 	sf::Sprite SetSpriteTextureLocation(sf::Sprite& sprite);
 
@@ -42,12 +55,13 @@ private:
 	sf::Sprite GetSpriteCloak();
 	sf::Sprite GetSpriteFaceItem();
 	sf::Sprite GetSpriteHair();
+	sf::Sprite GetSpriteHat();
 
 	// Which directions is the character currently moving in
-	bool m_LeftPressed;
-	bool m_RightPressed;
-	bool m_UpPressed;
-	bool m_DownPressed;
+	bool b_LeftPressed = false;
+	bool b_RightPressed = false;
+	bool b_UpPressed = false;
+	bool b_DownPressed = false;
 
 	//Where is the player
 	sf::Vector2f m_Position;
@@ -91,7 +105,7 @@ public:
 	void StopUp(float position);
 
 	// Send a copy of the sprite to main
-	std::array<sf::Sprite, 5> GetSprites();
+	std::array<sf::Sprite, 6> GetSprites();
 
 	void SetTextureLocation(sf::Vector2i location);
 
@@ -100,4 +114,6 @@ public:
 
 	// We will call this function once every frame
 	void Update(float elapsedTime);
+
+	void UpdatePlayerTexture();
 };

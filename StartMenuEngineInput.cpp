@@ -5,8 +5,10 @@ using namespace sf;
 void StartMenuEngine::Input(sf::RenderWindow& mainWindow, bool& isPlayingState)
 {
 	Event event;
-	while (mainWindow.pollEvent(event)) {
-		if (event.type == Event::KeyPressed) {
+	while (mainWindow.pollEvent(event))
+	{
+		if (event.type == Event::KeyPressed)
+		{
 			if (event.type == Event::KeyPressed)
 			{
 				// Handle the player quitting
@@ -17,7 +19,6 @@ void StartMenuEngine::Input(sf::RenderWindow& mainWindow, bool& isPlayingState)
 			}
 		}
 	}
-
 	if (m_StartButton.IsPressed())
 	{
 		isPlayingState = true;

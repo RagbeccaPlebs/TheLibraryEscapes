@@ -19,7 +19,7 @@ Button::Button(Vector2f position, Vector2f dimension, string fontPath, string te
 	m_Text.setFillColor(sf::Color::White);
 	m_Text.setCharacterSize(40);
 	const float positionX = ((position.x + (dimension.x / 2.0f)) - (m_Text.getGlobalBounds().width / 2.0f));
-	const float positionY = ((position.y + (dimension.y / 2.0f))  - (m_Text.getGlobalBounds().height));
+	const float positionY = ((position.y + (dimension.y / 2.0f)) - (m_Text.getGlobalBounds().height));
 	m_Text.setPosition(positionX, positionY);
 
 	//Colors
@@ -41,9 +41,7 @@ bool Button::IsPressed()
 	return false;
 }
 
-
-void Button::Update(const Vector2f mousePosition)
-{
+void Button::Update(const Vector2f mousePosition) {
 	//Hover
 	if (m_Shape.getGlobalBounds().contains(mousePosition))
 	{
@@ -52,6 +50,7 @@ void Button::Update(const Vector2f mousePosition)
 		//Pressed
 		if (Mouse::isButtonPressed(Mouse::Left))
 		{
+			Mouse::setPosition(Vector2i(VideoMode::getDesktopMode().width / 2, VideoMode::getDesktopMode().height / 2));
 			m_ButtonState = BTN_PRESSED;
 		}
 	}

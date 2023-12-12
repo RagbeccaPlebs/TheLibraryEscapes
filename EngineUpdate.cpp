@@ -4,8 +4,10 @@ using namespace sf;
 
 void Engine::Update(const float dtAsSeconds)
 {
-	if (b_Playing) {
+	if (b_Playing)
+	{
 		m_GameEngine.Update(dtAsSeconds, &m_GameView, &m_HudView, m_Window);
+
 	}
 	else
 	{

@@ -4,25 +4,25 @@ using namespace sf;
 
 void Player::Update(const float elapsedTime)
 {
-	if (m_RightPressed) {
+	if (b_RightPressed) {
 		m_Position.x += m_Speed * elapsedTime;
 	}
 
-	if (m_LeftPressed) {
+	if (b_LeftPressed) {
 		m_Position.x -= m_Speed * elapsedTime;
 	}
 
-	if (m_UpPressed) {
+	if (b_UpPressed) {
 		m_Position.y -= m_Speed * elapsedTime;
 	}
 
-	if (m_DownPressed) {
+	if (b_DownPressed) {
 		m_Position.y += m_Speed * elapsedTime;
 	}
 
 	SetPositionAllSprites();
 
-	if (m_DownPressed || m_UpPressed || m_LeftPressed || m_RightPressed) {
+	if (b_DownPressed || b_UpPressed || b_LeftPressed || b_RightPressed) {
 		m_SecondsSinceLastAnimationUpdate += elapsedTime;
 		PlayerAnimationUpdate(true);
 	}
