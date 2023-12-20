@@ -29,33 +29,25 @@ private:
 	float m_SecondsSinceLastAnimationUpdate = 0;
 
 	//Player looks
-	PlayerTexture m_PlayerTexture;
 	void SetInitialTextures();
+	void SetSpriteTextureLocationAllSprites();
 
-	sf::Texture m_TextureBase;
-	sf::Texture m_TextureLowerLayer;
-	sf::Texture m_TextureCloak;
-	sf::Texture m_TextureFaceItem;
-	sf::Texture m_TextureHair;
-	sf::Texture m_TextureHat;
+	std::string m_TextureBaseLocation;
+	std::string m_TextureLowerLayerLocation;
+	std::string m_TextureCloakLocation;
+	std::string m_TextureFaceItemLocation;
+	std::string m_TextureHairLocation;
+	std::string m_TextureHatLocation;
 
 	//The Sprites of the player (Of the layers)
-	sf::Sprite m_SpriteBase;
-	sf::Sprite m_SpriteLowerLayer;
-	sf::Sprite m_SpriteCloak;
-	sf::Sprite m_SpriteFaceItem;
-	sf::Sprite m_SpriteHair;
-	sf::Sprite m_SpriteHat;
+	sf::Sprite m_SpriteBase = sf::Sprite();
+	sf::Sprite m_SpriteLowerLayer = sf::Sprite();
+	sf::Sprite m_SpriteCloak = sf::Sprite();
+	sf::Sprite m_SpriteFaceItem = sf::Sprite();
+	sf::Sprite m_SpriteHair = sf::Sprite();
+	sf::Sprite m_SpriteHat = sf::Sprite();
 
-	sf::Sprite SetSpriteTextureLocation(sf::Sprite& sprite);
-
-	//Send a part of the sprite
-	sf::Sprite GetSpriteBase();
-	sf::Sprite GetSpriteLowerLayer();
-	sf::Sprite GetSpriteCloak();
-	sf::Sprite GetSpriteFaceItem();
-	sf::Sprite GetSpriteHair();
-	sf::Sprite GetSpriteHat();
+	void SetSpriteTextureLocation(sf::Sprite& sprite) const;
 
 	// Which directions is the character currently moving in
 	bool b_LeftPressed = false;
@@ -105,7 +97,9 @@ public:
 	void StopUp(float position);
 
 	// Send a copy of the sprite to main
-	std::array<sf::Sprite, 6> GetSprites();
+	std::vector<sf::Sprite*> GetSprites();
+	sf::Sprite GetBaseSprite();
+	std::string GetStringBase();
 
 	void SetTextureLocation(sf::Vector2i location);
 
@@ -116,4 +110,7 @@ public:
 	void Update(float elapsedTime);
 
 	void UpdatePlayerTexture();
+
+	//Public Player Looks
+	PlayerTexture playerTexture;
 };

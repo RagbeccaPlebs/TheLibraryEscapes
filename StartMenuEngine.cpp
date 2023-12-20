@@ -5,6 +5,8 @@ using namespace std;
 
 StartMenuEngine::StartMenuEngine()
 {
+	m_StartMenuView.setSize(static_cast<float>(VideoMode::getDesktopMode().width), static_cast<float>(VideoMode::getDesktopMode().height));
+
 	const Color hoverColor(100, 100, 100);
 	const Color idleColor(70, 70, 70);
 	const Color activeColor(20, 20, 100);

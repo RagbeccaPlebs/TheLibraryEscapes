@@ -27,10 +27,10 @@ void Player::SetInitialTextures()
 
 		std::ofstream newFile(FILE_LOCATION);
 		newFile << jsonFile;
-		m_TextureBase = TextureHolder::GetTexture("assets/graphics/player/base/char_a_p1_0bas_humn_v00.png");
-		m_TextureLowerLayer = TextureHolder::GetTexture("assets/graphics/player/lower/char_a_p1_1out_pfpn_v01.png");
-		m_TextureCloak = TextureHolder::GetTexture("assets/graphics/player/cloak/char_a_p1_2clo_lnpl_v07.png");
-		m_TextureHat = TextureHolder::GetTexture("assets/graphics/player/hat/char_a_p1_5hat_pnty_v03.png");
+		m_TextureBaseLocation = "assets/graphics/player/base/char_a_p1_0bas_humn_v00.png";
+		m_TextureLowerLayerLocation = "assets/graphics/player/lower/char_a_p1_1out_pfpn_v01.png";
+		m_TextureCloakLocation = "assets/graphics/player/cloak/char_a_p1_2clo_lnpl_v07.png";
+		m_TextureHatLocation = "assets/graphics/player/hat/char_a_p1_5hat_pnty_v03.png";
 		return;
 	}
 
@@ -46,32 +46,32 @@ void Player::SetInitialTextures()
 
 	if (!playerBaseTextureLocation.empty())
 	{
-		m_TextureBase = TextureHolder::GetTexture("assets/graphics/player/base/" + playerBaseTextureLocation);
+		m_TextureBaseLocation = "assets/graphics/player/base/" + playerBaseTextureLocation;
 	}
 
 	if (!playerLowerTextureLocation.empty())
 	{
-		m_TextureLowerLayer = TextureHolder::GetTexture("assets/graphics/player/lower/" + playerLowerTextureLocation);
+		m_TextureLowerLayerLocation = "assets/graphics/player/lower/" + playerLowerTextureLocation;
 	}
 
 	if (!playerCloakTextureLocation.empty())
 	{
-		m_TextureCloak = TextureHolder::GetTexture("assets/graphics/player/cloak/" + playerCloakTextureLocation);
+		m_TextureCloakLocation = "assets/graphics/player/cloak/" + playerCloakTextureLocation;
 	}
 
 	if (!playerFaceTextureLocation.empty())
 	{
-		m_TextureFaceItem = TextureHolder::GetTexture("assets/graphics/player/face/" + playerFaceTextureLocation);
+		m_TextureFaceItemLocation = "assets/graphics/player/face/" + playerFaceTextureLocation;
 	}
 
 	if (!playerHairTextureLocation.empty())
 	{
-		m_TextureHair = TextureHolder::GetTexture("assets/graphics/player/hair/" + playerHairTextureLocation);
+		m_TextureHairLocation = "assets/graphics/player/hair/" + playerHairTextureLocation;
 	}
 
 	if (!playerHatTextureLocation.empty())
 	{
-		m_TextureHat = TextureHolder::GetTexture("assets/graphics/player/hat/" + playerHatTextureLocation);
+		m_TextureHatLocation = "assets/graphics/player/hat/" + playerHatTextureLocation;
 	}
 }
 
@@ -191,3 +191,9 @@ std::pair<std::string, sf::Texture> PlayerTexture::GetHatTexture(const std::stri
 {
 	return pair<string, Texture>(fileName, m_HatTextures.at(fileName));
 }
+
+void Player::UpdatePlayerTexture()
+{
+	
+}
+

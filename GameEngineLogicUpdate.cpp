@@ -2,8 +2,13 @@
 
 using namespace sf;
 
-void GameEngineLogic::Update(float dtAsSeconds, RenderWindow& mainWindow, View* mainView)
+void GameEngineLogic::Update(float dtAsSeconds, RenderWindow& mainWindow)
 {
+	if (b_PlayerCustomizationSelectorEnabled)
+	{
+		m_PlayerCustomization.Update(dtAsSeconds, mainWindow);
+		return;
+	}
 	mainWindow.setMouseCursorVisible(false);
 
 	m_Player.Update(dtAsSeconds);
@@ -11,6 +16,6 @@ void GameEngineLogic::Update(float dtAsSeconds, RenderWindow& mainWindow, View* 
 	//Detect collisions
 	DetectCollisions(m_Player);
 
-	mainView->setCenter(m_Player.GetCenter());
+	m_GameView.setCenter(m_Player.GetCenter());
 }
 

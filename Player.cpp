@@ -7,35 +7,37 @@ using namespace std;
 Player::Player() {
 	SetInitialTextures();
 
-	if (m_TextureBase.getSize().x > 0)
+	if (!m_TextureBaseLocation.empty())
 	{
-		m_SpriteBase = Sprite(m_TextureBase);
+		m_SpriteBase = Sprite(TextureHolder::GetTexture(m_TextureBaseLocation));
 	}
 
-	if (m_TextureLowerLayer.getSize().x > 0)
+	if (!m_TextureLowerLayerLocation.empty())
 	{
-		m_SpriteLowerLayer = Sprite(m_TextureLowerLayer);
+		m_SpriteLowerLayer = Sprite(TextureHolder::GetTexture(m_TextureLowerLayerLocation));
 	}
 
-	if (m_TextureCloak.getSize().x > 0)
+	if (!m_TextureCloakLocation.empty())
 	{
-		m_SpriteCloak = Sprite(m_TextureCloak);
+		m_SpriteCloak = Sprite(TextureHolder::GetTexture(m_TextureCloakLocation));
 	}
 
-	if (m_TextureFaceItem.getSize().x > 0)
+	if (!m_TextureFaceItemLocation.empty())
 	{
-		m_SpriteFaceItem = Sprite(m_TextureFaceItem);
+		m_SpriteFaceItem = Sprite(TextureHolder::GetTexture(m_TextureFaceItemLocation));
 	}
 
-	if (m_TextureHair.getSize().x > 0)
+	if (!m_TextureHairLocation.empty())
 	{
-		m_SpriteHair = Sprite(m_TextureHair);
+		m_SpriteHair = Sprite(TextureHolder::GetTexture(m_TextureHairLocation));
 	}
 
-	if (m_TextureHat.getSize().x > 0)
+	if (!m_TextureHatLocation.empty())
 	{
-		m_SpriteHat = Sprite(m_TextureHat);
+		m_SpriteHat = Sprite(TextureHolder::GetTexture(m_TextureHatLocation));
 	}
+
+	SetTextureLocation(m_PlayerMovement.GetIdleSouth().spriteLocation.at(0));
 
 	m_CurrentSpriteSheet = m_PlayerMovement.GetIdleSouth();
 }

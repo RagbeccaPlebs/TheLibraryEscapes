@@ -142,6 +142,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="GameEngineDetectCollisions.cpp" />
     <ClCompile Include="EngineDraw.cpp" />
     <ClCompile Include="Engine.cpp" />
@@ -160,6 +161,10 @@
     <ClCompile Include="GamePauseMenuUpdate.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerCustomization.cpp" />
+    <ClCompile Include="PlayerCustomizationDraw.cpp" />
+    <ClCompile Include="PlayerCustomizationInput.cpp" />
+    <ClCompile Include="PlayerCustomizationUpdate.cpp" />
     <ClCompile Include="PlayerMovement.cpp" />
     <ClCompile Include="PlayerSprite.cpp" />
     <ClCompile Include="PlayerTexture.cpp" />
@@ -181,6 +186,7 @@
     <ClInclude Include="GamePauseMenu.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerCustomization.h" />
     <ClInclude Include="PlayerMovement.h" />
     <ClInclude Include="PlayerTexture.h" />
     <ClInclude Include="StartMenuEngine.h" />

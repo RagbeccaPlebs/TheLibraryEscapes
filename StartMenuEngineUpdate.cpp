@@ -9,6 +9,8 @@ void StartMenuEngine::Update(float dtAsSeconds, RenderWindow& mainWindow)
 	UpdateMousePositions(mainWindow);
 	m_ExitButton.Update(m_MousePosView);
 	m_StartButton.Update(m_MousePosView);
+
+	m_StartMenuView.setCenter(mainWindow.getSize().x / 2.f, mainWindow.getSize().y / 2.f);
 }
 
 void StartMenuEngine::UpdateMousePositions(RenderWindow& mainWindow)

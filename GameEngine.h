@@ -13,7 +13,12 @@ private:
 	GameEngineLogic m_GameEngineLogic;
 	GamePauseMenu m_GamePausedMenu;
 public:
-	void Draw(sf::RenderWindow& mainWindow, sf::View& hudView);
-	void Update(float dtAsSeconds, sf::View* mainView, sf::View* hudView, sf::RenderWindow& mainWindow);
+	GameEngine(const sf::RenderWindow& mainWindow);
+	GameEngine& operator=(const GameEngine& gameEngine);
+	~GameEngine() = default;
+	GameEngine(GameEngine& gameEngine);
+
+	void Draw(sf::RenderWindow& mainWindow);
+	void Update(float dtAsSeconds, sf::RenderWindow& mainWindow);
 	void Input(sf::RenderWindow& mainWindow, bool& isPlaying);
 };

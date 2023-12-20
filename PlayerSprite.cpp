@@ -1,6 +1,8 @@
 #include "Player.h"
 #include <array>
 
+#include "TextureHolder.h"
+
 using namespace sf;
 using namespace std;
 
@@ -13,31 +15,50 @@ void Player::SetPositionAllSprites() {
 	m_SpriteHat.setPosition(m_Position);
 }
 
-array<Sprite, 6> Player::GetSprites()
+string Player::GetStringBase()
 {
-	array<Sprite, 6> a;
-	a[0] = GetSpriteBase();
-	a[1] = GetSpriteLowerLayer();
-	a[2] = GetSpriteCloak();
-	a[3] = GetSpriteFaceItem();
-	a[4] = GetSpriteHair();
-	a[5] = GetSpriteHat();
-	return a;
+	string t = m_TextureBaseLocation;
+	int i = 0;
+	return m_TextureBaseLocation;
 }
 
-Sprite Player::SetSpriteTextureLocation(Sprite& sprite) {
+Sprite Player::GetBaseSprite()
+{
+	return m_SpriteBase;
+}
+
+vector<Sprite*> Player::GetSprites()
+{
+	SetSpriteTextureLocationAllSprites();
+	vector<Sprite*> arr(6);
+
+	arr[0] = &m_SpriteBase;
+	arr[1] = &m_SpriteLowerLayer;
+	arr[2] = &m_SpriteCloak;
+	arr[3] = &m_SpriteFaceItem;
+	arr[4] = &m_SpriteHair;
+	arr[5] = &m_SpriteHat;
+
+	return arr;
+}
+
+void Player::SetSpriteTextureLocationAllSprites() {
+	SetSpriteTextureLocation(m_SpriteBase);
+	SetSpriteTextureLocation(m_SpriteLowerLayer);
+	SetSpriteTextureLocation(m_SpriteCloak);
+	SetSpriteTextureLocation(m_SpriteFaceItem);
+	SetSpriteTextureLocation(m_SpriteHair);
+	SetSpriteTextureLocation(m_SpriteHat);
+}
+
+void Player::SetSpriteTextureLocation(Sprite& sprite) const {
 	if (sprite.getTexture() != nullptr) {
 		sprite.setTextureRect(IntRect(m_TextureLocationX, m_TextureLocationY, 32, 40));
-		return sprite;
-	}
-	else {
-		return Sprite();
 	}
 }
 
 void Player::SetTextureLocation(const Vector2i location)
 {
-
 	m_TextureLocationX = location.x == 0 ? 16 : (GetSequenceWithFour(location.x) * 16 - 2);
 	m_TextureLocationY = location.y == 0 ? 8 : (GetSequenceWithEight(location.y) * 8 - 2);
 }
@@ -56,33 +77,4 @@ int Player::GetSequenceWithEight(const int index) {
 		sequenceNumber += 8;
 	}
 	return sequenceNumber;
-}
-
-Sprite Player::GetSpriteBase() {
-	return SetSpriteTextureLocation(m_SpriteBase);
-}
-
-Sprite Player::GetSpriteLowerLayer()
-{
-	return SetSpriteTextureLocation(m_SpriteLowerLayer);
-}
-
-Sprite Player::GetSpriteCloak()
-{
-	return SetSpriteTextureLocation(m_SpriteCloak);
-}
-
-Sprite Player::GetSpriteFaceItem()
-{
-	return SetSpriteTextureLocation(m_SpriteFaceItem);
-}
-
-Sprite Player::GetSpriteHair()
-{
-	return SetSpriteTextureLocation(m_SpriteHair);
-}
-
-sf::Sprite Player::GetSpriteHat()
-{
-	return SetSpriteTextureLocation(m_SpriteHat);
 }

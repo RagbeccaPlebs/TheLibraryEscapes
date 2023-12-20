@@ -10,11 +10,9 @@ void Engine::Draw()
 
 	if (b_Playing)
 	{
-		m_Window.setView(m_GameView);
-		m_GameEngine.Draw(m_Window, m_HudView);
+		m_GameEngine->Draw(m_Window);
 	} else
 	{
-		m_Window.setView(m_MainView);
 		m_StartMenuEngine.Draw(m_Window);
 	}
 

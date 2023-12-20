@@ -13,11 +13,17 @@ class GamePauseMenu {
 	Button m_ContinueButton;
 	Button m_BackToMenuButton;
 
+	//Game pause specific View
+	sf::View m_GamePauseView;
+
 	void UpdateMousePositions(const sf::RenderWindow& mainWindow);
 public:
-	GamePauseMenu();
+	GamePauseMenu() = default;
+	GamePauseMenu(const sf::RenderWindow& mainWindow);
+	GamePauseMenu& operator=(const GamePauseMenu& gamePauseMenu);
+	~GamePauseMenu() = default;
 
-	void Draw(sf::RenderWindow& mainWindow, const sf::View& hudView);
+	void Draw(sf::RenderWindow& mainWindow);
 	void Update(float dtAsSeconds, sf::RenderWindow& mainWindow);
 	void Input(bool& isPlayingState, bool& isPausedState);
 };

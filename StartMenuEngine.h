@@ -13,6 +13,9 @@ class StartMenuEngine {
 	Button m_StartButton;
 	Button m_ExitButton;
 
+	//Start menu specific Views
+	sf::View m_StartMenuView;
+
 	void UpdateMousePositions(sf::RenderWindow& mainWindow);
 public:
 	StartMenuEngine();

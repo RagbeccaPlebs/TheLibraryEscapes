@@ -61,6 +61,12 @@
     <Filter Include="Source Files\Game\PauseMenu">
       <UniqueIdentifier>{07886281-c881-4b97-8bd0-9e687472d114}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Player\PlayerCustomization">
+      <UniqueIdentifier>{6d9254a4-b454-4671-a396-b85abd6771b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Player\PlayerCustomization">
+      <UniqueIdentifier>{18ee57b9-ac9c-4b96-9733-9d9b565a325a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TheLibraryEscapes.cpp">
@@ -156,6 +162,21 @@
     <ClCompile Include="PlayerTexture.cpp">
       <Filter>Source Files\Player</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerCustomization.cpp">
+      <Filter>Source Files\Player\PlayerCustomization</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerCustomizationDraw.cpp">
+      <Filter>Source Files\Player\PlayerCustomization</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerCustomizationInput.cpp">
+      <Filter>Source Files\Player\PlayerCustomization</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerCustomizationUpdate.cpp">
+      <Filter>Source Files\Player\PlayerCustomization</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngine.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -193,6 +214,9 @@
     </ClInclude>
     <ClInclude Include="PlayerTexture.h">
       <Filter>Header Files\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerCustomization.h">
+      <Filter>Header Files\Player\PlayerCustomization</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

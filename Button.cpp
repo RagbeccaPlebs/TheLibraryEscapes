@@ -50,7 +50,7 @@ void Button::Update(const Vector2f mousePosition) {
 		//Pressed
 		if (Mouse::isButtonPressed(Mouse::Left))
 		{
-			Mouse::setPosition(Vector2i(VideoMode::getDesktopMode().width / 2, VideoMode::getDesktopMode().height / 2));
+			Mouse::setPosition(Vector2i(m_Shape.getPosition().x+m_Shape.getSize().x, m_Shape.getPosition().y + m_Shape.getSize().y));
 			m_ButtonState = BTN_PRESSED;
 		}
 	}

@@ -5,5 +5,5 @@ using namespace std;
 void GameEngineLogic::LoadMap(const string& mapName)
 {
 	m_Map = Map(mapName);
-	m_Player.Spawn(m_Map.GetPlayerSpawnLocation("south"));
+	m_PlayerSpawnLocation = m_Map.GetPlayerSpawnLocation("south");
 }

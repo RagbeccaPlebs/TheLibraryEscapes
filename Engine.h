@@ -11,12 +11,8 @@ private:
 
 	sf::RenderWindow m_Window;
 
-	sf::View m_GameView;
-	sf::View m_MainView;
-	sf::View m_HudView;
-
 	//Engines
-	GameEngine m_GameEngine;
+	GameEngine* m_GameEngine;
 	StartMenuEngine m_StartMenuEngine;
 
 	//Game state

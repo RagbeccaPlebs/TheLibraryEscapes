@@ -15,14 +15,14 @@ public:
 		int index;
 	};
 
-	SpriteSheet GetIdleSouth();
-	SpriteSheet GetIdleNorth();
-	SpriteSheet GetIdleEast();
-	SpriteSheet GetIdleWest();
-	SpriteSheet GetWalkSouth();
-	SpriteSheet GetWalkNorth();
-	SpriteSheet GetWalkEast();
-	SpriteSheet GetWalkWest();
+	SpriteSheet GetIdleSouth() const;
+	SpriteSheet GetIdleNorth() const;
+	SpriteSheet GetIdleEast() const;
+	SpriteSheet GetIdleWest() const;
+	SpriteSheet GetWalkSouth() const;
+	SpriteSheet GetWalkNorth() const;
+	SpriteSheet GetWalkEast() const;
+	SpriteSheet GetWalkWest() const;
 private:
 	//Positions in sprite-map
 	std::vector<sf::Vector2i> m_IdleSouth = { { sf::Vector2i(0,0) } };

@@ -2,11 +2,11 @@
 
 using namespace sf;
 
-void GameEngine::Draw(RenderWindow& mainWindow, View& hudView)
+void GameEngine::Draw(RenderWindow& mainWindow)
 {
 	m_GameEngineLogic.Draw(mainWindow);
 	if (b_Paused)
 	{
-		m_GamePausedMenu.Draw(mainWindow, hudView);
+		m_GamePausedMenu.Draw(mainWindow);
 	}
 }

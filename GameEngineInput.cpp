@@ -24,7 +24,7 @@ void GameEngine::Input(RenderWindow& mainWindow, bool& isPlaying)
 	}
 	else
 	{
-		m_GameEngineLogic.Input(mainWindow);
+		m_GameEngineLogic.Input(mainWindow, isPlaying);
 	}
 
 }
