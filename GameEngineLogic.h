@@ -4,8 +4,8 @@
 #include "Map.h"
 #include "PlayerCustomization.h"
 
-class GameEngineLogic {
-private:
+class GameEngineLogic
+{
 	//PlayerMovement
 	PlayerMovement m_PlayerMovement;
 

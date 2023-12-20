@@ -2,8 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include "TiledMapLoader.h"
 
-class Map {
-private:
+class Map
+{
 	TiledMapLoader m_TiledMapLoader;
 
 	int** m_ArrayCollisionLevel = nullptr;

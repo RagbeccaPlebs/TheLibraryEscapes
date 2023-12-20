@@ -4,8 +4,8 @@
 #include "PlayerMovement.h"
 #include "PlayerTexture.h"
 
-class Player {
-private:
+class Player
+{
 	enum LastPressed {
 		LEFT,
 		RIGHT,

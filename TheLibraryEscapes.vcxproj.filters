@@ -67,6 +67,9 @@
     <Filter Include="Source Files\Player\PlayerCustomization">
       <UniqueIdentifier>{18ee57b9-ac9c-4b96-9733-9d9b565a325a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Game\Interactable">
+      <UniqueIdentifier>{f38e5ea2-d92d-463a-9a21-8d3334671753}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TheLibraryEscapes.cpp">
@@ -217,6 +220,9 @@
     </ClInclude>
     <ClInclude Include="PlayerCustomization.h">
       <Filter>Header Files\Player\PlayerCustomization</Filter>
+    </ClInclude>
+    <ClInclude Include="Interactable.h">
+      <Filter>Header Files\Game\Interactable</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

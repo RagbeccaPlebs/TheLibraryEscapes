@@ -2,7 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include <array>
 
-class PlayerMovement {
+class PlayerMovement
+{
 public:
 	struct SpriteSheet {
 		std::vector<sf::Vector2i> spriteLocation;

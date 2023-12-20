@@ -3,8 +3,8 @@
 
 #include "Button.h"
 
-class GamePauseMenu {
-
+class GamePauseMenu
+{
 	// Mouse Positions
 	sf::Vector2i m_MousePosScreen;
 	sf::Vector2i m_MousePosWindow;

@@ -184,6 +184,7 @@
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="GameEngineLogic.h" />
     <ClInclude Include="GamePauseMenu.h" />
+    <ClInclude Include="Interactable.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerCustomization.h" />

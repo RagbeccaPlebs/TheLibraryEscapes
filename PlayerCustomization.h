@@ -4,8 +4,8 @@
 #include "Button.h"
 #include "Player.h"
 
-class PlayerCustomization {
-private:
+class PlayerCustomization
+{
 	enum Direction {
 		LEFT,
 		RIGHT,

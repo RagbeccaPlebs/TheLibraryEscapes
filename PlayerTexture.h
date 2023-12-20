@@ -4,7 +4,6 @@
 
 class PlayerTexture
 {
-private:
 	std::map<std::string, sf::Texture> m_BaseTextures;
 	std::map<std::string, sf::Texture> m_LowerTextures;
 	std::map<std::string, sf::Texture> m_CloakTextures;

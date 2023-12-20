@@ -4,8 +4,8 @@
 #include "GameEngineLogic.h"
 #include "GamePauseMenu.h"
 
-class GameEngine {
-private:
+class GameEngine
+{
 	//Game state
 	bool b_Paused = false;
 

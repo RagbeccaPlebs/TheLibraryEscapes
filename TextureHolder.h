@@ -6,8 +6,8 @@
 #include <SFML/Graphics.hpp>
 #include <map>
 
-class TextureHolder {
-private:
+class TextureHolder
+{
 	std::map<std::string, sf::Texture> m_Textures;
 
 	//A pointer of the same type as the class itself
