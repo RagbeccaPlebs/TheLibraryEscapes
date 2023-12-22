@@ -67,6 +67,9 @@ class Player
 	sf::FloatRect m_Right;
 	sf::FloatRect m_Left;
 
+	//Interactable locations
+	sf::FloatRect m_InteractableBox;
+
 	//Texture method
 	void PlayerAnimationUpdate(bool isMoving);
 
@@ -98,13 +101,13 @@ public:
 
 	// Send a copy of the sprite to main
 	std::vector<sf::Sprite*> GetSprites();
-	sf::Sprite GetBaseSprite();
-	std::string GetStringBase();
 
 	void SetTextureLocation(sf::Vector2i location);
 
 	// Where is the center of the character
 	sf::Vector2f GetCenter();
+
+	sf::FloatRect GetInteractableBox();
 
 	// We will call this function once every frame
 	void Update(float elapsedTime);

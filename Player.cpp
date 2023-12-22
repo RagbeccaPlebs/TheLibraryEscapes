@@ -126,3 +126,9 @@ Vector2f Player::GetCenter()
 	);
 	return centerLocation;
 }
+
+FloatRect Player::GetInteractableBox()
+{
+	return m_InteractableBox;
+}
+

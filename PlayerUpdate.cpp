@@ -58,8 +58,13 @@ void Player::Update(const float elapsedTime)
 	m_Left.top = static_cast<float>(r.top + (r.height * .25));
 	m_Left.width = 1;
 	m_Left.height = static_cast<float>(r.height - (r.height * 0.3));
-}
 
+	//Update the Interactable Box
+	m_InteractableBox.left = m_Left.left;
+	m_InteractableBox.top = m_Head.top;
+	m_InteractableBox.width = (m_Right.left - m_Left.left) + m_Right.width;
+	m_InteractableBox.height = (m_Feet.top - m_Head.top) + m_Feet.height;
+}
 //Player animation
 void Player::PlayerAnimationUpdate(const bool isMoving)
 {

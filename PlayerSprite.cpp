@@ -15,18 +15,6 @@ void Player::SetPositionAllSprites() {
 	m_SpriteHat.setPosition(m_Position);
 }
 
-string Player::GetStringBase()
-{
-	string t = m_TextureBaseLocation;
-	int i = 0;
-	return m_TextureBaseLocation;
-}
-
-Sprite Player::GetBaseSprite()
-{
-	return m_SpriteBase;
-}
-
 vector<Sprite*> Player::GetSprites()
 {
 	SetSpriteTextureLocationAllSprites();

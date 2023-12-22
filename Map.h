@@ -1,5 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+
+#include "Interactable.h"
 #include "TiledMapLoader.h"
 
 class Map
@@ -15,6 +17,8 @@ class Map
 
 	sf::Texture m_TextureTiles;
 	std::map<std::string, sf::Vector2f> m_PlayerSpawnLocations;
+
+	std::vector<Interactable*> m_Interactables;
 public:
 	Map() = default;
 	Map(const std::string& name);
@@ -28,5 +32,6 @@ public:
 	std::string GetMapName();
 	std::vector<TiledMapLoader::MapLayer> GetMapLayers();
 	sf::Texture& GetTextureTiles();
-	sf::Vector2f GetPlayerSpawnLocation(std::string direction);
+	sf::Vector2f GetPlayerSpawnLocation(std::string direction) const;
+	std::vector<Interactable*> GetInteractables();
 };

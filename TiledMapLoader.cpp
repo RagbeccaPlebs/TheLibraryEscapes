@@ -4,6 +4,8 @@
 #include <fstream>
 #include <map>
 
+#include "SimpleBookInteractable.h"
+
 using namespace sf;
 using namespace std;
 using json = nlohmann::json;
@@ -139,6 +141,8 @@ TiledMapLoader::MapValues TiledMapLoader::MapLoader(const std::string& name)
 	ranges::sort(mapLayers.begin(), mapLayers.end(), greater<>());
 	mapValues.mapLayers = mapLayers;
 	mapValues.texture = m_Texture;
+
+	mapValues.interactables.push_back(new SimpleBookInteractable(1));
 
 	return mapValues;
 }

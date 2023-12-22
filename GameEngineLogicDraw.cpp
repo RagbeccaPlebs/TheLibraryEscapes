@@ -13,13 +13,13 @@ void GameEngineLogic::Draw(RenderWindow& mainWindow)
 
 	mainWindow.setView(m_GameView);
 
-	const int amountOfMapLayers = static_cast<int>(m_Map.GetMapLayers().size());
+	const int amountOfMapLayers = static_cast<int>(m_Map->GetMapLayers().size());
 	for (int i = 0; i < amountOfMapLayers; i++) {
-		for (TiledMapLoader::MapLayer& mapLayer : m_Map.GetMapLayers())
+		for (TiledMapLoader::MapLayer& mapLayer : m_Map->GetMapLayers())
 		{
 			if (mapLayer.id == i + 1 && mapLayer.name != "Collision")
 			{
-				mainWindow.draw(mapLayer.rVa, &m_Map.GetTextureTiles());
+				mainWindow.draw(mapLayer.rVa, &m_Map->GetTextureTiles());
 			}
 		}
 	}

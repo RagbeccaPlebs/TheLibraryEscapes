@@ -16,7 +16,7 @@ class GameEngineLogic
 	PlayerCustomization m_PlayerCustomization;
 
 	//Map & Values
-	Map m_Map;
+	Map* m_Map;
 	sf::Vector2f m_PlayerSpawnLocation;
 
 	//Game play specific View

@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+#include "Interactable.h"
+
 class TiledMapLoader
 {
 public:
@@ -24,6 +26,7 @@ public:
 		std::string mapName;
 		std::vector<MapLayer> mapLayers;
 		sf::Texture texture;
+		std::vector<Interactable*> interactables;
 	};
 
 	static constexpr int STANDARD_TILE_SIZE = 16;

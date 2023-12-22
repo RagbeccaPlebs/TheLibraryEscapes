@@ -25,11 +25,11 @@ void GameEngineLogic::DetectCollisions(Player& player) {
 	if (startY < 0) {
 		startY = 0;
 	}
-	if (endX >= m_Map.GetMapSize().x) {
-		endX = m_Map.GetMapSize().x;
+	if (endX >= m_Map->GetMapSize().x) {
+		endX = m_Map->GetMapSize().x;
 	}
-	if (endY >= m_Map.GetMapSize().y) {
-		endY = m_Map.GetMapSize().y;
+	if (endY >= m_Map->GetMapSize().y) {
+		endY = m_Map->GetMapSize().y;
 	}
 
 	for (int x = startX; x < endX; x++)
@@ -38,7 +38,7 @@ void GameEngineLogic::DetectCollisions(Player& player) {
 		{
 
 			// Is character colliding with a regular block
-			if (m_Map.GetArrayCollisionLevel()[y][x] >= 1)
+			if (m_Map->GetArrayCollisionLevel()[y][x] >= 1)
 			{
 				// Initialize the starting position of the current block
 				block.left = static_cast<float>(x * TILE_SIZE);
