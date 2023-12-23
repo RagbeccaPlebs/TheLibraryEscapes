@@ -126,7 +126,7 @@
     <ClCompile Include="TextureHolder.cpp">
       <Filter>Source Files\Misc</Filter>
     </ClCompile>
-    <ClCompile Include="GameEngineMapLoader.cpp">
+    <ClCompile Include="GameEngineMapLogic.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>
     <ClCompile Include="Button.cpp">

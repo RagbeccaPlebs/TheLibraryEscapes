@@ -1,0 +1,16 @@
+{
+    "simplebook": [
+        {
+            "id": 1,
+            "texture": "assets/graphics/books/red-book.png",
+            "x": 800,
+            "y": 920
+        },
+        {
+            "id": 2,
+            "texture": "assets/graphics/books/green-book.png",
+            "x": 816,
+            "y": 920
+        }
+    ]
+}

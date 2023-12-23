@@ -3,9 +3,15 @@
 #include "Player.h"
 #include "Map.h"
 #include "PlayerCustomization.h"
+#include "SimpleBookInteractable.h"
 
 class GameEngineLogic
 {
+	struct GameMapObjects
+	{
+		std::vector<SimpleBookInteractable*> simpleBookInteractables;
+	};
+
 	//PlayerMovement
 	PlayerMovement m_PlayerMovement;
 
@@ -28,6 +34,15 @@ class GameEngineLogic
 	void LoadMap(const std::string& mapName);
 
 	void DetectCollisions(Player& player);
+
+	//Interactable
+	void AddInteractableToCorrectVector(std::vector<Interactable*> interactables);
+
+	GameMapObjects m_GameMapObjects;
+
+	void UpdateInteractable(float dtAsSeconds);
+	void InputInteractable();
+	void DrawInteractable(sf::RenderWindow& mainWindow);
 
 	const int MAX_RANGE_COLLISIONS_DETECTION = 5;
 public:

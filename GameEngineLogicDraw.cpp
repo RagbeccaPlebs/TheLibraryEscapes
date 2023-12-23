@@ -14,7 +14,8 @@ void GameEngineLogic::Draw(RenderWindow& mainWindow)
 	mainWindow.setView(m_GameView);
 
 	const int amountOfMapLayers = static_cast<int>(m_Map->GetMapLayers().size());
-	for (int i = 0; i < amountOfMapLayers; i++) {
+	for (int i = 0; i < amountOfMapLayers; i++)
+	{
 		for (TiledMapLoader::MapLayer& mapLayer : m_Map->GetMapLayers())
 		{
 			if (mapLayer.id == i + 1 && mapLayer.name != "Collision")
@@ -24,11 +25,26 @@ void GameEngineLogic::Draw(RenderWindow& mainWindow)
 		}
 	}
 
-	for (const Sprite* sprite : m_Player.GetSprites()) {
+	DrawInteractable(mainWindow);
+
+	for (const Sprite* sprite : m_Player.GetSprites())
+	{
 		if (sprite->getTexture() != nullptr) {
 			mainWindow.draw(*sprite);
 		}
 	}
-
 }
+
+void GameEngineLogic::DrawInteractable(RenderWindow& mainWindow)
+{
+	for (SimpleBookInteractable* simpleBookInteractable : m_GameMapObjects.simpleBookInteractables)
+	{
+		if (simpleBookInteractable->GetActive())
+		{
+			simpleBookInteractable->Draw(mainWindow);
+		}
+
+	}
+}
+
 

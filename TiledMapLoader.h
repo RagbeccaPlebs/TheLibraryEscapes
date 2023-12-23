@@ -8,6 +8,10 @@
 class TiledMapLoader
 {
 public:
+	//Keywords and locations
+	static const inline std::string SIMPLE_BOOK_KEYWORD = "simplebook";
+	static const inline std::string FOUND_BOOKS_FILE = "assets/map/details/foundBooks.json";
+
 	struct MapLayer
 	{
 		sf::VertexArray rVa;
@@ -34,8 +38,13 @@ public:
 	//Functions
 	//Get Map
 	MapValues MapLoader(const std::string& name);
+
+	std::vector<Interactable*> LoadAllInteractables(const std::string& nameOfFile);
+	bool CheckIfSimpleBookIsFound(int id) const;
+
 private:
 	const std::string FILE_PATH = "assets/map/";
+	const std::string FILE_PATH_DETAILS = "assets/map/details/";
 
 	sf::VertexArray GetVertexArrayFromData(std::vector<int>& data, sf::Vector2i mapSize, int TILE_SIZE);
 

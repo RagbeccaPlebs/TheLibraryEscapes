@@ -28,7 +28,7 @@ VertexArray TiledMapLoader::GetVertexArrayFromData(vector<int>& data, Vector2i m
 		{
 			// Position each vertex in the current quad
 			rVa[static_cast<size_t>(currentVertex)].position =
-				Vector2f(static_cast<float>(y * TILE_SIZE), 
+				Vector2f(static_cast<float>(y * TILE_SIZE),
 					static_cast<float>(x * TILE_SIZE));
 
 			rVa[(currentVertex + 1)].position =
@@ -39,8 +39,8 @@ VertexArray TiledMapLoader::GetVertexArrayFromData(vector<int>& data, Vector2i m
 				Vector2f(static_cast<float>((y * TILE_SIZE) + TILE_SIZE),
 					static_cast<float>((x * TILE_SIZE) + TILE_SIZE));
 
-			rVa[(currentVertex) + 3].position =
-				Vector2f(static_cast<float>((y * TILE_SIZE)), 
+			rVa[(currentVertex)+3].position =
+				Vector2f(static_cast<float>((y * TILE_SIZE)),
 					static_cast<float>((x * TILE_SIZE) + TILE_SIZE));
 
 			const int dataIndex = (mapSize.x * x) + y;
@@ -142,7 +142,52 @@ TiledMapLoader::MapValues TiledMapLoader::MapLoader(const std::string& name)
 	mapValues.mapLayers = mapLayers;
 	mapValues.texture = m_Texture;
 
-	mapValues.interactables.push_back(new SimpleBookInteractable(1));
+	mapValues.interactables = LoadAllInteractables(name);
 
 	return mapValues;
+}
+
+vector<Interactable*> TiledMapLoader::LoadAllInteractables(const string& nameOfFile)
+{
+	vector<Interactable*> interactables;
+
+	string itemToLoad = FILE_PATH_DETAILS;
+	itemToLoad += nameOfFile + ".json";
+	ifstream file(itemToLoad);
+	json data = json::parse(file);
+	file.close();
+
+	for (auto dataValue : data.at(SIMPLE_BOOK_KEYWORD))
+	{
+		const int id = dataValue.at("id");
+		if (!CheckIfSimpleBookIsFound(id))
+		{
+			string textureLocation = dataValue.at("texture");
+			const float x = dataValue.at("x");
+			const float y = dataValue.at("y");
+			interactables.push_back(new SimpleBookInteractable(id, textureLocation, Vector2f(x, y)));
+		}
+
+	}
+
+	return interactables;
+}
+
+bool TiledMapLoader::CheckIfSimpleBookIsFound(const int id) const
+{
+	const string itemToLoad = FOUND_BOOKS_FILE;
+	ifstream file(itemToLoad);
+	json data = json::parse(file);
+	file.close();
+
+	bool isSame = false;
+
+	for (auto& idContainer : data.at(SIMPLE_BOOK_KEYWORD))
+	{
+		if (idContainer.at("id") == id)
+		{
+			isSame = true;
+		}
+	}
+	return isSame;
 }

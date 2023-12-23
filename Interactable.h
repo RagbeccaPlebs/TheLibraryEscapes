@@ -25,7 +25,7 @@ public:
 	void Draw(sf::RenderWindow& mainWindow);
 	virtual std::pair<InteractableType, int> Interact() = 0;
 	virtual bool CanInteract(Player& player) = 0;
-	virtual ~Interactable() {};
+	virtual ~Interactable() {}
 
 	sf::Sprite GetSprite();
 	sf::FloatRect GetCollisionBox();

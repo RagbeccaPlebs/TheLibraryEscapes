@@ -11,5 +11,20 @@ void GameEngineLogic::Input(RenderWindow& mainWindow, bool& isPlaying)
 	}
 
 	m_Player.HandleInput();
+	InputInteractable();
 }
 
+
+void GameEngineLogic::InputInteractable()
+{
+	if (Keyboard::isKeyPressed(Keyboard::E))
+	{
+		for (SimpleBookInteractable* simpleBookInteractable : m_GameMapObjects.simpleBookInteractables)
+		{
+			if (simpleBookInteractable->CanInteract(m_Player))
+			{
+				simpleBookInteractable->Interact();
+			}
+		}
+	}
+}

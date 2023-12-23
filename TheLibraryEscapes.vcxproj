@@ -154,7 +154,7 @@
     <ClCompile Include="GameEngineLogicDraw.cpp" />
     <ClCompile Include="GameEngineLogicInput.cpp" />
     <ClCompile Include="GameEngineLogicUpdate.cpp" />
-    <ClCompile Include="GameEngineMapLoader.cpp" />
+    <ClCompile Include="GameEngineMapLogic.cpp" />
     <ClCompile Include="GameEngineUpdate.cpp" />
     <ClCompile Include="GamePauseMenu.cpp" />
     <ClCompile Include="GamePauseMenuDraw.cpp" />

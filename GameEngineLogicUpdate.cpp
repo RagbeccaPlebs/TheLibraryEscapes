@@ -17,5 +17,15 @@ void GameEngineLogic::Update(float dtAsSeconds, RenderWindow& mainWindow)
 	DetectCollisions(m_Player);
 
 	m_GameView.setCenter(m_Player.GetCenter());
+
+	UpdateInteractable(dtAsSeconds);
+}
+
+void GameEngineLogic::UpdateInteractable(float dtAsSeconds)
+{
+	for (SimpleBookInteractable* simpleBookInteractable : m_GameMapObjects.simpleBookInteractables)
+	{
+		simpleBookInteractable->Update(dtAsSeconds);
+	}
 }
 
