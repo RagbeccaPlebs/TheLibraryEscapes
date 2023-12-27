@@ -163,9 +163,11 @@ vector<Interactable*> TiledMapLoader::LoadAllInteractables(const string& nameOfF
 		if (!CheckIfSimpleBookIsFound(id))
 		{
 			string textureLocation = dataValue.at("texture");
+			string emotionString = dataValue.at("emotion");
+			EmotionType emotion = BookInteractable::GetEmotionFromString(emotionString);
 			const float x = dataValue.at("x");
 			const float y = dataValue.at("y");
-			interactables.push_back(new SimpleBookInteractable(id, textureLocation, Vector2f(x, y)));
+			interactables.push_back(new SimpleBookInteractable(id, textureLocation, Vector2f(x, y), emotion));
 		}
 
 	}

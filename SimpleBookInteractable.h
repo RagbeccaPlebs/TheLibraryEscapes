@@ -6,7 +6,7 @@
 class SimpleBookInteractable : public BookInteractable
 {
 public:
-	SimpleBookInteractable(int id, const std::string& textureFileLocation, sf::Vector2f position);
+	SimpleBookInteractable(int id, const std::string& textureFileLocation, sf::Vector2f position, EmotionType emotion);
 
 	void Update(float dtAsSeconds);
 };

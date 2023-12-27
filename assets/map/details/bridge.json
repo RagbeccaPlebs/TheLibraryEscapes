@@ -2,15 +2,17 @@
     "simplebook": [
         {
             "id": 1,
-            "texture": "assets/graphics/books/red-book.png",
+            "texture": "assets/graphics/books/shy-book-1.png",
             "x": 800,
-            "y": 920
+            "y": 920,
+            "emotion": "SHY"
         },
         {
             "id": 2,
-            "texture": "assets/graphics/books/green-book.png",
+            "texture": "assets/graphics/books/shy-book-2.png",
             "x": 816,
-            "y": 920
+            "y": 920,
+            "emotion": "SHY"
         }
     ]
 }

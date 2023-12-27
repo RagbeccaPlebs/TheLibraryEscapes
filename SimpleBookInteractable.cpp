@@ -5,11 +5,12 @@
 using namespace std;
 using namespace sf;
 
-SimpleBookInteractable::SimpleBookInteractable(const int id, const string& textureFileLocation, Vector2f position)
+SimpleBookInteractable::SimpleBookInteractable(const int id, const string& textureFileLocation, Vector2f position, EmotionType emotion)
 {
 	m_Id = id;
 	m_InteractableType = BOOK;
 	m_BookInteractableType = SIMPLE;
+	m_Emotion = emotion;
 	const Texture& texture = TextureHolder::GetTexture(textureFileLocation);
 	m_Texture = texture;
 	m_Sprite = Sprite(texture);
