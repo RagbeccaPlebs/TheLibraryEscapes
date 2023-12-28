@@ -26,5 +26,19 @@ void GameEngineLogic::InputInteractable()
 				simpleBookInteractable->Interact();
 			}
 		}
+		for (DoorInteractable* doorInteractable : m_GameMapObjects.doorInteractables)
+		{
+			if (doorInteractable->CanInteract(m_Player))
+			{
+				if (doorInteractable->GetOpen())
+				{
+					doorInteractable->Interact();
+				} else
+				{
+					doorInteractable->PlaySound();
+				}
+				
+			}
+		}
 	}
 }

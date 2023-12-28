@@ -27,5 +27,9 @@ void GameEngineLogic::UpdateInteractable(float dtAsSeconds)
 	{
 		simpleBookInteractable->Update(dtAsSeconds);
 	}
+	for (DoorInteractable* doorInteractable : m_GameMapObjects.doorInteractables)
+	{
+		doorInteractable->Update(dtAsSeconds);
+	}
 }
 

@@ -1,6 +1,7 @@
 ﻿#include "SimpleBookInteractable.h"
 
 #include "TextureHolder.h"
+#include "TiledMapLoader.h"
 
 using namespace std;
 using namespace sf;
@@ -18,12 +19,13 @@ SimpleBookInteractable::SimpleBookInteractable(const int id, const string& textu
 	m_Sprite.setPosition(m_Position);
 	const float textureWidth = static_cast<float>(texture.getSize().x);
 	const float textureHeight = static_cast<float>(texture.getSize().y);
-	m_CollisionBox = FloatRect(position.x - (textureWidth / 4.f), position.y - (textureHeight / 4.f), textureWidth * 1.5f, textureHeight * 1.5f);
+	m_CollisionBox = FloatRect(position.x - (TiledMapLoader::STANDARD_TILE_SIZE / 4.0f), position.y - (TiledMapLoader::STANDARD_TILE_SIZE / 4.0f),
+		textureWidth + (TiledMapLoader::STANDARD_TILE_SIZE/2.f), textureHeight + (TiledMapLoader::STANDARD_TILE_SIZE / 2.f));
 }
 
 void SimpleBookInteractable::Update(float dtAsSeconds)
 {
-	//Simple so no update
+	//No update atm needed
 }
 
 

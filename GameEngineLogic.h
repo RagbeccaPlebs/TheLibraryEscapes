@@ -1,5 +1,7 @@
 ﻿#pragma once
 #include <SFML/Graphics.hpp>
+
+#include "DoorInteractable.h"
 #include "Player.h"
 #include "Map.h"
 #include "PlayerCustomization.h"
@@ -10,6 +12,7 @@ class GameEngineLogic
 	struct GameMapObjects
 	{
 		std::vector<SimpleBookInteractable*> simpleBookInteractables;
+		std::vector<DoorInteractable*> doorInteractables;
 	};
 
 	//PlayerMovement
@@ -36,7 +39,7 @@ class GameEngineLogic
 	void DetectCollisions(Player& player);
 
 	//Interactable
-	void AddInteractableToCorrectVector(std::vector<Interactable*> interactables);
+	void AddInteractableToCorrectVector(const std::vector<Interactable*>& interactables);
 
 	GameMapObjects m_GameMapObjects;
 

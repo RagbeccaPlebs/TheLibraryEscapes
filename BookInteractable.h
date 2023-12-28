@@ -22,16 +22,16 @@ class BookInteractable : public Interactable
 protected:
 	BookInteractableType m_BookInteractableType;
 	EmotionType m_Emotion;
-	bool m_Active;
+	bool b_Active;
 public:
 	virtual void Update(float dtAsSeconds) = 0;
 	std::pair<InteractableType, int> Interact() override;
 	bool CanInteract(Player& player) override;
-	virtual ~BookInteractable() {}
 
 	BookInteractableType GetBookInteractableType();
 	EmotionType GetEmotion();
 	bool GetActive();
 
 	static EmotionType GetEmotionFromString(const std::string& emotion);
+	static std::string GetStringFromEmotion(const EmotionType emotion);
 };

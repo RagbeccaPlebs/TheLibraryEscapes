@@ -1,4 +1,4 @@
-{
+ {
     "simplebook": [
         {
             "id": 1,
@@ -13,6 +13,20 @@
             "x": 816,
             "y": 920,
             "emotion": "SHY"
+        }
+    ],
+    "door": [
+        {
+            "id": 1,
+            "map": "castle-begin",
+            "mapX": 0,
+            "mapY": 0,
+            "x": 800,
+            "y": 800,
+            "texture": "assets/graphics/doors/castle-door-open.png",
+            "inactive-texture": "assets/graphics/doors/castle-door-closed.png",
+            "sound": "assets/sound/doors/door-open.wav",
+            "inactive-sound": "assets/sound/doors/door-locked.wav"
         }
     ]
 }

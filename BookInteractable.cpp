@@ -10,7 +10,7 @@ using json = nlohmann::json;
 
 pair<InteractableType, int> BookInteractable::Interact()
 {
-	m_Active = false;
+	b_Active = false;
 
 	const string itemToLoad = TiledMapLoader::FOUND_BOOKS_FILE;
 
@@ -22,6 +22,7 @@ pair<InteractableType, int> BookInteractable::Interact()
 	{
 		json jsonData;
 		jsonData["id"] = m_Id;
+		jsonData["emotion"] = GetStringFromEmotion(m_Emotion);
 		data.at(TiledMapLoader::SIMPLE_BOOK_KEYWORD).push_back(jsonData);
 	}
 
@@ -35,7 +36,7 @@ pair<InteractableType, int> BookInteractable::Interact()
 
 bool BookInteractable::CanInteract(Player& player)
 {
-	if (!m_Active) return false;
+	if (!b_Active) return false;
 	return m_CollisionBox.intersects(player.GetInteractableBox());
 }
 
@@ -51,16 +52,27 @@ EmotionType BookInteractable::GetEmotion()
 
 bool BookInteractable::GetActive()
 {
-	return m_Active;
+	return b_Active;
 }
 
-EmotionType BookInteractable::GetEmotionFromString(const std::string& emotion)
+EmotionType BookInteractable::GetEmotionFromString(const string& emotion)
 {
-	std::unordered_map<std::string, EmotionType> const table =
+	unordered_map<string, EmotionType> const table =
 	{ {"SHY", SHY}, {"SAD", SAD}, {"MAD", MAD}, {"SURPRISED", SURPRISED}, {"SECRECY", SECRECY} };
-	auto it = table.find(emotion);
+	const auto it = table.find(emotion);
 	if (it != table.end()) {
 		return it->second;
 	}
 	return SHY;
+}
+
+string BookInteractable::GetStringFromEmotion(const EmotionType emotion)
+{
+	std::unordered_map<EmotionType, string> const table = 
+	{ {SHY, "SHY"}, {SAD, "SAD"},{MAD, "MAD"}, {SURPRISED, "SURPRISED"}, {SECRECY, "SECRECY"} };
+	const auto it = table.find(emotion);
+	if (it != table.end()) {
+		return it->second;
+	}
+	return "SHY";
 }

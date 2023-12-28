@@ -13,7 +13,7 @@ void GameEngineLogic::LoadMap(const string& mapName)
 	AddInteractableToCorrectVector(m_Map->GetInteractables());
 }
 
-void GameEngineLogic::AddInteractableToCorrectVector(vector<Interactable*> interactables)
+void GameEngineLogic::AddInteractableToCorrectVector(const vector<Interactable*>& interactables)
 {
 	for (Interactable* interactable : interactables)
 	{
@@ -27,9 +27,15 @@ void GameEngineLogic::AddInteractableToCorrectVector(vector<Interactable*> inter
 		}
 		else if (interactable->GetInteractableType() == DOOR)
 		{
+			DoorInteractableTemplate* doorInteractableTemplate = dynamic_cast<DoorInteractableTemplate*>(interactable);
+			if (doorInteractableTemplate->GetDoorInteractableType() == SIMPLE_DOOR)
+			{
+				m_GameMapObjects.doorInteractables.push_back(dynamic_cast<DoorInteractable*>(doorInteractableTemplate));
+			}
 		}
 		else if (interactable->GetInteractableType() == NPC)
 		{
+
 		}
 	}
 }

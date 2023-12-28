@@ -37,6 +37,10 @@ void GameEngineLogic::Draw(RenderWindow& mainWindow)
 
 void GameEngineLogic::DrawInteractable(RenderWindow& mainWindow)
 {
+	for (DoorInteractable* doorInteractable : m_GameMapObjects.doorInteractables)
+	{
+		doorInteractable->Draw(mainWindow);
+	}
 	for (SimpleBookInteractable* simpleBookInteractable : m_GameMapObjects.simpleBookInteractables)
 	{
 		if (simpleBookInteractable->GetActive())

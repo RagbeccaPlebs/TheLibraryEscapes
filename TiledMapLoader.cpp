@@ -4,6 +4,7 @@
 #include <fstream>
 #include <map>
 
+#include "DoorInteractable.h"
 #include "SimpleBookInteractable.h"
 
 using namespace sf;
@@ -172,6 +173,20 @@ vector<Interactable*> TiledMapLoader::LoadAllInteractables(const string& nameOfF
 
 	}
 
+	for (auto dataValue : data.at(DOOR_KEYWORD))
+	{
+		const int id = dataValue.at("id");
+		bool isActive = CheckIfDoorIsActive(id);
+		string textureLocation = isActive ? dataValue.at("texture") : dataValue.at("inactive-texture");
+		string soundLocation = isActive ? dataValue.at("sound") : dataValue.at("inactive-sound");
+		const float x = dataValue.at("x");
+		const float y = dataValue.at("y");
+		string mapToMoveTo = dataValue.at("map");
+		const float mapX = dataValue.at("mapX");
+		const float mapY = dataValue.at("mapY");
+		interactables.push_back(new DoorInteractable(id, Vector2f(x, y), mapToMoveTo, Vector2f(mapX, mapY), textureLocation, isActive, soundLocation));
+	}
+
 	return interactables;
 }
 
@@ -185,6 +200,25 @@ bool TiledMapLoader::CheckIfSimpleBookIsFound(const int id) const
 	bool isSame = false;
 
 	for (auto& idContainer : data.at(SIMPLE_BOOK_KEYWORD))
+	{
+		if (idContainer.at("id") == id)
+		{
+			isSame = true;
+		}
+	}
+	return isSame;
+}
+
+bool TiledMapLoader::CheckIfDoorIsActive(const int id) const
+{
+	const string itemToLoad = ACTIVE_DOORS_FILE;
+	ifstream file(itemToLoad);
+	json data = json::parse(file);
+	file.close();
+
+	bool isSame = false;
+
+	for (auto& idContainer : data.at(DOOR_KEYWORD))
 	{
 		if (idContainer.at("id") == id)
 		{

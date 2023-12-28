@@ -10,7 +10,9 @@ class TiledMapLoader
 public:
 	//Keywords and locations
 	static const inline std::string SIMPLE_BOOK_KEYWORD = "simplebook";
+	static const inline std::string DOOR_KEYWORD = "door";
 	static const inline std::string FOUND_BOOKS_FILE = "assets/map/details/foundBooks.json";
+	static const inline std::string ACTIVE_DOORS_FILE = "assets/map/details/doors.json";
 
 	struct MapLayer
 	{
@@ -41,7 +43,7 @@ public:
 
 	std::vector<Interactable*> LoadAllInteractables(const std::string& nameOfFile);
 	bool CheckIfSimpleBookIsFound(int id) const;
-
+	bool CheckIfDoorIsActive(int id) const;
 private:
 	const std::string FILE_PATH = "assets/map/";
 	const std::string FILE_PATH_DETAILS = "assets/map/details/";

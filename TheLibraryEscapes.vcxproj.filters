@@ -79,6 +79,12 @@
     <Filter Include="Source Files\Game\Interactable\Book">
       <UniqueIdentifier>{3e1d59fb-461c-4a9a-afc5-fc9c1a0df114}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Game\Interactable\Door">
+      <UniqueIdentifier>{21fee644-d070-4b65-a831-56996e00b5fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\Interactable\Door">
+      <UniqueIdentifier>{ca7e578b-1273-480b-aedb-623759188216}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TheLibraryEscapes.cpp">
@@ -198,6 +204,12 @@
     <ClCompile Include="SimpleBookInteractable.cpp">
       <Filter>Source Files\Game\Interactable\Book</Filter>
     </ClCompile>
+    <ClCompile Include="DoorInteractableTemplate.cpp">
+      <Filter>Source Files\Game\Interactable\Door</Filter>
+    </ClCompile>
+    <ClCompile Include="DoorInteractable.cpp">
+      <Filter>Source Files\Game\Interactable\Door</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -247,6 +259,15 @@
     </ClInclude>
     <ClInclude Include="SimpleBookInteractable.h">
       <Filter>Header Files\Game\Interactable\Book</Filter>
+    </ClInclude>
+    <ClInclude Include="DoorInteractable.h">
+      <Filter>Header Files\Game\Interactable\Door</Filter>
+    </ClInclude>
+    <ClInclude Include="TrapdoorInteractable.h">
+      <Filter>Header Files\Game\Interactable\Door</Filter>
+    </ClInclude>
+    <ClInclude Include="DoorInteractableTemplate.h">
+      <Filter>Header Files\Game\Interactable\Door</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
