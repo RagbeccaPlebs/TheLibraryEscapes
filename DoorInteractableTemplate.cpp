@@ -1,5 +1,7 @@
 #include "DoorInteractableTemplate.h"
 
+using namespace  sf;
+
 std::pair<InteractableType, int> DoorInteractableTemplate::Interact()
 {
     PlaySound();
@@ -15,6 +17,11 @@ bool DoorInteractableTemplate::CanInteract(Player& player)
 void DoorInteractableTemplate::PlaySound()
 {
     m_Sound.play();
+}
+
+DoorInteractableTemplate::~DoorInteractableTemplate()
+{
+    m_Sound.resetBuffer();
 }
 
 bool DoorInteractableTemplate::GetOpen()

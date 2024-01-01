@@ -27,6 +27,8 @@ public:
 	bool CanInteract(Player& player) override;
 	void PlaySound();
 
+	~DoorInteractableTemplate();
+
 	bool GetOpen();
 	DoorInteractableType GetDoorInteractableType();
 };

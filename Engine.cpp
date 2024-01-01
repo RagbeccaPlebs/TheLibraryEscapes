@@ -10,6 +10,12 @@ Engine::Engine()
 	m_GameEngine = new GameEngine(m_Window);
 }
 
+void Engine::ClearEverything()
+{
+	m_GameEngine->ClearEverything();
+}
+
+
 void Engine::Run() {
 	//Timing
 	Clock clock;
@@ -23,5 +29,7 @@ void Engine::Run() {
 		Update(dtAsSeconds);
 		Draw();
 	}
+
+	ClearEverything();
 }
 

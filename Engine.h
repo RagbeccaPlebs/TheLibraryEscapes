@@ -21,6 +21,7 @@ private:
 	void Input();
 	void Update(const float dtAsSeconds);
 	void Draw();
+	void ClearEverything();
 public:
 	Engine();
 

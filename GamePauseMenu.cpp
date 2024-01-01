@@ -36,3 +36,9 @@ GamePauseMenu& GamePauseMenu::operator=(const GamePauseMenu& gamePauseMenu)
 	this->m_GamePauseView = gamePauseMenu.m_GamePauseView;
 	return *this;
 }
+
+void GamePauseMenu::ClearSounds()
+{
+	//NO SOUNDS YET
+}
+

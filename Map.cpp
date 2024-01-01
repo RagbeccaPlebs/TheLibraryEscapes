@@ -26,7 +26,6 @@ Map::Map(Map& m) {
 Map::~Map()
 {
     this->m_ArrayCollisionLevel = nullptr;
-    printf("INSIDE HERE\n");
     for (auto pointer : m_Interactables)
     {
         delete pointer;

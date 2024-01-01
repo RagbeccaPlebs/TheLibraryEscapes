@@ -19,3 +19,9 @@ GameEngine::GameEngine(GameEngine& gameEngine) : m_GameEngineLogic(gameEngine.m_
 {
 	m_GamePausedMenu = gameEngine.m_GamePausedMenu;
 }
+
+void GameEngine::ClearEverything()
+{
+	m_GameEngineLogic.ClearSounds();
+	m_GamePausedMenu.ClearSounds();
+}

@@ -26,4 +26,5 @@ public:
 	void Draw(sf::RenderWindow& mainWindow);
 	void Update(float dtAsSeconds, sf::RenderWindow& mainWindow);
 	void Input(bool& isPlayingState, bool& isPausedState);
+	void ClearSounds();
 };

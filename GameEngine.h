@@ -21,4 +21,5 @@ public:
 	void Draw(sf::RenderWindow& mainWindow);
 	void Update(float dtAsSeconds, sf::RenderWindow& mainWindow);
 	void Input(sf::RenderWindow& mainWindow, bool& isPlaying);
+	void ClearEverything();
 };

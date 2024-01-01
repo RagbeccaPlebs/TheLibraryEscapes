@@ -13,4 +13,3 @@ void GamePauseMenu::Input(bool& isPlayingState, bool& isPausedState)
 	}
 }
 
-

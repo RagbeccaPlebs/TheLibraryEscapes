@@ -34,4 +34,13 @@ GameEngineLogic::GameEngineLogic(GameEngineLogic& gameEngineLogic) : m_PlayerCus
 	m_PlayerSpawnLocation = gameEngineLogic.m_PlayerSpawnLocation;
 }
 
+void GameEngineLogic::ClearSounds()
+{
+	for (DoorInteractable* doorInteractable : m_GameMapObjects.doorInteractables)
+	{
+		delete doorInteractable;
+	}
+}
+
+
 
