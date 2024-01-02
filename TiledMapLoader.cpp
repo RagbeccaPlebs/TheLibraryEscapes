@@ -135,10 +135,6 @@ TiledMapLoader::MapValues TiledMapLoader::MapLoader(const std::string& name)
 
 	mapValues.collisionsMap = collisionsMap;
 	mapValues.mapName = name;
-	// TODO Fix starting pos
-	map<string, Vector2f> playerSpawnLocations;
-	playerSpawnLocations.insert({ "south", Vector2f(784.f, 920.f) });
-	mapValues.playerSpawnLocations = playerSpawnLocations;
 	ranges::sort(mapLayers.begin(), mapLayers.end(), greater<>());
 	mapValues.mapLayers = mapLayers;
 	mapValues.texture = m_Texture;
@@ -158,33 +154,37 @@ vector<Interactable*> TiledMapLoader::LoadAllInteractables(const string& nameOfF
 	json data = json::parse(file);
 	file.close();
 
-	for (auto dataValue : data.at(SIMPLE_BOOK_KEYWORD))
-	{
-		const int id = dataValue.at("id");
-		if (!CheckIfSimpleBookIsFound(id))
+	if (data.contains(SIMPLE_BOOK_KEYWORD)) {
+
+		for (auto dataValue : data.at(SIMPLE_BOOK_KEYWORD))
 		{
-			string textureLocation = dataValue.at("texture");
-			string emotionString = dataValue.at("emotion");
-			EmotionType emotion = BookInteractable::GetEmotionFromString(emotionString);
+			const int id = dataValue.at("id");
+			if (!CheckIfSimpleBookIsFound(id))
+			{
+				string textureLocation = dataValue.at("texture");
+				string emotionString = dataValue.at("emotion");
+				EmotionType emotion = BookInteractable::GetEmotionFromString(emotionString);
+				const float x = dataValue.at("x");
+				const float y = dataValue.at("y");
+				interactables.push_back(new SimpleBookInteractable(id, textureLocation, Vector2f(x, y), emotion));
+			}
+
+		}
+	}
+	if (data.contains(DOOR_KEYWORD)) {
+		for (auto dataValue : data.at(DOOR_KEYWORD))
+		{
+			const int id = dataValue.at("id");
+			bool isActive = CheckIfDoorIsActive(id);
+			string textureLocation = isActive ? dataValue.at("texture") : dataValue.at("inactive-texture");
+			string soundLocation = isActive ? dataValue.at("sound") : dataValue.at("inactive-sound");
 			const float x = dataValue.at("x");
 			const float y = dataValue.at("y");
-			interactables.push_back(new SimpleBookInteractable(id, textureLocation, Vector2f(x, y), emotion));
+			string mapToMoveTo = dataValue.at("map");
+			const float mapX = dataValue.at("mapX");
+			const float mapY = dataValue.at("mapY");
+			interactables.push_back(new DoorInteractable(id, Vector2f(x, y), mapToMoveTo, Vector2f(mapX, mapY), textureLocation, isActive, soundLocation));
 		}
-
-	}
-
-	for (auto dataValue : data.at(DOOR_KEYWORD))
-	{
-		const int id = dataValue.at("id");
-		bool isActive = CheckIfDoorIsActive(id);
-		string textureLocation = isActive ? dataValue.at("texture") : dataValue.at("inactive-texture");
-		string soundLocation = isActive ? dataValue.at("sound") : dataValue.at("inactive-sound");
-		const float x = dataValue.at("x");
-		const float y = dataValue.at("y");
-		string mapToMoveTo = dataValue.at("map");
-		const float mapX = dataValue.at("mapX");
-		const float mapY = dataValue.at("mapY");
-		interactables.push_back(new DoorInteractable(id, Vector2f(x, y), mapToMoveTo, Vector2f(mapX, mapY), textureLocation, isActive, soundLocation));
 	}
 
 	return interactables;

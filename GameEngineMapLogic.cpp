@@ -3,14 +3,25 @@
 #include "SimpleBookInteractable.h"
 
 using namespace std;
+using namespace sf;
 
-void GameEngineLogic::LoadMap(const string& mapName)
+void GameEngineLogic::LoadMap(const string& mapName, Vector2f spawnLocation)
 {
 	m_Map = new Map(mapName);
 
-	m_PlayerSpawnLocation = m_Map->GetPlayerSpawnLocation("south");
+	m_PlayerSpawnLocation = spawnLocation;
 
 	AddInteractableToCorrectVector(m_Map->GetInteractables());
+}
+
+void GameEngineLogic::ClearInteractables()
+{
+	for (DoorInteractable* doorInteractable : m_GameMapObjects.doorInteractables)
+	{
+		delete doorInteractable;
+	}
+	m_GameMapObjects.doorInteractables.clear();
+	m_GameMapObjects.simpleBookInteractables.clear();
 }
 
 void GameEngineLogic::AddInteractableToCorrectVector(const vector<Interactable*>& interactables)

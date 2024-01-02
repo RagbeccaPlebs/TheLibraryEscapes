@@ -3,10 +3,12 @@
 #include "Engine.h"
 
 using namespace sf;
+using namespace std;
 
 GameEngineLogic::GameEngineLogic(const RenderWindow& mainWindow) : m_PlayerCustomization(PlayerCustomization(&m_Player, &m_PlayerMovement, mainWindow))
 {
-	LoadMap("bridge");
+	//TODO SAVING GAME
+	LoadMap("bridge", Vector2f(784.f, 920.f));
 	m_GameView.setSize(Vector2f(static_cast<float>(mainWindow.getSize().x), static_cast<float>(mainWindow.getSize().y)));
 	m_GameView.zoom(.4f);
 }
@@ -41,6 +43,12 @@ void GameEngineLogic::ClearSounds()
 		delete doorInteractable;
 	}
 }
+
+void GameEngineLogic::UpdateMap(const string& mapName, const Vector2f spawnLocation)
+{
+	LoadMap(mapName, spawnLocation);
+}
+
 
 
 

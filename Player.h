@@ -114,6 +114,8 @@ public:
 
 	void UpdatePlayerTexture();
 
+	void SetLocation(const sf::Vector2f* position);
+
 	//Public Player Looks
 	PlayerTexture playerTexture;
 };

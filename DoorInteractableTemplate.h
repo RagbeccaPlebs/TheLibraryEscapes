@@ -23,7 +23,7 @@ protected:
 	sf::Sound m_Sound;
 public:
 	virtual void Update(float dtAsSeconds) = 0;
-	std::pair<InteractableType, int> Interact() override;
+	std::pair<std::string, sf::Vector2f> Interact() override;
 	bool CanInteract(Player& player) override;
 	void PlaySound();
 

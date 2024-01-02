@@ -19,8 +19,8 @@
         {
             "id": 1,
             "map": "castle-begin",
-            "mapX": 0,
-            "mapY": 0,
+            "mapX": 784,
+            "mapY": 920,
             "x": 800,
             "y": 800,
             "texture": "assets/graphics/doors/castle-door-open.png",

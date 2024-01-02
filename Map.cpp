@@ -12,7 +12,6 @@ Map::Map(const string& name)
     m_MapSize = mapValues.mapSize;
     m_MapLayers = mapValues.mapLayers;
     m_MapName = mapValues.mapName;
-    m_PlayerSpawnLocations = mapValues.playerSpawnLocations;
     m_TextureTiles = mapValues.texture;
     m_TextureTiles.setSmooth(false);
     m_Interactables = mapValues.interactables;
@@ -41,7 +40,6 @@ Map& Map::operator=(const Map& other)
         this->m_MapName = other.m_MapName;
         this->m_TextureTiles = other.m_TextureTiles;
         this->m_MapSize = other.m_MapSize;
-        this->m_PlayerSpawnLocations = other.m_PlayerSpawnLocations;
         this->m_Interactables = other.m_Interactables;
     }
     return *this;
@@ -71,12 +69,6 @@ vector<TiledMapLoader::MapLayer> Map::GetMapLayers()
 Texture& Map::GetTextureTiles()
 {
     return m_TextureTiles;
-}
-
-Vector2f Map::GetPlayerSpawnLocation(string direction) const
-{
-    //TODO Make sure direction is used
-    return m_PlayerSpawnLocations.at("south");
 }
 
 std::vector<Interactable*> Map::GetInteractables()

@@ -1,35 +1,35 @@
 #include "DoorInteractableTemplate.h"
 
-using namespace  sf;
+using namespace sf;
+using namespace std;
 
-std::pair<InteractableType, int> DoorInteractableTemplate::Interact()
+pair<string, Vector2f> DoorInteractableTemplate::Interact()
 {
-    PlaySound();
-    //FIX ME
-    return std::pair<InteractableType, int>();
+	PlaySound();
+	return pair<string, Vector2f>(m_MapToMoveToName, m_MapToMoveToPosition);
 }
 
 bool DoorInteractableTemplate::CanInteract(Player& player)
 {
-    return m_CollisionBox.intersects(player.GetInteractableBox());
+	return m_CollisionBox.intersects(player.GetInteractableBox());
 }
 
 void DoorInteractableTemplate::PlaySound()
 {
-    m_Sound.play();
+	m_Sound.play();
 }
 
 DoorInteractableTemplate::~DoorInteractableTemplate()
 {
-    m_Sound.resetBuffer();
+	m_Sound.resetBuffer();
 }
 
 bool DoorInteractableTemplate::GetOpen()
 {
-    return b_IsOpen;
+	return b_IsOpen;
 }
 
 DoorInteractableType DoorInteractableTemplate::GetDoorInteractableType()
 {
-    return m_DoorInteractableType;
+	return m_DoorInteractableType;
 }

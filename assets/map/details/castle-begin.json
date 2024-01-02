@@ -1,0 +1,16 @@
+{
+    "door": [
+        {
+            "id": 2,
+            "map": "bridge",
+            "mapX": 784,
+            "mapY": 920,
+            "x": 800,
+            "y": 800,
+            "texture": "assets/graphics/doors/castle-door-open.png",
+            "inactive-texture": "assets/graphics/doors/castle-door-closed.png",
+            "sound": "assets/sound/doors/door-open.wav",
+            "inactive-sound": "assets/sound/doors/door-locked.wav"
+        }
+    ]
+}

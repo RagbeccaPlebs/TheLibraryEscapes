@@ -1,6 +1,7 @@
 ﻿#include "GameEngineLogic.h"
 
 using namespace sf;
+using namespace std;
 
 void GameEngineLogic::Input(RenderWindow& mainWindow, bool& isPlaying)
 {
@@ -32,7 +33,10 @@ void GameEngineLogic::InputInteractable()
 			{
 				if (doorInteractable->GetOpen())
 				{
-					doorInteractable->Interact();
+					pair<string, Vector2f> mapValue = doorInteractable->Interact();
+					ClearInteractables();
+					LoadMap(mapValue.first, mapValue.second);
+					m_Player.Spawn(m_PlayerSpawnLocation);
 				} else
 				{
 					doorInteractable->PlaySound();

@@ -167,3 +167,10 @@ void Player::StopUp(const float position)
 	m_Position.y = position;
 	SetPositionAllSprites();
 }
+
+void Player::SetLocation(const Vector2f* position)
+{
+	m_Position.x = position->x;
+	m_Position.y = position->y;
+	SetPositionAllSprites();
+}

@@ -16,7 +16,6 @@ class Map
 	sf::Vector2i m_MapSize;
 
 	sf::Texture m_TextureTiles;
-	std::map<std::string, sf::Vector2f> m_PlayerSpawnLocations;
 
 	std::vector<Interactable*> m_Interactables;
 public:
@@ -32,6 +31,5 @@ public:
 	std::string GetMapName();
 	std::vector<TiledMapLoader::MapLayer> GetMapLayers();
 	sf::Texture& GetTextureTiles();
-	sf::Vector2f GetPlayerSpawnLocation(std::string direction) const;
 	std::vector<Interactable*> GetInteractables();
 };

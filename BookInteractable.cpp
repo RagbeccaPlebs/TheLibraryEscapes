@@ -8,7 +8,7 @@ using namespace std;
 using namespace sf;
 using json = nlohmann::json;
 
-pair<InteractableType, int> BookInteractable::Interact()
+pair<string, Vector2f> BookInteractable::Interact()
 {
 	b_Active = false;
 
@@ -29,9 +29,7 @@ pair<InteractableType, int> BookInteractable::Interact()
 	ofstream fileOut(itemToLoad);
 	fileOut << data;
 	fileOut.flush();
-
-	pair<InteractableType, int> pair(BOOK, m_Id);
-	return pair;
+	return pair<string, Vector2f>(nullptr, Vector2f(0,0));
 }
 
 bool BookInteractable::CanInteract(Player& player)

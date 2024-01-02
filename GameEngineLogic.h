@@ -34,7 +34,7 @@ class GameEngineLogic
 	//Game state
 	bool b_PlayerCustomizationSelectorEnabled = true;
 
-	void LoadMap(const std::string& mapName);
+	void LoadMap(const std::string& mapName, sf::Vector2f spawnLocation);
 
 	void DetectCollisions(Player& player);
 
@@ -46,6 +46,7 @@ class GameEngineLogic
 	void UpdateInteractable(float dtAsSeconds);
 	void InputInteractable();
 	void DrawInteractable(sf::RenderWindow& mainWindow);
+	void ClearInteractables();
 
 	const int MAX_RANGE_COLLISIONS_DETECTION = 5;
 public:
@@ -57,5 +58,7 @@ public:
 	void Draw(sf::RenderWindow& mainWindow);
 	void Update(float dtAsSeconds, sf::RenderWindow& mainWindow);
 	void Input(sf::RenderWindow& mainWind, bool& isPlaying);
+
+	void UpdateMap(const std::string& mapName, sf::Vector2f spawnLocation);
 	void ClearSounds();
 };
