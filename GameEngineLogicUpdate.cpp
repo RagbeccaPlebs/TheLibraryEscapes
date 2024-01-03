@@ -19,6 +19,8 @@ void GameEngineLogic::Update(float dtAsSeconds, RenderWindow& mainWindow)
 	m_GameView.setCenter(m_Player.GetCenter());
 
 	UpdateInteractable(dtAsSeconds);
+
+	PressEToInteractCheck();
 }
 
 void GameEngineLogic::UpdateInteractable(float dtAsSeconds)
@@ -31,5 +33,29 @@ void GameEngineLogic::UpdateInteractable(float dtAsSeconds)
 	{
 		doorInteractable->Update(dtAsSeconds);
 	}
+}
+
+void GameEngineLogic::PressEToInteractCheck()
+{
+	bool isOverlayApplicable = false;
+	for (SimpleBookInteractable* simpleBookInteractable : m_GameMapObjects.simpleBookInteractables)
+	{
+		if (simpleBookInteractable->CanInteract(m_Player))
+		{
+			isOverlayApplicable = true;
+		}
+	}
+	for (DoorInteractable* doorInteractable : m_GameMapObjects.doorInteractables)
+	{
+		if (doorInteractable->CanInteract(m_Player))
+		{
+			if (doorInteractable->GetOpen())
+			{
+				isOverlayApplicable = true;
+			}
+		}
+	}
+
+	b_EOverlayActive = isOverlayApplicable;
 }
 

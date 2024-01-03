@@ -14,7 +14,6 @@ class GameEngineLogic
 		std::vector<SimpleBookInteractable*> simpleBookInteractables;
 		std::vector<DoorInteractable*> doorInteractables;
 	};
-
 	//PlayerMovement
 	PlayerMovement m_PlayerMovement;
 
@@ -30,6 +29,8 @@ class GameEngineLogic
 
 	//Game play specific View
 	sf::View m_GameView;
+	sf::View m_OverlayView;
+	float m_Zoom;
 
 	//Game state
 	bool b_PlayerCustomizationSelectorEnabled = true;
@@ -47,6 +48,11 @@ class GameEngineLogic
 	void InputInteractable();
 	void DrawInteractable(sf::RenderWindow& mainWindow);
 	void ClearInteractables();
+
+	//E interaction
+	bool b_EOverlayActive = false;
+	void PressEToInteractCheck();
+	void PressEToInteractOverlay(sf::RenderWindow& mainWindow);
 
 	const int MAX_RANGE_COLLISIONS_DETECTION = 5;
 public:

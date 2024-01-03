@@ -6,6 +6,10 @@ using namespace std;
 pair<string, Vector2f> DoorInteractableTemplate::Interact()
 {
 	PlaySound();
+	while(m_Sound.getStatus() == SoundSource::Playing)
+	{
+		sleep(microseconds(1));
+	}
 	return pair<string, Vector2f>(m_MapToMoveToName, m_MapToMoveToPosition);
 }
 

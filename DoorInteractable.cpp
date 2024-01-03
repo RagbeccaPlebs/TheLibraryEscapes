@@ -23,8 +23,8 @@ DoorInteractable::DoorInteractable(int id, Vector2f position, const string& mapT
 	m_Sound.setBuffer(m_SoundBuffer);
 	const float textureWidth = static_cast<float>(texture.getSize().x);
 	const float textureHeight = static_cast<float>(texture.getSize().y);
-	m_CollisionBox = FloatRect(position.x - TiledMapLoader::STANDARD_TILE_SIZE, position.y - TiledMapLoader::STANDARD_TILE_SIZE,
-		textureWidth + (TiledMapLoader::STANDARD_TILE_SIZE * 2.f), textureHeight + (TiledMapLoader::STANDARD_TILE_SIZE * 2.f));
+	m_CollisionBox = FloatRect(position.x - (TiledMapLoader::STANDARD_TILE_SIZE /2.f), position.y - (TiledMapLoader::STANDARD_TILE_SIZE / 2.f),
+		textureWidth + (TiledMapLoader::STANDARD_TILE_SIZE), textureHeight + (TiledMapLoader::STANDARD_TILE_SIZE));
 }
 
 void DoorInteractable::Update(float dtAsSeconds)

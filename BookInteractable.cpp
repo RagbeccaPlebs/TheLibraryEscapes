@@ -29,7 +29,7 @@ pair<string, Vector2f> BookInteractable::Interact()
 	ofstream fileOut(itemToLoad);
 	fileOut << data;
 	fileOut.flush();
-	return pair<string, Vector2f>(nullptr, Vector2f(0,0));
+	return pair<string, Vector2f>("null", Vector2f(0,0));
 }
 
 bool BookInteractable::CanInteract(Player& player)

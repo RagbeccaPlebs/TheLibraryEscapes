@@ -33,6 +33,12 @@ void GameEngineLogic::Draw(RenderWindow& mainWindow)
 			mainWindow.draw(*sprite);
 		}
 	}
+
+	mainWindow.setView(m_OverlayView);
+	if (b_EOverlayActive)
+	{
+		PressEToInteractOverlay(mainWindow);
+	}
 }
 
 void GameEngineLogic::DrawInteractable(RenderWindow& mainWindow)
@@ -51,4 +57,28 @@ void GameEngineLogic::DrawInteractable(RenderWindow& mainWindow)
 	}
 }
 
+void GameEngineLogic::PressEToInteractOverlay(RenderWindow& mainWindow)
+{
+	RectangleShape shape;
+	Text text;
+	text.setString("Press E To Interact!");
 
+	Font font;
+	font.loadFromFile("assets/fonts/PixelifySans-Regular.ttf");
+
+	text.setFont(font);
+	text.setFillColor(Color::White);
+	text.setCharacterSize(40);
+	Vector2f dimension(text.getGlobalBounds().width * 1.25f, text.getGlobalBounds().height * 1.5f);
+	Vector2f position(mainWindow.getView().getCenter().x - (dimension.x / 2.f), mainWindow.getView().getCenter().y + (mainWindow.getView().getSize().y / 4.f));
+	shape.setSize(dimension);
+	shape.setPosition(position);
+	const float positionX = ((position.x + (dimension.x / 2.0f)) - (text.getGlobalBounds().width / 2.0f));
+	const float positionY = ((position.y + (dimension.y / 2.0f)) - (text.getGlobalBounds().height));
+	text.setPosition(positionX, positionY);
+
+	const Color darkerColor(0, 0, 0, 127);
+	shape.setFillColor(darkerColor);
+	mainWindow.draw(shape);
+	mainWindow.draw(text);
+}
