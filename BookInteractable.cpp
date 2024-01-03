@@ -29,7 +29,7 @@ pair<string, Vector2f> BookInteractable::Interact()
 	ofstream fileOut(itemToLoad);
 	fileOut << data;
 	fileOut.flush();
-	return pair<string, Vector2f>("null", Vector2f(0,0));
+	return pair<string, Vector2f>{"null", Vector2f(0, 0)};
 }
 
 bool BookInteractable::CanInteract(Player& player)
@@ -38,7 +38,7 @@ bool BookInteractable::CanInteract(Player& player)
 	return m_CollisionBox.intersects(player.GetInteractableBox());
 }
 
-BookInteractableType BookInteractable::GetBookInteractableType()
+BookInteractableType BookInteractable::GetBookInteractableType() const
 {
 	return m_BookInteractableType;
 }
@@ -48,7 +48,7 @@ EmotionType BookInteractable::GetEmotion()
 	return EmotionType();
 }
 
-bool BookInteractable::GetActive()
+bool BookInteractable::GetActive() const
 {
 	return b_Active;
 }

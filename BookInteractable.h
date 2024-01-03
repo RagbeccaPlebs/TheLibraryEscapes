@@ -28,9 +28,9 @@ public:
 	std::pair<std::string, sf::Vector2f> Interact() override;
 	bool CanInteract(Player& player) override;
 
-	BookInteractableType GetBookInteractableType();
+	BookInteractableType GetBookInteractableType() const;
 	EmotionType GetEmotion();
-	bool GetActive();
+	bool GetActive() const;
 
 	static EmotionType GetEmotionFromString(const std::string& emotion);
 	static std::string GetStringFromEmotion(const EmotionType emotion);

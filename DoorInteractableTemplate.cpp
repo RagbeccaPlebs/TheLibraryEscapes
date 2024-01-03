@@ -10,7 +10,7 @@ pair<string, Vector2f> DoorInteractableTemplate::Interact()
 	{
 		sleep(microseconds(1));
 	}
-	return pair<string, Vector2f>(m_MapToMoveToName, m_MapToMoveToPosition);
+	return pair<string, Vector2f>{m_MapToMoveToName, m_MapToMoveToPosition};
 }
 
 bool DoorInteractableTemplate::CanInteract(Player& player)
@@ -28,7 +28,7 @@ DoorInteractableTemplate::~DoorInteractableTemplate()
 	m_Sound.resetBuffer();
 }
 
-bool DoorInteractableTemplate::GetOpen()
+bool DoorInteractableTemplate::GetOpen() const
 {
 	return b_IsOpen;
 }

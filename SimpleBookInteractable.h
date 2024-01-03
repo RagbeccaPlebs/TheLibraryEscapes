@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "BookInteractable.h"
 
-class SimpleBookInteractable : public BookInteractable
+class SimpleBookInteractable final : public BookInteractable
 {
 public:
 	SimpleBookInteractable(int id, const std::string& textureFileLocation, sf::Vector2f position, EmotionType emotion);

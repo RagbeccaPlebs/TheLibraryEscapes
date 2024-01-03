@@ -22,13 +22,13 @@ protected:
 	sf::SoundBuffer m_SoundBuffer;
 	sf::Sound m_Sound;
 public:
-	virtual void Update(float dtAsSeconds) = 0;
+	void Update(float dtAsSeconds) override = 0;
 	std::pair<std::string, sf::Vector2f> Interact() override;
 	bool CanInteract(Player& player) override;
 	void PlaySound();
 
 	~DoorInteractableTemplate() override;
 
-	bool GetOpen();
+	bool GetOpen() const;
 	DoorInteractableType GetDoorInteractableType();
 };
