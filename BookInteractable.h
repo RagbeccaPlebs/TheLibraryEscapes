@@ -24,7 +24,7 @@ protected:
 	EmotionType m_Emotion;
 	bool b_Active;
 public:
-	virtual void Update(float dtAsSeconds) = 0;
+	virtual void Update(float dtAsSeconds) override = 0;
 	std::pair<std::string, sf::Vector2f> Interact() override;
 	bool CanInteract(Player& player) override;
 
