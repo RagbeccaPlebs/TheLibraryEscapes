@@ -7,6 +7,12 @@
 #include "PlayerCustomization.h"
 #include "SimpleBookInteractable.h"
 
+enum LOCATION_IN_VIEW
+{
+	CENTER,
+	BOTTOM
+};
+
 class GameEngineLogic
 {
 	struct GameMapObjects
@@ -45,14 +51,21 @@ class GameEngineLogic
 	GameMapObjects m_GameMapObjects;
 
 	void UpdateInteractable(float dtAsSeconds);
-	void InputInteractable();
+	void InputInteractable(sf::RenderWindow& mainWindow);
 	void DrawInteractable(sf::RenderWindow& mainWindow);
 	void ClearInteractables();
 
 	//E interaction
 	bool b_EOverlayActive = false;
+	bool b_FoundBookOverlayActive = false;
+	std::string m_EmotionNameOfFoundBook;
+	const float TIME_OF_BOOK_OVERLAY_ON_SCREEN_IN_SECONDS = 5.f;
+	sf::Uint8 m_Opacity = 255;
+	float m_SecondsSinceOverlayActive = 0.f;
+
 	void PressEToInteractCheck();
-	void PressEToInteractOverlay(sf::RenderWindow& mainWindow);
+	void TextOverlay(sf::RenderWindow& mainWindow, const std::string& writtenText, const LOCATION_IN_VIEW locationInView, int fontSize, bool useOpacity);
+	void UpdateFoundBookOverlay(float dtAsSeconds);
 
 	const int MAX_RANGE_COLLISIONS_DETECTION = 5;
 public:
@@ -63,7 +76,7 @@ public:
 
 	void Draw(sf::RenderWindow& mainWindow);
 	void Update(float dtAsSeconds, sf::RenderWindow& mainWindow);
-	void Input(sf::RenderWindow& mainWind, bool& isPlaying);
+	void Input(sf::RenderWindow& mainWindow, bool& isPlaying);
 
 	void UpdateMap(const std::string& mapName, sf::Vector2f spawnLocation);
 	void ClearSounds();

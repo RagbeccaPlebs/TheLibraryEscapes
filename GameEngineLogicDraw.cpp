@@ -1,6 +1,7 @@
 ﻿#include "GameEngineLogic.h"
 
 using namespace sf;
+using namespace std;
 
 void GameEngineLogic::Draw(RenderWindow& mainWindow)
 {
@@ -37,7 +38,11 @@ void GameEngineLogic::Draw(RenderWindow& mainWindow)
 	mainWindow.setView(m_OverlayView);
 	if (b_EOverlayActive)
 	{
-		PressEToInteractOverlay(mainWindow);
+		TextOverlay(mainWindow, "Press E To Interact!", BOTTOM, 40, false);
+	}
+	if (b_FoundBookOverlayActive)
+	{
+		TextOverlay(mainWindow, "You found a " + m_EmotionNameOfFoundBook + " book!", CENTER, 60, true);
 	}
 }
 
@@ -57,28 +62,54 @@ void GameEngineLogic::DrawInteractable(RenderWindow& mainWindow)
 	}
 }
 
-void GameEngineLogic::PressEToInteractOverlay(RenderWindow& mainWindow)
+void GameEngineLogic::TextOverlay(RenderWindow& mainWindow, const string& writtenText, const LOCATION_IN_VIEW locationInView, int fontSize, bool useOpacity)
 {
 	RectangleShape shape;
 	Text text;
-	text.setString("Press E To Interact!");
+	text.setString(writtenText);
 
 	Font font;
 	font.loadFromFile("assets/fonts/PixelifySans-Regular.ttf");
 
 	text.setFont(font);
-	text.setFillColor(Color::White);
-	text.setCharacterSize(40);
-	Vector2f dimension(text.getGlobalBounds().width * 1.25f, text.getGlobalBounds().height * 1.5f);
-	Vector2f position(mainWindow.getView().getCenter().x - (dimension.x / 2.f), mainWindow.getView().getCenter().y + (mainWindow.getView().getSize().y / 4.f));
+
+	if (useOpacity)
+	{
+		const Color whiteColor(255, 255, 255, m_Opacity);
+		const Color darkerColor(0, 0, 0, (m_Opacity/2));
+		text.setFillColor(whiteColor);
+		shape.setFillColor(darkerColor);
+	}
+	else
+	{
+		const Color darkerColor(0, 0, 0, 127);
+		text.setFillColor(Color::White);
+		shape.setFillColor(darkerColor);
+	}
+
+	text.setCharacterSize(fontSize);
+
+	Vector2f dimension;
+	Vector2f position;
+
+	switch (locationInView)
+	{
+	case CENTER:
+		dimension = { text.getGlobalBounds().width * 1.25f, text.getGlobalBounds().height * 1.5f };
+		position = { mainWindow.getView().getCenter().x - (dimension.x / 2.f), mainWindow.getView().getCenter().y - (dimension.y / 2.f) };
+		break;
+	case BOTTOM:
+		dimension = { text.getGlobalBounds().width * 1.25f, text.getGlobalBounds().height * 1.5f };
+		position = { mainWindow.getView().getCenter().x - (dimension.x / 2.f), mainWindow.getView().getCenter().y + (mainWindow.getView().getSize().y / 4.f) };
+		break;
+	}
+
 	shape.setSize(dimension);
 	shape.setPosition(position);
 	const float positionX = ((position.x + (dimension.x / 2.0f)) - (text.getGlobalBounds().width / 2.0f));
 	const float positionY = ((position.y + (dimension.y / 2.0f)) - (text.getGlobalBounds().height));
 	text.setPosition(positionX, positionY);
 
-	const Color darkerColor(0, 0, 0, 127);
-	shape.setFillColor(darkerColor);
 	mainWindow.draw(shape);
 	mainWindow.draw(text);
 }

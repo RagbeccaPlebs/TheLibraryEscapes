@@ -12,11 +12,11 @@ void GameEngineLogic::Input(RenderWindow& mainWindow, bool& isPlaying)
 	}
 
 	m_Player.HandleInput();
-	InputInteractable();
+	InputInteractable(mainWindow);
 }
 
 
-void GameEngineLogic::InputInteractable()
+void GameEngineLogic::InputInteractable(RenderWindow& mainWindow)
 {
 	if (Keyboard::isKeyPressed(Keyboard::E))
 	{
@@ -24,7 +24,9 @@ void GameEngineLogic::InputInteractable()
 		{
 			if (simpleBookInteractable->CanInteract(m_Player))
 			{
-				simpleBookInteractable->Interact();
+				const pair<string, Vector2f> bookValue = simpleBookInteractable->Interact();
+				m_EmotionNameOfFoundBook = bookValue.first;
+				b_FoundBookOverlayActive = true;
 			}
 		}
 		for (DoorInteractable* doorInteractable : m_GameMapObjects.doorInteractables)

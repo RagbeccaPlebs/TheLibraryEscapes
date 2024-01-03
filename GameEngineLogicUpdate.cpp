@@ -1,6 +1,7 @@
 ﻿#include "GameEngineLogic.h"
 
 using namespace sf;
+using namespace std;
 
 void GameEngineLogic::Update(float dtAsSeconds, RenderWindow& mainWindow)
 {
@@ -21,6 +22,12 @@ void GameEngineLogic::Update(float dtAsSeconds, RenderWindow& mainWindow)
 	UpdateInteractable(dtAsSeconds);
 
 	PressEToInteractCheck();
+
+
+	if (b_FoundBookOverlayActive)
+	{
+		UpdateFoundBookOverlay(dtAsSeconds);
+	}
 }
 
 void GameEngineLogic::UpdateInteractable(float dtAsSeconds)
@@ -57,5 +64,22 @@ void GameEngineLogic::PressEToInteractCheck()
 	}
 
 	b_EOverlayActive = isOverlayApplicable;
+}
+
+void GameEngineLogic::UpdateFoundBookOverlay(const float dtAsSeconds)
+{
+	m_SecondsSinceOverlayActive += dtAsSeconds;
+	m_Opacity = static_cast<Uint8>(255 - (255 * (m_SecondsSinceOverlayActive / TIME_OF_BOOK_OVERLAY_ON_SCREEN_IN_SECONDS)));
+	m_Opacity = max(m_Opacity, static_cast<Uint8>(0));
+	if (m_SecondsSinceOverlayActive > TIME_OF_BOOK_OVERLAY_ON_SCREEN_IN_SECONDS)
+	{
+		b_FoundBookOverlayActive = false;
+		m_SecondsSinceOverlayActive = 0;
+		m_EmotionNameOfFoundBook = "";
+	}
+	else
+	{
+		b_FoundBookOverlayActive = true;
+	}
 }
 

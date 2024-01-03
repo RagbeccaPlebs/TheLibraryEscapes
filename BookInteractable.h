@@ -29,9 +29,10 @@ public:
 	bool CanInteract(Player& player) override;
 
 	BookInteractableType GetBookInteractableType() const;
-	EmotionType GetEmotion();
+	EmotionType GetEmotion() const;
 	bool GetActive() const;
 
 	static EmotionType GetEmotionFromString(const std::string& emotion);
-	static std::string GetStringFromEmotion(const EmotionType emotion);
+	static std::string GetStringFromEmotion(const EmotionType& emotion);
+	static std::string GetStringCamelCaseFromEmotion(const EmotionType& emotion);
 };
