@@ -263,9 +263,6 @@
     <ClInclude Include="DoorInteractable.h">
       <Filter>Header Files\Game\Interactable\Door</Filter>
     </ClInclude>
-    <ClInclude Include="TrapdoorInteractable.h">
-      <Filter>Header Files\Game\Interactable\Door</Filter>
-    </ClInclude>
     <ClInclude Include="DoorInteractableTemplate.h">
       <Filter>Header Files\Game\Interactable\Door</Filter>
     </ClInclude>

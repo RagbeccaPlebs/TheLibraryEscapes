@@ -202,7 +202,6 @@
     <ClInclude Include="StartMenuEngine.h" />
     <ClInclude Include="TextureHolder.h" />
     <ClInclude Include="TiledMapLoader.h" />
-    <ClInclude Include="TrapdoorInteractable.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -76,6 +76,7 @@ void GameEngineLogic::UpdateFoundBookOverlay(const float dtAsSeconds)
 		b_FoundBookOverlayActive = false;
 		m_SecondsSinceOverlayActive = 0;
 		m_EmotionNameOfFoundBook = "";
+		m_Opacity = 255;
 	}
 	else
 	{
