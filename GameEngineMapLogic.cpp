@@ -16,7 +16,7 @@ void GameEngineLogic::LoadMap(const string& mapName, Vector2f spawnLocation)
 
 void GameEngineLogic::ClearInteractables()
 {
-	for (DoorInteractable* doorInteractable : m_GameMapObjects.doorInteractables)
+	for (const DoorInteractable* doorInteractable : m_GameMapObjects.doorInteractables)
 	{
 		delete doorInteractable;
 	}

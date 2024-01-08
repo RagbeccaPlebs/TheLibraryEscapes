@@ -30,5 +30,5 @@ public:
 	~DoorInteractableTemplate() override;
 
 	bool GetOpen() const;
-	DoorInteractableType GetDoorInteractableType();
+	DoorInteractableType GetDoorInteractableType() const;
 };

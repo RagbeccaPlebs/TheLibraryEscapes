@@ -79,5 +79,5 @@ public:
 	void Input(sf::RenderWindow& mainWindow, bool& isPlaying);
 
 	void UpdateMap(const std::string& mapName, sf::Vector2f spawnLocation);
-	void ClearSounds();
+	void ClearSounds() const;
 };

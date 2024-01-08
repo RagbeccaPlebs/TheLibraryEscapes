@@ -12,7 +12,7 @@ Sprite Interactable::GetSprite()
 	return m_Sprite;
 }
 
-FloatRect Interactable::GetCollisionBox()
+FloatRect Interactable::GetCollisionBox() const
 {
 	return m_CollisionBox;
 }
@@ -22,7 +22,7 @@ Texture Interactable::GetTexture()
 	return m_Texture;
 }
 
-InteractableType Interactable::GetInteractableType()
+InteractableType Interactable::GetInteractableType() const
 {
 	return m_InteractableType;
 }

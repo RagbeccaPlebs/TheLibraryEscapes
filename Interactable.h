@@ -28,8 +28,8 @@ public:
 	virtual ~Interactable() {}
 
 	sf::Sprite GetSprite();
-	sf::FloatRect GetCollisionBox();
+	sf::FloatRect GetCollisionBox() const;
 	sf::Texture GetTexture();
-	InteractableType GetInteractableType();
+	InteractableType GetInteractableType() const;
 	int GetId() const;
 };

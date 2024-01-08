@@ -36,9 +36,10 @@ GameEngineLogic::GameEngineLogic(GameEngineLogic& gameEngineLogic) : m_PlayerCus
 	m_PlayerMovement = gameEngineLogic.m_PlayerMovement;
 	m_PlayerCustomization = gameEngineLogic.m_PlayerCustomization;
 	m_PlayerSpawnLocation = gameEngineLogic.m_PlayerSpawnLocation;
+	m_Zoom = gameEngineLogic.m_Zoom;
 }
 
-void GameEngineLogic::ClearSounds()
+void GameEngineLogic::ClearSounds() const
 {
 	for (DoorInteractable* doorInteractable : m_GameMapObjects.doorInteractables)
 	{

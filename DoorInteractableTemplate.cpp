@@ -33,7 +33,7 @@ bool DoorInteractableTemplate::GetOpen() const
 	return b_IsOpen;
 }
 
-DoorInteractableType DoorInteractableTemplate::GetDoorInteractableType()
+DoorInteractableType DoorInteractableTemplate::GetDoorInteractableType() const
 {
 	return m_DoorInteractableType;
 }
