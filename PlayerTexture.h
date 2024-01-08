@@ -11,20 +11,22 @@ class PlayerTexture
 	std::map<std::string, sf::Texture> m_HairTextures;
 	std::map<std::string, sf::Texture> m_HatTextures;
 
-	void LoadAllBaseTextures();
-	void LoadAllLowerTextures();
-	void LoadAllCloakTextures();
-	void LoadAllFaceTextures();
-	void LoadAllHairTextures();
-	void LoadAllHatTextures();
+	bool LoadAllBaseTextures();
+	bool LoadAllLowerTextures();
+	bool LoadAllCloakTextures();
+	bool LoadAllFaceTextures();
+	bool LoadAllHairTextures();
+	bool LoadAllHatTextures();
 public:
-	void LoadAllFiles();
+	bool LoadAllFiles();
 	void CleanAllFiles();
 
-	std::pair<std::string, sf::Texture> GetBaseTexture(const std::string& fileName);
-	std::pair<std::string, sf::Texture> GetLowerTexture(const std::string& fileName);
-	std::pair<std::string, sf::Texture> GetCloakTexture(const std::string& fileName);
-	std::pair<std::string, sf::Texture> GetFaceTexture(const std::string& fileName);
-	std::pair<std::string, sf::Texture> GetHairTexture(const std::string& fileName);
-	std::pair<std::string, sf::Texture> GetHatTexture(const std::string& fileName);
+	const std::map<std::string, sf::Texture>& GetBaseTextureMap() const;
+	const std::map<std::string, sf::Texture>& GetLowerTextureMap() const;
+	const std::map<std::string, sf::Texture>& GetCloakTextureMap() const;
+	const std::map<std::string, sf::Texture>& GetFaceTextureMap() const;
+	const std::map<std::string, sf::Texture>& GetHairTextureMap() const;
+	const std::map<std::string, sf::Texture>& GetHatTextureMap() const;
+	std::pair<std::string, sf::Texture> GetNextTexture(const std::map<std::string, sf::Texture>& textureMap, const std::string& filePath);
+	std::pair<std::string, sf::Texture> GetNextTextureWithNone(const std::map<std::string, sf::Texture>& textureMap, const std::string& filePath);
 };

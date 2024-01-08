@@ -20,9 +20,9 @@ GamePauseMenu::GamePauseMenu(const RenderWindow& mainWindow)
 	const Vector2f continueButtonLocation(((screenWidth/2.f) - (sizeButtons.x / 2.f)), (screenHeight/2.f) - 100.f);
 	const Vector2f backToMenuButtonLocation(((screenWidth / 2.f) - (sizeButtons.x / 2.f)), (screenHeight / 2.f) + 100.f);
 	m_ContinueButton = Button(continueButtonLocation, sizeButtons, "assets/fonts/PixelifySans-Regular.ttf",
-		"Continue", idleColor, hoverColor, activeColor);
+		"Continue", 40, idleColor, hoverColor, activeColor);
 	m_BackToMenuButton = Button(backToMenuButtonLocation, sizeButtons, "assets/fonts/PixelifySans-Regular.ttf",
-		"Exit To Menu", idleColor, hoverColor, activeColor);
+		"Exit To Menu", 40, idleColor, hoverColor, activeColor);
 }
 
 GamePauseMenu& GamePauseMenu::operator=(const GamePauseMenu& gamePauseMenu)

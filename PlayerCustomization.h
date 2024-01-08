@@ -29,6 +29,14 @@ class PlayerCustomization
 	Button m_ContinueButton;
 	Button m_BackToMenuButton;
 
+	//Customization Buttons
+	Button m_BaseLayerButton;
+	Button m_LowerLayerButton;
+	Button m_CloakLayerButton;
+	Button m_FaceItemLayerButton;
+	Button m_HairLayerButton;
+	Button m_HatLayerButton;
+
 	// Mouse Positions
 	sf::Vector2i m_MousePosScreen;
 	sf::Vector2i m_MousePosWindow;
@@ -38,7 +46,11 @@ class PlayerCustomization
 	sf::View m_ClothesView;
 	sf::View m_PlayerView;
 
+	//Files loaded?
+	bool b_FilesLoaded = false;
+
 	void UpdateMousePositions(const sf::RenderWindow& mainWindow);
+	void InitButtons(const sf::Vector2f& sizeButtons, const sf::Vector2f& sizeCustomizationButtons, const sf::Color& hoverColor, const sf::Color& idleColor, const  sf::Color& activeColor, float screenWidth, float screenHeight);
 public:
 	PlayerCustomization() = default;
 	PlayerCustomization(Player* player, PlayerMovement* playerMovement, const sf::RenderWindow& mainWindow);

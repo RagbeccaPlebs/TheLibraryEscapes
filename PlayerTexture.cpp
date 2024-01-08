@@ -3,6 +3,7 @@
 #include "nlohmann/json.hpp"
 #include <fstream>
 #include <filesystem>
+#include <future> 
 
 #include "TextureHolder.h"
 
@@ -75,19 +76,20 @@ void Player::SetInitialTextures()
 	}
 }
 
-void PlayerTexture::LoadAllBaseTextures()
+bool PlayerTexture::LoadAllBaseTextures()
 {
 	const string PATH = "assets/graphics/player/base";
 	for (const auto& entry : filesystem::directory_iterator(PATH))
 	{
 		Texture tempTexture;
 		tempTexture.loadFromFile(PATH + "/" + entry.path().filename().string());
-		m_BaseTextures.insert(pair<string, Texture>(entry.path().filename().filename().generic_string(), tempTexture));
+		m_BaseTextures.insert(pair<string, Texture>(Player::GetFileName(entry.path().filename().filename().generic_string()), tempTexture));
 	}
+	return true;
 }
 
 
-void PlayerTexture::LoadAllLowerTextures()
+bool PlayerTexture::LoadAllLowerTextures()
 {
 	const string PATH = "assets/graphics/player/lower";
 	for (const auto& entry : filesystem::directory_iterator(PATH))
@@ -96,9 +98,10 @@ void PlayerTexture::LoadAllLowerTextures()
 		tempTexture.loadFromFile(PATH + "/" + entry.path().filename().string());
 		m_LowerTextures.insert(pair<string, Texture>(entry.path().filename().filename().generic_string(), tempTexture));
 	}
+	return true;
 }
 
-void PlayerTexture::LoadAllCloakTextures()
+bool PlayerTexture::LoadAllCloakTextures()
 {
 	const string PATH = "assets/graphics/player/cloak";
 	for (const auto& entry : filesystem::directory_iterator(PATH))
@@ -107,9 +110,10 @@ void PlayerTexture::LoadAllCloakTextures()
 		tempTexture.loadFromFile(PATH + "/" + entry.path().filename().string());
 		m_CloakTextures.insert(pair<string, Texture>(entry.path().filename().filename().generic_string(), tempTexture));
 	}
+	return true;
 }
 
-void PlayerTexture::LoadAllFaceTextures()
+bool PlayerTexture::LoadAllFaceTextures()
 {
 	const string PATH = "assets/graphics/player/face";
 	for (const auto& entry : filesystem::directory_iterator(PATH))
@@ -118,9 +122,10 @@ void PlayerTexture::LoadAllFaceTextures()
 		tempTexture.loadFromFile(PATH + "/" + entry.path().filename().string());
 		m_FaceTextures.insert(pair<string, Texture>(entry.path().filename().filename().generic_string(), tempTexture));
 	}
+	return true;
 }
 
-void PlayerTexture::LoadAllHairTextures()
+bool PlayerTexture::LoadAllHairTextures()
 {
 	const string PATH = "assets/graphics/player/hair";
 	for (const auto& entry : filesystem::directory_iterator(PATH))
@@ -129,27 +134,31 @@ void PlayerTexture::LoadAllHairTextures()
 		tempTexture.loadFromFile(PATH + "/" + entry.path().filename().string());
 		m_HairTextures.insert(pair<string, Texture>(entry.path().filename().filename().generic_string(), tempTexture));
 	}
+	return true;
 }
 
-void PlayerTexture::LoadAllHatTextures()
+bool PlayerTexture::LoadAllHatTextures()
 {
 	const string PATH = "assets/graphics/player/hat";
 	for (const auto& entry : filesystem::directory_iterator(PATH))
 	{
 		Texture tempTexture;
 		tempTexture.loadFromFile(PATH + "/" + entry.path().filename().string());
-		m_HairTextures.insert(pair<string, Texture>(entry.path().filename().filename().generic_string(), tempTexture));
+		m_HatTextures.insert(pair<string, Texture>(entry.path().filename().filename().generic_string(), tempTexture));
 	}
+	return true;
 }
 
-void PlayerTexture::LoadAllFiles()
+bool PlayerTexture::LoadAllFiles()
 {
-	LoadAllBaseTextures();
-	LoadAllLowerTextures();
-	LoadAllCloakTextures();
-	LoadAllFaceTextures();
-	LoadAllHairTextures();
-	LoadAllHatTextures();
+	future<bool> isBaseLoadedFuture = std::async(&PlayerTexture::LoadAllBaseTextures, this);
+	future<bool> isLowerLayerLoadedFuture = std::async(&PlayerTexture::LoadAllLowerTextures, this);
+	future<bool> isCloakLayerLoadedFuture = std::async(&PlayerTexture::LoadAllCloakTextures, this);
+	future<bool> isFaceItemLayerLoadedFuture = std::async(&PlayerTexture::LoadAllFaceTextures, this);
+	future<bool> isHairLayerLoadedFuture = std::async(&PlayerTexture::LoadAllHairTextures, this);
+	future<bool> isHatLayerLoadedFuture = std::async(&PlayerTexture::LoadAllHatTextures, this);
+
+	return isBaseLoadedFuture.get() && isLowerLayerLoadedFuture.get() && isCloakLayerLoadedFuture.get() && isFaceItemLayerLoadedFuture.get() && isHairLayerLoadedFuture.get() && isHatLayerLoadedFuture.get();
 }
 
 void PlayerTexture::CleanAllFiles()
@@ -162,38 +171,185 @@ void PlayerTexture::CleanAllFiles()
 	m_HatTextures.clear();
 }
 
-pair<string, Texture> PlayerTexture::GetBaseTexture(const string& fileName)
+const map<string, Texture>& PlayerTexture::GetBaseTextureMap() const
 {
-	return pair<string, Texture>(fileName, m_BaseTextures.at(fileName));
+	return m_BaseTextures;
 }
 
-pair<string, Texture> PlayerTexture::GetLowerTexture(const string& fileName)
+const map<string, Texture>& PlayerTexture::GetLowerTextureMap() const
 {
-	return pair<string, Texture>(fileName, m_LowerTextures.at(fileName));
+	return m_LowerTextures;
 }
 
-pair<string, Texture> PlayerTexture::GetCloakTexture(const string& fileName)
+const map<string, Texture>& PlayerTexture::GetCloakTextureMap() const
 {
-	return pair<string, Texture>(fileName, m_CloakTextures.at(fileName));
+	return m_CloakTextures;
 }
 
-pair<string, Texture> PlayerTexture::GetFaceTexture(const string& fileName)
+const map<string, Texture>& PlayerTexture::GetFaceTextureMap() const
 {
-	return pair<string, Texture>(fileName, m_FaceTextures.at(fileName));
+	return m_FaceTextures;
 }
 
-pair<string,Texture> PlayerTexture::GetHairTexture(const string& fileName)
+const map<string, Texture>& PlayerTexture::GetHairTextureMap() const
 {
-	return pair<string, Texture>(fileName, m_HairTextures.at(fileName));
+	return m_HairTextures;
 }
 
-std::pair<std::string, sf::Texture> PlayerTexture::GetHatTexture(const std::string& fileName)
+const map<string, Texture>& PlayerTexture::GetHatTextureMap() const
 {
-	return pair<string, Texture>(fileName, m_HatTextures.at(fileName));
+	return m_HatTextures;
 }
 
-void Player::UpdatePlayerTexture()
+std::pair<std::string, sf::Texture> PlayerTexture::GetNextTexture(const map<string, Texture>& textureMap, const std::string& filePath)
 {
-	
+	if (!textureMap.empty())
+	{
+		vector<string> keys;
+		for (const pair<string, Texture> entry : textureMap) {
+			keys.push_back(entry.first);
+		}
+
+		const string fileName = Player::GetFileName(filePath);
+
+		const auto it = ranges::find(keys.begin(), keys.end(), fileName);
+
+		// If element was found 
+		if (it != keys.end())
+		{
+			const int index = it - keys.begin();
+			if (static_cast<size_t>(index) == keys.size() - 1)
+			{
+				const string newFileName = keys[0];
+				return pair<string, Texture>(newFileName, textureMap.at(newFileName));
+			}
+			const string newFileName = keys[index + 1];
+
+			return pair<string, Texture>(newFileName, textureMap.at(newFileName));
+		}
+	}
+	const string fileName = Player::GetFileName(filePath);
+	return pair<string, Texture>(fileName, TextureHolder::GetTexture(filePath));
+}
+
+std::pair<std::string, sf::Texture> PlayerTexture::GetNextTextureWithNone(const map<string, Texture>& textureMap, const std::string& filePath)
+{
+	if (!textureMap.empty())
+	{
+		vector<string> keys;
+		for (const pair<string, Texture> entry : textureMap) {
+			keys.push_back(entry.first);
+		}
+
+		const string fileName = Player::GetFileName(filePath);
+
+		const auto it = ranges::find(keys.begin(), keys.end(), fileName);
+
+		// If element was found 
+		if (it != keys.end())
+		{
+			const int index = it - keys.begin();
+			if (static_cast<size_t>(index) == keys.size() - 1)
+			{
+				return pair<string, Texture>("", textureMap.at(fileName));
+			}
+			const string newFileName = keys[index + 1];
+
+			return pair<string, Texture>(newFileName, textureMap.at(newFileName));
+		}
+		const string newFileName = keys[0];
+		return pair<string, Texture>(newFileName, textureMap.at(newFileName));
+	}
+	const string fileName = Player::GetFileName(filePath);
+	return pair<string, Texture>(fileName, TextureHolder::GetTexture(filePath));
+}
+
+void Player::UpdatePlayerTexture(const Layer layer)
+{
+	switch (layer)
+	{
+	case BASE:
+		m_TextureBaseLocation = "assets/graphics/player/base/" + m_PlayerTexture.GetNextTexture(m_PlayerTexture.GetBaseTextureMap(), m_TextureBaseLocation).first;
+		if (!GetFileName(m_TextureBaseLocation).empty())
+		{
+			m_SpriteBase = Sprite(TextureHolder::GetTexture(m_TextureBaseLocation));
+		}
+		break;
+	case LOWER:
+		m_TextureLowerLayerLocation = "assets/graphics/player/lower/" + m_PlayerTexture.GetNextTexture(m_PlayerTexture.GetLowerTextureMap(), m_TextureLowerLayerLocation).first;
+		if (!GetFileName(m_TextureLowerLayerLocation).empty())
+		{
+			m_SpriteLowerLayer = Sprite(TextureHolder::GetTexture(m_TextureLowerLayerLocation));
+		}
+		break;
+	case CLOAK:
+		m_TextureCloakLocation = "assets/graphics/player/cloak/" + m_PlayerTexture.GetNextTextureWithNone(m_PlayerTexture.GetCloakTextureMap(), m_TextureCloakLocation).first;
+		if (!GetFileName(m_TextureCloakLocation).empty())
+		{
+			m_SpriteCloak = Sprite(TextureHolder::GetTexture(m_TextureCloakLocation));
+		} else
+		{
+			m_SpriteCloak = Sprite();
+		}
+		break;
+	case FACE_ITEM:
+		m_TextureFaceItemLocation = "assets/graphics/player/face/" + m_PlayerTexture.GetNextTextureWithNone(m_PlayerTexture.GetFaceTextureMap(), m_TextureFaceItemLocation).first;
+		if (!GetFileName(m_TextureFaceItemLocation).empty())
+		{
+			m_SpriteFaceItem = Sprite(TextureHolder::GetTexture(m_TextureFaceItemLocation));
+		} else
+		{
+			m_SpriteFaceItem = Sprite();
+		}
+		break;
+	case HAIR:
+		m_TextureHairLocation = "assets/graphics/player/hair/" + m_PlayerTexture.GetNextTextureWithNone(m_PlayerTexture.GetHairTextureMap(), m_TextureHairLocation).first;
+		if (!GetFileName(m_TextureHairLocation).empty())
+		{
+			m_SpriteHair = Sprite(TextureHolder::GetTexture(m_TextureHairLocation));
+		} else
+		{
+			m_SpriteHair = Sprite();
+		}
+		break;
+	case HAT:
+		m_TextureHatLocation = "assets/graphics/player/hat/" + m_PlayerTexture.GetNextTextureWithNone(m_PlayerTexture.GetHatTextureMap(), m_TextureHatLocation).first;
+		if (!GetFileName(m_TextureHatLocation).empty())
+		{
+			m_SpriteHat = Sprite(TextureHolder::GetTexture(m_TextureHatLocation));
+		} else
+		{
+			m_SpriteHat = Sprite();
+		}
+		break;
+	}
+
+	SetPositionAllSprites();
+}
+
+void Player::SaveLayers()
+{
+	const string FILE_LOCATION = "assets/save/player.json";
+	json jsonFile;
+
+	jsonFile["playerBase"] = GetFileName(m_TextureBaseLocation);
+	jsonFile["playerLower"] = GetFileName(m_TextureLowerLayerLocation);
+	jsonFile["playerCloak"] = GetFileName(m_TextureCloakLocation);
+	jsonFile["playerFace"] = GetFileName(m_TextureFaceItemLocation);
+	jsonFile["playerHair"] = GetFileName(m_TextureHairLocation);
+	jsonFile["playerHat"] = GetFileName(m_TextureHatLocation);
+
+	std::ofstream newFile(FILE_LOCATION);
+	newFile << jsonFile;
+}
+
+string Player::GetFileName(const string& fileLocation)
+{
+	if (!fileLocation.empty())
+	{
+		const size_t found = fileLocation.find_last_of('/');
+		return fileLocation.substr(found + 1);
+	}
+	return "";
 }
 

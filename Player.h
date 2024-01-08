@@ -4,6 +4,16 @@
 #include "PlayerMovement.h"
 #include "PlayerTexture.h"
 
+enum Layer
+{
+	BASE,
+	LOWER,
+	CLOAK,
+	FACE_ITEM,
+	HAIR,
+	HAT
+};
+
 class Player
 {
 	enum LastPressed {
@@ -112,10 +122,15 @@ public:
 	// We will call this function once every frame
 	void Update(float elapsedTime);
 
-	void UpdatePlayerTexture();
+	void UpdatePlayerTexture(Layer layer);
 
 	void SetLocation(const sf::Vector2f* position);
 
+	void SaveLayers();
+
 	//Public Player Looks
-	PlayerTexture playerTexture;
+	PlayerTexture m_PlayerTexture;
+
+	//Utils
+	static std::string GetFileName(const std::string& fileLocation);
 };

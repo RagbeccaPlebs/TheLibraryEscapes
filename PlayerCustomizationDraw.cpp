@@ -26,4 +26,10 @@ void PlayerCustomization::Draw(RenderWindow& mainWindow)
 	}
 
 	mainWindow.setView(m_ClothesView);
+	m_BaseLayerButton.Draw(mainWindow);
+	m_LowerLayerButton.Draw(mainWindow);
+	m_CloakLayerButton.Draw(mainWindow);
+	m_FaceItemLayerButton.Draw(mainWindow);
+	m_HairLayerButton.Draw(mainWindow);
+	m_HatLayerButton.Draw(mainWindow);
 }

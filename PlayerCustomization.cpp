@@ -1,5 +1,7 @@
 #include "PlayerCustomization.h"
 
+#include <future>
+
 #include "Engine.h"
 
 using namespace sf;
@@ -68,6 +70,9 @@ PlayerCustomization::PlayerCustomization(Player* player, PlayerMovement* playerM
 	const float screenWidth = static_cast<float>(mainWindow.getSize().x);
 	const float screenHeight = static_cast<float>(mainWindow.getSize().y);
 
+	future<bool> areFilesLoaded = std::async(std::launch::async, &PlayerTexture::LoadAllFiles, &(m_Player->m_PlayerTexture));
+	b_FilesLoaded = areFilesLoaded.get();
+
 	m_ClothesView = mainWindow.getDefaultView();
 	m_ClothesView.setCenter(Vector2f(screenWidth / 2.f, screenHeight / 2.f));
 	m_PlayerView = mainWindow.getDefaultView();
@@ -77,18 +82,8 @@ PlayerCustomization::PlayerCustomization(Player* player, PlayerMovement* playerM
 	const Color idleColor(70, 70, 70);
 	const Color activeColor(20, 20, 100);
 	const Vector2f sizeButtons(300.f, 100.f);
-	const Vector2f continueButtonLocation(((screenWidth / 4.f) * 3.f - (sizeButtons.x / 2.f)), (screenHeight / 4.f) * 3.f);
-	const Vector2f rightButtonLocation(((screenWidth / 4.f) * 3.f - (sizeButtons.x / 2.f)), (screenHeight / 2.f) + 100.f);
-	const Vector2f leftButtonLocation(((screenWidth / 4.f) - (sizeButtons.x / 2.f)), (screenHeight / 2.f) + 100.f);
-	const Vector2f backToMenuButtonLocation(((screenWidth / 4.f) - (sizeButtons.x / 2.f)), (screenHeight / 4.f) * 3.f);
-	m_TurnLeftButton = Button(leftButtonLocation, sizeButtons, "assets/fonts/PixelifySans-Regular.ttf",
-		"Left", idleColor, hoverColor, activeColor);
-	m_TurnRightButton = Button(rightButtonLocation, sizeButtons, "assets/fonts/PixelifySans-Regular.ttf",
-		"Right", idleColor, hoverColor, activeColor);
-	m_ContinueButton = Button(continueButtonLocation, sizeButtons, "assets/fonts/PixelifySans-Regular.ttf",
-		"Continue", idleColor, hoverColor, activeColor);
-	m_BackToMenuButton = Button(backToMenuButtonLocation, sizeButtons, "assets/fonts/PixelifySans-Regular.ttf",
-		"Exit To Menu", idleColor, hoverColor, activeColor);
+	const Vector2f sizeCustomizationButtons(200.f, 100.f);
+	InitButtons(sizeButtons, sizeCustomizationButtons, hoverColor, idleColor, activeColor, screenWidth, screenHeight);
 	m_Player->Spawn(Vector2f(m_PlayerView.getCenter().x - (m_PlayerView.getSize().x / 12.0f), m_PlayerView.getCenter().y));
 }
 
@@ -119,3 +114,34 @@ PlayerCustomization::PlayerCustomization(PlayerCustomization& playerCustomizatio
 	m_TurnLeftButton = playerCustomization.m_TurnLeftButton;
 	m_TurnRightButton = playerCustomization.m_TurnRightButton;
 }
+
+void PlayerCustomization::InitButtons(const Vector2f& sizeButtons, const Vector2f& sizeCustomizationButtons, const Color& hoverColor, const Color& idleColor, const Color& activeColor, const float screenWidth, const float screenHeight)
+{
+	const string fontPath = "assets/fonts/PixelifySans-Regular.ttf";
+	const Vector2f continueButtonLocation(((screenWidth / 4.f) * 3.f - (sizeButtons.x / 2.f)), (screenHeight / 4.f) * 3.f);
+	const Vector2f rightButtonLocation(((screenWidth / 4.f) * 3.f - (sizeButtons.x / 2.f)), (screenHeight / 2.f) + 100.f);
+	const Vector2f leftButtonLocation(((screenWidth / 4.f) - (sizeButtons.x / 2.f)), (screenHeight / 2.f) + 100.f);
+	const Vector2f backToMenuButtonLocation(((screenWidth / 4.f) - (sizeButtons.x / 2.f)), (screenHeight / 4.f) * 3.f);
+	m_TurnLeftButton = Button(leftButtonLocation, sizeButtons, fontPath,
+		"Left", 40, idleColor, hoverColor, activeColor);
+	m_TurnRightButton = Button(rightButtonLocation, sizeButtons, fontPath,
+		"Right", 40, idleColor, hoverColor, activeColor);
+	m_ContinueButton = Button(continueButtonLocation, sizeButtons, fontPath,
+		"Continue", 40, idleColor, hoverColor, activeColor);
+	m_BackToMenuButton = Button(backToMenuButtonLocation, sizeButtons, fontPath,
+		"Exit To Menu", 40, idleColor, hoverColor, activeColor);
+
+	const Vector2f baseLayerButtonLocation((((screenWidth / 16.f) * 3.f) - (sizeCustomizationButtons.x / 2.f)), (screenHeight / 4.f));
+	const Vector2f lowerLayerButtonLocation((((screenWidth / 16.f) * 5.f) - (sizeCustomizationButtons.x / 2.f)), (screenHeight / 4.f));
+	const Vector2f cloakLayerButtonLocation((((screenWidth / 16.f) * 7.f) - (sizeCustomizationButtons.x / 2.f)), (screenHeight / 4.f));
+	const Vector2f faceItemLayerButtonLocation((((screenWidth / 16.f) * 9.f) - (sizeCustomizationButtons.x / 2.f)), (screenHeight / 4.f));
+	const Vector2f hairLayerButtonLocation((((screenWidth / 16.f) * 11.f) - (sizeCustomizationButtons.x / 2.f)), (screenHeight / 4.f));
+	const Vector2f hatLayerButtonLocation((((screenWidth / 16.f) * 13.f) - (sizeCustomizationButtons.x / 2.f)), (screenHeight / 4.f));
+	m_BaseLayerButton = Button(baseLayerButtonLocation, sizeCustomizationButtons, fontPath, "Skin Color", 30, idleColor, hoverColor, activeColor);
+	m_LowerLayerButton = Button(lowerLayerButtonLocation, sizeCustomizationButtons, fontPath, "Clothes", 30, idleColor, hoverColor, activeColor);
+	m_CloakLayerButton = Button(cloakLayerButtonLocation, sizeCustomizationButtons, fontPath, "Cloak", 30, idleColor, hoverColor, activeColor);
+	m_FaceItemLayerButton = Button(faceItemLayerButtonLocation, sizeCustomizationButtons, fontPath, "Face Item", 30, idleColor, hoverColor, activeColor);
+	m_HairLayerButton = Button(hairLayerButtonLocation, sizeCustomizationButtons, fontPath, "Hair", 30, idleColor, hoverColor, activeColor);
+	m_HatLayerButton = Button(hatLayerButtonLocation, sizeCustomizationButtons, fontPath, "Hat", 30, idleColor, hoverColor, activeColor);
+}
+

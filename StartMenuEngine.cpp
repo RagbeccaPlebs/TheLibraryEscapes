@@ -16,9 +16,9 @@ StartMenuEngine::StartMenuEngine()
 	const Vector2f startButtonLocation((middleWidth - (sizeButtons.x /2.f)), middleHeight - 150.f);
 	const Vector2f exitButtonLocation((middleWidth - (sizeButtons.x / 2.f)), middleHeight + 50.f);
 	m_StartButton = Button(startButtonLocation, sizeButtons, "assets/fonts/PixelifySans-Regular.ttf",
-		"Start", idleColor, hoverColor, activeColor);
+		"Start", 40, idleColor, hoverColor, activeColor);
 	m_ExitButton = Button(exitButtonLocation, sizeButtons, "assets/fonts/PixelifySans-Regular.ttf",
-		"Exit", idleColor, hoverColor, activeColor);
+		"Exit", 40, idleColor, hoverColor, activeColor);
 }
 
 

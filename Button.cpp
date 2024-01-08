@@ -5,7 +5,7 @@
 using namespace sf;
 using namespace std;
 
-Button::Button(Vector2f position, Vector2f dimension, string fontPath, string text, Color idleColor, Color hoverColor, Color activeColor)
+Button::Button(const Vector2f& position, const Vector2f& dimension, const string& fontPath, const string& text, const int fontSize, const Color& idleColor, const Color& hoverColor, const Color& activeColor)
 {
 	m_ButtonState = ButtonState::BTN_IDLE;
 	m_Shape.setSize(dimension);
@@ -17,7 +17,7 @@ Button::Button(Vector2f position, Vector2f dimension, string fontPath, string te
 
 	m_Text.setFont(*m_Font);
 	m_Text.setFillColor(sf::Color::White);
-	m_Text.setCharacterSize(40);
+	m_Text.setCharacterSize(fontSize);
 	const float positionX = ((position.x + (dimension.x / 2.0f)) - (m_Text.getGlobalBounds().width / 2.0f));
 	const float positionY = ((position.y + (dimension.y / 2.0f)) - (m_Text.getGlobalBounds().height));
 	m_Text.setPosition(positionX, positionY);
@@ -50,7 +50,7 @@ void Button::Update(const Vector2f mousePosition) {
 		//Pressed
 		if (Mouse::isButtonPressed(Mouse::Left))
 		{
-			Mouse::setPosition(Vector2i(static_cast<int>(m_Shape.getPosition().x+m_Shape.getSize().x), static_cast<int>(m_Shape.getPosition().y + m_Shape.getSize().y)));
+			Mouse::setPosition(Vector2i(static_cast<int>(m_Shape.getPosition().x + m_Shape.getSize().x), static_cast<int>(m_Shape.getPosition().y + m_Shape.getSize().y)));
 			m_ButtonState = BTN_PRESSED;
 		}
 	}

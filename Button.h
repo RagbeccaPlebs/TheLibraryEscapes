@@ -24,8 +24,8 @@ class Button
 	sf::Color m_ActiveColor;
 public:
 	Button() = default;
-	Button(sf::Vector2f position, sf::Vector2f dimension, std::string fontPath, std::string text,
-		sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor);
+	Button(const sf::Vector2f& position, const sf::Vector2f& dimension, const std::string& fontPath, const std::string& text,
+		int fontSize, const sf::Color& idleColor, const sf::Color& hoverColor, const sf::Color& activeColor);
 
 	//Getters
 	bool IsPressed();
