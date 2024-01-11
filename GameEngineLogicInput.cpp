@@ -3,12 +3,17 @@
 using namespace sf;
 using namespace std;
 
-void GameEngineLogic::Input(RenderWindow& mainWindow, bool& isPlaying)
+void GameEngineLogic::Input(RenderWindow& mainWindow, bool& isPlaying, bool& isPaused, const bool& isEscapePressed)
 {
 	if (b_PlayerCustomizationSelectorEnabled)
 	{
-		m_PlayerCustomization.Input(mainWindow, b_PlayerCustomizationSelectorEnabled, isPlaying, m_PlayerSpawnLocation);
+		m_PlayerCustomization.Input(mainWindow, b_PlayerCustomizationSelectorEnabled, isPlaying, m_PlayerSpawnLocation, isEscapePressed);
 		return;
+	}
+
+	if (isEscapePressed)
+	{
+		isPaused = !isPaused;
 	}
 
 	m_Player.HandleInput();

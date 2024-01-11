@@ -21,7 +21,7 @@ public:
 	StartMenuEngine();
 
 	void Draw(sf::RenderWindow& mainWindow);
-	void Update(float dtAsSeconds, sf::RenderWindow& mainWindow);
-	void Input(sf::RenderWindow& mainWindow, bool& isPlayingState);
+	void Update(float dtAsSeconds, sf::RenderWindow& mainWindow, const bool& isLeftClicked);
+	void Input(sf::RenderWindow& mainWindow, bool& isPlayingState, const bool& isEscapePressed);
 	void ClearEverything();
 };

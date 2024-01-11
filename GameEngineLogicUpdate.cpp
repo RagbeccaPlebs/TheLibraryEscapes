@@ -3,11 +3,11 @@
 using namespace sf;
 using namespace std;
 
-void GameEngineLogic::Update(float dtAsSeconds, RenderWindow& mainWindow)
+void GameEngineLogic::Update(float dtAsSeconds, RenderWindow& mainWindow, const bool& isLeftClicked)
 {
 	if (b_PlayerCustomizationSelectorEnabled)
 	{
-		m_PlayerCustomization.Update(dtAsSeconds, mainWindow);
+		m_PlayerCustomization.Update(dtAsSeconds, mainWindow, isLeftClicked);
 		return;
 	}
 	mainWindow.setMouseCursorVisible(false);
@@ -22,7 +22,6 @@ void GameEngineLogic::Update(float dtAsSeconds, RenderWindow& mainWindow)
 	UpdateInteractable(dtAsSeconds);
 
 	PressEToInteractCheck();
-
 
 	if (b_FoundBookOverlayActive)
 	{

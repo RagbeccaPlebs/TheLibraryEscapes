@@ -2,29 +2,15 @@
 
 using namespace sf;
 
-void GameEngine::Input(RenderWindow& mainWindow, bool& isPlaying)
+void GameEngine::Input(RenderWindow& mainWindow, bool& isPlaying, const bool& isEscapePressed)
 {
-	Event event;
-	while (mainWindow.pollEvent(event)) {
-		if (event.type == Event::KeyPressed) {
-			if (event.type == Event::KeyPressed)
-			{
-				// Handle the player quitting
-				if (Keyboard::isKeyPressed(Keyboard::Escape))
-				{
-					b_Paused = !b_Paused;
-				}
-			}
-		}
-	}
-
 	if (b_Paused)
 	{
-		m_GamePausedMenu.Input(isPlaying, b_Paused);
+		m_GamePausedMenu.Input(mainWindow, isPlaying, b_Paused, isEscapePressed);
 	}
 	else
 	{
-		m_GameEngineLogic.Input(mainWindow, isPlaying);
+		m_GameEngineLogic.Input(mainWindow, isPlaying, b_Paused, isEscapePressed);
 	}
 
 }

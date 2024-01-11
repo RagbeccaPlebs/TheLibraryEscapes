@@ -2,23 +2,13 @@
 
 using namespace sf;
 
-void StartMenuEngine::Input(sf::RenderWindow& mainWindow, bool& isPlayingState)
+void StartMenuEngine::Input(sf::RenderWindow& mainWindow, bool& isPlayingState, const bool& isEscapePressed)
 {
-	Event event;
-	while (mainWindow.pollEvent(event))
+	if (isEscapePressed)
 	{
-		if (event.type == Event::KeyPressed)
-		{
-			if (event.type == Event::KeyPressed)
-			{
-				// Handle the player quitting
-				if (Keyboard::isKeyPressed(Keyboard::Escape))
-				{
-					mainWindow.close();
-				}
-			}
-		}
+		mainWindow.close();
 	}
+
 	if (m_StartButton.IsPressed())
 	{
 		isPlayingState = true;

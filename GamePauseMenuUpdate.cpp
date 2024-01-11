@@ -2,13 +2,19 @@
 
 using namespace sf;
 
-void GamePauseMenu::Update(float dtAsSeconds, RenderWindow& mainWindow)
+void GamePauseMenu::Update(float dtAsSeconds, RenderWindow& mainWindow, const bool& isLeftClicked)
 {
 	mainWindow.setMouseCursorVisible(true);
 
 	UpdateMousePositions(mainWindow);
-	m_ContinueButton.Update(m_MousePosView);
-	m_BackToMenuButton.Update(m_MousePosView);
+	m_ContinueButton.Update(m_MousePosView, mainWindow);
+	m_BackToMenuButton.Update(m_MousePosView, mainWindow);
+
+	if (isLeftClicked)
+	{
+		m_ContinueButton.Press(m_MousePosView);
+		m_BackToMenuButton.Press(m_MousePosView);
+	}
 }
 
 void GamePauseMenu::UpdateMousePositions(const RenderWindow& mainWindow)

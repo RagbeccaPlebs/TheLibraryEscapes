@@ -1,7 +1,14 @@
 ﻿#include "GamePauseMenu.h"
 
-void GamePauseMenu::Input(bool& isPlayingState, bool& isPausedState)
+using namespace sf;
+
+void GamePauseMenu::Input(RenderWindow& mainWindow, bool& isPlayingState, bool& isPausedState, const bool& isEscapePressed)
 {
+	if (isEscapePressed)
+	{
+		isPausedState = false;
+	}
+
 	if (m_ContinueButton.IsPressed())
 	{
 		isPausedState = false;

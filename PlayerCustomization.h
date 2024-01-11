@@ -59,6 +59,7 @@ public:
 	PlayerCustomization(PlayerCustomization& playerCustomization);
 
 	void Draw(sf::RenderWindow& mainWindow);
-	void Update(float dtAsSeconds, sf::RenderWindow& mainWindow);
-	void Input(sf::RenderWindow& mainWindow, bool& isPlayerCustomizationSelectorEnabled, bool& isPlaying, const sf::Vector2f& playerSpawnLocation);
+	void Update(float dtAsSeconds, sf::RenderWindow& mainWindow, const bool& isLeftClicked);
+	void Input(sf::RenderWindow& mainWindow, bool& isPlayerCustomizationSelectorEnabled, bool& isPlaying, const sf::Vector2f& playerSpawnLocation,
+		const bool& isEscapePressed);
 };

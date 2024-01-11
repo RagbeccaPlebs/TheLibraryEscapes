@@ -24,7 +24,7 @@ public:
 	~GamePauseMenu() = default;
 
 	void Draw(sf::RenderWindow& mainWindow);
-	void Update(float dtAsSeconds, sf::RenderWindow& mainWindow);
-	void Input(bool& isPlayingState, bool& isPausedState);
+	void Update(float dtAsSeconds, sf::RenderWindow& mainWindow, const bool& isLeftClicked);
+	void Input(sf::RenderWindow& mainWindow, bool& isPlayingState, bool& isPausedState, const bool& isEscapePressed);
 	void ClearSounds();
 };

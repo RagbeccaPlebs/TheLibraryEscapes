@@ -41,18 +41,21 @@ bool Button::IsPressed()
 	return false;
 }
 
-void Button::Update(const Vector2f mousePosition) {
+void Button::Press(const Vector2f mousePosition)
+{
+	if (m_Shape.getGlobalBounds().contains(mousePosition))
+	{
+		m_ButtonState = BTN_PRESSED;
+		m_Shape.setFillColor(m_ActiveColor);
+	}
+}
+
+
+void Button::Update(const Vector2f mousePosition, RenderWindow& mainWindow) {
 	//Hover
 	if (m_Shape.getGlobalBounds().contains(mousePosition))
 	{
 		m_ButtonState = BTN_HOVER;
-
-		//Pressed
-		if (Mouse::isButtonPressed(Mouse::Left))
-		{
-			Mouse::setPosition(Vector2i(static_cast<int>(m_Shape.getPosition().x + m_Shape.getSize().x), static_cast<int>(m_Shape.getPosition().y + m_Shape.getSize().y)));
-			m_ButtonState = BTN_PRESSED;
-		}
 	}
 	//Idle
 	else

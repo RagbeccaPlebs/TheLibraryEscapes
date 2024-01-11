@@ -75,8 +75,8 @@ public:
 	GameEngineLogic(GameEngineLogic& gameEngineLogic);
 
 	void Draw(sf::RenderWindow& mainWindow);
-	void Update(float dtAsSeconds, sf::RenderWindow& mainWindow);
-	void Input(sf::RenderWindow& mainWindow, bool& isPlaying);
+	void Update(float dtAsSeconds, sf::RenderWindow& mainWindow, const bool& isLeftClicked);
+	void Input(sf::RenderWindow& mainWindow, bool& isPlaying, bool& isPaused, const bool& isEscapePressed);
 
 	void UpdateMap(const std::string& mapName, sf::Vector2f spawnLocation);
 	void ClearSounds() const;

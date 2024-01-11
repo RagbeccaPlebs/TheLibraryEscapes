@@ -18,6 +18,10 @@ private:
 	//Game state
 	bool b_Playing = false;
 
+	//Input states
+	bool b_LeftClicked = false;
+	bool b_EscapePressed = false;
+
 	void Input();
 	void Update(const float dtAsSeconds);
 	void Draw();

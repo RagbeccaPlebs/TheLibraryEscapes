@@ -19,7 +19,7 @@ public:
 	GameEngine(GameEngine& gameEngine);
 
 	void Draw(sf::RenderWindow& mainWindow);
-	void Update(float dtAsSeconds, sf::RenderWindow& mainWindow);
-	void Input(sf::RenderWindow& mainWindow, bool& isPlaying);
+	void Update(float dtAsSeconds, sf::RenderWindow& mainWindow, const bool& isLeftClicked);
+	void Input(sf::RenderWindow& mainWindow, bool& isPlaying, const bool& isEscapePressed);
 	void ClearEverything();
 };

@@ -13,6 +13,7 @@ class Button
 	ButtonState m_ButtonState;
 
 	bool b_IsEnabled = false;
+	bool b_IsChangingFrameButton = false;
 
 	sf::RectangleShape m_Shape;
 	sf::Text m_Text;
@@ -22,6 +23,7 @@ class Button
 	sf::Color m_IdleColor;
 	sf::Color m_HoverColor;
 	sf::Color m_ActiveColor;
+
 public:
 	Button() = default;
 	Button(const sf::Vector2f& position, const sf::Vector2f& dimension, const std::string& fontPath, const std::string& text,
@@ -30,7 +32,9 @@ public:
 	//Getters
 	bool IsPressed();
 
+	void Press(const sf::Vector2f mousePosition);
+
 	//Functions
-	void Update(sf::Vector2f mousePosition);
+	void Update(sf::Vector2f mousePosition, sf::RenderWindow& mainWindow);
 	void Draw(sf::RenderWindow& window);
 };
