@@ -27,6 +27,10 @@ InteractableType Interactable::GetInteractableType() const
 	return m_InteractableType;
 }
 
+bool Interactable::CanInteract(Player& player)
+{
+	return m_CollisionBox.intersects(player.GetInteractableBox());
+}
 
 int Interactable::GetId() const
 {

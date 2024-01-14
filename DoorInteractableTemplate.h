@@ -15,17 +15,30 @@ enum DoorInteractableType
 class DoorInteractableTemplate : public Interactable
 {
 protected:
-	DoorInteractableType m_DoorInteractableType;
+	//Locked
 	bool b_IsOpen;
+	int m_KeyId;
+
+	//Interaction Types
+	DoorInteractableType m_DoorInteractableType;
 	std::string m_MapToMoveToName;
 	sf::Vector2f m_MapToMoveToPosition;
+
+	//Door specific items
 	sf::SoundBuffer m_SoundBuffer;
 	sf::Sound m_Sound;
+	std::string m_SoundLocation;
+	std::string m_InactiveSoundLocation;
+	std::string m_InactiveTextureLocation;
+	std::string m_TextureLocation;
+
+	bool CheckIfKeyIsFound() const;
+	void AddDoorToActiveDoors() const;
 public:
 	void Update(float dtAsSeconds) override = 0;
 	std::pair<std::string, sf::Vector2f> Interact() override;
-	bool CanInteract(Player& player) override;
 	void PlaySound();
+	bool TryUnlocking();
 
 	~DoorInteractableTemplate() override;
 

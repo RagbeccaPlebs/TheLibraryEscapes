@@ -1,26 +1,48 @@
 #include "DoorInteractableTemplate.h"
 
+#include "TiledMapLoader.h"
+#include "nlohmann/json.hpp"
+#include <fstream>
+
+#include "Keywords.h"
+#include "TextureHolder.h"
+
 using namespace sf;
 using namespace std;
+using json = nlohmann::json;
 
 pair<string, Vector2f> DoorInteractableTemplate::Interact()
 {
 	PlaySound();
-	while(m_Sound.getStatus() == SoundSource::Playing)
+	while (m_Sound.getStatus() == SoundSource::Playing)
 	{
 		sleep(microseconds(1));
 	}
 	return pair<string, Vector2f>{m_MapToMoveToName, m_MapToMoveToPosition};
 }
 
-bool DoorInteractableTemplate::CanInteract(Player& player)
-{
-	return m_CollisionBox.intersects(player.GetInteractableBox());
-}
-
 void DoorInteractableTemplate::PlaySound()
 {
 	m_Sound.play();
+}
+
+bool DoorInteractableTemplate::TryUnlocking()
+{
+	if (!CheckIfKeyIsFound())
+	{
+		return false;
+	}
+	b_IsOpen = true;
+	const Texture& texture = TextureHolder::GetTexture(m_TextureLocation);
+	m_Texture = texture;
+	m_Sprite = Sprite(texture);
+	m_Sprite.setPosition(m_Position);
+
+	m_SoundBuffer.loadFromFile(m_SoundLocation);
+	m_Sound.setBuffer(m_SoundBuffer);
+
+	AddDoorToActiveDoors();
+	return true;
 }
 
 DoorInteractableTemplate::~DoorInteractableTemplate()
@@ -36,4 +58,42 @@ bool DoorInteractableTemplate::GetOpen() const
 DoorInteractableType DoorInteractableTemplate::GetDoorInteractableType() const
 {
 	return m_DoorInteractableType;
+}
+
+void DoorInteractableTemplate::AddDoorToActiveDoors() const
+{
+	const string itemToLoad = Keywords::ACTIVE_DOORS_FILE;
+	ifstream file(itemToLoad);
+	nlohmann::json data = json::parse(file);
+	file.close();
+
+	json jsonData;
+	jsonData["id"] = m_Id;
+	data.at(Keywords::DOOR_KEYWORD).push_back(jsonData);
+	ofstream fileOfStream(itemToLoad);
+	fileOfStream << data;
+	fileOfStream.flush();
+}
+
+bool DoorInteractableTemplate::CheckIfKeyIsFound() const
+{
+	if (m_KeyId == -1)
+	{
+		return true;
+	}
+	const string itemToLoad = Keywords::KEYS_FOUND_FILE;
+	ifstream file(itemToLoad);
+	nlohmann::json data = json::parse(file);
+	file.close();
+
+	bool isSame = false;
+
+	for (auto& idContainer : data.at(Keywords::KEY_KEYWORD))
+	{
+		if (idContainer.at("id") == m_KeyId)
+		{
+			isSame = true;
+		}
+	}
+	return isSame;
 }

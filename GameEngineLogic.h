@@ -56,16 +56,18 @@ class GameEngineLogic
 	void ClearInteractables();
 
 	//E interaction
-	bool b_EOverlayActive = false;
-	bool b_FoundBookOverlayActive = false;
-	std::string m_EmotionNameOfFoundBook;
-	const float TIME_OF_BOOK_OVERLAY_ON_SCREEN_IN_SECONDS = 5.f;
+	bool b_BottomOverlayActive = false;
+	bool b_CenterOverlayActive = false;
+	std::string m_OverlayCenterText;
+	const float TIME_OF_CENTER_OVERLAY_ON_SCREEN_IN_SECONDS = 5.f;
 	sf::Uint8 m_Opacity = 255;
-	float m_SecondsSinceOverlayActive = 0.f;
+	float m_SecondsSinceCenterOverlayActive = 0.f;
 
 	void PressEToInteractCheck();
 	void TextOverlay(sf::RenderWindow& mainWindow, const std::string& writtenText, const LOCATION_IN_VIEW locationInView, int fontSize, bool useOpacity);
-	void UpdateFoundBookOverlay(float dtAsSeconds);
+	void UpdateCenterOverlay(float dtAsSeconds);
+
+	void ResetCenterOverlay();
 
 	const int MAX_RANGE_COLLISIONS_DETECTION = 5;
 public:

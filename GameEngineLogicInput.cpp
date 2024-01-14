@@ -29,9 +29,15 @@ void GameEngineLogic::InputInteractable(RenderWindow& mainWindow)
 		{
 			if (simpleBookInteractable->CanInteract(m_Player))
 			{
+				if (!simpleBookInteractable->GetActive())
+				{
+					continue;
+				}
 				const pair<string, Vector2f> bookValue = simpleBookInteractable->Interact();
-				m_EmotionNameOfFoundBook = bookValue.first;
-				b_FoundBookOverlayActive = true;
+				string emotion = bookValue.first;
+				ResetCenterOverlay();
+				m_OverlayCenterText = "You found a " + emotion + " book!";
+				b_CenterOverlayActive = true;
 			}
 		}
 		for (DoorInteractable* doorInteractable : m_GameMapObjects.doorInteractables)
@@ -44,11 +50,18 @@ void GameEngineLogic::InputInteractable(RenderWindow& mainWindow)
 					ClearInteractables();
 					LoadMap(mapValue.first, mapValue.second);
 					m_Player.Spawn(m_PlayerSpawnLocation);
-				} else
-				{
-					doorInteractable->PlaySound();
 				}
-				
+				else
+				{
+					if (!doorInteractable->TryUnlocking())
+					{
+						ResetCenterOverlay();
+						m_OverlayCenterText = "The door is locked!";
+						b_CenterOverlayActive = true;
+						doorInteractable->PlaySound();
+					}
+				}
+
 			}
 		}
 	}

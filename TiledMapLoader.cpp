@@ -2,9 +2,9 @@
 #include "nlohmann/json.hpp"
 #include "TextureHolder.h"
 #include <fstream>
-#include <map>
 
 #include "DoorInteractable.h"
+#include "Keywords.h"
 #include "SimpleBookInteractable.h"
 
 using namespace sf;
@@ -154,9 +154,9 @@ vector<Interactable*> TiledMapLoader::LoadAllInteractables(const string& nameOfF
 	json data = json::parse(file);
 	file.close();
 
-	if (data.contains(SIMPLE_BOOK_KEYWORD)) {
+	if (data.contains(Keywords::SIMPLE_BOOK_KEYWORD)) {
 
-		for (auto dataValue : data.at(SIMPLE_BOOK_KEYWORD))
+		for (auto dataValue : data.at(Keywords::SIMPLE_BOOK_KEYWORD))
 		{
 			const int id = dataValue.at("id");
 			if (!CheckIfSimpleBookIsFound(id))
@@ -171,19 +171,21 @@ vector<Interactable*> TiledMapLoader::LoadAllInteractables(const string& nameOfF
 
 		}
 	}
-	if (data.contains(DOOR_KEYWORD)) {
-		for (auto dataValue : data.at(DOOR_KEYWORD))
+	if (data.contains(Keywords::DOOR_KEYWORD)) {
+		for (auto dataValue : data.at(Keywords::DOOR_KEYWORD))
 		{
 			const int id = dataValue.at("id");
-			bool isActive = CheckIfDoorIsActive(id);
-			string textureLocation = isActive ? dataValue.at("texture") : dataValue.at("inactive-texture");
-			string soundLocation = isActive ? dataValue.at("sound") : dataValue.at("inactive-sound");
+			string textureLocation = dataValue.at("texture");
+			string inactiveTextureLocation = dataValue.at("inactive-texture");
+			string soundLocation = dataValue.at("sound");
+			string inactiveSoundLocation = dataValue.at("inactive-sound");
+			const int keyId = dataValue.at("key-id");
 			const float x = dataValue.at("x");
 			const float y = dataValue.at("y");
 			string mapToMoveTo = dataValue.at("map");
 			const float mapX = dataValue.at("mapX");
 			const float mapY = dataValue.at("mapY");
-			interactables.push_back(new DoorInteractable(id, Vector2f(x, y), mapToMoveTo, Vector2f(mapX, mapY), textureLocation, isActive, soundLocation));
+			interactables.push_back(new DoorInteractable(id, Vector2f(x, y), mapToMoveTo, Vector2f(mapX, mapY), textureLocation, inactiveTextureLocation, keyId, soundLocation, inactiveSoundLocation));
 		}
 	}
 
@@ -192,33 +194,14 @@ vector<Interactable*> TiledMapLoader::LoadAllInteractables(const string& nameOfF
 
 bool TiledMapLoader::CheckIfSimpleBookIsFound(const int id) const
 {
-	const string itemToLoad = FOUND_BOOKS_FILE;
+	const string itemToLoad = Keywords::FOUND_BOOKS_FILE;
 	ifstream file(itemToLoad);
 	json data = json::parse(file);
 	file.close();
 
 	bool isSame = false;
 
-	for (auto& idContainer : data.at(SIMPLE_BOOK_KEYWORD))
-	{
-		if (idContainer.at("id") == id)
-		{
-			isSame = true;
-		}
-	}
-	return isSame;
-}
-
-bool TiledMapLoader::CheckIfDoorIsActive(const int id) const
-{
-	const string itemToLoad = ACTIVE_DOORS_FILE;
-	ifstream file(itemToLoad);
-	json data = json::parse(file);
-	file.close();
-
-	bool isSame = false;
-
-	for (auto& idContainer : data.at(DOOR_KEYWORD))
+	for (auto& idContainer : data.at(Keywords::SIMPLE_BOOK_KEYWORD))
 	{
 		if (idContainer.at("id") == id)
 		{

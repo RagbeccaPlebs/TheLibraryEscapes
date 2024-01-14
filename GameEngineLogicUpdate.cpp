@@ -23,9 +23,9 @@ void GameEngineLogic::Update(float dtAsSeconds, RenderWindow& mainWindow, const 
 
 	PressEToInteractCheck();
 
-	if (b_FoundBookOverlayActive)
+	if (b_CenterOverlayActive)
 	{
-		UpdateFoundBookOverlay(dtAsSeconds);
+		UpdateCenterOverlay(dtAsSeconds);
 	}
 }
 
@@ -55,31 +55,33 @@ void GameEngineLogic::PressEToInteractCheck()
 	{
 		if (doorInteractable->CanInteract(m_Player))
 		{
-			if (doorInteractable->GetOpen())
-			{
-				isOverlayApplicable = true;
-			}
+			isOverlayApplicable = true;
 		}
 	}
 
-	b_EOverlayActive = isOverlayApplicable;
+	b_BottomOverlayActive = isOverlayApplicable;
 }
 
-void GameEngineLogic::UpdateFoundBookOverlay(const float dtAsSeconds)
+void GameEngineLogic::UpdateCenterOverlay(const float dtAsSeconds)
 {
-	m_SecondsSinceOverlayActive += dtAsSeconds;
-	m_Opacity = static_cast<Uint8>(255 - (255 * (m_SecondsSinceOverlayActive / TIME_OF_BOOK_OVERLAY_ON_SCREEN_IN_SECONDS)));
+	m_SecondsSinceCenterOverlayActive += dtAsSeconds;
+	m_Opacity = static_cast<Uint8>(255 - (255 * (m_SecondsSinceCenterOverlayActive / TIME_OF_CENTER_OVERLAY_ON_SCREEN_IN_SECONDS)));
 	m_Opacity = max(m_Opacity, static_cast<Uint8>(0));
-	if (m_SecondsSinceOverlayActive > TIME_OF_BOOK_OVERLAY_ON_SCREEN_IN_SECONDS)
+	if (m_SecondsSinceCenterOverlayActive > TIME_OF_CENTER_OVERLAY_ON_SCREEN_IN_SECONDS)
 	{
-		b_FoundBookOverlayActive = false;
-		m_SecondsSinceOverlayActive = 0;
-		m_EmotionNameOfFoundBook = "";
-		m_Opacity = 255;
+		ResetCenterOverlay();
 	}
 	else
 	{
-		b_FoundBookOverlayActive = true;
+		b_CenterOverlayActive = true;
 	}
+}
+
+void GameEngineLogic::ResetCenterOverlay()
+{
+	b_CenterOverlayActive = false;
+	m_SecondsSinceCenterOverlayActive = 0;
+	m_OverlayCenterText = "";
+	m_Opacity = 255;
 }
 

@@ -8,12 +8,6 @@
 class TiledMapLoader
 {
 public:
-	//Keywords and locations
-	static const inline std::string SIMPLE_BOOK_KEYWORD = "simplebook";
-	static const inline std::string DOOR_KEYWORD = "door";
-	static const inline std::string FOUND_BOOKS_FILE = "assets/map/details/foundBooks.json";
-	static const inline std::string ACTIVE_DOORS_FILE = "assets/map/details/doors.json";
-
 	struct MapLayer
 	{
 		sf::VertexArray rVa;

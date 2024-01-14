@@ -24,8 +24,8 @@ public:
 	virtual void Update(float dtAsSeconds) = 0;
 	void Draw(sf::RenderWindow& mainWindow);
 	virtual std::pair<std::string, sf::Vector2f> Interact() = 0;
-	virtual bool CanInteract(Player& player) = 0;
-	virtual ~Interactable() {}
+	virtual bool CanInteract(Player& player);
+	virtual ~Interactable() = default;
 
 	sf::Sprite GetSprite();
 	sf::FloatRect GetCollisionBox() const;

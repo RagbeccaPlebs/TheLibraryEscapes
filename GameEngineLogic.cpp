@@ -11,7 +11,7 @@ GameEngineLogic::GameEngineLogic(const RenderWindow& mainWindow) : m_PlayerCusto
 	LoadMap("bridge", Vector2f(784.f, 920.f));
 	m_GameView.setSize(Vector2f(static_cast<float>(mainWindow.getSize().x), static_cast<float>(mainWindow.getSize().y)));
 	m_OverlayView.setSize(Vector2f(static_cast<float>(mainWindow.getSize().x), static_cast<float>(mainWindow.getSize().y)));
-	m_Zoom = .4f;
+	m_Zoom = 0.4f;
 	m_GameView.zoom(m_Zoom);
 }
 

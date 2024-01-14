@@ -266,5 +266,8 @@
     <ClInclude Include="DoorInteractableTemplate.h">
       <Filter>Header Files\Game\Interactable\Door</Filter>
     </ClInclude>
+    <ClInclude Include="Keywords.h">
+      <Filter>Header Files\Misc</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -4,6 +4,8 @@
 #include "nlohmann/json.hpp"
 #include <fstream>
 
+#include "Keywords.h"
+
 using namespace std;
 using namespace sf;
 using json = nlohmann::json;
@@ -12,9 +14,7 @@ pair<string, Vector2f> BookInteractable::Interact()
 {
 	b_Active = false;
 
-	const string itemToLoad = TiledMapLoader::FOUND_BOOKS_FILE;
-
-	ifstream file(itemToLoad);
+	ifstream file(Keywords::FOUND_BOOKS_FILE);
 	json data = json::parse(file);
 	file.close();
 
@@ -23,20 +23,14 @@ pair<string, Vector2f> BookInteractable::Interact()
 		json jsonData;
 		jsonData["id"] = m_Id;
 		jsonData["emotion"] = GetStringFromEmotion(m_Emotion);
-		data.at(TiledMapLoader::SIMPLE_BOOK_KEYWORD).push_back(jsonData);
+		data.at(Keywords::SIMPLE_BOOK_KEYWORD).push_back(jsonData);
 	}
 
-	ofstream fileOut(itemToLoad);
+	ofstream fileOut(Keywords::FOUND_BOOKS_FILE);
 	fileOut << data;
 	fileOut.flush();
 
 	return pair<string, Vector2f>{GetStringCamelCaseFromEmotion(m_Emotion), Vector2f(0, 0)};
-}
-
-bool BookInteractable::CanInteract(Player& player)
-{
-	if (!b_Active) return false;
-	return m_CollisionBox.intersects(player.GetInteractableBox());
 }
 
 BookInteractableType BookInteractable::GetBookInteractableType() const

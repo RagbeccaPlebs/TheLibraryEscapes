@@ -36,13 +36,13 @@ void GameEngineLogic::Draw(RenderWindow& mainWindow)
 	}
 
 	mainWindow.setView(m_OverlayView);
-	if (b_EOverlayActive)
+	if (b_BottomOverlayActive)
 	{
 		TextOverlay(mainWindow, "Press E To Interact!", BOTTOM, 40, false);
 	}
-	if (b_FoundBookOverlayActive)
+	if (b_CenterOverlayActive)
 	{
-		TextOverlay(mainWindow, "You found a " + m_EmotionNameOfFoundBook + " book!", CENTER, 60, true);
+		TextOverlay(mainWindow, m_OverlayCenterText, CENTER, 60, true);
 	}
 }
 
