@@ -1,5 +1,6 @@
 #include "GamePauseMenu.h"
 
+#include "Constants.h"
 #include "Engine.h"
 
 using namespace sf;
@@ -19,10 +20,10 @@ GamePauseMenu::GamePauseMenu(const RenderWindow& mainWindow)
 	const Vector2f sizeButtons(300.f, 100.f);
 	const Vector2f continueButtonLocation(((screenWidth/2.f) - (sizeButtons.x / 2.f)), (screenHeight/2.f) - 100.f);
 	const Vector2f backToMenuButtonLocation(((screenWidth / 2.f) - (sizeButtons.x / 2.f)), (screenHeight / 2.f) + 100.f);
-	m_ContinueButton = Button(continueButtonLocation, sizeButtons, "assets/fonts/PixelifySans-Regular.ttf",
-		"Continue", 40, idleColor, hoverColor, activeColor);
-	m_BackToMenuButton = Button(backToMenuButtonLocation, sizeButtons, "assets/fonts/PixelifySans-Regular.ttf",
-		"Exit To Menu", 40, idleColor, hoverColor, activeColor);
+	m_ContinueButton = Button(continueButtonLocation, sizeButtons, Files::FONT_FILE,
+		Message::CONTINUE_MESSAGE, 40, idleColor, hoverColor, activeColor);
+	m_BackToMenuButton = Button(backToMenuButtonLocation, sizeButtons, Files::FONT_FILE,
+		Message::EXIT_TO_MENU_MESSAGE, 40, idleColor, hoverColor, activeColor);
 }
 
 GamePauseMenu& GamePauseMenu::operator=(const GamePauseMenu& gamePauseMenu)

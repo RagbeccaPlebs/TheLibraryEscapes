@@ -4,7 +4,7 @@
 #include "nlohmann/json.hpp"
 #include <fstream>
 
-#include "Keywords.h"
+#include "Constants.h"
 
 using namespace std;
 using namespace sf;
@@ -14,19 +14,19 @@ pair<string, Vector2f> BookInteractable::Interact()
 {
 	b_Active = false;
 
-	ifstream file(Keywords::FOUND_BOOKS_FILE);
+	ifstream file(Files::GAME_DATA_FILE);
 	json data = json::parse(file);
 	file.close();
 
 	if (m_BookInteractableType == SIMPLE)
 	{
 		json jsonData;
-		jsonData["id"] = m_Id;
-		jsonData["emotion"] = GetStringFromEmotion(m_Emotion);
-		data.at(Keywords::SIMPLE_BOOK_KEYWORD).push_back(jsonData);
+		jsonData[Keywords::ID_KEYWORD] = m_Id;
+		jsonData[Keywords::EMOTION_KEYWORD] = GetStringFromEmotion(m_Emotion);
+		data.at(Keywords::BOOK_KEYWORD).push_back(jsonData);
 	}
 
-	ofstream fileOut(Keywords::FOUND_BOOKS_FILE);
+	ofstream fileOut(Files::GAME_DATA_FILE);
 	fileOut << data;
 	fileOut.flush();
 
@@ -51,7 +51,8 @@ bool BookInteractable::GetActive() const
 EmotionType BookInteractable::GetEmotionFromString(const string& emotion)
 {
 	unordered_map<string, EmotionType> const table =
-	{ {"SHY", SHY}, {"SAD", SAD}, {"MAD", MAD}, {"SURPRISED", SURPRISED}, {"SECRECY", SECRECY} };
+	{ {Constant::SHY_UPPERCASE, SHY}, {Constant::SAD_UPPERCASE, SAD}, {Constant::MAD_UPPERCASE, MAD},
+		{Constant::SURPRISED_UPPERCASE, SURPRISED}, {Constant::SECRECY_UPPERCASE, SECRECY} };
 	const auto it = table.find(emotion);
 	if (it != table.end()) {
 		return it->second;
@@ -61,23 +62,25 @@ EmotionType BookInteractable::GetEmotionFromString(const string& emotion)
 
 string BookInteractable::GetStringFromEmotion(const EmotionType& emotion)
 {
-	std::unordered_map<EmotionType, string> const table = 
-	{ {SHY, "SHY"}, {SAD, "SAD"},{MAD, "MAD"}, {SURPRISED, "SURPRISED"}, {SECRECY, "SECRECY"} };
+	std::unordered_map<EmotionType, string> const table =
+	{ {SHY, Constant::SHY_UPPERCASE}, {SAD, Constant::SAD_UPPERCASE},{MAD, Constant::MAD_UPPERCASE},
+		{SURPRISED, Constant::SURPRISED_UPPERCASE}, {SECRECY, Constant::SECRECY_UPPERCASE} };
 	const auto it = table.find(emotion);
 	if (it != table.end()) {
 		return it->second;
 	}
-	return "SHY";
+	return Constant::SHY_UPPERCASE;
 }
 
 string BookInteractable::GetStringCamelCaseFromEmotion(const EmotionType& emotion)
 {
 	std::unordered_map<EmotionType, string> const table =
-	{ {SHY, "Shy"}, {SAD, "Sad"},{MAD, "Mad"}, {SURPRISED, "Surprised"}, {SECRECY, "Secrecy"} };
+	{ {SHY, Constant::SHY_CAMELCASE}, {SAD, Constant::SAD_CAMELCASE},{MAD, Constant::MAD_CAMELCASE},
+		{SURPRISED, Constant::SURPRISED_CAMELCASE}, {SECRECY, Constant::SECRECY_CAMELCASE} };
 	const auto it = table.find(emotion);
 	if (it != table.end()) {
 		return it->second;
 	}
-	return "Shy";
+	return Constant::SHY_CAMELCASE;
 }
 

@@ -5,7 +5,7 @@
 #include "nlohmann/json.hpp"
 #include <fstream>
 
-#include "Keywords.h"
+#include "Constants.h"
 
 using namespace sf;
 using namespace std;
@@ -33,8 +33,8 @@ DoorInteractable::DoorInteractable(int id, Vector2f position, const string& mapT
 
 	const float textureWidth = static_cast<float>(texture.getSize().x);
 	const float textureHeight = static_cast<float>(texture.getSize().y);
-	m_CollisionBox = FloatRect(position.x - (TiledMapLoader::STANDARD_TILE_SIZE /2.f), position.y - (TiledMapLoader::STANDARD_TILE_SIZE / 2.f),
-		textureWidth + (TiledMapLoader::STANDARD_TILE_SIZE), textureHeight + (TiledMapLoader::STANDARD_TILE_SIZE));
+	m_CollisionBox = FloatRect(position.x - (Constant::STANDARD_TILE_SIZE /2.f), position.y - (Constant::STANDARD_TILE_SIZE / 2.f),
+		textureWidth + (Constant::STANDARD_TILE_SIZE), textureHeight + (Constant::STANDARD_TILE_SIZE));
 
 	m_TextureLocation = textureFileLocation;
 	m_InactiveTextureLocation = inactiveTextureFileLocation;
@@ -49,7 +49,7 @@ void DoorInteractable::Update(float dtAsSeconds)
 
 bool DoorInteractable::CheckIfDoorIsActive(const int id) const
 {
-	const string itemToLoad = Keywords::ACTIVE_DOORS_FILE;
+	const string itemToLoad = Files::GAME_DATA_FILE;
 	ifstream file(itemToLoad);
 	nlohmann::json data = json::parse(file);
 	file.close();
@@ -58,7 +58,7 @@ bool DoorInteractable::CheckIfDoorIsActive(const int id) const
 
 	for (auto& idContainer : data.at(Keywords::DOOR_KEYWORD))
 	{
-		if (idContainer.at("id") == id)
+		if (idContainer.at(Keywords::ID_KEYWORD) == id)
 		{
 			isSame = true;
 		}

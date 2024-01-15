@@ -1,5 +1,5 @@
  {
-    "simplebook": [
+    "simple-book": [
         {
             "id": 1,
             "texture": "assets/graphics/books/shy-book-1.png",
@@ -19,8 +19,8 @@
         {
             "id": 1,
             "map": "castle-begin",
-            "mapX": 784,
-            "mapY": 920,
+            "map-x": 784,
+            "map-y": 920,
             "x": 800,
             "y": 800,
             "key-id": -1,

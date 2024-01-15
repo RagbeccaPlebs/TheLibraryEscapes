@@ -1,4 +1,5 @@
-﻿#include "GameEngineLogic.h"
+﻿#include "Constants.h"
+#include "GameEngineLogic.h"
 
 using namespace sf;
 using namespace std;
@@ -81,7 +82,7 @@ void GameEngineLogic::ResetCenterOverlay()
 {
 	b_CenterOverlayActive = false;
 	m_SecondsSinceCenterOverlayActive = 0;
-	m_OverlayCenterText = "";
+	m_OverlayCenterText = Constant::EMPTY_STRING;
 	m_Opacity = 255;
 }
 

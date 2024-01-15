@@ -1,12 +1,12 @@
+#include "Constants.h"
 #include "GameEngineLogic.h"
-#include "TiledMapLoader.h"
 
 using namespace sf;
 
 void GameEngineLogic::DetectCollisions(Player& player) {
 	const FloatRect detectionZone = player.GetPosition();
 
-	constexpr int TILE_SIZE = TiledMapLoader::STANDARD_TILE_SIZE;
+	constexpr int TILE_SIZE = Constant::STANDARD_TILE_SIZE;
 
 	// Make a FloatRect to test each block
 	FloatRect block(0, 0, TILE_SIZE, TILE_SIZE);

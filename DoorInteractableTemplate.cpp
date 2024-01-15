@@ -4,7 +4,7 @@
 #include "nlohmann/json.hpp"
 #include <fstream>
 
-#include "Keywords.h"
+#include "Constants.h"
 #include "TextureHolder.h"
 
 using namespace sf;
@@ -62,13 +62,13 @@ DoorInteractableType DoorInteractableTemplate::GetDoorInteractableType() const
 
 void DoorInteractableTemplate::AddDoorToActiveDoors() const
 {
-	const string itemToLoad = Keywords::ACTIVE_DOORS_FILE;
+	const string itemToLoad = Files::GAME_DATA_FILE;
 	ifstream file(itemToLoad);
 	nlohmann::json data = json::parse(file);
 	file.close();
 
 	json jsonData;
-	jsonData["id"] = m_Id;
+	jsonData[Keywords::ID_KEYWORD] = m_Id;
 	data.at(Keywords::DOOR_KEYWORD).push_back(jsonData);
 	ofstream fileOfStream(itemToLoad);
 	fileOfStream << data;
@@ -77,11 +77,12 @@ void DoorInteractableTemplate::AddDoorToActiveDoors() const
 
 bool DoorInteractableTemplate::CheckIfKeyIsFound() const
 {
+	//If smaller than 0, it should be open
 	if (m_KeyId == -1)
 	{
 		return true;
 	}
-	const string itemToLoad = Keywords::KEYS_FOUND_FILE;
+	const string itemToLoad = Files::GAME_DATA_FILE;
 	ifstream file(itemToLoad);
 	nlohmann::json data = json::parse(file);
 	file.close();
@@ -90,7 +91,7 @@ bool DoorInteractableTemplate::CheckIfKeyIsFound() const
 
 	for (auto& idContainer : data.at(Keywords::KEY_KEYWORD))
 	{
-		if (idContainer.at("id") == m_KeyId)
+		if (idContainer.at(Keywords::ID_KEYWORD) == m_KeyId)
 		{
 			isSame = true;
 		}

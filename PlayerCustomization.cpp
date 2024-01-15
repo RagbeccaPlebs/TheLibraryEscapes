@@ -2,6 +2,7 @@
 
 #include <future>
 
+#include "Constants.h"
 #include "Engine.h"
 
 using namespace sf;
@@ -117,19 +118,18 @@ PlayerCustomization::PlayerCustomization(PlayerCustomization& playerCustomizatio
 
 void PlayerCustomization::InitButtons(const Vector2f& sizeButtons, const Vector2f& sizeCustomizationButtons, const Color& hoverColor, const Color& idleColor, const Color& activeColor, const float screenWidth, const float screenHeight)
 {
-	const string fontPath = "assets/fonts/PixelifySans-Regular.ttf";
 	const Vector2f continueButtonLocation(((screenWidth / 4.f) * 3.f - (sizeButtons.x / 2.f)), (screenHeight / 4.f) * 3.f);
 	const Vector2f rightButtonLocation(((screenWidth / 4.f) * 3.f - (sizeButtons.x / 2.f)), (screenHeight / 2.f) + 100.f);
 	const Vector2f leftButtonLocation(((screenWidth / 4.f) - (sizeButtons.x / 2.f)), (screenHeight / 2.f) + 100.f);
 	const Vector2f backToMenuButtonLocation(((screenWidth / 4.f) - (sizeButtons.x / 2.f)), (screenHeight / 4.f) * 3.f);
-	m_TurnLeftButton = Button(leftButtonLocation, sizeButtons, fontPath,
-		"Left", 40, idleColor, hoverColor, activeColor);
-	m_TurnRightButton = Button(rightButtonLocation, sizeButtons, fontPath,
-		"Right", 40, idleColor, hoverColor, activeColor);
-	m_ContinueButton = Button(continueButtonLocation, sizeButtons, fontPath,
-		"Continue", 40, idleColor, hoverColor, activeColor);
-	m_BackToMenuButton = Button(backToMenuButtonLocation, sizeButtons, fontPath,
-		"Exit To Menu", 40, idleColor, hoverColor, activeColor);
+	m_TurnLeftButton = Button(leftButtonLocation, sizeButtons, Files::FONT_FILE,
+		Message::LEFT_MESSAGE, 40, idleColor, hoverColor, activeColor);
+	m_TurnRightButton = Button(rightButtonLocation, sizeButtons, Files::FONT_FILE,
+		Message::RIGHT_MESSAGE, 40, idleColor, hoverColor, activeColor);
+	m_ContinueButton = Button(continueButtonLocation, sizeButtons, Files::FONT_FILE,
+		Message::CONTINUE_MESSAGE, 40, idleColor, hoverColor, activeColor);
+	m_BackToMenuButton = Button(backToMenuButtonLocation, sizeButtons, Files::FONT_FILE,
+		Message::EXIT_TO_MENU_MESSAGE, 40, idleColor, hoverColor, activeColor);
 
 	const Vector2f baseLayerButtonLocation((((screenWidth / 16.f) * 3.f) - (sizeCustomizationButtons.x / 2.f)), (screenHeight / 4.f));
 	const Vector2f lowerLayerButtonLocation((((screenWidth / 16.f) * 5.f) - (sizeCustomizationButtons.x / 2.f)), (screenHeight / 4.f));
@@ -137,11 +137,11 @@ void PlayerCustomization::InitButtons(const Vector2f& sizeButtons, const Vector2
 	const Vector2f faceItemLayerButtonLocation((((screenWidth / 16.f) * 9.f) - (sizeCustomizationButtons.x / 2.f)), (screenHeight / 4.f));
 	const Vector2f hairLayerButtonLocation((((screenWidth / 16.f) * 11.f) - (sizeCustomizationButtons.x / 2.f)), (screenHeight / 4.f));
 	const Vector2f hatLayerButtonLocation((((screenWidth / 16.f) * 13.f) - (sizeCustomizationButtons.x / 2.f)), (screenHeight / 4.f));
-	m_BaseLayerButton = Button(baseLayerButtonLocation, sizeCustomizationButtons, fontPath, "Skin Color", 30, idleColor, hoverColor, activeColor);
-	m_LowerLayerButton = Button(lowerLayerButtonLocation, sizeCustomizationButtons, fontPath, "Clothes", 30, idleColor, hoverColor, activeColor);
-	m_CloakLayerButton = Button(cloakLayerButtonLocation, sizeCustomizationButtons, fontPath, "Cloak", 30, idleColor, hoverColor, activeColor);
-	m_FaceItemLayerButton = Button(faceItemLayerButtonLocation, sizeCustomizationButtons, fontPath, "Face Item", 30, idleColor, hoverColor, activeColor);
-	m_HairLayerButton = Button(hairLayerButtonLocation, sizeCustomizationButtons, fontPath, "Hair", 30, idleColor, hoverColor, activeColor);
-	m_HatLayerButton = Button(hatLayerButtonLocation, sizeCustomizationButtons, fontPath, "Hat", 30, idleColor, hoverColor, activeColor);
+	m_BaseLayerButton = Button(baseLayerButtonLocation, sizeCustomizationButtons, Files::FONT_FILE, Message::SKIN_COLOR_MESSAGE, 30, idleColor, hoverColor, activeColor);
+	m_LowerLayerButton = Button(lowerLayerButtonLocation, sizeCustomizationButtons, Files::FONT_FILE, Message::CLOTHES_MESSAGE, 30, idleColor, hoverColor, activeColor);
+	m_CloakLayerButton = Button(cloakLayerButtonLocation, sizeCustomizationButtons, Files::FONT_FILE, Message::CLOAK_MESSAGE, 30, idleColor, hoverColor, activeColor);
+	m_FaceItemLayerButton = Button(faceItemLayerButtonLocation, sizeCustomizationButtons, Files::FONT_FILE, Message::FACE_ITEM_MESSAGE, 30, idleColor, hoverColor, activeColor);
+	m_HairLayerButton = Button(hairLayerButtonLocation, sizeCustomizationButtons, Files::FONT_FILE, Message::HAIR_MESSAGE, 30, idleColor, hoverColor, activeColor);
+	m_HatLayerButton = Button(hatLayerButtonLocation, sizeCustomizationButtons, Files::FONT_FILE, Message::HAT_MESSAGE, 30, idleColor, hoverColor, activeColor);
 }
 

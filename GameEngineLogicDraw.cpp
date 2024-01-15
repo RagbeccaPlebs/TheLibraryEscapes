@@ -1,4 +1,5 @@
-﻿#include "GameEngineLogic.h"
+﻿#include "Constants.h"
+#include "GameEngineLogic.h"
 
 using namespace sf;
 using namespace std;
@@ -19,7 +20,7 @@ void GameEngineLogic::Draw(RenderWindow& mainWindow)
 	{
 		for (TiledMapLoader::MapLayer& mapLayer : m_Map->GetMapLayers())
 		{
-			if (mapLayer.id == i + 1 && mapLayer.name != "Collision")
+			if (mapLayer.id == i + 1 && mapLayer.name != Constant::MAP_COLLISION_LEVEL_NAME)
 			{
 				mainWindow.draw(mapLayer.rVa, &m_Map->GetTextureTiles());
 			}
@@ -38,7 +39,7 @@ void GameEngineLogic::Draw(RenderWindow& mainWindow)
 	mainWindow.setView(m_OverlayView);
 	if (b_BottomOverlayActive)
 	{
-		TextOverlay(mainWindow, "Press E To Interact!", BOTTOM, 40, false);
+		TextOverlay(mainWindow, Message::PRESS_E_TO_INTERACT_MESSAGE, BOTTOM, 40, false);
 	}
 	if (b_CenterOverlayActive)
 	{
@@ -69,7 +70,7 @@ void GameEngineLogic::TextOverlay(RenderWindow& mainWindow, const string& writte
 	text.setString(writtenText);
 
 	Font font;
-	font.loadFromFile("assets/fonts/PixelifySans-Regular.ttf");
+	font.loadFromFile(Files::FONT_FILE);
 
 	text.setFont(font);
 

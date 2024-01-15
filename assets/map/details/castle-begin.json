@@ -3,8 +3,8 @@
         {
             "id": 2,
             "map": "bridge",
-            "mapX": 784,
-            "mapY": 920,
+            "map-x": 784,
+            "map-y": 920,
             "x": 800,
             "y": 800,
             "key-id": 1,

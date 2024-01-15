@@ -7,7 +7,7 @@ using namespace std;
 
 Button::Button(const Vector2f& position, const Vector2f& dimension, const string& fontPath, const string& text, const int fontSize, const Color& idleColor, const Color& hoverColor, const Color& activeColor)
 {
-	m_ButtonState = ButtonState::BTN_IDLE;
+	m_ButtonState = BTN_IDLE;
 	m_Shape.setSize(dimension);
 	m_Shape.setPosition(position);
 	m_Text.setString(text);
@@ -16,7 +16,7 @@ Button::Button(const Vector2f& position, const Vector2f& dimension, const string
 	m_Font->loadFromFile(fontPath);
 
 	m_Text.setFont(*m_Font);
-	m_Text.setFillColor(sf::Color::White);
+	m_Text.setFillColor(Color::White);
 	m_Text.setCharacterSize(fontSize);
 	const float positionX = ((position.x + (dimension.x / 2.0f)) - (m_Text.getGlobalBounds().width / 2.0f));
 	const float positionY = ((position.y + (dimension.y / 2.0f)) - (m_Text.getGlobalBounds().height));
@@ -30,7 +30,6 @@ Button::Button(const Vector2f& position, const Vector2f& dimension, const string
 	m_Shape.setFillColor(m_IdleColor);
 }
 
-//Getters
 bool Button::IsPressed()
 {
 	if (m_ButtonState == BTN_PRESSED)

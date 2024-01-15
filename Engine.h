@@ -26,6 +26,8 @@ private:
 	void Update(const float dtAsSeconds);
 	void Draw();
 	void ClearEverything();
+
+	void CheckIfFilesArePresent();
 public:
 	Engine();
 

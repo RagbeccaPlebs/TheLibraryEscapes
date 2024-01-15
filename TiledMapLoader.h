@@ -29,8 +29,6 @@ public:
 		std::vector<Interactable*> interactables;
 	};
 
-	static constexpr int STANDARD_TILE_SIZE = 16;
-
 	//Functions
 	//Get Map
 	MapValues MapLoader(const std::string& name);
@@ -39,9 +37,6 @@ public:
 	bool CheckIfSimpleBookIsFound(int id) const;
 	bool CheckIfDoorIsActive(int id) const;
 private:
-	const std::string FILE_PATH = "assets/map/";
-	const std::string FILE_PATH_DETAILS = "assets/map/details/";
-
 	sf::VertexArray GetVertexArrayFromData(std::vector<int>& data, sf::Vector2i mapSize, int TILE_SIZE);
 
 	MapLayer GetMapLayerFromData(std::vector<int>& data, int id, sf::Vector2i mapSize, int TILE_SIZE, const std::string& name);

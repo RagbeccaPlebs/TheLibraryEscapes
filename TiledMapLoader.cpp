@@ -3,8 +3,8 @@
 #include "TextureHolder.h"
 #include <fstream>
 
+#include "Constants.h"
 #include "DoorInteractable.h"
-#include "Keywords.h"
 #include "SimpleBookInteractable.h"
 
 using namespace sf;
@@ -83,35 +83,34 @@ TiledMapLoader::MapLayer TiledMapLoader::GetMapLayerFromData(vector<int>& data, 
 TiledMapLoader::MapValues TiledMapLoader::MapLoader(const std::string& name)
 {
 	// Load the appropriate level from a text file
-	string itemToLoad = FILE_PATH;
+	string itemToLoad = Files::MAP_FOLDER;
 
-	itemToLoad += name + ".json";
+	itemToLoad += name + Files::JSON_EXTENSION;
 
 	ifstream file(itemToLoad);
 	json data = json::parse(file);
 	file.close();
 
-	int amountOfLayers = data.at("layers").size();
+	int amountOfLayers = data.at(Keywords::LAYERS_KEYWORD).size();
 	vector<MapLayer> mapLayers;
 	auto** collisionsMap = new int* [1];
 	MapValues mapValues;
 
-	m_Texture = TextureHolder::GetTexture("assets/graphics/map/" + name + ".png");
+	m_Texture = TextureHolder::GetTexture(Files::MAP_GRAPHICS_FOLDER + name + Files::PNG_EXTENSION);
 
-	int tileSize = static_cast<int>(data.at("tilewidth"));
+	int tileSize = static_cast<int>(data.at(Keywords::TILEWIDTH_KEYWORD));
 
 	for (int layer = 0; layer < amountOfLayers; layer++)
 	{
-		string layerName = data.at("layers").at(layer).at("name");
-		int mapSizeX = data.at("layers").at(layer).at("width");
-		int mapSizeY = data.at("layers").at(layer).at("height");
-		if (layerName.find("Collision") != string::npos)
+		string layerName = data.at(Keywords::LAYERS_KEYWORD).at(layer).at(Keywords::NAME_KEYWORD);
+		int mapSizeX = data.at(Keywords::LAYERS_KEYWORD).at(layer).at(Keywords::WIDTH_KEYWORD);
+		int mapSizeY = data.at(Keywords::LAYERS_KEYWORD).at(layer).at(Keywords::HEIGHT_KEYWORD);
+		if (layerName.find(Constant::MAP_COLLISION_LEVEL_NAME) != string::npos)
 		{
-			vector<int> tempData = data.at("layers").at(layer).at("data");
+			vector<int> tempData = data.at(Keywords::LAYERS_KEYWORD).at(layer).at(Keywords::DATA_KEYWORD);
 			collisionsMap = new int* [mapSizeY];
 			for (int i = 0; i < mapSizeY; ++i)
 			{
-				// Add a new array into each array element
 				collisionsMap[i] = new int[mapSizeX];
 			}
 			int index = 0;
@@ -123,13 +122,15 @@ TiledMapLoader::MapValues TiledMapLoader::MapLoader(const std::string& name)
 				}
 			}
 			mapValues.mapSize = Vector2i(mapSizeX, mapSizeY);
-			mapLayers.push_back(GetMapLayerFromData(tempData, data.at("layers").at(layer).at("id"), mapValues.mapSize, tileSize, layerName));
+			mapLayers.push_back(GetMapLayerFromData(tempData, data.at(Keywords::LAYERS_KEYWORD).at(layer).at(Keywords::ID_KEYWORD),
+				mapValues.mapSize, tileSize, layerName));
 		}
 		else
 		{
-			vector<int> tempData = data.at("layers").at(layer).at("data");
+			vector<int> tempData = data.at(Keywords::LAYERS_KEYWORD).at(layer).at(Keywords::DATA_KEYWORD);
 			auto mapSize = Vector2i(mapSizeX, mapSizeY);
-			mapLayers.push_back(GetMapLayerFromData(tempData, data.at("layers").at(layer).at("id"), mapSize, tileSize, layerName));
+			mapLayers.push_back(GetMapLayerFromData(tempData, data.at(Keywords::LAYERS_KEYWORD).at(layer).at(Keywords::ID_KEYWORD),
+				mapSize, tileSize, layerName));
 		}
 	}
 
@@ -148,24 +149,24 @@ vector<Interactable*> TiledMapLoader::LoadAllInteractables(const string& nameOfF
 {
 	vector<Interactable*> interactables;
 
-	string itemToLoad = FILE_PATH_DETAILS;
-	itemToLoad += nameOfFile + ".json";
+	string itemToLoad = Files::MAP_DETAILS_FOLDER;
+	itemToLoad += nameOfFile + Files::JSON_EXTENSION;
 	ifstream file(itemToLoad);
 	json data = json::parse(file);
 	file.close();
 
-	if (data.contains(Keywords::SIMPLE_BOOK_KEYWORD)) {
+	if (data.contains(Keywords::BOOK_KEYWORD)) {
 
-		for (auto dataValue : data.at(Keywords::SIMPLE_BOOK_KEYWORD))
+		for (auto dataValue : data.at(Keywords::BOOK_KEYWORD))
 		{
-			const int id = dataValue.at("id");
+			const int id = dataValue.at(Keywords::ID_KEYWORD);
 			if (!CheckIfSimpleBookIsFound(id))
 			{
-				string textureLocation = dataValue.at("texture");
-				string emotionString = dataValue.at("emotion");
+				string textureLocation = dataValue.at(Keywords::TEXTURE_KEYWORD);
+				string emotionString = dataValue.at(Keywords::EMOTION_KEYWORD);
 				EmotionType emotion = BookInteractable::GetEmotionFromString(emotionString);
-				const float x = dataValue.at("x");
-				const float y = dataValue.at("y");
+				const float x = dataValue.at(Keywords::X_KEYWORD);
+				const float y = dataValue.at(Keywords::Y_KEYWORD);
 				interactables.push_back(new SimpleBookInteractable(id, textureLocation, Vector2f(x, y), emotion));
 			}
 
@@ -174,17 +175,17 @@ vector<Interactable*> TiledMapLoader::LoadAllInteractables(const string& nameOfF
 	if (data.contains(Keywords::DOOR_KEYWORD)) {
 		for (auto dataValue : data.at(Keywords::DOOR_KEYWORD))
 		{
-			const int id = dataValue.at("id");
-			string textureLocation = dataValue.at("texture");
-			string inactiveTextureLocation = dataValue.at("inactive-texture");
-			string soundLocation = dataValue.at("sound");
-			string inactiveSoundLocation = dataValue.at("inactive-sound");
-			const int keyId = dataValue.at("key-id");
-			const float x = dataValue.at("x");
-			const float y = dataValue.at("y");
-			string mapToMoveTo = dataValue.at("map");
-			const float mapX = dataValue.at("mapX");
-			const float mapY = dataValue.at("mapY");
+			const int id = dataValue.at(Keywords::ID_KEYWORD);
+			string textureLocation = dataValue.at(Keywords::TEXTURE_KEYWORD);
+			string inactiveTextureLocation = dataValue.at(Keywords::INACTIVE_TEXTURE_KEYWORD);
+			string soundLocation = dataValue.at(Keywords::SOUND_KEYWORD);
+			string inactiveSoundLocation = dataValue.at(Keywords::INACTIVE_SOUND_KEYWORD);
+			const int keyId = dataValue.at(Keywords::KEY_ID_KEYWORD);
+			const float x = dataValue.at(Keywords::X_KEYWORD);
+			const float y = dataValue.at(Keywords::Y_KEYWORD);
+			string mapToMoveTo = dataValue.at(Keywords::MAP_KEYWORD);
+			const float mapX = dataValue.at(Keywords::MAP_X_KEYWORD);
+			const float mapY = dataValue.at(Keywords::MAP_Y_KEYWORD);
 			interactables.push_back(new DoorInteractable(id, Vector2f(x, y), mapToMoveTo, Vector2f(mapX, mapY), textureLocation, inactiveTextureLocation, keyId, soundLocation, inactiveSoundLocation));
 		}
 	}
@@ -194,16 +195,16 @@ vector<Interactable*> TiledMapLoader::LoadAllInteractables(const string& nameOfF
 
 bool TiledMapLoader::CheckIfSimpleBookIsFound(const int id) const
 {
-	const string itemToLoad = Keywords::FOUND_BOOKS_FILE;
+	const string itemToLoad = Files::GAME_DATA_FILE;
 	ifstream file(itemToLoad);
 	json data = json::parse(file);
 	file.close();
 
 	bool isSame = false;
 
-	for (auto& idContainer : data.at(Keywords::SIMPLE_BOOK_KEYWORD))
+	for (auto& idContainer : data.at(Keywords::BOOK_KEYWORD))
 	{
-		if (idContainer.at("id") == id)
+		if (idContainer.at(Keywords::ID_KEYWORD) == id)
 		{
 			isSame = true;
 		}

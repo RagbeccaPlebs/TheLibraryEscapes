@@ -1,4 +1,5 @@
-﻿#include "GameEngineLogic.h"
+﻿#include "Constants.h"
+#include "GameEngineLogic.h"
 
 using namespace sf;
 using namespace std;
@@ -36,7 +37,7 @@ void GameEngineLogic::InputInteractable(RenderWindow& mainWindow)
 				const pair<string, Vector2f> bookValue = simpleBookInteractable->Interact();
 				string emotion = bookValue.first;
 				ResetCenterOverlay();
-				m_OverlayCenterText = "You found a " + emotion + " book!";
+				m_OverlayCenterText = Message::FOUND_BOOK_MESSAGE_1 + emotion + Message::FOUND_BOOK_MESSAGE_2;
 				b_CenterOverlayActive = true;
 			}
 		}
@@ -56,7 +57,7 @@ void GameEngineLogic::InputInteractable(RenderWindow& mainWindow)
 					if (!doorInteractable->TryUnlocking())
 					{
 						ResetCenterOverlay();
-						m_OverlayCenterText = "The door is locked!";
+						m_OverlayCenterText = Message::DOOR_LOCKED_MESSAGE;
 						b_CenterOverlayActive = true;
 						doorInteractable->PlaySound();
 					}
