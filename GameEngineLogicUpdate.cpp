@@ -32,29 +32,29 @@ void GameEngineLogic::Update(float dtAsSeconds, RenderWindow& mainWindow, const 
 
 void GameEngineLogic::UpdateInteractable(float dtAsSeconds)
 {
-	for (SimpleBookInteractable* simpleBookInteractable : m_GameMapObjects.simpleBookInteractables)
-	{
-		simpleBookInteractable->Update(dtAsSeconds);
-	}
 	for (DoorInteractable* doorInteractable : m_GameMapObjects.doorInteractables)
 	{
 		doorInteractable->Update(dtAsSeconds);
+	}
+	for (PickupInventoryInteractable* pickupInventoryInteractable : m_GameMapObjects.pickupInventoryInteractables)
+	{
+		pickupInventoryInteractable->Update(dtAsSeconds);
 	}
 }
 
 void GameEngineLogic::PressEToInteractCheck()
 {
 	bool isOverlayApplicable = false;
-	for (SimpleBookInteractable* simpleBookInteractable : m_GameMapObjects.simpleBookInteractables)
+	for (DoorInteractable* doorInteractable : m_GameMapObjects.doorInteractables)
 	{
-		if (simpleBookInteractable->CanInteract(m_Player))
+		if (doorInteractable->CanInteract(m_Player))
 		{
 			isOverlayApplicable = true;
 		}
 	}
-	for (DoorInteractable* doorInteractable : m_GameMapObjects.doorInteractables)
+	for (PickupInventoryInteractable* pickupInventoryInteractable : m_GameMapObjects.pickupInventoryInteractables)
 	{
-		if (doorInteractable->CanInteract(m_Player))
+		if (pickupInventoryInteractable->CanInteract(m_Player))
 		{
 			isOverlayApplicable = true;
 		}

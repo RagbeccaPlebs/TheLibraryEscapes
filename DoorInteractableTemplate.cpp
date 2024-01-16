@@ -45,6 +45,13 @@ bool DoorInteractableTemplate::TryUnlocking()
 	return true;
 }
 
+string DoorInteractableTemplate::Message()
+{
+	string message;
+	message.append(Message::DOOR_LOCKED_MESSAGE_1).append(std::to_string(GetKeyId())).append(Message::DOOR_LOCKED_MESSAGE_2);
+	return message;
+}
+
 DoorInteractableTemplate::~DoorInteractableTemplate()
 {
 	m_Sound.resetBuffer();
@@ -53,6 +60,11 @@ DoorInteractableTemplate::~DoorInteractableTemplate()
 bool DoorInteractableTemplate::GetOpen() const
 {
 	return b_IsOpen;
+}
+
+int DoorInteractableTemplate::GetKeyId() const
+{
+	return m_KeyId;
 }
 
 DoorInteractableType DoorInteractableTemplate::GetDoorInteractableType() const

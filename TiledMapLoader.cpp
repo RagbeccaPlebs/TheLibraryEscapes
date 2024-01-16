@@ -155,19 +155,13 @@ vector<Interactable*> TiledMapLoader::LoadAllInteractables(const string& nameOfF
 	json data = json::parse(file);
 	file.close();
 
-	if (data.contains(Keywords::BOOK_KEYWORD)) {
 
+	if (data.contains(Keywords::BOOK_KEYWORD)) {
 		for (auto dataValue : data.at(Keywords::BOOK_KEYWORD))
 		{
-			const int id = dataValue.at(Keywords::ID_KEYWORD);
-			if (!CheckIfSimpleBookIsFound(id))
+			if (!CheckIfSimpleBookIsFound(dataValue.at(Keywords::ID_KEYWORD)))
 			{
-				string textureLocation = dataValue.at(Keywords::TEXTURE_KEYWORD);
-				string emotionString = dataValue.at(Keywords::EMOTION_KEYWORD);
-				EmotionType emotion = BookInteractable::GetEmotionFromString(emotionString);
-				const float x = dataValue.at(Keywords::X_KEYWORD);
-				const float y = dataValue.at(Keywords::Y_KEYWORD);
-				interactables.push_back(new SimpleBookInteractable(id, textureLocation, Vector2f(x, y), emotion));
+				interactables.push_back(CreateSimpleBookInteractableFromData(dataValue));
 			}
 
 		}
@@ -175,18 +169,25 @@ vector<Interactable*> TiledMapLoader::LoadAllInteractables(const string& nameOfF
 	if (data.contains(Keywords::DOOR_KEYWORD)) {
 		for (auto dataValue : data.at(Keywords::DOOR_KEYWORD))
 		{
-			const int id = dataValue.at(Keywords::ID_KEYWORD);
-			string textureLocation = dataValue.at(Keywords::TEXTURE_KEYWORD);
-			string inactiveTextureLocation = dataValue.at(Keywords::INACTIVE_TEXTURE_KEYWORD);
-			string soundLocation = dataValue.at(Keywords::SOUND_KEYWORD);
-			string inactiveSoundLocation = dataValue.at(Keywords::INACTIVE_SOUND_KEYWORD);
-			const int keyId = dataValue.at(Keywords::KEY_ID_KEYWORD);
-			const float x = dataValue.at(Keywords::X_KEYWORD);
-			const float y = dataValue.at(Keywords::Y_KEYWORD);
-			string mapToMoveTo = dataValue.at(Keywords::MAP_KEYWORD);
-			const float mapX = dataValue.at(Keywords::MAP_X_KEYWORD);
-			const float mapY = dataValue.at(Keywords::MAP_Y_KEYWORD);
-			interactables.push_back(new DoorInteractable(id, Vector2f(x, y), mapToMoveTo, Vector2f(mapX, mapY), textureLocation, inactiveTextureLocation, keyId, soundLocation, inactiveSoundLocation));
+			interactables.push_back(CreateDoorInteractableFromData(dataValue));
+		}
+	}
+	if (data.contains(Keywords::PICKUP_KEYWORD)) {
+		for (auto dataValue : data.at(Keywords::PICKUP_KEYWORD))
+		{
+			switch (PickupInventoryInteractable::GetPickupTypeFromString(dataValue.at(Keywords::TYPE_KEYWORD)))
+			{
+			case KEY:
+				if (CheckIfKeyIsFound(dataValue.at(Keywords::ID_KEYWORD)))
+				{
+					break;
+				}
+				interactables.push_back(CreateKeyInteractableFromData(dataValue));
+				break;
+			case BOOK:
+				//Shouldn't be here;
+				break;
+			}
 		}
 	}
 
@@ -210,4 +211,61 @@ bool TiledMapLoader::CheckIfSimpleBookIsFound(const int id) const
 		}
 	}
 	return isSame;
+}
+
+bool TiledMapLoader::CheckIfKeyIsFound(int id) const
+{
+	const string itemToLoad = Files::GAME_DATA_FILE;
+	ifstream file(itemToLoad);
+	json data = json::parse(file);
+	file.close();
+
+	bool isSame = false;
+
+	for (auto& idContainer : data.at(Keywords::KEY_KEYWORD))
+	{
+		if (idContainer.at(Keywords::ID_KEYWORD) == id)
+		{
+			isSame = true;
+		}
+	}
+	return isSame;
+}
+
+KeyInteractable* TiledMapLoader::CreateKeyInteractableFromData(json data)
+{
+	const int id = data.at(Keywords::ID_KEYWORD);
+	const string textureLocation = data.at(Keywords::TEXTURE_KEYWORD);
+	const float x = data.at(Keywords::X_KEYWORD);
+	const float y = data.at(Keywords::Y_KEYWORD);
+	return new KeyInteractable(id, textureLocation, Vector2f(x, y));
+}
+
+DoorInteractable* TiledMapLoader::CreateDoorInteractableFromData(json data)
+{
+	const int id = data.at(Keywords::ID_KEYWORD);
+	const string textureLocation = data.at(Keywords::TEXTURE_KEYWORD);
+	const string inactiveTextureLocation = data.at(Keywords::INACTIVE_TEXTURE_KEYWORD);
+	const string soundLocation = data.at(Keywords::SOUND_KEYWORD);
+	const string inactiveSoundLocation = data.at(Keywords::INACTIVE_SOUND_KEYWORD);
+	const int keyId = data.at(Keywords::KEY_ID_KEYWORD);
+	const float x = data.at(Keywords::X_KEYWORD);
+	const float y = data.at(Keywords::Y_KEYWORD);
+	const string mapToMoveTo = data.at(Keywords::MAP_KEYWORD);
+	const float mapX = data.at(Keywords::MAP_X_KEYWORD);
+	const float mapY = data.at(Keywords::MAP_Y_KEYWORD);
+	return new DoorInteractable(id, Vector2f(x, y), mapToMoveTo, Vector2f(mapX, mapY),
+		textureLocation, inactiveTextureLocation, keyId,
+		soundLocation, inactiveSoundLocation);
+}
+
+SimpleBookInteractable* TiledMapLoader::CreateSimpleBookInteractableFromData(json data)
+{
+	const int id = data.at(Keywords::ID_KEYWORD);
+	const string textureLocation = data.at(Keywords::TEXTURE_KEYWORD);
+	const string emotionString = data.at(Keywords::EMOTION_KEYWORD);
+	const EmotionType emotion = BookInteractable::GetEmotionFromString(emotionString);
+	const float x = data.at(Keywords::X_KEYWORD);
+	const float y = data.at(Keywords::Y_KEYWORD);
+	return new SimpleBookInteractable(id, textureLocation, Vector2f(x, y), emotion);
 }

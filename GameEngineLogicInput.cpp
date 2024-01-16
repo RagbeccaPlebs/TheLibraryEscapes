@@ -26,21 +26,6 @@ void GameEngineLogic::InputInteractable(RenderWindow& mainWindow)
 {
 	if (Keyboard::isKeyPressed(Keyboard::E))
 	{
-		for (SimpleBookInteractable* simpleBookInteractable : m_GameMapObjects.simpleBookInteractables)
-		{
-			if (simpleBookInteractable->CanInteract(m_Player))
-			{
-				if (!simpleBookInteractable->GetActive())
-				{
-					continue;
-				}
-				const pair<string, Vector2f> bookValue = simpleBookInteractable->Interact();
-				string emotion = bookValue.first;
-				ResetCenterOverlay();
-				m_OverlayCenterText = Message::FOUND_BOOK_MESSAGE_1 + emotion + Message::FOUND_BOOK_MESSAGE_2;
-				b_CenterOverlayActive = true;
-			}
-		}
 		for (DoorInteractable* doorInteractable : m_GameMapObjects.doorInteractables)
 		{
 			if (doorInteractable->CanInteract(m_Player))
@@ -57,12 +42,22 @@ void GameEngineLogic::InputInteractable(RenderWindow& mainWindow)
 					if (!doorInteractable->TryUnlocking())
 					{
 						ResetCenterOverlay();
-						m_OverlayCenterText = Message::DOOR_LOCKED_MESSAGE;
+						m_OverlayCenterText = doorInteractable->Message();
 						b_CenterOverlayActive = true;
 						doorInteractable->PlaySound();
 					}
 				}
 
+			}
+		}
+		for (PickupInventoryInteractable* pickupInventoryInteractable : m_GameMapObjects.pickupInventoryInteractables)
+		{
+			if (pickupInventoryInteractable->CanInteract(m_Player))
+			{
+				pickupInventoryInteractable->Interact();
+				ResetCenterOverlay();
+				m_OverlayCenterText = pickupInventoryInteractable->Message();
+				b_CenterOverlayActive = true;
 			}
 		}
 	}

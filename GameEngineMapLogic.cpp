@@ -21,20 +21,17 @@ void GameEngineLogic::ClearInteractables()
 		delete doorInteractable;
 	}
 	m_GameMapObjects.doorInteractables.clear();
-	m_GameMapObjects.simpleBookInteractables.clear();
+	m_GameMapObjects.pickupInventoryInteractables.clear();
 }
 
 void GameEngineLogic::AddInteractableToCorrectVector(const vector<Interactable*>& interactables)
 {
 	for (Interactable* interactable : interactables)
 	{
-		if (interactable->GetInteractableType() == BOOK)
+		if (interactable->GetInteractableType() == PICKUP)
 		{
-			BookInteractable* bookInteractableChild = dynamic_cast<BookInteractable*>(interactable);
-			if (bookInteractableChild->GetBookInteractableType() == SIMPLE)
-			{
-				m_GameMapObjects.simpleBookInteractables.push_back(dynamic_cast<SimpleBookInteractable*>(bookInteractableChild));
-			}
+			PickupInventoryInteractable* pickupInventoryInteractable = dynamic_cast<PickupInventoryInteractable*>(interactable);
+			m_GameMapObjects.pickupInventoryInteractables.push_back(pickupInventoryInteractable);
 		}
 		else if (interactable->GetInteractableType() == DOOR)
 		{

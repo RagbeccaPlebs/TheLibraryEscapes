@@ -17,8 +17,8 @@ class GameEngineLogic
 {
 	struct GameMapObjects
 	{
-		std::vector<SimpleBookInteractable*> simpleBookInteractables;
 		std::vector<DoorInteractable*> doorInteractables;
+		std::vector<PickupInventoryInteractable*> pickupInventoryInteractables;
 	};
 	//PlayerMovement
 	PlayerMovement m_PlayerMovement;

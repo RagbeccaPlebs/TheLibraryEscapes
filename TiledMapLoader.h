@@ -3,7 +3,11 @@
 #include <string>
 #include <vector>
 
+#include "DoorInteractable.h"
 #include "Interactable.h"
+#include "KeyInteractable.h"
+#include "SimpleBookInteractable.h"
+#include "nlohmann/json.hpp"
 
 class TiledMapLoader
 {
@@ -35,7 +39,12 @@ public:
 
 	std::vector<Interactable*> LoadAllInteractables(const std::string& nameOfFile);
 	bool CheckIfSimpleBookIsFound(int id) const;
-	bool CheckIfDoorIsActive(int id) const;
+	bool CheckIfKeyIsFound(int id) const;
+
+	//Creation
+	KeyInteractable* CreateKeyInteractableFromData(nlohmann::json data);
+	DoorInteractable* CreateDoorInteractableFromData(nlohmann::json data);
+	SimpleBookInteractable* CreateSimpleBookInteractableFromData(nlohmann::json data);
 private:
 	sf::VertexArray GetVertexArrayFromData(std::vector<int>& data, sf::Vector2i mapSize, int TILE_SIZE);
 

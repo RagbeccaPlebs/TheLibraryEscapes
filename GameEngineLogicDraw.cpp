@@ -53,11 +53,11 @@ void GameEngineLogic::DrawInteractable(RenderWindow& mainWindow)
 	{
 		doorInteractable->Draw(mainWindow);
 	}
-	for (SimpleBookInteractable* simpleBookInteractable : m_GameMapObjects.simpleBookInteractables)
+	for (PickupInventoryInteractable* pickupInventoryInteractable : m_GameMapObjects.pickupInventoryInteractables)
 	{
-		if (simpleBookInteractable->GetActive())
+		if (pickupInventoryInteractable->GetActive())
 		{
-			simpleBookInteractable->Draw(mainWindow);
+			pickupInventoryInteractable->Draw(mainWindow);
 		}
 
 	}

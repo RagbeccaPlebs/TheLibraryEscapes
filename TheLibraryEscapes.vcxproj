@@ -163,7 +163,9 @@
     <ClCompile Include="GamePauseMenuInput.cpp" />
     <ClCompile Include="GamePauseMenuUpdate.cpp" />
     <ClCompile Include="Interactable.cpp" />
+    <ClCompile Include="KeyInteractable.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="PickupInventoryInteractable.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerCustomization.cpp" />
     <ClCompile Include="PlayerCustomizationDraw.cpp" />
@@ -193,7 +195,9 @@
     <ClInclude Include="GamePauseMenu.h" />
     <ClInclude Include="Interactable.h" />
     <ClInclude Include="Constants.h" />
+    <ClInclude Include="KeyInteractable.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="PickupInventoryInteractable.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerCustomization.h" />
     <ClInclude Include="PlayerMovement.h" />

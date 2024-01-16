@@ -70,20 +70,26 @@
     <Filter Include="Header Files\Game\Interactable">
       <UniqueIdentifier>{f38e5ea2-d92d-463a-9a21-8d3334671753}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Game\Interactable\Book">
-      <UniqueIdentifier>{99a520ee-4dc7-4494-a159-30a453a80784}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Game\Interactable">
       <UniqueIdentifier>{bea8b2de-7cd3-4ff4-b4d1-a035dfe2c297}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Game\Interactable\Book">
-      <UniqueIdentifier>{3e1d59fb-461c-4a9a-afc5-fc9c1a0df114}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Game\Interactable\Door">
       <UniqueIdentifier>{21fee644-d070-4b65-a831-56996e00b5fa}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Game\Interactable\Door">
       <UniqueIdentifier>{ca7e578b-1273-480b-aedb-623759188216}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\Interactable\PickupInteractable">
+      <UniqueIdentifier>{77a0a111-f66d-47bf-b0d1-c437d802ed43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\Interactable\PickupInteractable\Book">
+      <UniqueIdentifier>{99a520ee-4dc7-4494-a159-30a453a80784}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\Interactable\PickupInteractable">
+      <UniqueIdentifier>{9a4d848a-975a-4030-a02f-abce74d8801f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\Interactable\PickupInteractable\Book">
+      <UniqueIdentifier>{3e1d59fb-461c-4a9a-afc5-fc9c1a0df114}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -199,16 +205,22 @@
       <Filter>Source Files\Game\Interactable</Filter>
     </ClCompile>
     <ClCompile Include="BookInteractable.cpp">
-      <Filter>Source Files\Game\Interactable\Book</Filter>
+      <Filter>Source Files\Game\Interactable\PickupInteractable\Book</Filter>
     </ClCompile>
     <ClCompile Include="SimpleBookInteractable.cpp">
-      <Filter>Source Files\Game\Interactable\Book</Filter>
+      <Filter>Source Files\Game\Interactable\PickupInteractable\Book</Filter>
     </ClCompile>
     <ClCompile Include="DoorInteractableTemplate.cpp">
       <Filter>Source Files\Game\Interactable\Door</Filter>
     </ClCompile>
     <ClCompile Include="DoorInteractable.cpp">
       <Filter>Source Files\Game\Interactable\Door</Filter>
+    </ClCompile>
+    <ClCompile Include="PickupInventoryInteractable.cpp">
+      <Filter>Source Files\Game\Interactable\PickupInteractable</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyInteractable.cpp">
+      <Filter>Source Files\Game\Interactable\PickupInteractable</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -255,10 +267,10 @@
       <Filter>Header Files\Game\Interactable</Filter>
     </ClInclude>
     <ClInclude Include="BookInteractable.h">
-      <Filter>Header Files\Game\Interactable\Book</Filter>
+      <Filter>Header Files\Game\Interactable\PickupInteractable\Book</Filter>
     </ClInclude>
     <ClInclude Include="SimpleBookInteractable.h">
-      <Filter>Header Files\Game\Interactable\Book</Filter>
+      <Filter>Header Files\Game\Interactable\PickupInteractable\Book</Filter>
     </ClInclude>
     <ClInclude Include="DoorInteractable.h">
       <Filter>Header Files\Game\Interactable\Door</Filter>
@@ -268,6 +280,12 @@
     </ClInclude>
     <ClInclude Include="Constants.h">
       <Filter>Header Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="PickupInventoryInteractable.h">
+      <Filter>Header Files\Game\Interactable\PickupInteractable</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyInteractable.h">
+      <Filter>Header Files\Game\Interactable\PickupInteractable</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

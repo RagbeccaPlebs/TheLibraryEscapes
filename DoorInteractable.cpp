@@ -18,6 +18,7 @@ DoorInteractable::DoorInteractable(int id, Vector2f position, const string& mapT
 	m_InteractableType = DOOR;
 	m_DoorInteractableType = SIMPLE_DOOR;
 	b_IsOpen = CheckIfDoorIsActive(id);
+	b_Active = true;
 
 	const Texture& texture = TextureHolder::GetTexture(b_IsOpen ? textureFileLocation : inactiveTextureFileLocation);
 	m_Texture = texture;

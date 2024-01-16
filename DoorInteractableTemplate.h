@@ -40,8 +40,11 @@ public:
 	void PlaySound();
 	bool TryUnlocking();
 
+	std::string Message() override;
+
 	~DoorInteractableTemplate() override;
 
 	bool GetOpen() const;
+	int GetKeyId() const;
 	DoorInteractableType GetDoorInteractableType() const;
 };

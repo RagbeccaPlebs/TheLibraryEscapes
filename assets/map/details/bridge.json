@@ -1,5 +1,5 @@
  {
-    "simple-book": [
+    "book": [
         {
             "id": 1,
             "texture": "assets/graphics/interactable/shy-book-1.png",
@@ -28,6 +28,15 @@
             "inactive-texture": "assets/graphics/interactable/castle-door-closed.png",
             "sound": "assets/sound/interactable/door-open.wav",
             "inactive-sound": "assets/sound/interactable/door-locked.wav"
+        }
+    ],
+    "pickup": [
+        {
+            "id": 1,
+            "type": "KEY",
+            "texture": "assets/graphics/interactable/mad-book-1.png",
+            "x": 800,
+            "y": 900
         }
     ]
 }

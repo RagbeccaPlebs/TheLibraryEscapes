@@ -19,6 +19,7 @@ public:
 	static const inline std::string MAP_X_KEYWORD = "map-x";
 	static const inline std::string MAP_Y_KEYWORD = "map-y";
 	static const inline std::string NAME_KEYWORD = "name";
+	static const inline std::string PICKUP_KEYWORD = "pickup";
 	static const inline std::string PLAYER_BASE_KEYWORD = "player-base";
 	static const inline std::string PLAYER_CLOAK_KEYWORD = "player-cloak";
 	static const inline std::string PLAYER_FACE_ITEM_KEYWORD = "player-face-item";
@@ -29,6 +30,7 @@ public:
 	static const inline std::string SOUND_KEYWORD = "sound";
 	static const inline std::string TEXTURE_KEYWORD = "texture";
 	static const inline std::string TILEWIDTH_KEYWORD = "tilewidth";
+	static const inline std::string TYPE_KEYWORD = "type";
 	static const inline std::string WIDTH_KEYWORD = "width";
 	static const inline std::string X_KEYWORD = "x";
 	static const inline std::string Y_KEYWORD = "y";
@@ -40,7 +42,9 @@ public:
 	static const inline std::string CLOAK_MESSAGE = "Cloak";
 	static const inline std::string CLOTHES_MESSAGE = "Clothes";
 	static const inline std::string CONTINUE_MESSAGE = "Continue";
-	static const inline std::string DOOR_LOCKED_MESSAGE = "The door is locked!";
+	static const inline std::string DOOR_LOCKED_MESSAGE_1 = "The door is locked! Get key ";
+	static const inline std::string DOOR_LOCKED_MESSAGE_2 = " to open it!";
+	static const inline std::string EXCLAMATION_MARK = "!";
 	static const inline std::string EXIT_MESSAGE = "Exit";
 	static const inline std::string EXIT_TO_MENU_MESSAGE = "Exit To Menu";
 	static const inline std::string FACE_ITEM_MESSAGE = "Face Item";
@@ -48,6 +52,7 @@ public:
 	static const inline std::string FOUND_BOOK_MESSAGE_2 = " book!";
 	static const inline std::string HAIR_MESSAGE = "Hair";
 	static const inline std::string HAT_MESSAGE = "Hat";
+	static const inline std::string KEY_FOUND_MESSAGE_1 = "You found key: ";
 	static const inline std::string LEFT_MESSAGE = "Left";
 	static const inline std::string PRESS_E_TO_INTERACT_MESSAGE = "Press E To Interact!";
 	static const inline std::string RIGHT_MESSAGE = "Right";
@@ -106,6 +111,10 @@ public:
 	static const inline std::string SURPRISED_CAMELCASE = "Surprised";
 	static const inline std::string SECRECY_UPPERCASE = "SECRECY";
 	static const inline std::string SECRECY_CAMELCASE = "Secrecy";
+
+	//Pickup Types
+	static const inline std::string BOOK_UPPERCASE = "BOOK";
+	static const inline std::string KEY_UPPERCASE = "KEY";
 
 	//Map
 	static constexpr int STANDARD_TILE_SIZE = 16;

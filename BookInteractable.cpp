@@ -1,36 +1,21 @@
 #include "BookInteractable.h"
 
+#include <unordered_map>
+
 #include "TiledMapLoader.h"
-#include "nlohmann/json.hpp"
-#include <fstream>
 
 #include "Constants.h"
 
 using namespace std;
 using namespace sf;
-using json = nlohmann::json;
 
 pair<string, Vector2f> BookInteractable::Interact()
 {
 	b_Active = false;
 
-	ifstream file(Files::GAME_DATA_FILE);
-	json data = json::parse(file);
-	file.close();
+	SavePickupToFile();
 
-	if (m_BookInteractableType == SIMPLE)
-	{
-		json jsonData;
-		jsonData[Keywords::ID_KEYWORD] = m_Id;
-		jsonData[Keywords::EMOTION_KEYWORD] = GetStringFromEmotion(m_Emotion);
-		data.at(Keywords::BOOK_KEYWORD).push_back(jsonData);
-	}
-
-	ofstream fileOut(Files::GAME_DATA_FILE);
-	fileOut << data;
-	fileOut.flush();
-
-	return pair<string, Vector2f>{GetStringCamelCaseFromEmotion(m_Emotion), Vector2f(0, 0)};
+	return pair<string, Vector2f>{Constant::EMPTY_STRING, Vector2f(0, 0)};
 }
 
 BookInteractableType BookInteractable::GetBookInteractableType() const
@@ -43,10 +28,13 @@ EmotionType BookInteractable::GetEmotion() const
 	return m_Emotion;
 }
 
-bool BookInteractable::GetActive() const
+string BookInteractable::Message()
 {
-	return b_Active;
+	string message;
+	message.append(Message::FOUND_BOOK_MESSAGE_1).append(GetStringCamelCaseFromEmotion(m_Emotion)).append(Message::FOUND_BOOK_MESSAGE_2);
+	return message;
 }
+
 
 EmotionType BookInteractable::GetEmotionFromString(const string& emotion)
 {

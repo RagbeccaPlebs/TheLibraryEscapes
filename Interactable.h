@@ -6,7 +6,7 @@
 enum InteractableType
 {
 	DOOR,
-	BOOK,
+	PICKUP,
 	NPC
 };
 
@@ -19,7 +19,7 @@ protected:
 	sf::Vector2f m_Position;
 	sf::FloatRect m_CollisionBox;
 	InteractableType m_InteractableType;
-
+	bool b_Active = false;
 public:
 	virtual void Update(float dtAsSeconds) = 0;
 	void Draw(sf::RenderWindow& mainWindow);
@@ -27,9 +27,12 @@ public:
 	virtual bool CanInteract(Player& player);
 	virtual ~Interactable() = default;
 
+	virtual std::string Message() = 0;
+
 	sf::Sprite GetSprite();
 	sf::FloatRect GetCollisionBox() const;
 	sf::Texture GetTexture();
 	InteractableType GetInteractableType() const;
+	bool GetActive() const;
 	int GetId() const;
 };
