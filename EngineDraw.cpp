@@ -11,7 +11,8 @@ void Engine::Draw()
 	if (b_Playing)
 	{
 		m_GameEngine->Draw(m_Window);
-	} else
+	}
+	else
 	{
 		m_StartMenuEngine.Draw(m_Window);
 	}

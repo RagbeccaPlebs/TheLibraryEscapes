@@ -77,7 +77,7 @@ void GameEngineLogic::TextOverlay(RenderWindow& mainWindow, const string& writte
 	if (useOpacity)
 	{
 		const Color whiteColor(255, 255, 255, m_Opacity);
-		const Color darkerColor(0, 0, 0, (m_Opacity/2));
+		const Color darkerColor(0, 0, 0, (m_Opacity / 2));
 		text.setFillColor(whiteColor);
 		shape.setFillColor(darkerColor);
 	}

@@ -18,7 +18,7 @@ GamePauseMenu::GamePauseMenu(const RenderWindow& mainWindow)
 	const Color idleColor(70, 70, 70);
 	const Color activeColor(20, 20, 100);
 	const Vector2f sizeButtons(300.f, 100.f);
-	const Vector2f continueButtonLocation(((screenWidth/2.f) - (sizeButtons.x / 2.f)), (screenHeight/2.f) - 100.f);
+	const Vector2f continueButtonLocation(((screenWidth / 2.f) - (sizeButtons.x / 2.f)), (screenHeight / 2.f) - 100.f);
 	const Vector2f backToMenuButtonLocation(((screenWidth / 2.f) - (sizeButtons.x / 2.f)), (screenHeight / 2.f) + 100.f);
 	m_ContinueButton = Button(continueButtonLocation, sizeButtons, Files::FONT_FILE,
 		Message::CONTINUE_MESSAGE, 40, idleColor, hoverColor, activeColor);
