@@ -33,7 +33,7 @@ public:
 	bool IsPressed();
 
 	//Input
-	void Press(const sf::Vector2f mousePosition);
+	void Press(sf::Vector2f mousePosition);
 
 	//Functions
 	void Update(sf::Vector2f mousePosition, sf::RenderWindow& mainWindow);

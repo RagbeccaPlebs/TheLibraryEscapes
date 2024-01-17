@@ -6,7 +6,7 @@ void PlayerCustomization::Update(float dtAsSeconds, RenderWindow& mainWindow, co
 {
 	if (!b_FilesLoaded)
 	{
-		m_Player->m_PlayerTexture.LoadAllFiles();
+		m_Player.m_PlayerTexture.LoadAllFiles();
 		b_FilesLoaded = true;
 	}
 	mainWindow.setMouseCursorVisible(true);

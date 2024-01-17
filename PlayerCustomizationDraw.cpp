@@ -19,7 +19,7 @@ void PlayerCustomization::Draw(RenderWindow& mainWindow)
 	r.setFillColor(Color::Red);
 
 	mainWindow.draw(r);
-	for (const Sprite* sprite : m_Player->GetSprites()) {
+	for (const Sprite* sprite : m_Player.GetSprites()) {
 		if (sprite->getTexture() != nullptr) {
 			mainWindow.draw(*sprite);
 		}

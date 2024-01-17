@@ -13,10 +13,10 @@ class PlayerCustomization
 		DOWN
 	};
 	//PlayerMovement
-	PlayerMovement* m_PlayerMovement;
+	PlayerMovement& m_PlayerMovement;
 
 	//Player
-	Player* m_Player;
+	Player& m_Player;
 
 	//The direction the player is facing
 	Direction m_Direction = DOWN;
@@ -57,7 +57,7 @@ class PlayerCustomization
 public:
 	//Constructors, destructors and copy assignment operators
 	PlayerCustomization() = default;
-	PlayerCustomization(Player* player, PlayerMovement* playerMovement, const sf::RenderWindow& mainWindow);
+	PlayerCustomization(Player& player, PlayerMovement& playerMovement, const sf::RenderWindow& mainWindow);
 	PlayerCustomization& operator=(const PlayerCustomization& playerCustomization);
 	~PlayerCustomization() = default;
 	PlayerCustomization(PlayerCustomization& playerCustomization);

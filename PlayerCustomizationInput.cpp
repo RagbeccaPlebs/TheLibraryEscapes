@@ -12,9 +12,9 @@ void PlayerCustomization::Input(RenderWindow& mainWindow, bool& isPlayerCustomiz
 
 	if (m_ContinueButton.IsPressed())
 	{
-		m_Player->Spawn(playerSpawnLocation);
-		m_Player->SaveLayers();
-		m_Player->m_PlayerTexture.CleanAllFiles();
+		m_Player.Spawn(playerSpawnLocation);
+		m_Player.SaveLayers();
+		m_Player.m_PlayerTexture.CleanAllFiles();
 		b_FilesLoaded = false;
 		isPlayerCustomizationSelectorEnabled = false;
 	}
@@ -36,31 +36,31 @@ void PlayerCustomization::Input(RenderWindow& mainWindow, bool& isPlayerCustomiz
 
 	if (m_BaseLayerButton.IsPressed())
 	{
-		m_Player->UpdatePlayerTexture(BASE);
+		m_Player.UpdatePlayerTexture(BASE);
 	}
 
 	if (m_LowerLayerButton.IsPressed())
 	{
-		m_Player->UpdatePlayerTexture(LOWER);
+		m_Player.UpdatePlayerTexture(LOWER);
 	}
 
 	if (m_CloakLayerButton.IsPressed())
 	{
-		m_Player->UpdatePlayerTexture(CLOAK);
+		m_Player.UpdatePlayerTexture(CLOAK);
 	}
 
 	if (m_FaceItemLayerButton.IsPressed())
 	{
-		m_Player->UpdatePlayerTexture(FACE_ITEM);
+		m_Player.UpdatePlayerTexture(FACE_ITEM);
 	}
 
 	if (m_HairLayerButton.IsPressed())
 	{
-		m_Player->UpdatePlayerTexture(HAIR);
+		m_Player.UpdatePlayerTexture(HAIR);
 	}
 
 	if (m_HatLayerButton.IsPressed())
 	{
-		m_Player->UpdatePlayerTexture(HAT);
+		m_Player.UpdatePlayerTexture(HAT);
 	}
 }

@@ -14,16 +14,16 @@ void PlayerCustomization::TurnCharacter(const Direction direction)
 	switch (direction)
 	{
 	case DOWN:
-		m_Player->SetTextureLocation(m_PlayerMovement->GetIdleSouth().spriteLocation[0]);
+		m_Player.SetTextureLocation(m_PlayerMovement.GetIdleSouth().spriteLocation[0]);
 		break;
 	case LEFT:
-		m_Player->SetTextureLocation(m_PlayerMovement->GetIdleWest().spriteLocation[0]);
+		m_Player.SetTextureLocation(m_PlayerMovement.GetIdleWest().spriteLocation[0]);
 		break;
 	case UP:
-		m_Player->SetTextureLocation(m_PlayerMovement->GetIdleNorth().spriteLocation[0]);
+		m_Player.SetTextureLocation(m_PlayerMovement.GetIdleNorth().spriteLocation[0]);
 		break;
 	case RIGHT:
-		m_Player->SetTextureLocation(m_PlayerMovement->GetIdleEast().spriteLocation[0]);
+		m_Player.SetTextureLocation(m_PlayerMovement.GetIdleEast().spriteLocation[0]);
 		break;
 	}
 }
@@ -66,12 +66,12 @@ void PlayerCustomization::TurnCharacterRight()
 	}
 }
 
-PlayerCustomization::PlayerCustomization(Player* player, PlayerMovement* playerMovement, const RenderWindow& mainWindow) : m_PlayerMovement(playerMovement), m_Player(player)
+PlayerCustomization::PlayerCustomization(Player& player, PlayerMovement& playerMovement, const RenderWindow& mainWindow) : m_PlayerMovement(playerMovement), m_Player(player)
 {
 	const float screenWidth = static_cast<float>(mainWindow.getSize().x);
 	const float screenHeight = static_cast<float>(mainWindow.getSize().y);
 
-	future<bool> areFilesLoaded = std::async(std::launch::async, &PlayerTexture::LoadAllFiles, &(m_Player->m_PlayerTexture));
+	future<bool> areFilesLoaded = std::async(std::launch::async, &PlayerTexture::LoadAllFiles, &(m_Player.m_PlayerTexture));
 	b_FilesLoaded = areFilesLoaded.get();
 
 	m_ClothesView = mainWindow.getDefaultView();
@@ -85,7 +85,7 @@ PlayerCustomization::PlayerCustomization(Player* player, PlayerMovement* playerM
 	const Vector2f sizeButtons(300.f, 100.f);
 	const Vector2f sizeCustomizationButtons(200.f, 100.f);
 	InitButtons(sizeButtons, sizeCustomizationButtons, hoverColor, idleColor, activeColor, screenWidth, screenHeight);
-	m_Player->Spawn(Vector2f(m_PlayerView.getCenter().x - (m_PlayerView.getSize().x / 12.0f), m_PlayerView.getCenter().y));
+	m_Player.Spawn(Vector2f(m_PlayerView.getCenter().x - (m_PlayerView.getSize().x / 12.0f), m_PlayerView.getCenter().y));
 }
 
 
@@ -106,9 +106,8 @@ PlayerCustomization& PlayerCustomization::operator=(const PlayerCustomization& p
 	return *this;
 }
 
-PlayerCustomization::PlayerCustomization(PlayerCustomization& playerCustomization) : m_PlayerMovement(playerCustomization.m_PlayerMovement)
+PlayerCustomization::PlayerCustomization(PlayerCustomization& playerCustomization) : m_PlayerMovement(playerCustomization.m_PlayerMovement), m_Player(playerCustomization.m_Player)
 {
-	m_Player = playerCustomization.m_Player;
 	m_ClothesView = playerCustomization.m_ClothesView;
 	m_BackToMenuButton = playerCustomization.m_BackToMenuButton;
 	m_ContinueButton = playerCustomization.m_ContinueButton;

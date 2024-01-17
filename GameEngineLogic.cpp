@@ -5,7 +5,7 @@
 using namespace sf;
 using namespace std;
 
-GameEngineLogic::GameEngineLogic(const RenderWindow& mainWindow) : m_PlayerCustomization(PlayerCustomization(&m_Player, &m_PlayerMovement, mainWindow))
+GameEngineLogic::GameEngineLogic(const RenderWindow& mainWindow) : m_PlayerCustomization(PlayerCustomization(m_Player, m_PlayerMovement, mainWindow))
 {
 	//TODO SAVING GAME
 	LoadMap("bridge", Vector2f(784.f, 920.f));

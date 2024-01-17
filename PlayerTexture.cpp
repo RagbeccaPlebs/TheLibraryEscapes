@@ -25,6 +25,7 @@ void Player::SetInitialTextures()
 	string playerHairTextureLocation = data.at(Keywords::PLAYER_KEYWORD).at(Keywords::PLAYER_HAIR_KEYWORD);
 	string playerHatTextureLocation = data.at(Keywords::PLAYER_KEYWORD).at(Keywords::PLAYER_HAT_KEYWORD);
 
+
 	if (!playerBaseTextureLocation.empty())
 	{
 		m_TextureBaseLocation = Files::BASE_PLAYER_GRAPHICS_FOLDER + playerBaseTextureLocation;
