@@ -89,7 +89,7 @@ void DoorInteractableTemplate::AddDoorToActiveDoors() const
 
 bool DoorInteractableTemplate::CheckIfKeyIsFound() const
 {
-	//If smaller than 0, it should be open
+	//If smaller than 0, it should be open, since any minus number means it ís keyless and should be open
 	if (m_KeyId == -1)
 	{
 		return true;

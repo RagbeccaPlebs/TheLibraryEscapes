@@ -14,8 +14,8 @@ void GameEngineLogic::DetectCollisions(Player& player) {
 	// Build a zone around the player to detect collisions
 	int startX = static_cast<int>(detectionZone.left / TILE_SIZE);
 	int startY = static_cast<int>(detectionZone.top / TILE_SIZE);
-	int endX = static_cast<int>(detectionZone.left / TILE_SIZE) + MAX_RANGE_COLLISIONS_DETECTION;
-	int endY = static_cast<int>(detectionZone.top / TILE_SIZE) + MAX_RANGE_COLLISIONS_DETECTION;
+	int endX = static_cast<int>(detectionZone.left / TILE_SIZE) + Constant::MAX_RANGE_COLLISIONS_DETECTION;
+	int endY = static_cast<int>(detectionZone.top / TILE_SIZE) + Constant::MAX_RANGE_COLLISIONS_DETECTION;
 
 	// Make sure we don't test positions lower than zero
 	// Or higher than the end of the array

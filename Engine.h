@@ -6,27 +6,32 @@
 
 class Engine {
 private:
-	//Holders
+	//The TextureHolder creation to have less frequent file loading
 	TextureHolder m_TextureHolder;
 
+	//The game window
 	sf::RenderWindow m_Window;
 
 	//Engines
 	GameEngine* m_GameEngine;
 	StartMenuEngine m_StartMenuEngine;
 
-	//Game state
+	//Game states
 	bool b_Playing = false;
 
 	//Input states
 	bool b_LeftClicked = false;
 	bool b_EscapePressed = false;
 
+	//Game specific functions
 	void Input();
 	void Update(const float dtAsSeconds);
 	void Draw();
-	void ClearEverything();
 
+	//Delete function
+	void ClearEverything() const;
+
+	//Checks and Initializers
 	void CheckIfFilesArePresent();
 public:
 	Engine();

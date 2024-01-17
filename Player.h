@@ -4,6 +4,7 @@
 #include "PlayerMovement.h"
 #include "PlayerTexture.h"
 
+//Layers of the player look
 enum Layer
 {
 	BASE,
@@ -16,6 +17,7 @@ enum Layer
 
 class Player
 {
+	//States of which button was last pressed regarding the player movement
 	enum LastPressed {
 		LEFT,
 		RIGHT,
@@ -24,24 +26,28 @@ class Player
 		NONE
 	};
 
+	//Storage of which button was last pressed
 	LastPressed m_LastButtonPressed = LastPressed::UP;
 	//Make sure buttons aren't equal to force correct placement of player
 	LastPressed m_OldLastButtonPressed;
 
+	//The x and y location within the texture that should be displayed
 	int m_TextureLocationX = 0;
 	int m_TextureLocationY = 0;
 
 	//Player Movement & Animation
 	PlayerMovement m_PlayerMovement;
 
+	//The Sprite-Sheet for animating a player
 	PlayerMovement::SpriteSheet m_CurrentSpriteSheet;
 	PlayerMovement::SingleSprite m_CurrentSprite;
 	float m_SecondsSinceLastAnimationUpdate = 0;
 
-	//Player looks
+	//Set initial textures from document
 	void SetInitialTextures();
 	void SetSpriteTextureLocationAllSprites();
 
+	//The locations of the textures (Of the layers)
 	std::string m_TextureBaseLocation;
 	std::string m_TextureLowerLayerLocation;
 	std::string m_TextureCloakLocation;
@@ -57,6 +63,7 @@ class Player
 	sf::Sprite m_SpriteHair = sf::Sprite();
 	sf::Sprite m_SpriteHat = sf::Sprite();
 
+	//Update the sprite texture location with m_TextureLocationX and m_TextureLocationY
 	void SetSpriteTextureLocation(sf::Sprite& sprite) const;
 
 	// Which directions is the character currently moving in
@@ -83,18 +90,21 @@ class Player
 	//Texture method
 	void PlayerAnimationUpdate(bool isMoving);
 
+	//Update ALL the sprite position of the sprites
 	void SetPositionAllSprites();
 
-	//Math
+	//Unique Math specific for Player calculations
 	int GetSequenceWithFour(int index);
 	int GetSequenceWithEight(int index);
+
 public:
+	//Constructor
 	Player();
 
+	//Spawn the player at the correct position
 	void Spawn(sf::Vector2f startPosition);
 
-	void HandleInput();
-
+	//Get the current position of the player
 	sf::FloatRect GetPosition();
 
 	// A rectangle representing the position of different parts of the sprite
@@ -103,33 +113,28 @@ public:
 	sf::FloatRect GetRight();
 	sf::FloatRect GetLeft();
 
-	//Stop movement
+	//Stop movement, used within the collision detection
 	void StopDown(float position);
 	void StopRight(float position);
 	void StopLeft(float position);
 	void StopUp(float position);
 
-	// Send a copy of the sprite to main
-	std::vector<sf::Sprite*> GetSprites();
-
-	void SetTextureLocation(sf::Vector2i location);
-
-	// Where is the center of the character
+	// Where is the center of the character, used for collision and view centralisation
 	sf::Vector2f GetCenter();
 
+	//For interaction and collision checks
 	sf::FloatRect GetInteractableBox();
 
-	// We will call this function once every frame
-	void Update(float elapsedTime);
-
+	//Public functions and variables used by the PlayerCustomization to change looks and locations
+	PlayerTexture m_PlayerTexture;
+	void SetTextureLocation(sf::Vector2i location);
+	void SaveLayers();
 	void UpdatePlayerTexture(Layer layer);
 
-	void SetLocation(const sf::Vector2f* position);
-
-	void SaveLayers();
-
-	//Public Player Looks
-	PlayerTexture m_PlayerTexture;
+	//The Game Runners, will be called once every frame
+	void HandleInput();
+	void Update(float elapsedTime);
+	std::vector<sf::Sprite*> GetSprites();
 
 	//Utils
 	static std::string GetFileName(const std::string& fileLocation);

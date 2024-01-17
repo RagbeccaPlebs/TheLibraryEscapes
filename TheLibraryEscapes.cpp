@@ -4,6 +4,7 @@
 
 int main()
 {
+	//Create the game engine to play
 	Engine engine;
 
 	engine.Run();

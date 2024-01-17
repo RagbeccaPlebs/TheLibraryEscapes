@@ -47,11 +47,6 @@ void GameEngineLogic::ClearSounds() const
 	}
 }
 
-void GameEngineLogic::UpdateMap(const string& mapName, const Vector2f spawnLocation)
-{
-	LoadMap(mapName, spawnLocation);
-}
-
 
 
 

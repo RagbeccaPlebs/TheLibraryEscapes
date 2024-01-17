@@ -12,6 +12,7 @@
 class TiledMapLoader
 {
 public:
+	//A struct for a layer of the map
 	struct MapLayer
 	{
 		sf::VertexArray rVa;
@@ -23,6 +24,8 @@ public:
 			return (id > mapLayer.id);
 		}
 	};
+
+	//The Map Values coming from a Map
 	struct MapValues {
 		int** collisionsMap;
 		sf::Vector2i mapSize;
@@ -33,24 +36,25 @@ public:
 		std::vector<Interactable*> interactables;
 	};
 
-	//Functions
 	//Get Map
 	MapValues MapLoader(const std::string& name);
-
+private:
+	//Load interactables from map file
 	std::vector<Interactable*> LoadAllInteractables(const std::string& nameOfFile);
-	bool CheckIfSimpleBookIsFound(int id) const;
-	bool CheckIfKeyIsFound(int id) const;
+	//Get the Vertex Array from int vector data
+	sf::VertexArray GetVertexArrayFromData(std::vector<int>& data, sf::Vector2i mapSize, int TILE_SIZE) const;
+	//Get the Map Layers
+	MapLayer GetMapLayerFromData(std::vector<int>& data, int id, sf::Vector2i mapSize, int TILE_SIZE, const std::string& name);
+
+	//The texture of the Map
+	sf::Texture m_Texture;
 
 	//Creation
 	KeyInteractable* CreateKeyInteractableFromData(nlohmann::json data);
 	DoorInteractable* CreateDoorInteractableFromData(nlohmann::json data);
 	SimpleBookInteractable* CreateSimpleBookInteractableFromData(nlohmann::json data);
-private:
-	sf::VertexArray GetVertexArrayFromData(std::vector<int>& data, sf::Vector2i mapSize, int TILE_SIZE);
 
-	MapLayer GetMapLayerFromData(std::vector<int>& data, int id, sf::Vector2i mapSize, int TILE_SIZE, const std::string& name);
-
-	static constexpr int VERTS_IN_QUAD = 4;
-
-	sf::Texture m_Texture;
+	//Checks if objects are found to not load them
+	bool CheckIfSimpleBookIsFound(int id) const;
+	bool CheckIfKeyIsFound(int id) const;
 };

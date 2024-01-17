@@ -1,21 +1,23 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <array>
 
 class PlayerMovement
 {
 public:
+	//A struct that holds a sheet op positions and the animation speed for that sheet
 	struct SpriteSheet {
 		std::vector<sf::Vector2i> spriteLocation;
 		std::vector<float> animationSpeed;
 	};
 
+	//A struct that holds a single position of the animation, with the speed and index of said position
 	struct SingleSprite {
 		sf::Vector2i spriteLocation;
 		float animationSpeed;
 		int index;
 	};
 
+	//All functions to get specific sprite sheets e.g. looking one way
 	SpriteSheet GetIdleSouth() const;
 	SpriteSheet GetIdleNorth() const;
 	SpriteSheet GetIdleEast() const;
@@ -25,7 +27,7 @@ public:
 	SpriteSheet GetWalkEast() const;
 	SpriteSheet GetWalkWest() const;
 private:
-	//Positions in sprite-map
+	//All textures within a Sprite that form one generic animated look
 	std::vector<sf::Vector2i> m_IdleSouth = { { sf::Vector2i(0,0) } };
 	std::vector<sf::Vector2i> m_IdleNorth = { { sf::Vector2i(0,1) } };
 	std::vector<sf::Vector2i> m_IdleEast = { { sf::Vector2i(0,2) } };
@@ -35,7 +37,7 @@ private:
 	std::vector<sf::Vector2i> m_WalkEast = { { sf::Vector2i(0,6), sf::Vector2i(1,6), sf::Vector2i(2,6),sf::Vector2i(3,6),sf::Vector2i(4,6),sf::Vector2i(5,6) } };
 	std::vector<sf::Vector2i> m_WalkWest = { { sf::Vector2i(0,7), sf::Vector2i(1,7), sf::Vector2i(2,7),sf::Vector2i(3,7),sf::Vector2i(4,7),sf::Vector2i(5,7) } };
 
-	//Animation speed in seconds
+	//Animation speed in seconds for a Sprite Sheet
 	std::vector<float> m_IdleAnimationSpeed = { 0 };
 	std::vector<float> m_WalkAnimationSpeed = { {.15f, .15f, .15f, .15f, .15f, .15f} };
 };

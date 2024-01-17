@@ -63,7 +63,7 @@ void GameEngineLogic::DrawInteractable(RenderWindow& mainWindow)
 	}
 }
 
-void GameEngineLogic::TextOverlay(RenderWindow& mainWindow, const string& writtenText, const LOCATION_IN_VIEW locationInView, int fontSize, bool useOpacity)
+void GameEngineLogic::TextOverlay(RenderWindow& mainWindow, const string& writtenText, const OverlayLocationInView locationInView, int fontSize, bool useOpacity)
 {
 	RectangleShape shape;
 	Text text;

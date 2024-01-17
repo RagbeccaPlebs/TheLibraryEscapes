@@ -48,6 +48,7 @@ void DoorInteractable::Update(float dtAsSeconds)
 	//No animation/update yet
 }
 
+//Check if door is active from the Game Data File, if there: true otherwise false.
 bool DoorInteractable::CheckIfDoorIsActive(const int id) const
 {
 	const string itemToLoad = Files::GAME_DATA_FILE;

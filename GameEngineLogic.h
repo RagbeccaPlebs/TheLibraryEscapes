@@ -7,7 +7,8 @@
 #include "PlayerCustomization.h"
 #include "SimpleBookInteractable.h"
 
-enum LOCATION_IN_VIEW
+//Locations in which the Overlays come in
+enum OverlayLocationInView
 {
 	CENTER,
 	BOTTOM
@@ -15,6 +16,7 @@ enum LOCATION_IN_VIEW
 
 class GameEngineLogic
 {
+	//Interactables within the map
 	struct GameMapObjects
 	{
 		std::vector<DoorInteractable*> doorInteractables;
@@ -41,45 +43,50 @@ class GameEngineLogic
 	//Game state
 	bool b_PlayerCustomizationSelectorEnabled = true;
 
-	void LoadMap(const std::string& mapName, sf::Vector2f spawnLocation);
-
+	//Detect collisions with the map
 	void DetectCollisions(Player& player);
 
-	//Interactable
+	//Add interactables to the correct specific vectors
 	void AddInteractableToCorrectVector(const std::vector<Interactable*>& interactables);
 
+	//The interactable vectors
 	GameMapObjects m_GameMapObjects;
 
+	//The Game Interactables Runners
 	void UpdateInteractable(float dtAsSeconds);
 	void InputInteractable(sf::RenderWindow& mainWindow);
 	void DrawInteractable(sf::RenderWindow& mainWindow);
 	void ClearInteractables();
 
-	//E interaction
+	//Overlay Specific Values
 	bool b_BottomOverlayActive = false;
 	bool b_CenterOverlayActive = false;
 	std::string m_OverlayCenterText;
-	const float TIME_OF_CENTER_OVERLAY_ON_SCREEN_IN_SECONDS = 5.f;
 	sf::Uint8 m_Opacity = 255;
 	float m_SecondsSinceCenterOverlayActive = 0.f;
 
+	//Checks for Interactables and Interaction Range
 	void PressEToInteractCheck();
-	void TextOverlay(sf::RenderWindow& mainWindow, const std::string& writtenText, const LOCATION_IN_VIEW locationInView, int fontSize, bool useOpacity);
+
+	//Overlay Specific Functions
+	void TextOverlay(sf::RenderWindow& mainWindow, const std::string& writtenText, const OverlayLocationInView locationInView, int fontSize, bool useOpacity);
 	void UpdateCenterOverlay(float dtAsSeconds);
-
 	void ResetCenterOverlay();
-
-	const int MAX_RANGE_COLLISIONS_DETECTION = 5;
 public:
+	//Constructors, destructors and copy assignment operators
 	GameEngineLogic(const sf::RenderWindow& mainWindow);
 	GameEngineLogic& operator=(const GameEngineLogic& gameEngineLogic);
 	~GameEngineLogic() = default;
 	GameEngineLogic(GameEngineLogic& gameEngineLogic);
 
+	//The Game Runners
 	void Draw(sf::RenderWindow& mainWindow);
 	void Update(float dtAsSeconds, sf::RenderWindow& mainWindow, const bool& isLeftClicked);
 	void Input(sf::RenderWindow& mainWindow, bool& isPlaying, bool& isPaused, const bool& isEscapePressed);
 
-	void UpdateMap(const std::string& mapName, sf::Vector2f spawnLocation);
+	//Load the map from the mapName and the location where the player should spawn
+	void LoadMap(const std::string& mapName, sf::Vector2f spawnLocation);
+
+	//Destructor for sounds
 	void ClearSounds() const;
 };

@@ -63,9 +63,11 @@ public:
 class Files
 {
 public:
+	//Files
 	static const inline std::string GAME_DATA_FILE = "assets/save/gameData.json";
 	static const inline std::string FONT_FILE = "assets/fonts/PixelifySans-Regular.ttf";
 
+	//Standard Types
 	static const inline std::string SLASH = "/";
 	static constexpr inline char CHAR_SLASH = '/';
 
@@ -96,6 +98,7 @@ public:
 class Constant
 {
 public:
+	//Global Variables
 	static const inline std::string EMPTY_STRING = "";
 	static const inline std::string GAME_TITLE = "The Library Escapes";
 	static const inline std::string MAP_COLLISION_LEVEL_NAME = "Collision";
@@ -118,6 +121,13 @@ public:
 
 	//Map
 	static constexpr int STANDARD_TILE_SIZE = 16;
+	static constexpr int VERTS_IN_QUAD = 4;
+
+	//Collisions
+	static constexpr int MAX_RANGE_COLLISIONS_DETECTION = 5;
+
+	//Timings
+	static constexpr float TIME_OF_CENTER_OVERLAY_ON_SCREEN_IN_SECONDS = 5.f;
 
 	//Initial Player Files
 	static const inline std::string INITIAL_BASE_LAYER = "char_a_p1_0bas_humn_v00.png";

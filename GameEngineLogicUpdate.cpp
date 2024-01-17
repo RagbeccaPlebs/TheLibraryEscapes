@@ -66,9 +66,9 @@ void GameEngineLogic::PressEToInteractCheck()
 void GameEngineLogic::UpdateCenterOverlay(const float dtAsSeconds)
 {
 	m_SecondsSinceCenterOverlayActive += dtAsSeconds;
-	m_Opacity = static_cast<Uint8>(255 - (255 * (m_SecondsSinceCenterOverlayActive / TIME_OF_CENTER_OVERLAY_ON_SCREEN_IN_SECONDS)));
+	m_Opacity = static_cast<Uint8>(255 - (255 * (m_SecondsSinceCenterOverlayActive / Constant::TIME_OF_CENTER_OVERLAY_ON_SCREEN_IN_SECONDS)));
 	m_Opacity = max(m_Opacity, static_cast<Uint8>(0));
-	if (m_SecondsSinceCenterOverlayActive > TIME_OF_CENTER_OVERLAY_ON_SCREEN_IN_SECONDS)
+	if (m_SecondsSinceCenterOverlayActive > Constant::TIME_OF_CENTER_OVERLAY_ON_SCREEN_IN_SECONDS)
 	{
 		ResetCenterOverlay();
 	}

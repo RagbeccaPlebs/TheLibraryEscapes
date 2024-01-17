@@ -11,14 +11,14 @@ using namespace sf;
 using namespace std;
 using json = nlohmann::json;
 
-VertexArray TiledMapLoader::GetVertexArrayFromData(vector<int>& data, Vector2i mapSize, const int TILE_SIZE)
+VertexArray TiledMapLoader::GetVertexArrayFromData(vector<int>& data, Vector2i mapSize, const int TILE_SIZE) const
 {
 	VertexArray rVa;
 	// What type of primitive are we using?
 	rVa.setPrimitiveType(Quads);
 
 	// Set the size of the vertex array
-	rVa.resize(static_cast<size_t>(mapSize.x) * mapSize.y * VERTS_IN_QUAD);
+	rVa.resize(static_cast<size_t>(mapSize.x) * mapSize.y * Constant::VERTS_IN_QUAD);
 
 	// Start at the beginning of the vertex array
 	int currentVertex = 0;
@@ -65,7 +65,7 @@ VertexArray TiledMapLoader::GetVertexArrayFromData(vector<int>& data, Vector2i m
 				Vector2f(static_cast<float>(horizontalOffset), static_cast<float>((TILE_SIZE * verticalOffset) + TILE_SIZE));
 
 			// Position ready for the next four vertices
-			currentVertex += VERTS_IN_QUAD;
+			currentVertex += Constant::VERTS_IN_QUAD;
 		}
 	}
 	return rVa;

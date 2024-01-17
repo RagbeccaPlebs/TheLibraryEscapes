@@ -6,7 +6,8 @@ void StartMenuEngine::Update(float dtAsSeconds, RenderWindow& mainWindow, const 
 {
 	mainWindow.setMouseCursorVisible(true);
 
-	UpdateMousePositions(mainWindow);
+	m_MousePosView = mainWindow.mapPixelToCoords(Mouse::getPosition(mainWindow));
+
 	m_ExitButton.Update(m_MousePosView, mainWindow);
 	m_StartButton.Update(m_MousePosView, mainWindow);
 
@@ -18,11 +19,4 @@ void StartMenuEngine::Update(float dtAsSeconds, RenderWindow& mainWindow, const 
 
 
 	m_StartMenuView.setCenter(mainWindow.getSize().x / 2.f, mainWindow.getSize().y / 2.f);
-}
-
-void StartMenuEngine::UpdateMousePositions(RenderWindow& mainWindow)
-{
-	m_MousePosScreen = Mouse::getPosition();
-	m_MousePosWindow = Mouse::getPosition(mainWindow);
-	m_MousePosView = mainWindow.mapPixelToCoords(Mouse::getPosition(mainWindow));
 }

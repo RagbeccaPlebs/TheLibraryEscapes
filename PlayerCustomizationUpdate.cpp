@@ -11,7 +11,8 @@ void PlayerCustomization::Update(float dtAsSeconds, RenderWindow& mainWindow, co
 	}
 	mainWindow.setMouseCursorVisible(true);
 
-	UpdateMousePositions(mainWindow);
+	m_MousePosView = mainWindow.mapPixelToCoords(sf::Mouse::getPosition(mainWindow));
+
 	m_ContinueButton.Update(m_MousePosView, mainWindow);
 	m_BackToMenuButton.Update(m_MousePosView, mainWindow);
 	m_TurnRightButton.Update(m_MousePosView, mainWindow);
@@ -36,11 +37,4 @@ void PlayerCustomization::Update(float dtAsSeconds, RenderWindow& mainWindow, co
 		m_HairLayerButton.Press(m_MousePosView);
 		m_HatLayerButton.Press(m_MousePosView);
 	}
-}
-
-void PlayerCustomization::UpdateMousePositions(const RenderWindow& mainWindow)
-{
-	m_MousePosScreen = sf::Mouse::getPosition();
-	m_MousePosWindow = sf::Mouse::getPosition(mainWindow);
-	m_MousePosView = mainWindow.mapPixelToCoords(sf::Mouse::getPosition(mainWindow));
 }

@@ -20,7 +20,7 @@ Engine::Engine()
 	m_GameEngine = new GameEngine(m_Window);
 }
 
-void Engine::ClearEverything()
+void Engine::ClearEverything() const
 {
 	m_GameEngine->ClearEverything();
 }
