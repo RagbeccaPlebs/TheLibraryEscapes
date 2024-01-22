@@ -42,7 +42,7 @@ void KeyInteractable::SavePickupToFile()
 	fileOut.flush();
 }
 
-void KeyInteractable::Update(float dtAsSeconds)
+void KeyInteractable::Update(float dtAsSeconds, Player& player)
 {
 	//No update yet
 }
@@ -61,4 +61,9 @@ std::string KeyInteractable::Message()
 	string message;
 	message.append(Message::KEY_FOUND_MESSAGE_1).append(std::to_string(m_Id)).append(Message::EXCLAMATION_MARK);
 	return message;
+}
+
+void KeyInteractable::Unload()
+{
+	//No sounds or other things to unload
 }

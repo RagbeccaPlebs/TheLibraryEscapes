@@ -1,5 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+
+#include "Constants.h"
 #include "PlayerMovement.h"
 #include "PlayerTexture.h"
 
@@ -17,18 +19,11 @@ enum Layer
 class Player
 {
 	//States of which button was last pressed regarding the player movement
-	enum LastPressed {
-		LEFT,
-		RIGHT,
-		UP,
-		DOWN,
-		NONE
-	};
 
 	//Storage of which button was last pressed
-	LastPressed m_LastButtonPressed = LastPressed::UP;
+	Side m_LastButtonPressed = Side::UP;
 	//Make sure buttons aren't equal to force correct placement of player
-	LastPressed m_OldLastButtonPressed;
+	Side m_OldLastButtonPressed;
 
 	//The x and y location within the texture that should be displayed
 	int m_TextureLocationX = 0;
@@ -70,12 +65,21 @@ class Player
 	bool b_RightPressed = false;
 	bool b_UpPressed = false;
 	bool b_DownPressed = false;
+	bool b_ShiftPressed = false;
+
+	//Pushing Variables
+	Side m_SidePushing;
+	bool b_Pushing = false;
+	bool b_StartedPushing = false;
+
+	//Running Variables
+	bool b_ChangeRunning = false;
 
 	//Where is the player
 	sf::Vector2f m_Position;
 
 	//How fast is the character
-	float m_Speed = 50.0f;
+	float m_Speed = Constant::PLAYER_WALK_SPEED;
 
 	//Where are the characters various body parts?
 	sf::FloatRect m_Feet;
@@ -86,6 +90,7 @@ class Player
 	//Interactable locations
 	sf::FloatRect m_InteractableBox;
 
+
 	//Texture method
 	void PlayerAnimationUpdate(bool isMoving);
 
@@ -95,7 +100,6 @@ class Player
 	//Unique Math specific for Player calculations
 	int GetSequenceWithFour(int index);
 	int GetSequenceWithEight(int index);
-
 public:
 	//Constructor
 	Player();
@@ -137,4 +141,7 @@ public:
 
 	//Utils
 	static std::string GetFileName(const std::string& fileLocation);
+
+	void SetPushing(const Side& side);
+	void StopPushing();
 };

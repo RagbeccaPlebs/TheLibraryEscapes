@@ -26,7 +26,8 @@ void Player::Update(const float elapsedTime)
 		m_SecondsSinceLastAnimationUpdate += elapsedTime;
 		PlayerAnimationUpdate(true);
 	}
-	else {
+	else
+	{
 		m_SecondsSinceLastAnimationUpdate = 0;
 		m_LastButtonPressed = NONE;
 		PlayerAnimationUpdate(false);
@@ -69,46 +70,93 @@ void Player::Update(const float elapsedTime)
 void Player::PlayerAnimationUpdate(const bool isMoving)
 {
 	bool changedSheet = false;
-	if (m_OldLastButtonPressed != m_LastButtonPressed && m_LastButtonPressed != NONE) {
-		if (m_LastButtonPressed == UP) {
-			m_OldLastButtonPressed = m_LastButtonPressed;
-			if (isMoving) m_CurrentSpriteSheet = m_PlayerMovement.GetWalkNorth();
+	if (b_StartedPushing || (b_Pushing && m_OldLastButtonPressed != m_LastButtonPressed && m_LastButtonPressed != NONE && m_LastButtonPressed == m_SidePushing)) {
+		b_Pushing = true;
+		b_StartedPushing = false;
+		switch (m_LastButtonPressed)
+		{
+		case NONE:
+			//Should do nothing, otherwise breaking flow
+			break;
+		case UP:
+			m_CurrentSpriteSheet = m_PlayerMovement.GetPushingNorth();
+			break;
+		case RIGHT:
+			m_CurrentSpriteSheet = m_PlayerMovement.GetPushingEast();
+			break;
+		case LEFT:
+			m_CurrentSpriteSheet = m_PlayerMovement.GetPushingWest();
+			break;
+		case DOWN:
+			m_CurrentSpriteSheet = m_PlayerMovement.GetPushingSouth();
+			break;
+		}
+		m_OldLastButtonPressed = m_LastButtonPressed;
+		changedSheet = true;
+	}
+	else if (b_ChangeRunning || (m_OldLastButtonPressed != m_LastButtonPressed && m_LastButtonPressed != NONE)) {
+		switch (m_LastButtonPressed)
+		{
+		case NONE:
+			//Should do nothing, otherwise breaking flow
+			break;
+		case UP:
+			if (isMoving)
+			{
+				if (b_ShiftPressed) m_CurrentSpriteSheet = m_PlayerMovement.GetRunningNorth();
+				else m_CurrentSpriteSheet = m_PlayerMovement.GetWalkNorth();
+			}
 			else m_CurrentSpriteSheet = m_PlayerMovement.GetIdleNorth();
-		}
-		else if (m_LastButtonPressed == RIGHT) {
-			m_OldLastButtonPressed = m_LastButtonPressed;
-			if (isMoving) m_CurrentSpriteSheet = m_PlayerMovement.GetWalkEast();
+			break;
+		case RIGHT:
+			if (isMoving)
+			{
+				if (b_ShiftPressed) m_CurrentSpriteSheet = m_PlayerMovement.GetRunningEast();
+				else m_CurrentSpriteSheet = m_PlayerMovement.GetWalkEast();
+			}
 			else m_CurrentSpriteSheet = m_PlayerMovement.GetIdleEast();
-		}
-		else if (m_LastButtonPressed == LEFT) {
-			m_OldLastButtonPressed = m_LastButtonPressed;
-			if (isMoving) m_CurrentSpriteSheet = m_PlayerMovement.GetWalkWest();
+			break;
+		case LEFT:
+			if (isMoving)
+			{
+				if (b_ShiftPressed) m_CurrentSpriteSheet = m_PlayerMovement.GetRunningWest();
+				else m_CurrentSpriteSheet = m_PlayerMovement.GetWalkWest();
+			}
 			else m_CurrentSpriteSheet = m_PlayerMovement.GetIdleWest();
-		}
-		else if (m_LastButtonPressed == DOWN) {
-			m_OldLastButtonPressed = m_LastButtonPressed;
-			if (isMoving) m_CurrentSpriteSheet = m_PlayerMovement.GetWalkSouth();
+			break;
+		case DOWN:
+			if (isMoving)
+			{
+				if (b_ShiftPressed) m_CurrentSpriteSheet = m_PlayerMovement.GetRunningSouth();
+				else m_CurrentSpriteSheet = m_PlayerMovement.GetWalkSouth();
+			}
 			else m_CurrentSpriteSheet = m_PlayerMovement.GetIdleSouth();
+			break;
 		}
+		if (b_ChangeRunning) b_ChangeRunning = false;
+		m_OldLastButtonPressed = m_LastButtonPressed;
 		changedSheet = true;
 	}
 	else if (m_LastButtonPressed == NONE) {
-		if (m_OldLastButtonPressed == UP) {
-			m_OldLastButtonPressed = m_LastButtonPressed;
+		switch (m_OldLastButtonPressed)
+		{
+		case NONE:
+			//Should do nothing, otherwise breaking flow
+			break;
+		case UP:
 			m_CurrentSpriteSheet = m_PlayerMovement.GetIdleNorth();
-		}
-		else if (m_OldLastButtonPressed == RIGHT) {
-			m_OldLastButtonPressed = m_LastButtonPressed;
+			break;
+		case RIGHT:
 			m_CurrentSpriteSheet = m_PlayerMovement.GetIdleEast();
-		}
-		else if (m_OldLastButtonPressed == LEFT) {
-			m_OldLastButtonPressed = m_LastButtonPressed;
+			break;
+		case LEFT:
 			m_CurrentSpriteSheet = m_PlayerMovement.GetIdleWest();
-		}
-		else if (m_OldLastButtonPressed == DOWN) {
-			m_OldLastButtonPressed = m_LastButtonPressed;
+			break;
+		case DOWN:
 			m_CurrentSpriteSheet = m_PlayerMovement.GetIdleSouth();
+			break;
 		}
+		m_OldLastButtonPressed = m_LastButtonPressed;
 		changedSheet = true;
 	}
 	PlayerMovement::SingleSprite& currentSprite = m_CurrentSprite;
@@ -126,8 +174,8 @@ void Player::PlayerAnimationUpdate(const bool isMoving)
 		}
 	}
 	else {
-		if ((m_SecondsSinceLastAnimationUpdate >= currentSprite.animationSpeed) &&
-			(m_CurrentSpriteSheet.spriteLocation.size() > static_cast<unsigned long long>(currentSprite.index) + 1)) {
+		if (m_SecondsSinceLastAnimationUpdate >= currentSprite.animationSpeed &&
+			m_CurrentSpriteSheet.spriteLocation.size() > static_cast<unsigned long long>(currentSprite.index) + 1) {
 			m_SecondsSinceLastAnimationUpdate = 0;
 			currentSprite.animationSpeed = m_CurrentSpriteSheet.animationSpeed[currentSprite.index + 1];
 			currentSprite.spriteLocation = m_CurrentSpriteSheet.spriteLocation[currentSprite.index + 1];
@@ -166,4 +214,18 @@ void Player::StopUp(const float position)
 {
 	m_Position.y = position;
 	SetPositionAllSprites();
+}
+
+void Player::SetPushing(const Side& side)
+{
+	b_StartedPushing = true;
+	m_SidePushing = side;
+}
+
+void Player::StopPushing()
+{
+	b_Pushing = false;
+	m_SecondsSinceLastAnimationUpdate = 0;
+	m_LastButtonPressed = NONE;
+	PlayerAnimationUpdate(false);
 }

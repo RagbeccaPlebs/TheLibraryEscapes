@@ -72,3 +72,8 @@ string BookInteractable::GetStringCamelCaseFromEmotion(const EmotionType& emotio
 	return Constant::SHY_CAMELCASE;
 }
 
+void BookInteractable::Unload()
+{
+	//Nothing to unload like sounds
+}
+

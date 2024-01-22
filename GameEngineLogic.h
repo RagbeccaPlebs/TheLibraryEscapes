@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "Map.h"
 #include "PlayerCustomization.h"
+#include "PushInteractable.h"
 #include "SimpleBookInteractable.h"
 
 //Locations in which the Overlays come in
@@ -21,6 +22,7 @@ class GameEngineLogic
 	{
 		std::vector<DoorInteractable*> doorInteractables;
 		std::vector<PickupInventoryInteractable*> pickupInventoryInteractables;
+		std::vector<PushInteractable*> pushInteractables;
 	};
 	//PlayerMovement
 	PlayerMovement m_PlayerMovement;

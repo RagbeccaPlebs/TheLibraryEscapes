@@ -1,5 +1,6 @@
 ﻿#include "Constants.h"
 #include "GameEngineLogic.h"
+#include "PushInteractable.h"
 
 using namespace sf;
 using namespace std;
@@ -34,11 +35,15 @@ void GameEngineLogic::UpdateInteractable(float dtAsSeconds)
 {
 	for (DoorInteractable* doorInteractable : m_GameMapObjects.doorInteractables)
 	{
-		doorInteractable->Update(dtAsSeconds);
+		doorInteractable->Update(dtAsSeconds, m_Player);
 	}
 	for (PickupInventoryInteractable* pickupInventoryInteractable : m_GameMapObjects.pickupInventoryInteractables)
 	{
-		pickupInventoryInteractable->Update(dtAsSeconds);
+		pickupInventoryInteractable->Update(dtAsSeconds, m_Player);
+	}
+	for (PushInteractable* pushInteractable : m_GameMapObjects.pushInteractables)
+	{
+		pushInteractable->Update(dtAsSeconds, m_Player);
 	}
 }
 
@@ -58,6 +63,10 @@ void GameEngineLogic::PressEToInteractCheck()
 		{
 			isOverlayApplicable = true;
 		}
+	}
+	for (PushInteractable* pushInteractable : m_GameMapObjects.pushInteractables)
+	{
+		pushInteractable->CanInteract(m_Player);
 	}
 
 	b_BottomOverlayActive = isOverlayApplicable;

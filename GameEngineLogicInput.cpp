@@ -60,5 +60,12 @@ void GameEngineLogic::InputInteractable(RenderWindow& mainWindow)
 				b_CenterOverlayActive = true;
 			}
 		}
+		for (PushInteractable* pushInteractable : m_GameMapObjects.pushInteractables)
+		{
+			if (pushInteractable->CanInteract(m_Player))
+			{
+				pushInteractable->Interact();
+			}
+		}
 	}
 }

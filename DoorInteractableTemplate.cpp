@@ -72,6 +72,11 @@ DoorInteractableType DoorInteractableTemplate::GetDoorInteractableType() const
 	return m_DoorInteractableType;
 }
 
+void DoorInteractableTemplate::Unload()
+{
+	m_Sound.resetBuffer();
+}
+
 void DoorInteractableTemplate::AddDoorToActiveDoors() const
 {
 	const string itemToLoad = Files::GAME_DATA_FILE;

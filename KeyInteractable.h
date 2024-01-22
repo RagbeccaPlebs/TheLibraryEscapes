@@ -11,11 +11,13 @@ public:
 	//Constructor
 	KeyInteractable(const int id, const std::string& textureFileLocation, sf::Vector2f position);
 
-	void Update(float dtAsSeconds) override;
+	void Update(float dtAsSeconds, Player& player) override;
 
 	//Interaction with interactable
 	std::pair<std::string, sf::Vector2f> Interact() override;
 
 	//Message to be displayed when interacted with
 	std::string Message() override;
+
+	void Unload() override;
 };

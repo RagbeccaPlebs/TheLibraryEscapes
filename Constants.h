@@ -27,6 +27,7 @@ public:
 	static const inline std::string PLAYER_HAT_KEYWORD = "player-hat";
 	static const inline std::string PLAYER_LOWER_LAYER_KEYWORD = "player-lower-layer";
 	static const inline std::string PLAYER_KEYWORD = "player";
+	static const inline std::string PUSHABLE_OBJECT_KEYWORD = "pushable-object";
 	static const inline std::string SOUND_KEYWORD = "sound";
 	static const inline std::string TEXTURE_KEYWORD = "texture";
 	static const inline std::string TILEWIDTH_KEYWORD = "tilewidth";
@@ -80,6 +81,8 @@ public:
 	static const inline std::string LOWER_LAYER_PLAYER_GRAPHICS_SEARCH_FOLDER = "assets/graphics/player/lower";
 
 	//Folders
+	static const inline std::string ASSETS_FOLDER = "assets";
+	static const inline std::string ASSETS_SAVE_FOLDER = "assets/save";
 	static const inline std::string MAP_GRAPHICS_FOLDER = "assets/graphics/map/";
 	static const inline std::string MAP_FOLDER = "assets/map/";
 	static const inline std::string MAP_DETAILS_FOLDER = "assets/map/details/";
@@ -129,9 +132,22 @@ public:
 	//Timings
 	static constexpr float TIME_OF_CENTER_OVERLAY_ON_SCREEN_IN_SECONDS = 5.f;
 
+	//Player
+	static constexpr float PLAYER_RUN_SPEED = 80.f;
+	static constexpr float PLAYER_WALK_SPEED = 50.f;
+
 	//Initial Player Files
 	static const inline std::string INITIAL_BASE_LAYER = "char_a_p1_0bas_humn_v00.png";
 	static const inline std::string INITIAL_LOWER_LAYER_LAYER = "char_a_p1_1out_pfpn_v01.png";
 	static const inline std::string INITIAL_CLOAK_LAYER = "char_a_p1_2clo_lnpl_v07.png";
 	static const inline std::string INITIAL_HAT_LAYER = "char_a_p1_5hat_pnty_v03.png";
+};
+
+enum Side
+{
+	LEFT,
+	RIGHT,
+	UP,
+	DOWN,
+	NONE
 };

@@ -54,7 +54,7 @@ void Player::HandleInput()
 {
 	if (Keyboard::isKeyPressed(Keyboard::A))
 	{
-		m_LastButtonPressed = LastPressed::LEFT;
+		m_LastButtonPressed = Side::LEFT;
 		b_LeftPressed = true;
 	}
 	else
@@ -64,7 +64,7 @@ void Player::HandleInput()
 
 	if (Keyboard::isKeyPressed(Keyboard::D))
 	{
-		m_LastButtonPressed = LastPressed::RIGHT;
+		m_LastButtonPressed = Side::RIGHT;
 		b_RightPressed = true;
 	}
 	else
@@ -74,7 +74,7 @@ void Player::HandleInput()
 
 	if (Keyboard::isKeyPressed(Keyboard::W))
 	{
-		m_LastButtonPressed = LastPressed::UP;
+		m_LastButtonPressed = Side::UP;
 		b_UpPressed = true;
 	}
 	else
@@ -84,12 +84,25 @@ void Player::HandleInput()
 
 	if (Keyboard::isKeyPressed(Keyboard::S))
 	{
-		m_LastButtonPressed = LastPressed::DOWN;
+		m_LastButtonPressed = Side::DOWN;
 		b_DownPressed = true;
 	}
 	else
 	{
 		b_DownPressed = false;
+	}
+
+	if (Keyboard::isKeyPressed(Keyboard::LShift))
+	{
+		if (!b_ShiftPressed) b_ChangeRunning = true;
+		b_ShiftPressed = true;
+		
+		m_Speed = Constant::PLAYER_RUN_SPEED;
+	} else
+	{
+		if (b_ShiftPressed) b_ChangeRunning = true;
+		b_ShiftPressed = false;
+		m_Speed = Constant::PLAYER_WALK_SPEED;
 	}
 }
 

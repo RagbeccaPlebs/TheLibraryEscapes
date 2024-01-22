@@ -6,12 +6,6 @@
 
 class PlayerCustomization
 {
-	enum Direction {
-		LEFT,
-		RIGHT,
-		UP,
-		DOWN
-	};
 	//PlayerMovement
 	PlayerMovement& m_PlayerMovement;
 
@@ -19,10 +13,10 @@ class PlayerCustomization
 	Player& m_Player;
 
 	//The direction the player is facing
-	Direction m_Direction = DOWN;
+	Side m_Direction = DOWN;
 
 	//Functions to move character
-	void TurnCharacter(Direction direction);
+	void TurnCharacter(Side direction);
 	void TurnCharacterLeft();
 	void TurnCharacterRight();
 

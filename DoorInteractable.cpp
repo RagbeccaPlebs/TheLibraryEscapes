@@ -43,7 +43,7 @@ DoorInteractable::DoorInteractable(int id, Vector2f position, const string& mapT
 	m_InactiveSoundLocation = inactiveSoundFileLocation;
 }
 
-void DoorInteractable::Update(float dtAsSeconds)
+void DoorInteractable::Update(float dtAsSeconds, Player& player)
 {
 	//No animation/update yet
 }

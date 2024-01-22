@@ -31,7 +31,7 @@ protected:
 	virtual void SavePickupToFile() override = 0;
 public:
 	//Virtual Functions to pass along to child classes
-	virtual void Update(float dtAsSeconds) override = 0;
+	virtual void Update(float dtAsSeconds, Player& player) override = 0;
 
 	//Interaction with Interactable
 	std::pair<std::string, sf::Vector2f> Interact() override;
@@ -47,4 +47,6 @@ public:
 	static EmotionType GetEmotionFromString(const std::string& emotion);
 	static std::string GetStringFromEmotion(const EmotionType& emotion);
 	static std::string GetStringCamelCaseFromEmotion(const EmotionType& emotion);
+
+	void Unload() override;
 };

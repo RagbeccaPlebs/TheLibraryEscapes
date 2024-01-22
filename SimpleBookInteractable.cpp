@@ -45,9 +45,8 @@ SimpleBookInteractable::SimpleBookInteractable(const int id, const string& textu
 		textureWidth + (Constant::STANDARD_TILE_SIZE / 2.f), textureHeight + (Constant::STANDARD_TILE_SIZE / 2.f));
 }
 
-void SimpleBookInteractable::Update(float dtAsSeconds)
+void SimpleBookInteractable::Update(float dtAsSeconds, Player& player)
 {
 	//No update atm needed
 }
-
 

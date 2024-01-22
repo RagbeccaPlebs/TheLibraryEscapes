@@ -25,7 +25,7 @@ protected:
 	bool b_Active = false;
 public:
 	//Virtual Functions to pass along to child classes
-	virtual void Update(float dtAsSeconds) = 0;
+	virtual void Update(float dtAsSeconds, Player& player) = 0;
 	virtual std::pair<std::string, sf::Vector2f> Interact() = 0;
 	virtual bool CanInteract(Player& player);
 	virtual ~Interactable() = default;
@@ -41,4 +41,5 @@ public:
 	InteractableType GetInteractableType() const;
 	bool GetActive() const;
 	int GetId() const;
+	virtual void Unload() = 0;
 };

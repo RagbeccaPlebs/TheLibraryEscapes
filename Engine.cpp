@@ -46,6 +46,9 @@ void Engine::Run() {
 
 void Engine::CheckIfFilesArePresent()
 {
+	//Folder creation
+	filesystem::create_directory(filesystem::path("./" + Files::ASSETS_FOLDER));
+	filesystem::create_directory(filesystem::path("./" + Files::ASSETS_SAVE_FOLDER));
 	//Game Data
 	ifstream gameDataFile(Files::GAME_DATA_FILE);
 	if (gameDataFile.is_open())

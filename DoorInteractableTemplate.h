@@ -38,7 +38,7 @@ protected:
 	bool CheckIfKeyIsFound() const;
 	void AddDoorToActiveDoors() const;
 public:
-	void Update(float dtAsSeconds) override = 0;
+	virtual void Update(float dtAsSeconds, Player& player) override = 0;
 	std::pair<std::string, sf::Vector2f> Interact() override;
 
 	//Play sounds
@@ -57,4 +57,6 @@ public:
 	bool GetOpen() const;
 	int GetKeyId() const;
 	DoorInteractableType GetDoorInteractableType() const;
+
+	void Unload() override;
 };

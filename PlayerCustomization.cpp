@@ -8,11 +8,13 @@
 using namespace sf;
 using namespace std;
 
-void PlayerCustomization::TurnCharacter(const Direction direction)
+void PlayerCustomization::TurnCharacter(const Side direction)
 {
 	m_Direction = direction;
 	switch (direction)
 	{
+	case NONE:
+		//NONE should act like DOWN
 	case DOWN:
 		m_Player.SetTextureLocation(m_PlayerMovement.GetIdleSouth().spriteLocation[0]);
 		break;
@@ -25,6 +27,7 @@ void PlayerCustomization::TurnCharacter(const Direction direction)
 	case RIGHT:
 		m_Player.SetTextureLocation(m_PlayerMovement.GetIdleEast().spriteLocation[0]);
 		break;
+
 	}
 }
 
@@ -32,6 +35,8 @@ void PlayerCustomization::TurnCharacterLeft()
 {
 	switch (m_Direction)
 	{
+	case NONE:
+		//NONE should act like DOWN
 	case DOWN:
 		TurnCharacter(LEFT);
 		break;
@@ -51,6 +56,8 @@ void PlayerCustomization::TurnCharacterRight()
 {
 	switch (m_Direction)
 	{
+	case NONE:
+		//NONE should act like DOWN
 	case DOWN:
 		TurnCharacter(RIGHT);
 		break;
