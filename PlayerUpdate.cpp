@@ -60,17 +60,22 @@ void Player::Update(const float elapsedTime)
 	m_Left.width = 1;
 	m_Left.height = static_cast<float>(r.height - (r.height * 0.3));
 
-	//Update the Interactable Box
+	//Update the Interactable Boxes
 	m_InteractableBox.left = m_Left.left;
 	m_InteractableBox.top = m_Head.top;
 	m_InteractableBox.width = (m_Right.left - m_Left.left) + m_Right.width;
 	m_InteractableBox.height = (m_Feet.top - m_Head.top) + m_Feet.height;
+
+	m_PushInteractableBox.left = m_Left.left;
+	m_PushInteractableBox.top = (r.top + (r.height / 2.f));
+	m_PushInteractableBox.width = (m_Right.left - m_Left.left) + m_Right.width;
+	m_PushInteractableBox.height = (r.height / 4.f);
 }
 //Player animation
 void Player::PlayerAnimationUpdate(const bool isMoving)
 {
 	bool changedSheet = false;
-	if (b_StartedPushing || (b_Pushing && m_OldLastButtonPressed != m_LastButtonPressed && m_LastButtonPressed != NONE && m_LastButtonPressed == m_SidePushing)) {
+	if ((b_StartedPushing || (b_Pushing && m_OldLastButtonPressed != m_LastButtonPressed)) && m_LastButtonPressed != NONE && m_LastButtonPressed == m_SidePushing) {
 		b_Pushing = true;
 		b_StartedPushing = false;
 		switch (m_LastButtonPressed)
@@ -225,7 +230,4 @@ void Player::SetPushing(const Side& side)
 void Player::StopPushing()
 {
 	b_Pushing = false;
-	m_SecondsSinceLastAnimationUpdate = 0;
-	m_LastButtonPressed = NONE;
-	PlayerAnimationUpdate(false);
 }

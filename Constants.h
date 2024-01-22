@@ -122,6 +122,10 @@ public:
 	static const inline std::string BOOK_UPPERCASE = "BOOK";
 	static const inline std::string KEY_UPPERCASE = "KEY";
 
+	//Push Types
+	static const inline std::string RANDOM_UPPERCASE = "RANDOM";
+	static const inline std::string LOCATION_UPPERCASE = "LOCATION";
+
 	//Map
 	static constexpr int STANDARD_TILE_SIZE = 16;
 	static constexpr int VERTS_IN_QUAD = 4;

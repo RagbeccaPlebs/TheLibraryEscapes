@@ -36,6 +36,12 @@ void GameEngineLogic::Draw(RenderWindow& mainWindow)
 		}
 	}
 
+	RectangleShape playerShape;
+	playerShape.setSize(m_Player.GetPushInteractableBox().getSize());
+	playerShape.setPosition(m_Player.GetPushInteractableBox().getPosition());
+	playerShape.setFillColor(Color(50, 50, 50, 100));
+	mainWindow.draw(playerShape);
+
 	mainWindow.setView(m_OverlayView);
 	if (b_BottomOverlayActive)
 	{
@@ -59,7 +65,15 @@ void GameEngineLogic::DrawInteractable(RenderWindow& mainWindow)
 		{
 			pickupInventoryInteractable->Draw(mainWindow);
 		}
-
+	}
+	for (PushInteractable* pushInteractable : m_GameMapObjects.pushInteractables)
+	{
+		pushInteractable->Draw(mainWindow);
+		RectangleShape shape;
+		shape.setSize(pushInteractable->GetCollisionBox().getSize());
+		shape.setPosition(pushInteractable->GetCollisionBox().getPosition());
+		shape.setFillColor(Color(20, 20, 20, 100));
+		mainWindow.draw(shape);
 	}
 }
 

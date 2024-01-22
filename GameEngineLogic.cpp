@@ -7,7 +7,7 @@ using namespace std;
 
 GameEngineLogic::GameEngineLogic(const RenderWindow& mainWindow) : m_PlayerCustomization(PlayerCustomization(m_Player, m_PlayerMovement, mainWindow))
 {
-	//TODO SAVING GAME
+	//TODO SAVING GAME (PLAYER LOCATION)
 	LoadMap("bridge", Vector2f(784.f, 920.f));
 	m_GameView.setSize(Vector2f(static_cast<float>(mainWindow.getSize().x), static_cast<float>(mainWindow.getSize().y)));
 	m_OverlayView.setSize(Vector2f(static_cast<float>(mainWindow.getSize().x), static_cast<float>(mainWindow.getSize().y)));

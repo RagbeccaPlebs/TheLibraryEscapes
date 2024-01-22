@@ -22,6 +22,7 @@ void GameEngineLogic::ClearInteractables()
 	}
 	m_GameMapObjects.doorInteractables.clear();
 	m_GameMapObjects.pickupInventoryInteractables.clear();
+	m_GameMapObjects.pushInteractables.clear();
 }
 
 void GameEngineLogic::AddInteractableToCorrectVector(const vector<Interactable*>& interactables)
@@ -39,6 +40,14 @@ void GameEngineLogic::AddInteractableToCorrectVector(const vector<Interactable*>
 			if (doorInteractableTemplate->GetDoorInteractableType() == SIMPLE_DOOR)
 			{
 				m_GameMapObjects.doorInteractables.push_back(dynamic_cast<DoorInteractable*>(doorInteractableTemplate));
+			}
+		}
+		else if (interactable->GetInteractableType() == OBJECT)
+		{
+			PushInteractable* pushInteractable = dynamic_cast<PushInteractable*>(interactable);
+			if (pushInteractable->GetPushType() == LOCATION_PUSH)
+			{
+				m_GameMapObjects.pushInteractables.push_back(dynamic_cast<LocationPushInteractable*>(pushInteractable));
 			}
 		}
 		else if (interactable->GetInteractableType() == NPC)

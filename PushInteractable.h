@@ -42,4 +42,6 @@ public:
 	PushType GetPushType() const;
 
 	void Unload() override;
+
+	static PushType GetPushTypeFromString(const std::string& pushType);
 };

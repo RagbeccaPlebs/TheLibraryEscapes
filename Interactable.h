@@ -8,7 +8,8 @@ enum InteractableType
 {
 	DOOR,
 	PICKUP,
-	NPC
+	NPC,
+	OBJECT
 };
 
 //The parent class of all Interactables

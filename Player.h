@@ -89,7 +89,7 @@ class Player
 
 	//Interactable locations
 	sf::FloatRect m_InteractableBox;
-
+	sf::FloatRect m_PushInteractableBox;
 
 	//Texture method
 	void PlayerAnimationUpdate(bool isMoving);
@@ -127,6 +127,7 @@ public:
 
 	//For interaction and collision checks
 	sf::FloatRect GetInteractableBox();
+	sf::FloatRect GetPushInteractableBox();
 
 	//Public functions and variables used by the PlayerCustomization to change looks and locations
 	PlayerTexture m_PlayerTexture;

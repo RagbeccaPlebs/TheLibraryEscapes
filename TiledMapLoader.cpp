@@ -4,8 +4,6 @@
 #include <fstream>
 
 #include "Constants.h"
-#include "DoorInteractable.h"
-#include "SimpleBookInteractable.h"
 
 using namespace sf;
 using namespace std;
@@ -157,7 +155,7 @@ vector<Interactable*> TiledMapLoader::LoadAllInteractables(const string& nameOfF
 
 
 	if (data.contains(Keywords::BOOK_KEYWORD)) {
-		for (auto dataValue : data.at(Keywords::BOOK_KEYWORD))
+		for (const auto& dataValue : data.at(Keywords::BOOK_KEYWORD))
 		{
 			if (!CheckIfSimpleBookIsFound(dataValue.at(Keywords::ID_KEYWORD)))
 			{
@@ -167,13 +165,13 @@ vector<Interactable*> TiledMapLoader::LoadAllInteractables(const string& nameOfF
 		}
 	}
 	if (data.contains(Keywords::DOOR_KEYWORD)) {
-		for (auto dataValue : data.at(Keywords::DOOR_KEYWORD))
+		for (const auto& dataValue : data.at(Keywords::DOOR_KEYWORD))
 		{
 			interactables.push_back(CreateDoorInteractableFromData(dataValue));
 		}
 	}
 	if (data.contains(Keywords::PICKUP_KEYWORD)) {
-		for (auto dataValue : data.at(Keywords::PICKUP_KEYWORD))
+		for (const auto& dataValue : data.at(Keywords::PICKUP_KEYWORD))
 		{
 			switch (PickupInventoryInteractable::GetPickupTypeFromString(dataValue.at(Keywords::TYPE_KEYWORD)))
 			{
@@ -186,6 +184,21 @@ vector<Interactable*> TiledMapLoader::LoadAllInteractables(const string& nameOfF
 				break;
 			case BOOK:
 				//Shouldn't be here;
+				break;
+			}
+		}
+	}
+	if (data.contains(Keywords::PUSHABLE_OBJECT_KEYWORD))
+	{
+		for (const auto& dataValue : data.at(Keywords::PUSHABLE_OBJECT_KEYWORD))
+		{
+			switch (PushInteractable::GetPushTypeFromString(dataValue.at(Keywords::TYPE_KEYWORD)))
+			{
+			case RANDOM_PUSH:
+				//NOT IMPLEMENTED YET
+				break;
+			case LOCATION_PUSH:
+				interactables.push_back(CreateLocationPushInteractableFromData(dataValue, itemToLoad));
 				break;
 			}
 		}
@@ -268,4 +281,15 @@ SimpleBookInteractable* TiledMapLoader::CreateSimpleBookInteractableFromData(jso
 	const float x = data.at(Keywords::X_KEYWORD);
 	const float y = data.at(Keywords::Y_KEYWORD);
 	return new SimpleBookInteractable(id, textureLocation, Vector2f(x, y), emotion);
+}
+
+LocationPushInteractable* TiledMapLoader::CreateLocationPushInteractableFromData(json data, const string& fileName)
+{
+	const int id = data.at(Keywords::ID_KEYWORD);
+	const string textureLocation = data.at(Keywords::TEXTURE_KEYWORD);
+	const float x = data.at(Keywords::X_KEYWORD);
+	const float y = data.at(Keywords::Y_KEYWORD);
+	const float mapX = data.at(Keywords::MAP_X_KEYWORD);
+	const float mapY = data.at(Keywords::MAP_Y_KEYWORD);
+	return new LocationPushInteractable(id, textureLocation, Vector2f(x, y), Vector2f(mapX, mapY), fileName);
 }

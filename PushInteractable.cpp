@@ -90,31 +90,31 @@ Side PushInteractable::CheckSideWithPositions(const Vector2f& topLeft, const Vec
 	{
 		bottomLeftClose = true;
 	}
-	else if (bestDistance == topLeft || secondBestDistance == topLeft)
+	if (bestDistance == topLeft || secondBestDistance == topLeft)
 	{
 		topLeftClose = true;
 	}
-	else if (bestDistance == bottomRight || secondBestDistance == bottomRight)
+	if (bestDistance == bottomRight || secondBestDistance == bottomRight)
 	{
 		bottomRightClose = true;
 	}
-	else if (bestDistance == topRight || secondBestDistance == topRight)
+	if (bestDistance == topRight || secondBestDistance == topRight)
 	{
 		topRightClose = true;
 	}
 
+	if (bottomLeftClose && topLeftClose) {
+		return LEFT;
+	}
+	if (bottomRightClose && topRightClose) {
+		return RIGHT;
+	}
 	if (bottomLeftClose && bottomRightClose)
 	{
 		return DOWN;
 	}
-	if (bottomLeftClose && topLeftClose) {
-		return LEFT;
-	}
 	if (topRightClose && topLeftClose) {
 		return UP;
-	}
-	if (bottomRightClose && topRightClose) {
-		return RIGHT;
 	}
 	return LEFT;
 }
@@ -141,9 +141,9 @@ Vector2f PushInteractable::CheckForLeastDistanceWithSideInMind(std::vector<sf::V
 	}
 }
 
+//If true change player to pushing type into the direction of the box
 bool PushInteractable::CanInteract(Player& player)
 {
-	//If true change player to pushing type into the direction of the box
 	if (!b_Movable)
 	{
 		return false;
@@ -152,7 +152,7 @@ bool PushInteractable::CanInteract(Player& player)
 	{
 		return false;
 	}
-	if (m_CollisionBox.intersects(player.GetInteractableBox()))
+	if (m_CollisionBox.intersects(player.GetPushInteractableBox()))
 	{
 		player.SetPushing(m_SidePlayerIsOn);
 		return true;
@@ -169,4 +169,15 @@ PushType PushInteractable::GetPushType() const
 void PushInteractable::Unload()
 {
 	SaveNewLocationToFile();
+}
+
+PushType PushInteractable::GetPushTypeFromString(const string& pushType)
+{
+	unordered_map<string, PushType> const table =
+	{ {Constant::LOCATION_UPPERCASE, LOCATION_PUSH}, {Constant::RANDOM_UPPERCASE, RANDOM_PUSH} };
+	const auto it = table.find(pushType);
+	if (it != table.end()) {
+		return it->second;
+	}
+	return RANDOM_PUSH;
 }

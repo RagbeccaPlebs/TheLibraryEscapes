@@ -145,3 +145,8 @@ FloatRect Player::GetInteractableBox()
 	return m_InteractableBox;
 }
 
+FloatRect Player::GetPushInteractableBox()
+{
+	return m_PushInteractableBox;
+}
+
