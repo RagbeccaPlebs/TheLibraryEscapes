@@ -20,9 +20,15 @@
             "type": "LOCATION",
             "map-x": 784,
             "map-y": 920,
+            "min-x": 750,
+            "max-x": 850,
+            "min-y": 900,
+            "max-y": 950,
             "x": 816,
-            "y": 920,
-            "texture": "assets/graphics/interactable/box.png"
+            "y": 910,
+            "movable-speed": 50,
+            "texture": "assets/graphics/interactable/box.png",
+            "texture-location": "assets/graphics/interactable/box-location.png"
         }
     ]
 }

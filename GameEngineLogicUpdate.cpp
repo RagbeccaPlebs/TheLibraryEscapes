@@ -64,10 +64,6 @@ void GameEngineLogic::PressEToInteractCheck()
 			isOverlayApplicable = true;
 		}
 	}
-	for (PushInteractable* pushInteractable : m_GameMapObjects.pushInteractables)
-	{
-		pushInteractable->CanInteract(m_Player);
-	}
 
 	b_BottomOverlayActive = isOverlayApplicable;
 }

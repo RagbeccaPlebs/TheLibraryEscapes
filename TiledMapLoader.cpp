@@ -89,14 +89,14 @@ TiledMapLoader::MapValues TiledMapLoader::MapLoader(const std::string& name)
 	json data = json::parse(file);
 	file.close();
 
-	int amountOfLayers = data.at(Keywords::LAYERS_KEYWORD).size();
+	int amountOfLayers = static_cast<int>(data.at(Keywords::LAYERS_KEYWORD).size());
 	vector<MapLayer> mapLayers;
 	auto** collisionsMap = new int* [1];
 	MapValues mapValues;
 
 	m_Texture = TextureHolder::GetTexture(Files::MAP_GRAPHICS_FOLDER + name + Files::PNG_EXTENSION);
 
-	int tileSize = static_cast<int>(data.at(Keywords::TILEWIDTH_KEYWORD));
+	int tileSize = data.at(Keywords::TILEWIDTH_KEYWORD);
 
 	for (int layer = 0; layer < amountOfLayers; layer++)
 	{
@@ -287,9 +287,13 @@ LocationPushInteractable* TiledMapLoader::CreateLocationPushInteractableFromData
 {
 	const int id = data.at(Keywords::ID_KEYWORD);
 	const string textureLocation = data.at(Keywords::TEXTURE_KEYWORD);
+	const string textureLocationForFinalLocation = data.at(Keywords::TEXTURE_LOCATION_KEYWORD);
 	const float x = data.at(Keywords::X_KEYWORD);
 	const float y = data.at(Keywords::Y_KEYWORD);
 	const float mapX = data.at(Keywords::MAP_X_KEYWORD);
 	const float mapY = data.at(Keywords::MAP_Y_KEYWORD);
-	return new LocationPushInteractable(id, textureLocation, Vector2f(x, y), Vector2f(mapX, mapY), fileName);
+	const float speed = data.at(Keywords::MOVABLE_SPEED_KEYWORD);
+	const auto minBounds = Vector2f(data.at(Keywords::MIN_X_KEYWORD), data.at(Keywords::MIN_Y_KEYWORD));
+	const auto maxBounds = Vector2f(data.at(Keywords::MAX_X_KEYWORD), data.at(Keywords::MAX_Y_KEYWORD));
+	return new LocationPushInteractable(id, textureLocation, textureLocationForFinalLocation, Vector2f(x, y), Vector2f(mapX, mapY), fileName, speed, minBounds, maxBounds);
 }

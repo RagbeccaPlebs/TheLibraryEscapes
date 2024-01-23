@@ -66,4 +66,26 @@ void GameEngineLogic::DetectCollisions(Player& player) {
 		}
 
 	}
+
+	//Push interactables check
+	for (const PushInteractable* pushInteractable : m_GameMapObjects.pushInteractables)
+	{
+		if (player.GetRight().intersects(pushInteractable->GetCollisionBox()))
+		{
+			player.StopRight(pushInteractable->GetCollisionBox().left - (player.GetRight().left - player.GetPosition().left + player.GetRight().width));
+		}
+		else if (player.GetLeft().intersects(pushInteractable->GetCollisionBox()))
+		{
+			player.StopLeft(pushInteractable->GetCollisionBox().left + (player.GetCenter().x - player.GetLeft().left));
+		}
+
+		if (player.GetFeet().intersects(pushInteractable->GetCollisionBox()))
+		{
+			player.StopDown(pushInteractable->GetCollisionBox().top - player.GetFeet().top + player.GetPosition().top - 1);
+		}
+		else if (player.GetHead().intersects(pushInteractable->GetCollisionBox()))
+		{
+			player.StopUp(pushInteractable->GetCollisionBox().top + pushInteractable->GetCollisionBox().height - (player.GetHead().top - player.GetPosition().top));
+		}
+	}
 }

@@ -18,6 +18,11 @@ public:
 	static const inline std::string MAP_KEYWORD = "map";
 	static const inline std::string MAP_X_KEYWORD = "map-x";
 	static const inline std::string MAP_Y_KEYWORD = "map-y";
+	static const inline std::string MAX_X_KEYWORD = "max-x";
+	static const inline std::string MAX_Y_KEYWORD = "max-y";
+	static const inline std::string MIN_X_KEYWORD = "min-x";
+	static const inline std::string MIN_Y_KEYWORD = "min-y";
+	static const inline std::string MOVABLE_SPEED_KEYWORD = "movable-speed";
 	static const inline std::string NAME_KEYWORD = "name";
 	static const inline std::string PICKUP_KEYWORD = "pickup";
 	static const inline std::string PLAYER_BASE_KEYWORD = "player-base";
@@ -30,6 +35,7 @@ public:
 	static const inline std::string PUSHABLE_OBJECT_KEYWORD = "pushable-object";
 	static const inline std::string SOUND_KEYWORD = "sound";
 	static const inline std::string TEXTURE_KEYWORD = "texture";
+	static const inline std::string TEXTURE_LOCATION_KEYWORD = "texture-location";
 	static const inline std::string TILEWIDTH_KEYWORD = "tilewidth";
 	static const inline std::string TYPE_KEYWORD = "type";
 	static const inline std::string WIDTH_KEYWORD = "width";
@@ -125,6 +131,7 @@ public:
 	//Push Types
 	static const inline std::string RANDOM_UPPERCASE = "RANDOM";
 	static const inline std::string LOCATION_UPPERCASE = "LOCATION";
+	static constexpr float MAX_DISTANCE_FROM_FINAL_POSITION = 2.f;
 
 	//Map
 	static constexpr int STANDARD_TILE_SIZE = 16;

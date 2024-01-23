@@ -140,13 +140,33 @@ Vector2f Player::GetCenter()
 	return centerLocation;
 }
 
-FloatRect Player::GetInteractableBox()
+FloatRect Player::GetInteractableBox() const
 {
 	return m_InteractableBox;
 }
 
-FloatRect Player::GetPushInteractableBox()
+bool Player::GetDownPressed() const
 {
-	return m_PushInteractableBox;
+	return b_DownPressed;
 }
 
+bool Player::GetLeftPressed() const
+{
+	return b_LeftPressed;
+}
+
+bool Player::GetRightPressed() const
+{
+	return b_RightPressed;
+}
+
+bool Player::GetUpPressed() const
+{
+	return b_UpPressed;
+}
+
+
+bool Player::IsPushing() const
+{
+	return b_Pushing;
+}

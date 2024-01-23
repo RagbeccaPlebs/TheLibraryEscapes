@@ -15,9 +15,9 @@ enum PushType
 //A parent Pickup interactable that is the base of all Pickups which go to the virtual 
 class PushInteractable : public Interactable
 {
-	sf::Vector2f CheckForLeastDistance(sf::FloatRect playerLocation, const sf::Vector2f& comparisonPosition);
-	Side CheckSideWithPositions(const sf::Vector2f& topLeft, const sf::Vector2f& bottomLeft, const sf::Vector2f& topRight, const sf::Vector2f& bottomRight);
-	sf::Vector2f CheckForLeastDistanceWithSideInMind(std::vector<sf::Vector2f> distances);
+	float CheckForDistance(const sf::Vector2f& playerCenter, const sf::Vector2f& comparisonPosition);
+	Side CheckSideWithPositions(const float& topLeft, const float& bottomLeft, const float& topRight, const float& bottomRight);
+	float CheckForLeastDistance(std::vector<float> distances);
 protected:
 	//The type of which the child class is
 	PushType m_PushType = RANDOM_PUSH;
@@ -31,15 +31,21 @@ protected:
 	//Load file, save new location to file on unload
 	void SaveNewLocationToFile();
 
+	sf::FloatRect m_CollisionBox;
+	//The place the interactable is allowed to move in
+	sf::FloatRect m_BoundsBox;
+
 	bool b_Movable = true;
+	bool b_Interacting = false;
+	float m_Speed = Constant::PLAYER_WALK_SPEED;
 public:
 	//Virtual Functions to pass along to child classes
 	void Update(float dtAsSeconds, Player& player) override;
-	virtual std::pair<std::string, sf::Vector2f> Interact() override = 0;
 	bool CanInteract(Player& player) override;
 
 	//Getters
 	PushType GetPushType() const;
+	sf::FloatRect GetCollisionBox() const;
 
 	void Unload() override;
 

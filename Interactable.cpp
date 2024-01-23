@@ -12,9 +12,9 @@ Sprite Interactable::GetSprite()
 	return m_Sprite;
 }
 
-FloatRect Interactable::GetCollisionBox() const
+FloatRect Interactable::GetInteractionBox() const
 {
-	return m_CollisionBox;
+	return m_InteractionBox;
 }
 
 Texture Interactable::GetTexture()
@@ -30,7 +30,7 @@ InteractableType Interactable::GetInteractableType() const
 bool Interactable::CanInteract(Player& player)
 {
 	if (!b_Active) return false;
-	return m_CollisionBox.intersects(player.GetInteractableBox());
+	return m_InteractionBox.intersects(player.GetInteractableBox());
 }
 
 int Interactable::GetId() const

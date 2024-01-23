@@ -23,7 +23,7 @@ KeyInteractable::KeyInteractable(const int id, const string& textureFileLocation
 	m_Sprite.setPosition(m_Position);
 	const float textureWidth = static_cast<float>(texture.getSize().x);
 	const float textureHeight = static_cast<float>(texture.getSize().y);
-	m_CollisionBox = FloatRect(position.x - (Constant::STANDARD_TILE_SIZE / 4.0f), position.y - (Constant::STANDARD_TILE_SIZE / 4.0f),
+	m_InteractionBox = FloatRect(position.x - (Constant::STANDARD_TILE_SIZE / 4.0f), position.y - (Constant::STANDARD_TILE_SIZE / 4.0f),
 		textureWidth + (Constant::STANDARD_TILE_SIZE / 2.f), textureHeight + (Constant::STANDARD_TILE_SIZE / 2.f));
 }
 

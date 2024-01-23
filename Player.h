@@ -71,6 +71,7 @@ class Player
 	Side m_SidePushing;
 	bool b_Pushing = false;
 	bool b_StartedPushing = false;
+	bool b_ChangePushing = false;
 
 	//Running Variables
 	bool b_ChangeRunning = false;
@@ -89,7 +90,6 @@ class Player
 
 	//Interactable locations
 	sf::FloatRect m_InteractableBox;
-	sf::FloatRect m_PushInteractableBox;
 
 	//Texture method
 	void PlayerAnimationUpdate(bool isMoving);
@@ -126,8 +126,7 @@ public:
 	sf::Vector2f GetCenter();
 
 	//For interaction and collision checks
-	sf::FloatRect GetInteractableBox();
-	sf::FloatRect GetPushInteractableBox();
+	sf::FloatRect GetInteractableBox() const;
 
 	//Public functions and variables used by the PlayerCustomization to change looks and locations
 	PlayerTexture m_PlayerTexture;
@@ -143,6 +142,14 @@ public:
 	//Utils
 	static std::string GetFileName(const std::string& fileLocation);
 
+	//Push movements
 	void SetPushing(const Side& side);
 	void StopPushing();
+
+	bool GetDownPressed() const;
+	bool GetRightPressed() const;
+	bool GetLeftPressed() const;
+	bool GetUpPressed() const;
+
+	bool IsPushing() const;
 };

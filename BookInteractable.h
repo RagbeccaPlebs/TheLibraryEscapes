@@ -30,9 +30,6 @@ protected:
 	//Virtual Functions to pass along to child classes
 	virtual void SavePickupToFile() override = 0;
 public:
-	//Virtual Functions to pass along to child classes
-	virtual void Update(float dtAsSeconds, Player& player) override = 0;
-
 	//Interaction with Interactable
 	std::pair<std::string, sf::Vector2f> Interact() override;
 

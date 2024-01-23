@@ -56,7 +56,7 @@ class GameEngineLogic
 
 	//The Game Interactables Runners
 	void UpdateInteractable(float dtAsSeconds);
-	void InputInteractable(sf::RenderWindow& mainWindow);
+	void InputInteractable();
 	void DrawInteractable(sf::RenderWindow& mainWindow);
 	void ClearInteractables();
 

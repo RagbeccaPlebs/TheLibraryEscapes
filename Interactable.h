@@ -21,7 +21,7 @@ protected:
 	sf::Texture m_Texture;
 	sf::Sprite m_Sprite;
 	sf::Vector2f m_Position;
-	sf::FloatRect m_CollisionBox;
+	sf::FloatRect m_InteractionBox;
 	InteractableType m_InteractableType = PICKUP;
 	bool b_Active = false;
 public:
@@ -32,12 +32,12 @@ public:
 	virtual ~Interactable() = default;
 	virtual std::string Message() = 0;
 
-	//Basic Draw function
-	void Draw(sf::RenderWindow& mainWindow);
+	//Basic Draw function which is virtual but defined
+	virtual void Draw(sf::RenderWindow& mainWindow);
 
 	//Getters
 	sf::Sprite GetSprite();
-	sf::FloatRect GetCollisionBox() const;
+	sf::FloatRect GetInteractionBox() const;
 	sf::Texture GetTexture();
 	InteractableType GetInteractableType() const;
 	bool GetActive() const;

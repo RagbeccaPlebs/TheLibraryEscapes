@@ -18,11 +18,18 @@ void GameEngineLogic::Input(RenderWindow& mainWindow, bool& isPlaying, bool& isP
 	}
 
 	m_Player.HandleInput();
-	InputInteractable(mainWindow);
+	for (PushInteractable* pushInteractable : m_GameMapObjects.pushInteractables)
+	{
+		if (pushInteractable->CanInteract(m_Player))
+		{
+			pushInteractable->Interact();
+		}
+	}
+	InputInteractable();
 }
 
 
-void GameEngineLogic::InputInteractable(RenderWindow& mainWindow)
+void GameEngineLogic::InputInteractable()
 {
 	if (Keyboard::isKeyPressed(Keyboard::E))
 	{
@@ -58,13 +65,6 @@ void GameEngineLogic::InputInteractable(RenderWindow& mainWindow)
 				ResetCenterOverlay();
 				m_OverlayCenterText = pickupInventoryInteractable->Message();
 				b_CenterOverlayActive = true;
-			}
-		}
-		for (PushInteractable* pushInteractable : m_GameMapObjects.pushInteractables)
-		{
-			if (pushInteractable->CanInteract(m_Player))
-			{
-				pushInteractable->Interact();
 			}
 		}
 	}

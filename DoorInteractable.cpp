@@ -34,7 +34,7 @@ DoorInteractable::DoorInteractable(int id, Vector2f position, const string& mapT
 
 	const float textureWidth = static_cast<float>(texture.getSize().x);
 	const float textureHeight = static_cast<float>(texture.getSize().y);
-	m_CollisionBox = FloatRect(position.x - (Constant::STANDARD_TILE_SIZE / 2.f), position.y - (Constant::STANDARD_TILE_SIZE / 2.f),
+	m_InteractionBox = FloatRect(position.x - (Constant::STANDARD_TILE_SIZE / 2.f), position.y - (Constant::STANDARD_TILE_SIZE / 2.f),
 		textureWidth + (Constant::STANDARD_TILE_SIZE), textureHeight + (Constant::STANDARD_TILE_SIZE));
 
 	m_TextureLocation = textureFileLocation;
