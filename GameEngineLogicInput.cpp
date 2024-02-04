@@ -22,7 +22,17 @@ void GameEngineLogic::Input(RenderWindow& mainWindow, bool& isPlaying, bool& isP
 	{
 		if (pushInteractable->CanInteract(m_Player))
 		{
-			pushInteractable->Interact();
+			pair<string, Vector2f> pushInteractableReturn = pushInteractable->Interact();
+			if (pushInteractableReturn.first == Message::CORRECT_LOCATION_MESSAGE)
+			{
+				m_OverlayCenterText = pushInteractable->Message();
+				b_CenterOverlayActive = true;
+				pushInteractable->PlayAlternativeSound();
+			}
+			else if (pushInteractableReturn.first == Keywords::PUSHABLE_OBJECT_KEYWORD)
+			{
+				pushInteractable->PlayPushSound();
+			}
 		}
 	}
 	InputInteractable();

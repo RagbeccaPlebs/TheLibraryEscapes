@@ -1,6 +1,4 @@
-﻿#include "BookInteractable.h"
-#include "GameEngineLogic.h"
-#include "SimpleBookInteractable.h"
+﻿#include "GameEngineLogic.h"
 
 using namespace std;
 using namespace sf;
@@ -16,17 +14,20 @@ void GameEngineLogic::LoadMap(const string& mapName, Vector2f spawnLocation)
 
 void GameEngineLogic::ClearInteractables()
 {
-	for (PushInteractable* pushInteractable : m_GameMapObjects.pushInteractables)
-	{
-		pushInteractable->Unload();
-	}
+	UnloadAll();
+
 	for (const DoorInteractable* doorInteractable : m_GameMapObjects.doorInteractables)
 	{
 		delete doorInteractable;
 	}
+	for (const PushInteractable* pushInteractable : m_GameMapObjects.pushInteractables)
+	{
+		delete pushInteractable;
+	}
 	m_GameMapObjects.doorInteractables.clear();
 	m_GameMapObjects.pickupInventoryInteractables.clear();
 	m_GameMapObjects.pushInteractables.clear();
+	b_InteractablesLoaded = false;
 }
 
 void GameEngineLogic::AddInteractableToCorrectVector(const vector<Interactable*>& interactables)
@@ -53,10 +54,15 @@ void GameEngineLogic::AddInteractableToCorrectVector(const vector<Interactable*>
 			{
 				m_GameMapObjects.pushInteractables.push_back(dynamic_cast<LocationPushInteractable*>(pushInteractable));
 			}
+			else if (pushInteractable->GetPushType() == RANDOM_PUSH)
+			{
+				m_GameMapObjects.pushInteractables.push_back(dynamic_cast<RandomPushInteractable*>(pushInteractable));
+			}
 		}
 		else if (interactable->GetInteractableType() == NPC)
 		{
 
 		}
 	}
+	b_InteractablesLoaded = true;
 }

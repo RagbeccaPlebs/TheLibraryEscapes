@@ -2,7 +2,7 @@
 
 using namespace sf;
 
-void GamePauseMenu::Input(RenderWindow& mainWindow, bool& isPlayingState, bool& isPausedState, const bool& isEscapePressed)
+void GamePauseMenu::Input(RenderWindow& mainWindow, bool& isPlayingState, bool& isPausedState, bool& wasPlaying, const bool& isEscapePressed)
 {
 	if (isEscapePressed)
 	{
@@ -17,6 +17,7 @@ void GamePauseMenu::Input(RenderWindow& mainWindow, bool& isPlayingState, bool& 
 	if (m_BackToMenuButton.IsPressed())
 	{
 		isPlayingState = false;
+		wasPlaying = true;
 	}
 }
 

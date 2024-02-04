@@ -24,6 +24,9 @@ class GameEngineLogic
 		std::vector<PickupInventoryInteractable*> pickupInventoryInteractables;
 		std::vector<PushInteractable*> pushInteractables;
 	};
+	//If interactables are loaded?
+	bool b_InteractablesLoaded = false;
+
 	//PlayerMovement
 	PlayerMovement m_PlayerMovement;
 
@@ -90,5 +93,9 @@ public:
 	void LoadMap(const std::string& mapName, sf::Vector2f spawnLocation);
 
 	//Destructor for sounds
-	void ClearSounds() const;
+	void ClearSounds();
+	//Unloading of Game
+	void UnloadAll() const;
+	//Saving of Game
+	void SaveAll();
 };

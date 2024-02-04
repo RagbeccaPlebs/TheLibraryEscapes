@@ -2,16 +2,11 @@
 #include "PushInteractable.h"
 
 //A key interactable that can be picked up and is stored in the virtual inventory
-class LocationPushInteractable final : public PushInteractable
+class RandomPushInteractable final : public PushInteractable
 {
-	bool CheckIfDistanceIsSmallEnough() const;
-protected:
-	sf::FloatRect m_FinalPosition;
-	sf::Texture m_TextureFinalLocation;
-	sf::Sprite m_SpriteFinalLocation;
 public:
 	//Constructor
-	LocationPushInteractable(int id, const std::string& textureFileLocation, const std::string& textureLocationFileLocation, sf::Vector2f position, sf::Vector2f finalPosition, const std::string& fileOfOrigin,
+	RandomPushInteractable(int id, const std::string& textureFileLocation, sf::Vector2f position, const std::string& fileOfOrigin,
 		float speed, sf::Vector2f minBounds, sf::Vector2f maxBounds, std::string soundLocation, std::string pushSoundLocation);
 
 	void Draw(sf::RenderWindow& mainWindow) override;

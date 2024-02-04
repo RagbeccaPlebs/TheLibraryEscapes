@@ -87,8 +87,6 @@ void PushInteractable::Update(float dtAsSeconds, Player& player)
 		{
 			m_Position = oldPosition;
 		}
-
-
 	}
 }
 
@@ -169,12 +167,12 @@ float PushInteractable::CheckForLeastDistance(std::vector<float> distances)
 //If true change player to pushing type into the direction of the box
 bool PushInteractable::CanInteract(Player& player)
 {
-	if (!b_Movable)
+	if (!b_Active)
 	{
 		if (player.IsPushing()) player.StopPushing();
 		return false;
 	}
-	if (!b_Active)
+	if (!b_Movable)
 	{
 		if (player.IsPushing()) player.StopPushing();
 		return false;
@@ -198,10 +196,25 @@ FloatRect PushInteractable::GetCollisionBox() const
 	return m_CollisionBox;
 }
 
-
 void PushInteractable::Unload()
 {
 	SaveNewLocationToFile();
+}
+
+PushInteractable::~PushInteractable()
+{
+	m_Sound.resetBuffer();
+	m_PushSound.resetBuffer();
+}
+
+void PushInteractable::PlayPushSound()
+{
+	m_PushSound.play();
+}
+
+void PushInteractable::PlayAlternativeSound()
+{
+	m_Sound.play();
 }
 
 PushType PushInteractable::GetPushTypeFromString(const string& pushType)

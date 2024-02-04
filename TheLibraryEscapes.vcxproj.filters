@@ -230,6 +230,9 @@
     <ClCompile Include="LocationPushInteractable.cpp">
       <Filter>Source Files\Game\Interactable\PushInteractable</Filter>
     </ClCompile>
+    <ClCompile Include="RandomPushInteractable.cpp">
+      <Filter>Source Files\Game\Interactable\PushInteractable</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -299,6 +302,9 @@
       <Filter>Header Files\Game\Interactable\PushInteractable</Filter>
     </ClInclude>
     <ClInclude Include="LocationPushInteractable.h">
+      <Filter>Header Files\Game\Interactable\PushInteractable</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomPushInteractable.h">
       <Filter>Header Files\Game\Interactable\PushInteractable</Filter>
     </ClInclude>
   </ItemGroup>

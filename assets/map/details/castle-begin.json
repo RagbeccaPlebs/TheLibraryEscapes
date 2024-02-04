@@ -2,33 +2,35 @@
     "door": [
         {
             "id": 2,
+            "inactive-sound": "assets/sound/interactable/door-locked.wav",
+            "inactive-texture": "assets/graphics/interactable/castle-door-closed.png",
+            "key-id": 1,
             "map": "bridge",
             "map-x": 784,
             "map-y": 920,
-            "x": 800,
-            "y": 800,
-            "key-id": 1,
-            "texture": "assets/graphics/interactable/castle-door-open.png",
-            "inactive-texture": "assets/graphics/interactable/castle-door-closed.png",
             "sound": "assets/sound/interactable/door-open.wav",
-            "inactive-sound": "assets/sound/interactable/door-locked.wav"
+            "texture": "assets/graphics/interactable/castle-door-open.png",
+            "x": 800,
+            "y": 800
         }
     ],
     "pushable-object": [
         {
             "id": 1,
-            "type": "LOCATION",
             "map-x": 784,
             "map-y": 920,
-            "min-x": 750,
             "max-x": 850,
-            "min-y": 900,
             "max-y": 950,
-            "x": 816,
-            "y": 910,
+            "min-x": 750,
+            "min-y": 900,
             "movable-speed": 50,
+            "push-sound": "assets/sound/interactable/door-locked.wav",
+            "sound": "assets/sound/interactable/door-open.wav",
             "texture": "assets/graphics/interactable/box.png",
-            "texture-location": "assets/graphics/interactable/box-location.png"
+            "texture-location": "assets/graphics/interactable/box-location.png",
+            "type": "LOCATION",
+            "x": 845.3590698242188,
+            "y": 949.9630126953125
         }
     ]
 }

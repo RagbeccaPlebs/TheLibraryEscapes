@@ -25,6 +25,11 @@ void Engine::ClearEverything() const
 	m_GameEngine->ClearEverything();
 }
 
+void Engine::SaveAll()
+{
+	m_GameEngine->SaveAll();
+}
+
 
 void Engine::Run() {
 
@@ -41,6 +46,7 @@ void Engine::Run() {
 		Draw();
 	}
 
+	SaveAll();
 	ClearEverything();
 }
 

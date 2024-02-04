@@ -41,7 +41,7 @@ public:
 	virtual void Update(float dtAsSeconds, Player& player) override = 0;
 	std::pair<std::string, sf::Vector2f> Interact() override;
 
-	//Play sounds
+	//Play sound
 	void PlaySound();
 
 	//Unlock door if key is found

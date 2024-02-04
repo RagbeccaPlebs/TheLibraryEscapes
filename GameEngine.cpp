@@ -15,6 +15,11 @@ GameEngine& GameEngine::operator=(const GameEngine& gameEngine)
 	return *this;
 }
 
+GameEngine::~GameEngine()
+{
+	ClearEverything();
+}
+
 GameEngine::GameEngine(GameEngine& gameEngine) : m_GameEngineLogic(gameEngine.m_GameEngineLogic)
 {
 	m_GamePausedMenu = gameEngine.m_GamePausedMenu;
@@ -22,6 +27,12 @@ GameEngine::GameEngine(GameEngine& gameEngine) : m_GameEngineLogic(gameEngine.m_
 
 void GameEngine::ClearEverything()
 {
+	m_GameEngineLogic.SaveAll();
 	m_GameEngineLogic.ClearSounds();
 	m_GamePausedMenu.ClearSounds();
+}
+
+void GameEngine::SaveAll()
+{
+	m_GameEngineLogic.SaveAll();
 }

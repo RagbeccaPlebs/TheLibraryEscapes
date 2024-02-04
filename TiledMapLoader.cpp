@@ -4,6 +4,7 @@
 #include <fstream>
 
 #include "Constants.h"
+#include "RandomPushInteractable.h"
 
 using namespace sf;
 using namespace std;
@@ -195,7 +196,7 @@ vector<Interactable*> TiledMapLoader::LoadAllInteractables(const string& nameOfF
 			switch (PushInteractable::GetPushTypeFromString(dataValue.at(Keywords::TYPE_KEYWORD)))
 			{
 			case RANDOM_PUSH:
-				//NOT IMPLEMENTED YET
+				interactables.push_back(CreateRandomPushInteractableFromData(dataValue, itemToLoad));
 				break;
 			case LOCATION_PUSH:
 				interactables.push_back(CreateLocationPushInteractableFromData(dataValue, itemToLoad));
@@ -288,6 +289,8 @@ LocationPushInteractable* TiledMapLoader::CreateLocationPushInteractableFromData
 	const int id = data.at(Keywords::ID_KEYWORD);
 	const string textureLocation = data.at(Keywords::TEXTURE_KEYWORD);
 	const string textureLocationForFinalLocation = data.at(Keywords::TEXTURE_LOCATION_KEYWORD);
+	const string soundLocation = data.at(Keywords::SOUND_KEYWORD);
+	const string pushSoundLocation = data.at(Keywords::PUSH_SOUND_KEYWORD);
 	const float x = data.at(Keywords::X_KEYWORD);
 	const float y = data.at(Keywords::Y_KEYWORD);
 	const float mapX = data.at(Keywords::MAP_X_KEYWORD);
@@ -295,5 +298,19 @@ LocationPushInteractable* TiledMapLoader::CreateLocationPushInteractableFromData
 	const float speed = data.at(Keywords::MOVABLE_SPEED_KEYWORD);
 	const auto minBounds = Vector2f(data.at(Keywords::MIN_X_KEYWORD), data.at(Keywords::MIN_Y_KEYWORD));
 	const auto maxBounds = Vector2f(data.at(Keywords::MAX_X_KEYWORD), data.at(Keywords::MAX_Y_KEYWORD));
-	return new LocationPushInteractable(id, textureLocation, textureLocationForFinalLocation, Vector2f(x, y), Vector2f(mapX, mapY), fileName, speed, minBounds, maxBounds);
+	return new LocationPushInteractable(id, textureLocation, textureLocationForFinalLocation, Vector2f(x, y), Vector2f(mapX, mapY), fileName, speed, minBounds, maxBounds, soundLocation, pushSoundLocation);
+}
+
+RandomPushInteractable* TiledMapLoader::CreateRandomPushInteractableFromData(json data, const string& fileName)
+{
+	const int id = data.at(Keywords::ID_KEYWORD);
+	const string textureLocation = data.at(Keywords::TEXTURE_KEYWORD);
+	const string soundLocation = data.at(Keywords::SOUND_KEYWORD);
+	const string pushSoundLocation = data.at(Keywords::PUSH_SOUND_KEYWORD);
+	const float x = data.at(Keywords::X_KEYWORD);
+	const float y = data.at(Keywords::Y_KEYWORD);
+	const float speed = data.at(Keywords::MOVABLE_SPEED_KEYWORD);
+	const auto minBounds = Vector2f(data.at(Keywords::MIN_X_KEYWORD), data.at(Keywords::MIN_Y_KEYWORD));
+	const auto maxBounds = Vector2f(data.at(Keywords::MAX_X_KEYWORD), data.at(Keywords::MAX_Y_KEYWORD));
+	return new RandomPushInteractable(id, textureLocation, Vector2f(x, y), fileName, speed, minBounds, maxBounds, soundLocation, pushSoundLocation);
 }

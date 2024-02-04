@@ -177,6 +177,7 @@
     <ClCompile Include="PlayerTexture.cpp" />
     <ClCompile Include="PlayerUpdate.cpp" />
     <ClCompile Include="PushInteractable.cpp" />
+    <ClCompile Include="RandomPushInteractable.cpp" />
     <ClCompile Include="SimpleBookInteractable.cpp" />
     <ClCompile Include="StartMenuEngine.cpp" />
     <ClCompile Include="StartMenuEngineDraw.cpp" />
@@ -206,6 +207,7 @@
     <ClInclude Include="PlayerMovement.h" />
     <ClInclude Include="PlayerTexture.h" />
     <ClInclude Include="PushInteractable.h" />
+    <ClInclude Include="RandomPushInteractable.h" />
     <ClInclude Include="SimpleBookInteractable.h" />
     <ClInclude Include="DoorInteractable.h" />
     <ClInclude Include="StartMenuEngine.h" />

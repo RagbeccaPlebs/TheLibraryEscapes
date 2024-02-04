@@ -18,6 +18,7 @@ private:
 
 	//Game states
 	bool b_Playing = false;
+	bool b_WasPlaying = false;
 
 	//Input states
 	bool b_LeftClicked = false;
@@ -30,6 +31,9 @@ private:
 
 	//Delete function
 	void ClearEverything() const;
+
+	//Save game
+	void SaveAll();
 
 	//Checks and Initializers
 	void CheckIfFilesArePresent();

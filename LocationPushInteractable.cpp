@@ -8,7 +8,7 @@ using namespace sf;
 
 LocationPushInteractable::LocationPushInteractable(const int id, const string& textureFileLocation, const std::string& textureLocationFileLocation,
 	const Vector2f position, const Vector2f finalPosition, const string& fileOfOrigin, const float speed,
-	const Vector2f minBounds, const Vector2f maxBounds)
+	const Vector2f minBounds, const Vector2f maxBounds, string soundLocation, string pushSoundLocation)
 {
 	m_Id = id;
 	b_Active = true;
@@ -33,31 +33,37 @@ LocationPushInteractable::LocationPushInteractable(const int id, const string& t
 	m_InteractionBox = FloatRect(position.x - 1.f, position.y - 1.f,
 		textureWidth + 2.f, textureHeight + 2.f);
 	m_CollisionBox = FloatRect(position.x, position.y, textureWidth, textureHeight);
+
+	//Sounds
+	m_SoundBuffer.loadFromFile(soundLocation);
+	m_Sound.setBuffer(m_SoundBuffer);
+	m_PushSoundBuffer.loadFromFile(pushSoundLocation);
+	m_PushSound.setBuffer(m_PushSoundBuffer);
 }
 
-std::pair<std::string, sf::Vector2f> LocationPushInteractable::Interact()
+pair<string, Vector2f> LocationPushInteractable::Interact()
 {
 	const auto boxPosition = FloatRect(m_Position, Vector2f(m_Sprite.getGlobalBounds().width, m_Sprite.getGlobalBounds().height));
-	if (boxPosition == m_FinalPosition)
+	if (boxPosition == m_FinalPosition || !b_Movable)
 	{
 		if (b_Movable) b_Movable = false;
-		return std::pair<std::string, sf::Vector2f>();
+		return pair{ Constant::EMPTY_STRING, Vector2f(0,0) };
 	}
-	if (CheckIfDistanceIsSmallEnough())
+	if (b_Movable && CheckIfDistanceIsSmallEnough())
 	{
 		b_Movable = false;
 		m_Position = m_FinalPosition.getPosition();
 		m_Sprite.setPosition(m_Position);
-		m_CollisionBox = FloatRect(m_Position.x, m_Position.y, m_Sprite.getGlobalBounds().width, m_Sprite.getGlobalBounds().height);;
-		return std::pair<std::string, sf::Vector2f>();
+		m_CollisionBox = FloatRect(m_Position.x, m_Position.y, m_Sprite.getGlobalBounds().width, m_Sprite.getGlobalBounds().height);
+		return pair{ Message(), Vector2f(0, 0) };
 	}
 	b_Interacting = true;
-	return std::pair<std::string, sf::Vector2f>();
+	return pair{ Keywords::PUSHABLE_OBJECT_KEYWORD, Vector2f(0,0) };
 }
 
-std::string LocationPushInteractable::Message()
+string LocationPushInteractable::Message()
 {
-	return Constant::EMPTY_STRING;
+	return Message::CORRECT_LOCATION_MESSAGE;
 }
 
 bool LocationPushInteractable::CheckIfDistanceIsSmallEnough() const

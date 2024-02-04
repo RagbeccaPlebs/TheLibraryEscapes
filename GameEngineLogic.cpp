@@ -1,17 +1,37 @@
 ﻿#include "GameEngineLogic.h"
 
 #include "Engine.h"
+#include <fstream>
+#include "nlohmann/json.hpp"
 
-using namespace sf;
+using json = nlohmann::json;
 using namespace std;
+using namespace sf;
 
 GameEngineLogic::GameEngineLogic(const RenderWindow& mainWindow) : m_PlayerCustomization(PlayerCustomization(m_Player, m_PlayerMovement, mainWindow))
 {
-	//TODO SAVING GAME (PLAYER LOCATION)
-	LoadMap("bridge", Vector2f(784.f, 920.f));
+	b_InteractablesLoaded = false;
+	ifstream oldFile(Files::GAME_DATA_FILE);
+	nlohmann::json data = json::parse(oldFile);
+	oldFile.close();
+	if (data.contains(Keywords::PLAYER_LOCATION_KEYWORD))
+	{
+		json nestedData = data.at(Keywords::PLAYER_LOCATION_KEYWORD);
+		LoadMap(nestedData.at(Keywords::MAP_KEYWORD), Vector2f(nestedData.at(Keywords::MAP_X_KEYWORD), nestedData.at(Keywords::MAP_Y_KEYWORD)));
+	}
+	else
+	{
+		LoadMap("bridge", Vector2f(784.f, 920.f));
+	}
 	m_GameView.setSize(Vector2f(static_cast<float>(mainWindow.getSize().x), static_cast<float>(mainWindow.getSize().y)));
 	m_OverlayView.setSize(Vector2f(static_cast<float>(mainWindow.getSize().x), static_cast<float>(mainWindow.getSize().y)));
-	m_Zoom = 0.4f;
+	if (data.contains(Keywords::SETTINGS_KEYWORD))
+	{
+		m_Zoom = data.at(Keywords::SETTINGS_KEYWORD).at(Keywords::ZOOM_KEYWORD);
+	} else
+	{
+		m_Zoom = 0.4f;
+	}
 	m_GameView.zoom(m_Zoom);
 }
 
@@ -39,12 +59,51 @@ GameEngineLogic::GameEngineLogic(GameEngineLogic& gameEngineLogic) : m_PlayerCus
 	m_Zoom = gameEngineLogic.m_Zoom;
 }
 
-void GameEngineLogic::ClearSounds() const
+void GameEngineLogic::UnloadAll() const
 {
-	for (DoorInteractable* doorInteractable : m_GameMapObjects.doorInteractables)
+	for (PushInteractable* pushInteractable : m_GameMapObjects.pushInteractables)
+	{
+		pushInteractable->Unload();
+	}
+}
+
+void GameEngineLogic::SaveAll()
+{
+	if (!b_InteractablesLoaded || b_PlayerCustomizationSelectorEnabled)
+	{
+		return;
+	}
+	UnloadAll();
+
+	//Save location to file
+	ifstream oldFile(Files::GAME_DATA_FILE);
+	nlohmann::json data = json::parse(oldFile);
+	oldFile.close();
+	json playerLocationValues;
+
+	data[Keywords::PLAYER_LOCATION_KEYWORD][Keywords::MAP_KEYWORD] = m_Map->GetMapName();
+	data[Keywords::PLAYER_LOCATION_KEYWORD][Keywords::MAP_X_KEYWORD] = m_Player.GetPosition().left;
+	data[Keywords::PLAYER_LOCATION_KEYWORD][Keywords::MAP_Y_KEYWORD] = m_Player.GetPosition().top;
+
+	std::ofstream newFile(Files::GAME_DATA_FILE);
+	newFile << data;
+	newFile.flush();
+}
+
+void GameEngineLogic::ClearSounds()
+{
+	for (const DoorInteractable* doorInteractable : m_GameMapObjects.doorInteractables)
 	{
 		delete doorInteractable;
 	}
+	for (const PushInteractable* pushInteractable : m_GameMapObjects.pushInteractables)
+	{
+		delete pushInteractable;
+	}
+
+	// If incorrectly deleted, delete again
+	m_GameMapObjects.doorInteractables.clear();
+	m_GameMapObjects.pushInteractables.clear();
 }
 
 

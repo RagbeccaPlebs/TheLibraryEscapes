@@ -7,6 +7,7 @@
 #include "Interactable.h"
 #include "KeyInteractable.h"
 #include "LocationPushInteractable.h"
+#include "RandomPushInteractable.h"
 #include "SimpleBookInteractable.h"
 #include "nlohmann/json.hpp"
 
@@ -56,6 +57,7 @@ private:
 	SimpleBookInteractable* CreateSimpleBookInteractableFromData(nlohmann::json data);
 
 	LocationPushInteractable* CreateLocationPushInteractableFromData(nlohmann::json data, const std::string& fileName);
+	RandomPushInteractable* CreateRandomPushInteractableFromData(nlohmann::json data, const std::string& fileName);
 
 	//Checks if objects are found to not load them
 	bool CheckIfSimpleBookIsFound(int id) const;

@@ -6,7 +6,7 @@ void Engine::Input() {
 
 	if (b_Playing)
 	{
-		m_GameEngine->Input(m_Window, b_Playing, b_EscapePressed);
+		m_GameEngine->Input(m_Window, b_Playing, b_WasPlaying, b_EscapePressed);
 	}
 	else
 	{

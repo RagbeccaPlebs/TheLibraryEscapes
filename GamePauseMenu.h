@@ -24,7 +24,7 @@ public:
 	//The Game Runners
 	void Draw(sf::RenderWindow& mainWindow);
 	void Update(float dtAsSeconds, sf::RenderWindow& mainWindow, const bool& isLeftClicked);
-	void Input(sf::RenderWindow& mainWindow, bool& isPlayingState, bool& isPausedState, const bool& isEscapePressed);
+	void Input(sf::RenderWindow& mainWindow, bool& isPlayingState, bool& isPausedState, bool& wasPlaying, const bool& isEscapePressed);
 
 	//Destructor for sounds
 	void ClearSounds();

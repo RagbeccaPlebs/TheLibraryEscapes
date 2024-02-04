@@ -1,6 +1,9 @@
 ﻿#pragma once
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio/Sound.hpp>
+#include <SFML/Audio/SoundBuffer.hpp>
+
 
 #include "Constants.h"
 #include "Interactable.h"
@@ -38,6 +41,14 @@ protected:
 	bool b_Movable = true;
 	bool b_Interacting = false;
 	float m_Speed = Constant::PLAYER_WALK_SPEED;
+
+	//Push Interactable specific Values for Graphical and Sound Gameplay
+	sf::SoundBuffer m_SoundBuffer;
+	sf::SoundBuffer m_PushSoundBuffer;
+	sf::Sound m_Sound;
+	sf::Sound m_PushSound;
+	std::string m_SoundLocation;
+	std::string m_PushSoundLocation;
 public:
 	//Virtual Functions to pass along to child classes
 	void Update(float dtAsSeconds, Player& player) override;
@@ -48,6 +59,13 @@ public:
 	sf::FloatRect GetCollisionBox() const;
 
 	void Unload() override;
+
+	//Destructor to reset sound
+	~PushInteractable() override;
+
+	//Play sound
+	void PlayPushSound();
+	void PlayAlternativeSound();
 
 	static PushType GetPushTypeFromString(const std::string& pushType);
 };

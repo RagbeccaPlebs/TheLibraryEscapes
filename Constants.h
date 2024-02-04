@@ -31,8 +31,11 @@ public:
 	static const inline std::string PLAYER_HAIR_KEYWORD = "player-hair";
 	static const inline std::string PLAYER_HAT_KEYWORD = "player-hat";
 	static const inline std::string PLAYER_LOWER_LAYER_KEYWORD = "player-lower-layer";
+	static const inline std::string PLAYER_LOCATION_KEYWORD = "player-location";
 	static const inline std::string PLAYER_KEYWORD = "player";
 	static const inline std::string PUSHABLE_OBJECT_KEYWORD = "pushable-object";
+	static const inline std::string PUSH_SOUND_KEYWORD = "push-sound";
+	static const inline std::string SETTINGS_KEYWORD = "settings";
 	static const inline std::string SOUND_KEYWORD = "sound";
 	static const inline std::string TEXTURE_KEYWORD = "texture";
 	static const inline std::string TEXTURE_LOCATION_KEYWORD = "texture-location";
@@ -41,6 +44,7 @@ public:
 	static const inline std::string WIDTH_KEYWORD = "width";
 	static const inline std::string X_KEYWORD = "x";
 	static const inline std::string Y_KEYWORD = "y";
+	static const inline std::string ZOOM_KEYWORD = "zoom";
 };
 
 class Message
@@ -49,6 +53,7 @@ public:
 	static const inline std::string CLOAK_MESSAGE = "Cloak";
 	static const inline std::string CLOTHES_MESSAGE = "Clothes";
 	static const inline std::string CONTINUE_MESSAGE = "Continue";
+	static const inline std::string CORRECT_LOCATION_MESSAGE = "The object has been placed in the correct position!";
 	static const inline std::string DOOR_LOCKED_MESSAGE_1 = "The door is locked! Get key ";
 	static const inline std::string DOOR_LOCKED_MESSAGE_2 = " to open it!";
 	static const inline std::string EXCLAMATION_MARK = "!";
