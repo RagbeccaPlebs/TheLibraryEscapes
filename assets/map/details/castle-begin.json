@@ -1,4 +1,24 @@
 {
+    "conditions": [
+        {
+            "conditions": [
+                {
+                    "id": 1,
+                    "sub-type": "LOCATION",
+                    "type": "OBJECT"
+                }
+            ],
+            "id": 1,
+            "operations": [
+                {
+                    "id": 2,
+                    "operation": "SHOW",
+                    "sub-type": "KEY",
+                    "type": "PICKUP"
+                }
+            ]
+        }
+    ],
     "door": [
         {
             "id": 2,
@@ -10,8 +30,19 @@
             "map-y": 920,
             "sound": "assets/sound/interactable/door-open.wav",
             "texture": "assets/graphics/interactable/castle-door-open.png",
+            "type": "SIMPLE",
             "x": 800,
             "y": 800
+        }
+    ],
+    "pickup": [
+        {
+            "activated": false,
+            "id": 2,
+            "texture": "assets/graphics/interactable/mad-book-1.png",
+            "type": "KEY",
+            "x": 800,
+            "y": 900
         }
     ],
     "pushable-object": [
@@ -29,8 +60,8 @@
             "texture": "assets/graphics/interactable/box.png",
             "texture-location": "assets/graphics/interactable/box-location.png",
             "type": "LOCATION",
-            "x": 845.3590698242188,
-            "y": 949.9630126953125
+            "x": 800.0,
+            "y": 920.0
         }
     ]
 }

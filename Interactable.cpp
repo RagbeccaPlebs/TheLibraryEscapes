@@ -1,6 +1,9 @@
 ﻿#include "Interactable.h"
 
+#include <unordered_map>
+
 using namespace sf;
+using namespace std;
 
 void Interactable::Draw(RenderWindow& mainWindow)
 {
@@ -41,4 +44,25 @@ int Interactable::GetId() const
 bool Interactable::GetActive() const
 {
 	return b_Active;
+}
+
+bool Interactable::GetConditionMet() const
+{
+	return b_ConditionMet;
+}
+
+void Interactable::Activate()
+{
+	b_Active = true;
+}
+
+InteractableType Interactable::GetInteractableTypeFromString(const string& interactableType)
+{
+	unordered_map<string, InteractableType> const table =
+	{ {Constant::DOOR_UPPERCASE, DOOR}, {Constant::PICKUP_UPPERCASE, PICKUP}, {Constant::NPC_UPPERCASE, NPC}, {Constant::OBJECT_UPPERCASE, OBJECT} };
+	const auto it = table.find(interactableType);
+	if (it != table.end()) {
+		return it->second;
+	}
+	return PICKUP;
 }

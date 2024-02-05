@@ -1,6 +1,7 @@
 ﻿#include "Constants.h"
 #include "GameEngineLogic.h"
 #include "PushInteractable.h"
+#include "TiledMapLoader.h"
 
 using namespace sf;
 using namespace std;
@@ -29,6 +30,8 @@ void GameEngineLogic::Update(float dtAsSeconds, RenderWindow& mainWindow, const 
 	{
 		UpdateCenterOverlay(dtAsSeconds);
 	}
+
+	UpdateConditions();
 }
 
 void GameEngineLogic::UpdateInteractable(float dtAsSeconds)
@@ -89,5 +92,46 @@ void GameEngineLogic::ResetCenterOverlay()
 	m_SecondsSinceCenterOverlayActive = 0;
 	m_OverlayCenterText = Constant::EMPTY_STRING;
 	m_Opacity = 255;
+}
+
+void GameEngineLogic::UpdateConditions()
+{
+	for (TiledMapLoader::MapCondition* mapCondition : m_GameMapObjects.mapConditions)
+	{
+		if (mapCondition->activated)
+		{
+			continue;
+		}
+		bool allConditionsMet = true;
+		for (const Interactable* conditionInteractable : mapCondition->conditions)
+		{
+			if (!conditionInteractable->GetConditionMet())
+			{
+				allConditionsMet = false;
+			}
+		}
+
+		if (!allConditionsMet)
+		{
+			continue;
+		}
+		for (const TiledMapLoader::Operation& operation : mapCondition->operations)
+		{
+			HandleOperation(operation);
+		}
+		mapCondition->activated = true;
+	}
+}
+
+void GameEngineLogic::HandleOperation(const TiledMapLoader::Operation& operation)
+{
+	switch (operation.action)
+	{
+	case TiledMapLoader::SHOW:
+	{
+		operation.interactable->Activate();
+		break;
+	}
+	}
 }
 

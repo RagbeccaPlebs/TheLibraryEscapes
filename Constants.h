@@ -4,7 +4,9 @@
 class Keywords
 {
 public:
+	static const inline std::string ACTIVATED_KEYWORD = "activated";
 	static const inline std::string BOOK_KEYWORD = "book";
+	static const inline std::string CONDITIONS_KEYWORD = "conditions";
 	static const inline std::string DATA_KEYWORD = "data";
 	static const inline std::string DOOR_KEYWORD = "door";
 	static const inline std::string EMOTION_KEYWORD = "emotion";
@@ -24,6 +26,8 @@ public:
 	static const inline std::string MIN_Y_KEYWORD = "min-y";
 	static const inline std::string MOVABLE_SPEED_KEYWORD = "movable-speed";
 	static const inline std::string NAME_KEYWORD = "name";
+	static const inline std::string OPERATION_KEYWORD = "operation";
+	static const inline std::string OPERATIONS_KEYWORD = "operations";
 	static const inline std::string PICKUP_KEYWORD = "pickup";
 	static const inline std::string PLAYER_BASE_KEYWORD = "player-base";
 	static const inline std::string PLAYER_CLOAK_KEYWORD = "player-cloak";
@@ -37,6 +41,7 @@ public:
 	static const inline std::string PUSH_SOUND_KEYWORD = "push-sound";
 	static const inline std::string SETTINGS_KEYWORD = "settings";
 	static const inline std::string SOUND_KEYWORD = "sound";
+	static const inline std::string SUB_TYPE_KEYWORD = "sub-type";
 	static const inline std::string TEXTURE_KEYWORD = "texture";
 	static const inline std::string TEXTURE_LOCATION_KEYWORD = "texture-location";
 	static const inline std::string TILEWIDTH_KEYWORD = "tilewidth";
@@ -117,6 +122,9 @@ public:
 	static const inline std::string GAME_TITLE = "The Library Escapes";
 	static const inline std::string MAP_COLLISION_LEVEL_NAME = "Collision";
 
+	//Actions
+	static const inline std::string SHOW_UPPERCASE = "SHOW";
+
 	//Emotions
 	static const inline std::string SHY_UPPERCASE = "SHY";
 	static const inline std::string SHY_CAMELCASE = "Shy";
@@ -129,6 +137,12 @@ public:
 	static const inline std::string SECRECY_UPPERCASE = "SECRECY";
 	static const inline std::string SECRECY_CAMELCASE = "Secrecy";
 
+	//Interactable Types
+	static const inline std::string DOOR_UPPERCASE = "DOOR";
+	static const inline std::string PICKUP_UPPERCASE = "PICKUP";
+	static const inline std::string NPC_UPPERCASE = "NPC";
+	static const inline std::string OBJECT_UPPERCASE = "OBJECT";
+
 	//Pickup Types
 	static const inline std::string BOOK_UPPERCASE = "BOOK";
 	static const inline std::string KEY_UPPERCASE = "KEY";
@@ -137,6 +151,10 @@ public:
 	static const inline std::string RANDOM_UPPERCASE = "RANDOM";
 	static const inline std::string LOCATION_UPPERCASE = "LOCATION";
 	static constexpr float MAX_DISTANCE_FROM_FINAL_POSITION = 2.f;
+
+	//Door Types
+	static const inline std::string SIMPLE_UPPERCASE = "SIMPLE";
+	static const inline std::string TRAPDOOR_UPPERCASE = "TRAPDOOR";
 
 	//Map
 	static constexpr int STANDARD_TILE_SIZE = 16;

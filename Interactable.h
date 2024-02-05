@@ -24,6 +24,7 @@ protected:
 	sf::FloatRect m_InteractionBox;
 	InteractableType m_InteractableType = PICKUP;
 	bool b_Active = false;
+	bool b_ConditionMet = false;
 public:
 	//Virtual Functions to pass along to child classes
 	virtual void Update(float dtAsSeconds, Player& player) = 0;
@@ -43,4 +44,8 @@ public:
 	bool GetActive() const;
 	int GetId() const;
 	virtual void Unload() = 0;
+	bool GetConditionMet() const;
+	void Activate();
+
+	static InteractableType GetInteractableTypeFromString(const std::string& interactableType);
 };

@@ -8,13 +8,14 @@ using namespace sf;
 
 LocationPushInteractable::LocationPushInteractable(const int id, const string& textureFileLocation, const std::string& textureLocationFileLocation,
 	const Vector2f position, const Vector2f finalPosition, const string& fileOfOrigin, const float speed,
-	const Vector2f minBounds, const Vector2f maxBounds, string soundLocation, string pushSoundLocation)
+	const Vector2f minBounds, const Vector2f maxBounds, string soundLocation, string pushSoundLocation, bool isActive)
 {
 	m_Id = id;
-	b_Active = true;
+	b_Active = isActive;
 	m_InteractableType = OBJECT;
 	m_PushType = LOCATION_PUSH;
 	m_OriginFile = fileOfOrigin;
+	b_ConditionMet = false;
 	const Texture& texture = TextureHolder::GetTexture(textureFileLocation);
 	m_Texture = texture;
 	m_Sprite = Sprite(texture);
@@ -39,18 +40,21 @@ LocationPushInteractable::LocationPushInteractable(const int id, const string& t
 	m_Sound.setBuffer(m_SoundBuffer);
 	m_PushSoundBuffer.loadFromFile(pushSoundLocation);
 	m_PushSound.setBuffer(m_PushSoundBuffer);
+	m_PushSound.setLoop(true);
 }
 
 pair<string, Vector2f> LocationPushInteractable::Interact()
 {
 	const auto boxPosition = FloatRect(m_Position, Vector2f(m_Sprite.getGlobalBounds().width, m_Sprite.getGlobalBounds().height));
-	if (boxPosition == m_FinalPosition || !b_Movable)
+	if (boxPosition == m_FinalPosition && !b_Movable)
 	{
+		if (!b_ConditionMet) b_ConditionMet = true;
 		if (b_Movable) b_Movable = false;
 		return pair{ Constant::EMPTY_STRING, Vector2f(0,0) };
 	}
 	if (b_Movable && CheckIfDistanceIsSmallEnough())
 	{
+		b_ConditionMet = true;
 		b_Movable = false;
 		m_Position = m_FinalPosition.getPosition();
 		m_Sprite.setPosition(m_Position);

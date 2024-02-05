@@ -212,6 +212,16 @@ void PushInteractable::PlayPushSound()
 	m_PushSound.play();
 }
 
+void PushInteractable::StopPushSound()
+{
+	m_PushSound.stop();
+}
+
+SoundSource::Status PushInteractable::GetPushSoundStatus()
+{
+	return m_PushSound.getStatus();
+}
+
 void PushInteractable::PlayAlternativeSound()
 {
 	m_Sound.play();

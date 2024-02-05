@@ -140,6 +140,7 @@ TiledMapLoader::MapValues TiledMapLoader::MapLoader(const std::string& name)
 	mapValues.texture = m_Texture;
 
 	mapValues.interactables = LoadAllInteractables(name);
+	mapValues.mapConditions = LoadAllMapConditions(mapValues.interactables, name);
 
 	return mapValues;
 }
@@ -179,9 +180,11 @@ vector<Interactable*> TiledMapLoader::LoadAllInteractables(const string& nameOfF
 			case KEY:
 				if (CheckIfKeyIsFound(dataValue.at(Keywords::ID_KEYWORD)))
 				{
-					break;
+					interactables.push_back(CreateKeyInteractableFromData(dataValue, true));
+				} else
+				{
+					interactables.push_back(CreateKeyInteractableFromData(dataValue, false));
 				}
-				interactables.push_back(CreateKeyInteractableFromData(dataValue));
 				break;
 			case BOOK:
 				//Shouldn't be here;
@@ -246,13 +249,22 @@ bool TiledMapLoader::CheckIfKeyIsFound(int id) const
 	return isSame;
 }
 
-KeyInteractable* TiledMapLoader::CreateKeyInteractableFromData(json data)
+KeyInteractable* TiledMapLoader::CreateKeyInteractableFromData(json data, const bool& isFound)
 {
 	const int id = data.at(Keywords::ID_KEYWORD);
 	const string textureLocation = data.at(Keywords::TEXTURE_KEYWORD);
 	const float x = data.at(Keywords::X_KEYWORD);
 	const float y = data.at(Keywords::Y_KEYWORD);
-	return new KeyInteractable(id, textureLocation, Vector2f(x, y));
+	bool active = true;
+	if (data.contains(Keywords::ACTIVATED_KEYWORD))
+	{
+		active = data.at(Keywords::ACTIVATED_KEYWORD);
+	}
+	if (isFound)
+	{
+		active = false;
+	}
+	return new KeyInteractable(id, textureLocation, Vector2f(x, y), active);
 }
 
 DoorInteractable* TiledMapLoader::CreateDoorInteractableFromData(json data)
@@ -268,9 +280,14 @@ DoorInteractable* TiledMapLoader::CreateDoorInteractableFromData(json data)
 	const string mapToMoveTo = data.at(Keywords::MAP_KEYWORD);
 	const float mapX = data.at(Keywords::MAP_X_KEYWORD);
 	const float mapY = data.at(Keywords::MAP_Y_KEYWORD);
+	bool active = true;
+	if (data.contains(Keywords::ACTIVATED_KEYWORD))
+	{
+		active = data.at(Keywords::ACTIVATED_KEYWORD);
+	}
 	return new DoorInteractable(id, Vector2f(x, y), mapToMoveTo, Vector2f(mapX, mapY),
 		textureLocation, inactiveTextureLocation, keyId,
-		soundLocation, inactiveSoundLocation);
+		soundLocation, inactiveSoundLocation, active);
 }
 
 SimpleBookInteractable* TiledMapLoader::CreateSimpleBookInteractableFromData(json data)
@@ -281,7 +298,12 @@ SimpleBookInteractable* TiledMapLoader::CreateSimpleBookInteractableFromData(jso
 	const EmotionType emotion = BookInteractable::GetEmotionFromString(emotionString);
 	const float x = data.at(Keywords::X_KEYWORD);
 	const float y = data.at(Keywords::Y_KEYWORD);
-	return new SimpleBookInteractable(id, textureLocation, Vector2f(x, y), emotion);
+	bool active = true;
+	if (data.contains(Keywords::ACTIVATED_KEYWORD))
+	{
+		active = data.at(Keywords::ACTIVATED_KEYWORD);
+	}
+	return new SimpleBookInteractable(id, textureLocation, Vector2f(x, y), emotion, active);
 }
 
 LocationPushInteractable* TiledMapLoader::CreateLocationPushInteractableFromData(json data, const string& fileName)
@@ -298,7 +320,13 @@ LocationPushInteractable* TiledMapLoader::CreateLocationPushInteractableFromData
 	const float speed = data.at(Keywords::MOVABLE_SPEED_KEYWORD);
 	const auto minBounds = Vector2f(data.at(Keywords::MIN_X_KEYWORD), data.at(Keywords::MIN_Y_KEYWORD));
 	const auto maxBounds = Vector2f(data.at(Keywords::MAX_X_KEYWORD), data.at(Keywords::MAX_Y_KEYWORD));
-	return new LocationPushInteractable(id, textureLocation, textureLocationForFinalLocation, Vector2f(x, y), Vector2f(mapX, mapY), fileName, speed, minBounds, maxBounds, soundLocation, pushSoundLocation);
+	bool active = true;
+	if (data.contains(Keywords::ACTIVATED_KEYWORD))
+	{
+		active = data.at(Keywords::ACTIVATED_KEYWORD);
+	}
+	return new LocationPushInteractable(id, textureLocation, textureLocationForFinalLocation,
+		Vector2f(x, y), Vector2f(mapX, mapY), fileName, speed, minBounds, maxBounds, soundLocation, pushSoundLocation, active);
 }
 
 RandomPushInteractable* TiledMapLoader::CreateRandomPushInteractableFromData(json data, const string& fileName)
@@ -312,5 +340,123 @@ RandomPushInteractable* TiledMapLoader::CreateRandomPushInteractableFromData(jso
 	const float speed = data.at(Keywords::MOVABLE_SPEED_KEYWORD);
 	const auto minBounds = Vector2f(data.at(Keywords::MIN_X_KEYWORD), data.at(Keywords::MIN_Y_KEYWORD));
 	const auto maxBounds = Vector2f(data.at(Keywords::MAX_X_KEYWORD), data.at(Keywords::MAX_Y_KEYWORD));
-	return new RandomPushInteractable(id, textureLocation, Vector2f(x, y), fileName, speed, minBounds, maxBounds, soundLocation, pushSoundLocation);
+	bool active = true;
+	if (data.contains(Keywords::ACTIVATED_KEYWORD))
+	{
+		active = data.at(Keywords::ACTIVATED_KEYWORD);
+	}
+	return new RandomPushInteractable(id, textureLocation, Vector2f(x, y), fileName, speed, minBounds,
+		maxBounds, soundLocation, pushSoundLocation, active);
+}
+
+//Conditions
+vector<TiledMapLoader::MapCondition*> TiledMapLoader::LoadAllMapConditions(const vector<Interactable*> interactables, const std::string& nameOfFile)
+{
+	vector<MapCondition*> mapConditions;
+
+	string itemToLoad = Files::MAP_DETAILS_FOLDER;
+	itemToLoad += nameOfFile + Files::JSON_EXTENSION;
+	ifstream file(itemToLoad);
+	json data = json::parse(file);
+	file.close();
+
+	if (data.contains(Keywords::CONDITIONS_KEYWORD)) {
+		for (const auto& condition : data.at(Keywords::CONDITIONS_KEYWORD))
+		{
+			int id = condition.at(Keywords::ID_KEYWORD);
+			vector<Operation> operationsVector;
+			for (const auto& operations : condition.at(Keywords::OPERATIONS_KEYWORD))
+			{
+				Action action = GetActionFromString(operations.at(Keywords::OPERATION_KEYWORD));
+				Interactable& interactable = GetInteractableFromJsonDataAndVector(operations, interactables);
+				Operation operation{ &interactable, action };
+				operationsVector.push_back(operation);
+			}
+			vector<Interactable*> conditionsVector;
+			for (const auto& nestedCondition : condition.at(Keywords::CONDITIONS_KEYWORD))
+			{
+				Interactable& interactable = GetInteractableFromJsonDataAndVector(nestedCondition, interactables);
+				conditionsVector.push_back(&interactable);
+			}
+			MapCondition* mapCondition = new MapCondition(id, conditionsVector, operationsVector, false);
+			mapConditions.push_back(mapCondition);
+		}
+	}
+
+	return mapConditions;
+}
+
+Interactable& TiledMapLoader::GetInteractableFromJsonDataAndVector(nlohmann::basic_json<> jsonData, std::vector<Interactable*> interactables)
+{
+	int id = jsonData.at(Keywords::ID_KEYWORD);
+	InteractableType interactableType = Interactable::GetInteractableTypeFromString(jsonData.at(Keywords::TYPE_KEYWORD));
+	for (Interactable* interactable : interactables)
+	{
+		if (interactable->GetInteractableType() != interactableType)
+		{
+			continue;
+		}
+		switch (interactable->GetInteractableType())
+		{
+		case DOOR: {
+			auto* doorInteractableTemplate = dynamic_cast<DoorInteractableTemplate*>(interactable);
+			if (doorInteractableTemplate->GetDoorInteractableType() != DoorInteractableTemplate::GetDoorInteractableTypeFromString(jsonData.at(Keywords::SUB_TYPE_KEYWORD)))
+			{
+				break;
+			}
+			if (doorInteractableTemplate->GetId() != id)
+			{
+				break;
+			}
+			return *interactable;
+		}
+		case PICKUP: {
+			auto* pickupInventoryInteractable = dynamic_cast<PickupInventoryInteractable*>(interactable);
+			if (pickupInventoryInteractable->GetPickupType() != PickupInventoryInteractable::GetPickupTypeFromString(jsonData.at(Keywords::SUB_TYPE_KEYWORD)))
+			{
+				break;
+			}
+			if (pickupInventoryInteractable->GetId() != id)
+			{
+				break;
+			}
+			return *interactable;
+		}
+		case OBJECT: {
+			auto* pushInteractable = dynamic_cast<PushInteractable*>(interactable);
+			if (pushInteractable->GetPushType() != PushInteractable::GetPushTypeFromString(jsonData.at(Keywords::SUB_TYPE_KEYWORD)))
+			{
+				break;
+			}
+			if (pushInteractable->GetId() != id)
+			{
+				break;
+			}
+			return *interactable;
+		}
+		case NPC:
+			//Not implemented yet
+			break;
+		}
+	}
+	throw "You added a value which isn't present... Might be smart to change the files!";
+}
+
+TiledMapLoader::Action TiledMapLoader::GetActionFromString(const std::string& action)
+{
+	unordered_map<string, Action> const table =
+	{ {Constant::SHOW_UPPERCASE, SHOW} };
+	const auto it = table.find(action);
+	if (it != table.end()) {
+		return it->second;
+	}
+	return SHOW;
+}
+
+TiledMapLoader::MapCondition::MapCondition(int idValue, std::vector<Interactable*> conditionsValue, std::vector<Operation> operationsValue, bool activatedValue)
+{
+	id = idValue;
+	conditions = move(conditionsValue);
+	operations = operationsValue;
+	activated = activatedValue;
 }

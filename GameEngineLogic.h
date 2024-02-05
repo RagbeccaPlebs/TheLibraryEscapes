@@ -23,6 +23,7 @@ class GameEngineLogic
 		std::vector<DoorInteractable*> doorInteractables;
 		std::vector<PickupInventoryInteractable*> pickupInventoryInteractables;
 		std::vector<PushInteractable*> pushInteractables;
+		std::vector<TiledMapLoader::MapCondition*> mapConditions;
 	};
 	//If interactables are loaded?
 	bool b_InteractablesLoaded = false;
@@ -77,6 +78,10 @@ class GameEngineLogic
 	void TextOverlay(sf::RenderWindow& mainWindow, const std::string& writtenText, const OverlayLocationInView locationInView, int fontSize, bool useOpacity);
 	void UpdateCenterOverlay(float dtAsSeconds);
 	void ResetCenterOverlay();
+
+	//The Conditions Check
+	void UpdateConditions();
+	void HandleOperation(const TiledMapLoader::Operation& operation);
 public:
 	//Constructors, destructors and copy assignment operators
 	GameEngineLogic(const sf::RenderWindow& mainWindow);

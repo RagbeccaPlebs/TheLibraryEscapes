@@ -15,6 +15,7 @@ Map::Map(const string& name)
 	m_TextureTiles = mapValues.texture;
 	m_TextureTiles.setSmooth(false);
 	m_Interactables = mapValues.interactables;
+	m_MapConditions = mapValues.mapConditions;
 }
 
 Map::Map(Map& m) {
@@ -74,4 +75,9 @@ Texture& Map::GetTextureTiles()
 std::vector<Interactable*> Map::GetInteractables()
 {
 	return m_Interactables;
+}
+
+vector<TiledMapLoader::MapCondition*> Map::GetMapConditions()
+{
+	return m_MapConditions;
 }

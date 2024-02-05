@@ -12,7 +12,7 @@ protected:
 public:
 	//Constructor
 	LocationPushInteractable(int id, const std::string& textureFileLocation, const std::string& textureLocationFileLocation, sf::Vector2f position, sf::Vector2f finalPosition, const std::string& fileOfOrigin,
-		float speed, sf::Vector2f minBounds, sf::Vector2f maxBounds, std::string soundLocation, std::string pushSoundLocation);
+		float speed, sf::Vector2f minBounds, sf::Vector2f maxBounds, std::string soundLocation, std::string pushSoundLocation, bool isActive);
 
 	void Draw(sf::RenderWindow& mainWindow) override;
 

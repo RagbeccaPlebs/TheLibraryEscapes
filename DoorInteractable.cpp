@@ -12,13 +12,14 @@ using namespace std;
 using json = nlohmann::json;
 
 DoorInteractable::DoorInteractable(int id, Vector2f position, const string& mapToMoveTo, Vector2f mapPositionToMoveTo,
-	const string& textureFileLocation, const string& inactiveTextureFileLocation, int keyId, const string& soundFileLocation, const string& inactiveSoundFileLocation)
+	const string& textureFileLocation, const string& inactiveTextureFileLocation, int keyId,
+	const string& soundFileLocation, const string& inactiveSoundFileLocation, bool isActive)
 {
 	m_Id = id;
 	m_InteractableType = DOOR;
 	m_DoorInteractableType = SIMPLE_DOOR;
 	b_IsOpen = CheckIfDoorIsActive(id);
-	b_Active = true;
+	b_Active = isActive;
 
 	const Texture& texture = TextureHolder::GetTexture(b_IsOpen ? textureFileLocation : inactiveTextureFileLocation);
 	m_Texture = texture;

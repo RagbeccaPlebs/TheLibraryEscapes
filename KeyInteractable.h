@@ -9,7 +9,7 @@ protected:
 	void SavePickupToFile() override;
 public:
 	//Constructor
-	KeyInteractable(const int id, const std::string& textureFileLocation, sf::Vector2f position);
+	KeyInteractable(const int id, const std::string& textureFileLocation, sf::Vector2f position, bool isActive);
 
 	void Update(float dtAsSeconds, Player& player) override;
 

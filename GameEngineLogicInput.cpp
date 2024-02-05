@@ -25,6 +25,7 @@ void GameEngineLogic::Input(RenderWindow& mainWindow, bool& isPlaying, bool& isP
 			pair<string, Vector2f> pushInteractableReturn = pushInteractable->Interact();
 			if (pushInteractableReturn.first == Message::CORRECT_LOCATION_MESSAGE)
 			{
+				if (pushInteractable->GetPushSoundStatus() == SoundSource::Playing) pushInteractable->StopPushSound();
 				m_OverlayCenterText = pushInteractable->Message();
 				b_CenterOverlayActive = true;
 				pushInteractable->PlayAlternativeSound();
@@ -33,6 +34,10 @@ void GameEngineLogic::Input(RenderWindow& mainWindow, bool& isPlaying, bool& isP
 			{
 				pushInteractable->PlayPushSound();
 			}
+		}
+		else
+		{
+			if (pushInteractable->GetPushSoundStatus() == SoundSource::Playing) pushInteractable->StopPushSound();
 		}
 	}
 	InputInteractable();

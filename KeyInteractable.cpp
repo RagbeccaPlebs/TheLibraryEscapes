@@ -10,10 +10,10 @@ using namespace std;
 using namespace sf;
 using json = nlohmann::json;
 
-KeyInteractable::KeyInteractable(const int id, const string& textureFileLocation, Vector2f position)
+KeyInteractable::KeyInteractable(const int id, const string& textureFileLocation, Vector2f position, const bool isActive)
 {
 	m_Id = id;
-	b_Active = true;
+	b_Active = isActive;
 	m_InteractableType = PICKUP;
 	m_PickupType = KEY;
 	const Texture& texture = TextureHolder::GetTexture(textureFileLocation);

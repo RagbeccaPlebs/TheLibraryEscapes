@@ -15,6 +15,7 @@ class Map
 	sf::Vector2i m_MapSize;
 	sf::Texture m_TextureTiles;
 	std::vector<Interactable*> m_Interactables;
+	std::vector<TiledMapLoader::MapCondition*> m_MapConditions;
 public:
 	//Constructors, destructors and copy assignment operators
 	Map() = default;
@@ -30,4 +31,5 @@ public:
 	std::vector<TiledMapLoader::MapLayer> GetMapLayers();
 	sf::Texture& GetTextureTiles();
 	std::vector<Interactable*> GetInteractables();
+	std::vector<TiledMapLoader::MapCondition*> GetMapConditions();
 };

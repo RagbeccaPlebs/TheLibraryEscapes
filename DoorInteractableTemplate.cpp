@@ -115,3 +115,14 @@ bool DoorInteractableTemplate::CheckIfKeyIsFound() const
 	}
 	return isSame;
 }
+
+DoorInteractableType DoorInteractableTemplate::GetDoorInteractableTypeFromString(const std::string& doorInteractableType)
+{
+	unordered_map<string, DoorInteractableType> const table =
+	{ {Constant::SIMPLE_UPPERCASE, SIMPLE_DOOR}, {Constant::TRAPDOOR_UPPERCASE, TRAPDOOR} };
+	const auto it = table.find(doorInteractableType);
+	if (it != table.end()) {
+		return it->second;
+	}
+	return SIMPLE_DOOR;
+}

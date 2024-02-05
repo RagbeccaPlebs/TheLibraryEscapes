@@ -7,7 +7,7 @@ class RandomPushInteractable final : public PushInteractable
 public:
 	//Constructor
 	RandomPushInteractable(int id, const std::string& textureFileLocation, sf::Vector2f position, const std::string& fileOfOrigin,
-		float speed, sf::Vector2f minBounds, sf::Vector2f maxBounds, std::string soundLocation, std::string pushSoundLocation);
+		float speed, sf::Vector2f minBounds, sf::Vector2f maxBounds, std::string soundLocation, std::string pushSoundLocation, bool isActive);
 
 	void Draw(sf::RenderWindow& mainWindow) override;
 

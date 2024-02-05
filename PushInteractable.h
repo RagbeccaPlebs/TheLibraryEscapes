@@ -63,8 +63,10 @@ public:
 	//Destructor to reset sound
 	~PushInteractable() override;
 
-	//Play sound
+	//Sound interaction
 	void PlayPushSound();
+	void StopPushSound();
+	sf::SoundSource::Status GetPushSoundStatus();
 	void PlayAlternativeSound();
 
 	static PushType GetPushTypeFromString(const std::string& pushType);

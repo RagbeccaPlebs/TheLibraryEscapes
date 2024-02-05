@@ -9,10 +9,10 @@ using namespace sf;
 
 RandomPushInteractable::RandomPushInteractable(const int id, const string& textureFileLocation,
 	const Vector2f position, const string& fileOfOrigin, const float speed,
-	const Vector2f minBounds, const Vector2f maxBounds, string soundLocation, string pushSoundLocation)
+	const Vector2f minBounds, const Vector2f maxBounds, string soundLocation, string pushSoundLocation, bool isActive)
 {
 	m_Id = id;
-	b_Active = true;
+	b_Active = isActive;
 	m_InteractableType = OBJECT;
 	m_PushType = RANDOM_PUSH;
 	m_OriginFile = fileOfOrigin;
@@ -34,6 +34,7 @@ RandomPushInteractable::RandomPushInteractable(const int id, const string& textu
 	m_Sound.setBuffer(m_SoundBuffer);
 	m_PushSoundBuffer.loadFromFile(pushSoundLocation);
 	m_PushSound.setBuffer(m_PushSoundBuffer);
+	m_PushSound.setLoop(true);
 }
 
 pair<string, Vector2f> RandomPushInteractable::Interact()

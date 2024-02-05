@@ -10,6 +10,7 @@ void GameEngineLogic::LoadMap(const string& mapName, Vector2f spawnLocation)
 	m_PlayerSpawnLocation = spawnLocation;
 
 	AddInteractableToCorrectVector(m_Map->GetInteractables());
+	m_GameMapObjects.mapConditions = m_Map->GetMapConditions();
 }
 
 void GameEngineLogic::ClearInteractables()
@@ -27,6 +28,7 @@ void GameEngineLogic::ClearInteractables()
 	m_GameMapObjects.doorInteractables.clear();
 	m_GameMapObjects.pickupInventoryInteractables.clear();
 	m_GameMapObjects.pushInteractables.clear();
+	m_GameMapObjects.mapConditions.clear();
 	b_InteractablesLoaded = false;
 }
 

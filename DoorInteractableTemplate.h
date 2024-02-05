@@ -59,4 +59,7 @@ public:
 	DoorInteractableType GetDoorInteractableType() const;
 
 	void Unload() override;
+
+	//Getter from String to DoorInteractableType
+	static DoorInteractableType GetDoorInteractableTypeFromString(const std::string& doorInteractableType);
 };
