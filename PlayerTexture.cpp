@@ -202,15 +202,15 @@ std::pair<std::string, sf::Texture> PlayerTexture::GetNextTexture(const map<stri
 			if (static_cast<size_t>(index) == keys.size() - 1)
 			{
 				const string newFileName = keys[0];
-				return pair<string, Texture>(newFileName, textureMap.at(newFileName));
+				return pair<string, Texture>{newFileName, textureMap.at(newFileName)};
 			}
 			const string newFileName = keys[index + 1];
 
-			return pair<string, Texture>(newFileName, textureMap.at(newFileName));
+			return pair<string, Texture>{newFileName, textureMap.at(newFileName)};
 		}
 	}
 	const string fileName = Player::GetFileName(filePath);
-	return pair<string, Texture>(fileName, TextureHolder::GetTexture(filePath));
+	return pair<string, Texture>{fileName, TextureHolder::GetTexture(filePath)};
 }
 
 std::pair<std::string, sf::Texture> PlayerTexture::GetNextTextureWithNone(const map<string, Texture>& textureMap, const std::string& filePath)
@@ -232,17 +232,17 @@ std::pair<std::string, sf::Texture> PlayerTexture::GetNextTextureWithNone(const 
 			const int index = it - keys.begin();
 			if (static_cast<size_t>(index) == keys.size() - 1)
 			{
-				return pair<string, Texture>(Constant::EMPTY_STRING, textureMap.at(fileName));
+				return pair<string, Texture>{Constant::EMPTY_STRING, textureMap.at(fileName)};
 			}
 			const string newFileName = keys[index + 1];
 
-			return pair<string, Texture>(newFileName, textureMap.at(newFileName));
+			return pair<string, Texture>{newFileName, textureMap.at(newFileName)};
 		}
 		const string newFileName = keys[0];
-		return pair<string, Texture>(newFileName, textureMap.at(newFileName));
+		return pair<string, Texture>{newFileName, textureMap.at(newFileName)};
 	}
 	const string fileName = Player::GetFileName(filePath);
-	return pair<string, Texture>(fileName, TextureHolder::GetTexture(filePath));
+	return pair<string, Texture>{fileName, TextureHolder::GetTexture(filePath)};
 }
 
 void Player::UpdatePlayerTexture(const Layer layer)
@@ -312,7 +312,7 @@ void Player::UpdatePlayerTexture(const Layer layer)
 	SetPositionAllSprites();
 }
 
-void Player::SaveLayers()
+void Player::SaveLayers() const
 {
 	ifstream oldFile(Files::GAME_DATA_FILE);
 	nlohmann::json data = json::parse(oldFile);

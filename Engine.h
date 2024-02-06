@@ -36,7 +36,7 @@ private:
 	void SaveAll();
 
 	//Checks and Initializers
-	void CheckIfFilesArePresent();
+	static void CheckIfFilesArePresent();
 public:
 	Engine();
 

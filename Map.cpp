@@ -7,7 +7,7 @@ using namespace std;
 
 Map::Map(const string& name)
 {
-	const TiledMapLoader::MapValues mapValues = m_TiledMapLoader.MapLoader(name);
+	const TiledMapLoader::MapValues mapValues = { m_TiledMapLoader.MapLoader(name) };
 	m_ArrayCollisionLevel = mapValues.collisionsMap;
 	m_MapSize = mapValues.mapSize;
 	m_MapLayers = mapValues.mapLayers;
@@ -18,7 +18,7 @@ Map::Map(const string& name)
 	m_MapConditions = mapValues.mapConditions;
 }
 
-Map::Map(Map& m) {
+Map::Map(const Map& m) {
 	m_ArrayCollisionLevel = m.m_ArrayCollisionLevel;
 	m_Interactables = m.m_Interactables;
 }
@@ -26,7 +26,7 @@ Map::Map(Map& m) {
 Map::~Map()
 {
 	this->m_ArrayCollisionLevel = nullptr;
-	for (auto pointer : m_Interactables)
+	for (const auto pointer : m_Interactables)
 	{
 		delete pointer;
 	}
@@ -47,12 +47,12 @@ Map& Map::operator=(const Map& other)
 }
 
 //Getters
-Vector2i Map::GetMapSize()
+Vector2i Map::GetMapSize() const
 {
 	return m_MapSize;
 }
 
-int** Map::GetArrayCollisionLevel()
+int** Map::GetArrayCollisionLevel() const
 {
 	return m_ArrayCollisionLevel;
 }

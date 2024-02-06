@@ -47,7 +47,7 @@ void GameEngineLogic::Draw(RenderWindow& mainWindow)
 	}
 }
 
-void GameEngineLogic::DrawInteractable(RenderWindow& mainWindow)
+void GameEngineLogic::DrawInteractable(RenderWindow& mainWindow) const
 {
 	for (DoorInteractable* doorInteractable : m_GameMapObjects.doorInteractables)
 	{
@@ -66,7 +66,7 @@ void GameEngineLogic::DrawInteractable(RenderWindow& mainWindow)
 	}
 }
 
-void GameEngineLogic::TextOverlay(RenderWindow& mainWindow, const string& writtenText, const OverlayLocationInView locationInView, int fontSize, bool useOpacity)
+void GameEngineLogic::TextOverlay(RenderWindow& mainWindow, const string& writtenText, const OverlayLocationInView locationInView, int fontSize, bool useOpacity) const
 {
 	RectangleShape shape;
 	Text text;

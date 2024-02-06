@@ -66,28 +66,28 @@ private:
 	//Load interactables from map file
 	std::vector<Interactable*> LoadAllInteractables(const std::string& nameOfFile);
 	//Load conditions from map file
-	std::vector<MapCondition*> LoadAllMapConditions(std::vector<Interactable*> interactables, const std::string& nameOfFile);
+	static std::vector<MapCondition*> LoadAllMapConditions(const std::vector<Interactable*>& interactables, const std::string& nameOfFile);
 	//Get the Vertex Array from int vector data
-	sf::VertexArray GetVertexArrayFromData(std::vector<int>& data, sf::Vector2i mapSize, int TILE_SIZE) const;
+	sf::VertexArray GetVertexArrayFromData(const std::vector<int>& data, sf::Vector2i mapSize, int tileSize) const;
 	//Get the Map Layers
-	MapLayer GetMapLayerFromData(std::vector<int>& data, int id, sf::Vector2i mapSize, int TILE_SIZE, const std::string& name);
+	MapLayer GetMapLayerFromData(const std::vector<int>& data, int id, sf::Vector2i mapSize, int tileSize, const std::string& name) const;
 
 	//The texture of the Map
 	sf::Texture m_Texture;
 
 	//Creation
-	KeyInteractable* CreateKeyInteractableFromData(nlohmann::json data, const bool& isFound);
-	DoorInteractable* CreateDoorInteractableFromData(nlohmann::json data);
-	SimpleBookInteractable* CreateSimpleBookInteractableFromData(nlohmann::json data);
+	static KeyInteractable* CreateKeyInteractableFromData(const nlohmann::json& data, const bool& isFound);
+	static DoorInteractable* CreateDoorInteractableFromData(const nlohmann::json& data);
+	static SimpleBookInteractable* CreateSimpleBookInteractableFromData(const nlohmann::json& data, const bool& isFound);
 
-	LocationPushInteractable* CreateLocationPushInteractableFromData(nlohmann::json data, const std::string& fileName);
-	RandomPushInteractable* CreateRandomPushInteractableFromData(nlohmann::json data, const std::string& fileName);
+	static LocationPushInteractable* CreateLocationPushInteractableFromData(const nlohmann::json& data, const std::string& fileName);
+	static RandomPushInteractable* CreateRandomPushInteractableFromData(const nlohmann::json& data, const std::string& fileName);
 
 	//Checks if objects are found to not load them
-	bool CheckIfSimpleBookIsFound(int id) const;
-	bool CheckIfKeyIsFound(int id) const;
+	static bool CheckIfSimpleBookIsFound(const int& id);
+	static bool CheckIfKeyIsFound(const int& id);
 
-	Interactable& GetInteractableFromJsonDataAndVector(nlohmann::basic_json<> jsonData, std::vector<Interactable*> interactables);
+	static Interactable& GetInteractableFromJsonDataAndVector(nlohmann::basic_json<> jsonData, const std::vector<Interactable*>& interactables);
 
 	static Action GetActionFromString(const std::string& action);
 };

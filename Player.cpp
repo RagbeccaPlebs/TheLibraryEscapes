@@ -4,7 +4,8 @@
 using namespace sf;
 using namespace std;
 
-Player::Player() {
+Player::Player()
+{
 	SetInitialTextures();
 
 	if (!m_TextureBaseLocation.empty())
@@ -96,9 +97,10 @@ void Player::HandleInput()
 	{
 		if (!b_ShiftPressed) b_ChangeRunning = true;
 		b_ShiftPressed = true;
-		
+
 		m_Speed = Constant::PLAYER_RUN_SPEED;
-	} else
+	}
+	else
 	{
 		if (b_ShiftPressed) b_ChangeRunning = true;
 		b_ShiftPressed = false;
@@ -106,32 +108,32 @@ void Player::HandleInput()
 	}
 }
 
-FloatRect Player::GetPosition()
+FloatRect Player::GetPosition() const
 {
 	return m_SpriteBase.getGlobalBounds();
 }
 
-FloatRect Player::GetFeet()
+FloatRect Player::GetFeet() const
 {
 	return m_Feet;
 }
 
-FloatRect Player::GetHead()
+FloatRect Player::GetHead() const
 {
 	return m_Head;
 }
 
-FloatRect Player::GetLeft()
+FloatRect Player::GetLeft() const
 {
 	return m_Left;
 }
 
-FloatRect Player::GetRight()
+FloatRect Player::GetRight() const
 {
 	return m_Right;
 }
 
-Vector2f Player::GetCenter()
+Vector2f Player::GetCenter() const
 {
 	const Vector2f centerLocation(
 		m_Position.x + m_SpriteBase.getGlobalBounds().width / 2,

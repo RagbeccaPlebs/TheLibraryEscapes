@@ -2,7 +2,7 @@
 
 using namespace sf;
 
-void GameEngine::Update(float dtAsSeconds, RenderWindow& mainWindow, const bool& isLeftClicked)
+void GameEngine::Update(const float dtAsSeconds, RenderWindow& mainWindow, const bool& isLeftClicked)
 {
 	if (b_Paused)
 	{

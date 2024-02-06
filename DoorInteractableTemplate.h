@@ -38,7 +38,7 @@ protected:
 	bool CheckIfKeyIsFound() const;
 	void AddDoorToActiveDoors() const;
 public:
-	virtual void Update(float dtAsSeconds, Player& player) override = 0;
+	virtual void Update(const float& dtAsSeconds, Player& player) override = 0;
 	std::pair<std::string, sf::Vector2f> Interact() override;
 
 	//Play sound

@@ -98,8 +98,8 @@ class Player
 	void SetPositionAllSprites();
 
 	//Unique Math specific for Player calculations
-	int GetSequenceWithFour(int index);
-	int GetSequenceWithEight(int index);
+	static int GetSequenceWithFour(int index);
+	static int GetSequenceWithEight(int index);
 public:
 	//Constructor
 	Player();
@@ -108,13 +108,13 @@ public:
 	void Spawn(sf::Vector2f startPosition);
 
 	//Get the current position of the player
-	sf::FloatRect GetPosition();
+	sf::FloatRect GetPosition() const;
 
 	// A rectangle representing the position of different parts of the sprite
-	sf::FloatRect GetFeet();
-	sf::FloatRect GetHead();
-	sf::FloatRect GetRight();
-	sf::FloatRect GetLeft();
+	sf::FloatRect GetFeet() const;
+	sf::FloatRect GetHead() const;
+	sf::FloatRect GetRight() const;
+	sf::FloatRect GetLeft() const;
 
 	//Stop movement, used within the collision detection
 	void StopDown(float position);
@@ -123,7 +123,7 @@ public:
 	void StopUp(float position);
 
 	// Where is the center of the character, used for collision and view centralisation
-	sf::Vector2f GetCenter();
+	sf::Vector2f GetCenter() const;
 
 	//For interaction and collision checks
 	sf::FloatRect GetInteractableBox() const;
@@ -131,7 +131,7 @@ public:
 	//Public functions and variables used by the PlayerCustomization to change looks and locations
 	PlayerTexture m_PlayerTexture;
 	void SetTextureLocation(sf::Vector2i location);
-	void SaveLayers();
+	void SaveLayers() const;
 	void UpdatePlayerTexture(Layer layer);
 
 	//The Game Runners, will be called once every frame

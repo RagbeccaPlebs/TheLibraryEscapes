@@ -6,7 +6,7 @@
 using namespace sf;
 using namespace std;
 
-void GameEngineLogic::Update(float dtAsSeconds, RenderWindow& mainWindow, const bool& isLeftClicked)
+void GameEngineLogic::Update(const float dtAsSeconds, RenderWindow& mainWindow, const bool& isLeftClicked)
 {
 	if (b_PlayerCustomizationSelectorEnabled)
 	{
@@ -34,7 +34,7 @@ void GameEngineLogic::Update(float dtAsSeconds, RenderWindow& mainWindow, const 
 	UpdateConditions();
 }
 
-void GameEngineLogic::UpdateInteractable(float dtAsSeconds)
+void GameEngineLogic::UpdateInteractable(const float dtAsSeconds)
 {
 	for (DoorInteractable* doorInteractable : m_GameMapObjects.doorInteractables)
 	{
@@ -94,7 +94,7 @@ void GameEngineLogic::ResetCenterOverlay()
 	m_Opacity = 255;
 }
 
-void GameEngineLogic::UpdateConditions()
+void GameEngineLogic::UpdateConditions() const
 {
 	for (TiledMapLoader::MapCondition* mapCondition : m_GameMapObjects.mapConditions)
 	{

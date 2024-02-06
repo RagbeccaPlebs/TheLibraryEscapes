@@ -50,7 +50,7 @@ class GameEngineLogic
 	bool b_PlayerCustomizationSelectorEnabled = true;
 
 	//Detect collisions with the map
-	void DetectCollisions(Player& player);
+	void DetectCollisions(Player& player) const;
 
 	//Add interactables to the correct specific vectors
 	void AddInteractableToCorrectVector(const std::vector<Interactable*>& interactables);
@@ -61,7 +61,7 @@ class GameEngineLogic
 	//The Game Interactables Runners
 	void UpdateInteractable(float dtAsSeconds);
 	void InputInteractable();
-	void DrawInteractable(sf::RenderWindow& mainWindow);
+	void DrawInteractable(sf::RenderWindow& mainWindow) const;
 	void ClearInteractables();
 
 	//Overlay Specific Values
@@ -75,13 +75,13 @@ class GameEngineLogic
 	void PressEToInteractCheck();
 
 	//Overlay Specific Functions
-	void TextOverlay(sf::RenderWindow& mainWindow, const std::string& writtenText, const OverlayLocationInView locationInView, int fontSize, bool useOpacity);
+	void TextOverlay(sf::RenderWindow& mainWindow, const std::string& writtenText, const OverlayLocationInView locationInView, int fontSize, bool useOpacity) const;
 	void UpdateCenterOverlay(float dtAsSeconds);
 	void ResetCenterOverlay();
 
 	//The Conditions Check
-	void UpdateConditions();
-	void HandleOperation(const TiledMapLoader::Operation& operation);
+	void UpdateConditions() const;
+	static void HandleOperation(const TiledMapLoader::Operation& operation);
 public:
 	//Constructors, destructors and copy assignment operators
 	GameEngineLogic(const sf::RenderWindow& mainWindow);

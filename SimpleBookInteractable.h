@@ -14,5 +14,5 @@ public:
 	//Constructor
 	SimpleBookInteractable(int id, const std::string& textureFileLocation, sf::Vector2f position, EmotionType emotion, bool isActive);
 
-	void Update(float dtAsSeconds, Player& player) override;
+	void Update(const float& dtAsSeconds, Player& player) override;
 };

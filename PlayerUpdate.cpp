@@ -160,7 +160,7 @@ void Player::PlayerAnimationUpdate(const bool isMoving)
 		m_OldLastButtonPressed = m_LastButtonPressed;
 		changedSheet = true;
 	}
-	PlayerMovement::SingleSprite& currentSprite = m_CurrentSprite;
+	PlayerMovement::SingleSprite& currentSprite = { m_CurrentSprite };
 
 	if (changedSheet) {
 		if (m_SecondsSinceLastAnimationUpdate >= m_CurrentSpriteSheet.animationSpeed[0] && m_CurrentSpriteSheet.spriteLocation.size() > 1) {

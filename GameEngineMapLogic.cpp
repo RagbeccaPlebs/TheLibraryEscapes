@@ -3,7 +3,7 @@
 using namespace std;
 using namespace sf;
 
-void GameEngineLogic::LoadMap(const string& mapName, Vector2f spawnLocation)
+void GameEngineLogic::LoadMap(const string& mapName, const Vector2f spawnLocation)
 {
 	m_Map = new Map(mapName);
 
@@ -38,12 +38,12 @@ void GameEngineLogic::AddInteractableToCorrectVector(const vector<Interactable*>
 	{
 		if (interactable->GetInteractableType() == PICKUP)
 		{
-			PickupInventoryInteractable* pickupInventoryInteractable = dynamic_cast<PickupInventoryInteractable*>(interactable);
+			auto* pickupInventoryInteractable = dynamic_cast<PickupInventoryInteractable*>(interactable);
 			m_GameMapObjects.pickupInventoryInteractables.push_back(pickupInventoryInteractable);
 		}
 		else if (interactable->GetInteractableType() == DOOR)
 		{
-			DoorInteractableTemplate* doorInteractableTemplate = dynamic_cast<DoorInteractableTemplate*>(interactable);
+			auto* doorInteractableTemplate = dynamic_cast<DoorInteractableTemplate*>(interactable);
 			if (doorInteractableTemplate->GetDoorInteractableType() == SIMPLE_DOOR)
 			{
 				m_GameMapObjects.doorInteractables.push_back(dynamic_cast<DoorInteractable*>(doorInteractableTemplate));
@@ -51,7 +51,7 @@ void GameEngineLogic::AddInteractableToCorrectVector(const vector<Interactable*>
 		}
 		else if (interactable->GetInteractableType() == OBJECT)
 		{
-			PushInteractable* pushInteractable = dynamic_cast<PushInteractable*>(interactable);
+			auto* pushInteractable = dynamic_cast<PushInteractable*>(interactable);
 			if (pushInteractable->GetPushType() == LOCATION_PUSH)
 			{
 				m_GameMapObjects.pushInteractables.push_back(dynamic_cast<LocationPushInteractable*>(pushInteractable));

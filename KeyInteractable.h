@@ -11,7 +11,7 @@ public:
 	//Constructor
 	KeyInteractable(const int id, const std::string& textureFileLocation, sf::Vector2f position, bool isActive);
 
-	void Update(float dtAsSeconds, Player& player) override;
+	void Update(const float& dtAsSeconds, Player& player) override;
 
 	//Interaction with interactable
 	std::pair<std::string, sf::Vector2f> Interact() override;

@@ -8,7 +8,7 @@ using namespace sf;
 
 LocationPushInteractable::LocationPushInteractable(const int id, const string& textureFileLocation, const std::string& textureLocationFileLocation,
 	const Vector2f position, const Vector2f finalPosition, const string& fileOfOrigin, const float speed,
-	const Vector2f minBounds, const Vector2f maxBounds, string soundLocation, string pushSoundLocation, bool isActive)
+	const Vector2f minBounds, const Vector2f maxBounds, const string& soundLocation, const string& pushSoundLocation, bool isActive)
 {
 	m_Id = id;
 	b_Active = isActive;

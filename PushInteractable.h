@@ -18,9 +18,27 @@ enum PushType
 //A parent Pickup interactable that is the base of all Pickups which go to the virtual 
 class PushInteractable : public Interactable
 {
-	float CheckForDistance(const sf::Vector2f& playerCenter, const sf::Vector2f& comparisonPosition);
-	Side CheckSideWithPositions(const float& topLeft, const float& bottomLeft, const float& topRight, const float& bottomRight);
-	float CheckForLeastDistance(std::vector<float> distances);
+public:
+	//Virtual Functions to pass along to child classes
+	void Update(const float& dtAsSeconds, Player& player) override;
+	bool CanInteract(Player& player) override;
+
+	//Getters
+	PushType GetPushType() const;
+	sf::FloatRect GetCollisionBox() const;
+
+	void Unload() override;
+
+	//Destructor to reset sound
+	~PushInteractable() override;
+
+	//Sound interaction
+	void PlayPushSound();
+	void StopPushSound();
+	sf::SoundSource::Status GetPushSoundStatus() const;
+	void PlayAlternativeSound();
+
+	static PushType GetPushTypeFromString(const std::string& pushType);
 protected:
 	//The type of which the child class is
 	PushType m_PushType = RANDOM_PUSH;
@@ -32,7 +50,7 @@ protected:
 	Side m_SidePlayerIsOn = LEFT;
 
 	//Load file, save new location to file on unload
-	void SaveNewLocationToFile();
+	void SaveNewLocationToFile() const;
 
 	sf::FloatRect m_CollisionBox;
 	//The place the interactable is allowed to move in
@@ -49,25 +67,8 @@ protected:
 	sf::Sound m_PushSound;
 	std::string m_SoundLocation;
 	std::string m_PushSoundLocation;
-public:
-	//Virtual Functions to pass along to child classes
-	void Update(float dtAsSeconds, Player& player) override;
-	bool CanInteract(Player& player) override;
-
-	//Getters
-	PushType GetPushType() const;
-	sf::FloatRect GetCollisionBox() const;
-
-	void Unload() override;
-
-	//Destructor to reset sound
-	~PushInteractable() override;
-
-	//Sound interaction
-	void PlayPushSound();
-	void StopPushSound();
-	sf::SoundSource::Status GetPushSoundStatus();
-	void PlayAlternativeSound();
-
-	static PushType GetPushTypeFromString(const std::string& pushType);
+private:
+	static float CheckForDistance(const sf::Vector2f& playerCenter, const sf::Vector2f& comparisonPosition);
+	static Side CheckSideWithPositions(const float& topLeft, const float& bottomLeft, const float& topRight, const float& bottomRight);
+	static float CheckForLeastDistance(std::vector<float> distances);
 };

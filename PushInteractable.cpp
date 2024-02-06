@@ -8,7 +8,7 @@ using namespace sf;
 using namespace std;
 using json = nlohmann::json;
 
-void PushInteractable::SaveNewLocationToFile()
+void PushInteractable::SaveNewLocationToFile() const
 {
 	ifstream file(m_OriginFile);
 	nlohmann::json data = json::parse(file);
@@ -33,7 +33,7 @@ void PushInteractable::SaveNewLocationToFile()
 	fileOut.flush();
 }
 
-void PushInteractable::Update(float dtAsSeconds, Player& player)
+void PushInteractable::Update(const float& dtAsSeconds, Player& player)
 {
 	if (!b_Movable)
 	{
@@ -110,19 +110,19 @@ Side PushInteractable::CheckSideWithPositions(const float& topLeft, const float&
 	distances.erase(std::remove(distances.begin(), distances.end(), bestDistance), distances.end());
 	const float secondBestDistance = CheckForLeastDistance(distances);
 
-	if (bestDistance == bottomLeft || secondBestDistance == bottomLeft)
+	if (fabs(bestDistance - bottomLeft) < numeric_limits<float>::epsilon() || fabs(secondBestDistance - bottomLeft) < numeric_limits<float>::epsilon())
 	{
 		bottomLeftClose = true;
 	}
-	if (bestDistance == topLeft || secondBestDistance == topLeft)
+	if (fabs(bestDistance - topLeft) < numeric_limits<float>::epsilon() || fabs(secondBestDistance - topLeft) < numeric_limits<float>::epsilon())
 	{
 		topLeftClose = true;
 	}
-	if (bestDistance == bottomRight || secondBestDistance == bottomRight)
+	if (fabs(bestDistance - bottomRight) < numeric_limits<float>::epsilon() || fabs(secondBestDistance - bottomRight) < numeric_limits<float>::epsilon())
 	{
 		bottomRightClose = true;
 	}
-	if (bestDistance == topRight || secondBestDistance == topRight)
+	if (fabs(bestDistance - topRight) < numeric_limits<float>::epsilon() || fabs(secondBestDistance - topRight) < numeric_limits<float>::epsilon())
 	{
 		topRightClose = true;
 	}
@@ -153,7 +153,7 @@ float PushInteractable::CheckForLeastDistance(std::vector<float> distances)
 	{
 		for (float& checkDistance : distances)
 		{
-			if (distances[i] == checkDistance)
+			if (fabs(distances[i] - checkDistance) < numeric_limits<float>::epsilon())
 			{
 				continue;
 			}
@@ -217,7 +217,7 @@ void PushInteractable::StopPushSound()
 	m_PushSound.stop();
 }
 
-SoundSource::Status PushInteractable::GetPushSoundStatus()
+SoundSource::Status PushInteractable::GetPushSoundStatus() const
 {
 	return m_PushSound.getStatus();
 }

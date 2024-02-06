@@ -3,7 +3,8 @@
 
 using namespace sf;
 
-void GameEngineLogic::DetectCollisions(Player& player) {
+void GameEngineLogic::DetectCollisions(Player& player) const
+{
 	const FloatRect detectionZone = player.GetPosition();
 
 	constexpr int TILE_SIZE = Constant::STANDARD_TILE_SIZE;

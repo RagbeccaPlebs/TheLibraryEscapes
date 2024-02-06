@@ -10,7 +10,7 @@ using namespace sf;
 using namespace std;
 using json = nlohmann::json;
 
-VertexArray TiledMapLoader::GetVertexArrayFromData(vector<int>& data, Vector2i mapSize, const int TILE_SIZE) const
+VertexArray TiledMapLoader::GetVertexArrayFromData(const vector<int>& data, const Vector2i mapSize, const int tileSize) const
 {
 	VertexArray rVa;
 	// What type of primitive are we using?
@@ -28,40 +28,40 @@ VertexArray TiledMapLoader::GetVertexArrayFromData(vector<int>& data, Vector2i m
 		{
 			// Position each vertex in the current quad
 			rVa[static_cast<size_t>(currentVertex)].position =
-				Vector2f(static_cast<float>(y * TILE_SIZE),
-					static_cast<float>(x * TILE_SIZE));
+				Vector2f(static_cast<float>(y * tileSize),
+					static_cast<float>(x * tileSize));
 
 			rVa[(currentVertex + 1)].position =
-				Vector2f(static_cast<float>((y * TILE_SIZE) + TILE_SIZE),
-					static_cast<float>(x * TILE_SIZE));
+				Vector2f(static_cast<float>((y * tileSize) + tileSize),
+					static_cast<float>(x * tileSize));
 
 			rVa[(currentVertex + 2)].position =
-				Vector2f(static_cast<float>((y * TILE_SIZE) + TILE_SIZE),
-					static_cast<float>((x * TILE_SIZE) + TILE_SIZE));
+				Vector2f(static_cast<float>((y * tileSize) + tileSize),
+					static_cast<float>((x * tileSize) + tileSize));
 
 			rVa[(currentVertex)+3].position =
-				Vector2f(static_cast<float>((y * TILE_SIZE)),
-					static_cast<float>((x * TILE_SIZE) + TILE_SIZE));
+				Vector2f(static_cast<float>((y * tileSize)),
+					static_cast<float>((x * tileSize) + tileSize));
 
 			const int dataIndex = (mapSize.x * x) + y;
 			//Adjust with -1 otherwise it will grab the data 1 too far, but only if bigger than 0
 			const int correctData = data[dataIndex] > 0 ? data[dataIndex] - 1 : 0;
 
 			// Which tile from the sprite sheet should we use
-			const int horizontalOffset = static_cast<int>((correctData * TILE_SIZE) % m_Texture.getSize().x);
-			const int verticalOffset = static_cast<int>((correctData * TILE_SIZE) / m_Texture.getSize().x);
+			const int horizontalOffset = static_cast<int>((correctData * tileSize) % m_Texture.getSize().x);
+			const int verticalOffset = static_cast<int>((correctData * tileSize) / m_Texture.getSize().x);
 
 			rVa[currentVertex].texCoords =
-				Vector2f(static_cast<float>(horizontalOffset), static_cast<float>(TILE_SIZE * verticalOffset));
+				Vector2f(static_cast<float>(horizontalOffset), static_cast<float>(tileSize * verticalOffset));
 
 			rVa[static_cast<size_t>(currentVertex) + 1].texCoords =
-				Vector2f(static_cast<float>(TILE_SIZE + horizontalOffset), static_cast<float>(TILE_SIZE * verticalOffset));
+				Vector2f(static_cast<float>(tileSize + horizontalOffset), static_cast<float>(tileSize * verticalOffset));
 
 			rVa[static_cast<size_t>(currentVertex) + 2].texCoords =
-				Vector2f(static_cast<float>(TILE_SIZE + horizontalOffset), static_cast<float>((TILE_SIZE * verticalOffset) + TILE_SIZE));
+				Vector2f(static_cast<float>(tileSize + horizontalOffset), static_cast<float>((tileSize * verticalOffset) + tileSize));
 
 			rVa[static_cast<size_t>(currentVertex) + 3].texCoords =
-				Vector2f(static_cast<float>(horizontalOffset), static_cast<float>((TILE_SIZE * verticalOffset) + TILE_SIZE));
+				Vector2f(static_cast<float>(horizontalOffset), static_cast<float>((tileSize * verticalOffset) + tileSize));
 
 			// Position ready for the next four vertices
 			currentVertex += Constant::VERTS_IN_QUAD;
@@ -70,12 +70,12 @@ VertexArray TiledMapLoader::GetVertexArrayFromData(vector<int>& data, Vector2i m
 	return rVa;
 }
 
-TiledMapLoader::MapLayer TiledMapLoader::GetMapLayerFromData(vector<int>& data, int id, Vector2i mapSize, const int TILE_SIZE, const string& name)
+TiledMapLoader::MapLayer TiledMapLoader::GetMapLayerFromData(const vector<int>& data, const int id, const Vector2i mapSize, const int tileSize, const string& name) const
 {
 	MapLayer mapLayer;
 	mapLayer.id = id;
 	mapLayer.name = name;
-	mapLayer.rVa = GetVertexArrayFromData(data, mapSize, TILE_SIZE);
+	mapLayer.rVa = GetVertexArrayFromData(data, mapSize, tileSize);
 	return mapLayer;
 }
 
@@ -159,9 +159,13 @@ vector<Interactable*> TiledMapLoader::LoadAllInteractables(const string& nameOfF
 	if (data.contains(Keywords::BOOK_KEYWORD)) {
 		for (const auto& dataValue : data.at(Keywords::BOOK_KEYWORD))
 		{
-			if (!CheckIfSimpleBookIsFound(dataValue.at(Keywords::ID_KEYWORD)))
+			if (CheckIfSimpleBookIsFound(dataValue.at(Keywords::ID_KEYWORD)))
 			{
-				interactables.push_back(CreateSimpleBookInteractableFromData(dataValue));
+				interactables.push_back(CreateSimpleBookInteractableFromData(dataValue, true));
+			}
+			else
+			{
+				interactables.push_back(CreateSimpleBookInteractableFromData(dataValue, false));
 			}
 
 		}
@@ -181,7 +185,8 @@ vector<Interactable*> TiledMapLoader::LoadAllInteractables(const string& nameOfF
 				if (CheckIfKeyIsFound(dataValue.at(Keywords::ID_KEYWORD)))
 				{
 					interactables.push_back(CreateKeyInteractableFromData(dataValue, true));
-				} else
+				}
+				else
 				{
 					interactables.push_back(CreateKeyInteractableFromData(dataValue, false));
 				}
@@ -211,7 +216,7 @@ vector<Interactable*> TiledMapLoader::LoadAllInteractables(const string& nameOfF
 	return interactables;
 }
 
-bool TiledMapLoader::CheckIfSimpleBookIsFound(const int id) const
+bool TiledMapLoader::CheckIfSimpleBookIsFound(const int& id)
 {
 	const string itemToLoad = Files::GAME_DATA_FILE;
 	ifstream file(itemToLoad);
@@ -230,7 +235,7 @@ bool TiledMapLoader::CheckIfSimpleBookIsFound(const int id) const
 	return isSame;
 }
 
-bool TiledMapLoader::CheckIfKeyIsFound(int id) const
+bool TiledMapLoader::CheckIfKeyIsFound(const int& id)
 {
 	const string itemToLoad = Files::GAME_DATA_FILE;
 	ifstream file(itemToLoad);
@@ -249,7 +254,7 @@ bool TiledMapLoader::CheckIfKeyIsFound(int id) const
 	return isSame;
 }
 
-KeyInteractable* TiledMapLoader::CreateKeyInteractableFromData(json data, const bool& isFound)
+KeyInteractable* TiledMapLoader::CreateKeyInteractableFromData(const json& data, const bool& isFound)
 {
 	const int id = data.at(Keywords::ID_KEYWORD);
 	const string textureLocation = data.at(Keywords::TEXTURE_KEYWORD);
@@ -267,7 +272,7 @@ KeyInteractable* TiledMapLoader::CreateKeyInteractableFromData(json data, const 
 	return new KeyInteractable(id, textureLocation, Vector2f(x, y), active);
 }
 
-DoorInteractable* TiledMapLoader::CreateDoorInteractableFromData(json data)
+DoorInteractable* TiledMapLoader::CreateDoorInteractableFromData(const json& data)
 {
 	const int id = data.at(Keywords::ID_KEYWORD);
 	const string textureLocation = data.at(Keywords::TEXTURE_KEYWORD);
@@ -290,7 +295,7 @@ DoorInteractable* TiledMapLoader::CreateDoorInteractableFromData(json data)
 		soundLocation, inactiveSoundLocation, active);
 }
 
-SimpleBookInteractable* TiledMapLoader::CreateSimpleBookInteractableFromData(json data)
+SimpleBookInteractable* TiledMapLoader::CreateSimpleBookInteractableFromData(const json& data, const bool& isFound)
 {
 	const int id = data.at(Keywords::ID_KEYWORD);
 	const string textureLocation = data.at(Keywords::TEXTURE_KEYWORD);
@@ -303,10 +308,14 @@ SimpleBookInteractable* TiledMapLoader::CreateSimpleBookInteractableFromData(jso
 	{
 		active = data.at(Keywords::ACTIVATED_KEYWORD);
 	}
+	if (isFound)
+	{
+		active = false;
+	}
 	return new SimpleBookInteractable(id, textureLocation, Vector2f(x, y), emotion, active);
 }
 
-LocationPushInteractable* TiledMapLoader::CreateLocationPushInteractableFromData(json data, const string& fileName)
+LocationPushInteractable* TiledMapLoader::CreateLocationPushInteractableFromData(const json& data, const string& fileName)
 {
 	const int id = data.at(Keywords::ID_KEYWORD);
 	const string textureLocation = data.at(Keywords::TEXTURE_KEYWORD);
@@ -329,7 +338,7 @@ LocationPushInteractable* TiledMapLoader::CreateLocationPushInteractableFromData
 		Vector2f(x, y), Vector2f(mapX, mapY), fileName, speed, minBounds, maxBounds, soundLocation, pushSoundLocation, active);
 }
 
-RandomPushInteractable* TiledMapLoader::CreateRandomPushInteractableFromData(json data, const string& fileName)
+RandomPushInteractable* TiledMapLoader::CreateRandomPushInteractableFromData(const json& data, const string& fileName)
 {
 	const int id = data.at(Keywords::ID_KEYWORD);
 	const string textureLocation = data.at(Keywords::TEXTURE_KEYWORD);
@@ -350,7 +359,7 @@ RandomPushInteractable* TiledMapLoader::CreateRandomPushInteractableFromData(jso
 }
 
 //Conditions
-vector<TiledMapLoader::MapCondition*> TiledMapLoader::LoadAllMapConditions(const vector<Interactable*> interactables, const std::string& nameOfFile)
+vector<TiledMapLoader::MapCondition*> TiledMapLoader::LoadAllMapConditions(const vector<Interactable*>& interactables, const std::string& nameOfFile)
 {
 	vector<MapCondition*> mapConditions;
 
@@ -360,14 +369,15 @@ vector<TiledMapLoader::MapCondition*> TiledMapLoader::LoadAllMapConditions(const
 	json data = json::parse(file);
 	file.close();
 
-	if (data.contains(Keywords::CONDITIONS_KEYWORD)) {
+	if (data.contains(Keywords::CONDITIONS_KEYWORD))
+	{
 		for (const auto& condition : data.at(Keywords::CONDITIONS_KEYWORD))
 		{
-			int id = condition.at(Keywords::ID_KEYWORD);
+			const int id = condition.at(Keywords::ID_KEYWORD);
 			vector<Operation> operationsVector;
 			for (const auto& operations : condition.at(Keywords::OPERATIONS_KEYWORD))
 			{
-				Action action = GetActionFromString(operations.at(Keywords::OPERATION_KEYWORD));
+				const Action action = GetActionFromString(operations.at(Keywords::OPERATION_KEYWORD));
 				Interactable& interactable = GetInteractableFromJsonDataAndVector(operations, interactables);
 				Operation operation{ &interactable, action };
 				operationsVector.push_back(operation);
@@ -386,10 +396,10 @@ vector<TiledMapLoader::MapCondition*> TiledMapLoader::LoadAllMapConditions(const
 	return mapConditions;
 }
 
-Interactable& TiledMapLoader::GetInteractableFromJsonDataAndVector(nlohmann::basic_json<> jsonData, std::vector<Interactable*> interactables)
+Interactable& TiledMapLoader::GetInteractableFromJsonDataAndVector(nlohmann::basic_json<> jsonData, const std::vector<Interactable*>& interactables)
 {
-	int id = jsonData.at(Keywords::ID_KEYWORD);
-	InteractableType interactableType = Interactable::GetInteractableTypeFromString(jsonData.at(Keywords::TYPE_KEYWORD));
+	const int id = jsonData.at(Keywords::ID_KEYWORD);
+	const InteractableType interactableType = Interactable::GetInteractableTypeFromString(jsonData.at(Keywords::TYPE_KEYWORD));
 	for (Interactable* interactable : interactables)
 	{
 		if (interactable->GetInteractableType() != interactableType)
@@ -399,7 +409,7 @@ Interactable& TiledMapLoader::GetInteractableFromJsonDataAndVector(nlohmann::bas
 		switch (interactable->GetInteractableType())
 		{
 		case DOOR: {
-			auto* doorInteractableTemplate = dynamic_cast<DoorInteractableTemplate*>(interactable);
+			const auto* doorInteractableTemplate = dynamic_cast<DoorInteractableTemplate*>(interactable);
 			if (doorInteractableTemplate->GetDoorInteractableType() != DoorInteractableTemplate::GetDoorInteractableTypeFromString(jsonData.at(Keywords::SUB_TYPE_KEYWORD)))
 			{
 				break;
@@ -411,7 +421,7 @@ Interactable& TiledMapLoader::GetInteractableFromJsonDataAndVector(nlohmann::bas
 			return *interactable;
 		}
 		case PICKUP: {
-			auto* pickupInventoryInteractable = dynamic_cast<PickupInventoryInteractable*>(interactable);
+			const auto* pickupInventoryInteractable = dynamic_cast<PickupInventoryInteractable*>(interactable);
 			if (pickupInventoryInteractable->GetPickupType() != PickupInventoryInteractable::GetPickupTypeFromString(jsonData.at(Keywords::SUB_TYPE_KEYWORD)))
 			{
 				break;
@@ -423,7 +433,7 @@ Interactable& TiledMapLoader::GetInteractableFromJsonDataAndVector(nlohmann::bas
 			return *interactable;
 		}
 		case OBJECT: {
-			auto* pushInteractable = dynamic_cast<PushInteractable*>(interactable);
+			const auto* pushInteractable = dynamic_cast<PushInteractable*>(interactable);
 			if (pushInteractable->GetPushType() != PushInteractable::GetPushTypeFromString(jsonData.at(Keywords::SUB_TYPE_KEYWORD)))
 			{
 				break;
@@ -439,7 +449,7 @@ Interactable& TiledMapLoader::GetInteractableFromJsonDataAndVector(nlohmann::bas
 			break;
 		}
 	}
-	throw "You added a value which isn't present... Might be smart to change the files!";
+	throw std::exception("You added a value which isn't present... Might be smart to change the files!");
 }
 
 TiledMapLoader::Action TiledMapLoader::GetActionFromString(const std::string& action)
@@ -453,10 +463,10 @@ TiledMapLoader::Action TiledMapLoader::GetActionFromString(const std::string& ac
 	return SHOW;
 }
 
-TiledMapLoader::MapCondition::MapCondition(int idValue, std::vector<Interactable*> conditionsValue, std::vector<Operation> operationsValue, bool activatedValue)
+TiledMapLoader::MapCondition::MapCondition(const int idValue, std::vector<Interactable*> conditionsValue, std::vector<Operation> operationsValue, bool activatedValue)
 {
 	id = idValue;
-	conditions = move(conditionsValue);
-	operations = operationsValue;
+	conditions = std::move(conditionsValue);
+	operations = std::move(operationsValue);
 	activated = activatedValue;
 }

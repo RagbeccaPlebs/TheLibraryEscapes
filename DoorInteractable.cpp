@@ -44,13 +44,13 @@ DoorInteractable::DoorInteractable(int id, Vector2f position, const string& mapT
 	m_InactiveSoundLocation = inactiveSoundFileLocation;
 }
 
-void DoorInteractable::Update(float dtAsSeconds, Player& player)
+void DoorInteractable::Update(const float& dtAsSeconds, Player& player)
 {
 	//No animation/update yet
 }
 
 //Check if door is active from the Game Data File, if there: true otherwise false.
-bool DoorInteractable::CheckIfDoorIsActive(const int id) const
+bool DoorInteractable::CheckIfDoorIsActive(const int& id)
 {
 	const string itemToLoad = Files::GAME_DATA_FILE;
 	ifstream file(itemToLoad);

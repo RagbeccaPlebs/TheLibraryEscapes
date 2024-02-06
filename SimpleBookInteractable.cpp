@@ -35,6 +35,18 @@ void SimpleBookInteractable::SavePickupToFile()
 	json data = json::parse(file);
 	file.close();
 
+	bool isBookNotFound = true;
+
+	for (auto jsonData : data.at(Keywords::BOOK_KEYWORD))
+	{
+		if (jsonData.at(Keywords::ID_KEYWORD) == m_Id && jsonData.at(Keywords::EMOTION_KEYWORD) == GetStringFromEmotion(m_Emotion))  isBookNotFound = false;
+	}
+
+	if (!isBookNotFound)
+	{
+		return;
+	}
+
 	json jsonData;
 	jsonData[Keywords::ID_KEYWORD] = m_Id;
 	jsonData[Keywords::EMOTION_KEYWORD] = GetStringFromEmotion(m_Emotion);
@@ -45,7 +57,7 @@ void SimpleBookInteractable::SavePickupToFile()
 	fileOut.flush();
 }
 
-void SimpleBookInteractable::Update(float dtAsSeconds, Player& player)
+void SimpleBookInteractable::Update(const float& dtAsSeconds, Player& player)
 {
 	//No update atm needed
 }

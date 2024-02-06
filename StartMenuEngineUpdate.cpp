@@ -18,6 +18,5 @@ void StartMenuEngine::Update(float dtAsSeconds, RenderWindow& mainWindow, const 
 		m_StartButton.Press(m_MousePosView);
 	}
 
-
 	m_StartMenuView.setCenter(mainWindow.getSize().x / 2.f, mainWindow.getSize().y / 2.f);
 }

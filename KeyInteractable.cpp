@@ -33,6 +33,18 @@ void KeyInteractable::SavePickupToFile()
 	json data = json::parse(file);
 	file.close();
 
+	bool isKeyNotFound = true;
+
+	for (auto jsonData : data.at(Keywords::KEY_KEYWORD))
+	{
+		if (jsonData.at(Keywords::ID_KEYWORD) == m_Id) isKeyNotFound = false;
+	}
+
+	if (!isKeyNotFound)
+	{
+		return;
+	}
+
 	json jsonData;
 	jsonData[Keywords::ID_KEYWORD] = m_Id;
 	data.at(Keywords::KEY_KEYWORD).push_back(jsonData);
@@ -42,7 +54,7 @@ void KeyInteractable::SavePickupToFile()
 	fileOut.flush();
 }
 
-void KeyInteractable::Update(float dtAsSeconds, Player& player)
+void KeyInteractable::Update(const float& dtAsSeconds, Player& player)
 {
 	//No update yet
 }
@@ -53,7 +65,7 @@ std::pair<std::string, sf::Vector2f> KeyInteractable::Interact()
 
 	SavePickupToFile();
 
-	return std::pair<std::string, sf::Vector2f>();
+	return std::pair<std::string, sf::Vector2f>{};
 }
 
 std::string KeyInteractable::Message()

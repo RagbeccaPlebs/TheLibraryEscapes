@@ -12,8 +12,8 @@ public:
 		sf::Vector2f mapPositionToMoveTo, const std::string& textureFileLocation, const std::string& inactiveTextureFileLocation,
 		int keyId, const std::string& soundFileLocation, const std::string& inactiveSoundFileLocation, bool isActive);
 
-	void Update(float dtAsSeconds, Player& player) override;
-
+	void Update(const float& dtAsSeconds, Player& player) override;
+private:
 	//Check for Open Door
-	bool CheckIfDoorIsActive(const int id) const;
+	static bool CheckIfDoorIsActive(const int& id);
 };

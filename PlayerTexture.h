@@ -34,8 +34,8 @@ public:
 	const std::map<std::string, sf::Texture>& GetHatTextureMap() const;
 
 	//Get the next texture in line, if last texture give first.
-	std::pair<std::string, sf::Texture> GetNextTexture(const std::map<std::string, sf::Texture>& textureMap, const std::string& filePath);
+	static std::pair<std::string, sf::Texture> GetNextTexture(const std::map<std::string, sf::Texture>& textureMap, const std::string& filePath);
 
 	//Get the next texture in line, if last texture give none. If none get first texture
-	std::pair<std::string, sf::Texture> GetNextTextureWithNone(const std::map<std::string, sf::Texture>& textureMap, const std::string& filePath);
+	static std::pair<std::string, sf::Texture> GetNextTextureWithNone(const std::map<std::string, sf::Texture>& textureMap, const std::string& filePath);
 };

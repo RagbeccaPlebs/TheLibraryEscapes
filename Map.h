@@ -19,14 +19,14 @@ class Map
 public:
 	//Constructors, destructors and copy assignment operators
 	Map() = default;
-	Map(const std::string& name);
-	Map(Map& m);
+	explicit Map(const std::string& name);
+	Map(const Map& m);
 	~Map();
 	Map& operator=(const Map& other);
 
 	//Getters
-	sf::Vector2i GetMapSize();
-	int** GetArrayCollisionLevel();
+	sf::Vector2i GetMapSize() const;
+	int** GetArrayCollisionLevel() const;
 	std::string GetMapName();
 	std::vector<TiledMapLoader::MapLayer> GetMapLayers();
 	sf::Texture& GetTextureTiles();
