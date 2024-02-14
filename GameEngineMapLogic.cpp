@@ -49,7 +49,7 @@ void GameEngineLogic::AddInteractableToCorrectVector(const vector<Interactable*>
 				m_GameMapObjects.doorInteractables.push_back(dynamic_cast<DoorInteractable*>(doorInteractableTemplate));
 			}
 		}
-		else if (interactable->GetInteractableType() == OBJECT)
+		else if (interactable->GetInteractableType() == PUSH_OBJECT)
 		{
 			auto* pushInteractable = dynamic_cast<PushInteractable*>(interactable);
 			if (pushInteractable->GetPushType() == LOCATION_PUSH)
@@ -60,10 +60,6 @@ void GameEngineLogic::AddInteractableToCorrectVector(const vector<Interactable*>
 			{
 				m_GameMapObjects.pushInteractables.push_back(dynamic_cast<RandomPushInteractable*>(pushInteractable));
 			}
-		}
-		else if (interactable->GetInteractableType() == NPC)
-		{
-
 		}
 	}
 	b_InteractablesLoaded = true;

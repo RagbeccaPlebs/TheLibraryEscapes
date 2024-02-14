@@ -5,6 +5,7 @@ class Keywords
 {
 public:
 	static const inline std::string ACTIVATED_KEYWORD = "activated";
+	static const inline std::string AMOUNT_INTERACTED_KEYWORD = "amount-interacted";
 	static const inline std::string BOOK_KEYWORD = "book";
 	static const inline std::string CONDITIONS_KEYWORD = "conditions";
 	static const inline std::string DATA_KEYWORD = "data";
@@ -26,6 +27,7 @@ public:
 	static const inline std::string MIN_Y_KEYWORD = "min-y";
 	static const inline std::string MOVABLE_SPEED_KEYWORD = "movable-speed";
 	static const inline std::string NAME_KEYWORD = "name";
+	static const inline std::string OBJECT_KEYWORD = "object";
 	static const inline std::string OPERATION_KEYWORD = "operation";
 	static const inline std::string OPERATIONS_KEYWORD = "operations";
 	static const inline std::string PICKUP_KEYWORD = "pickup";
@@ -72,6 +74,7 @@ public:
 	static const inline std::string KEY_FOUND_MESSAGE_1 = "You found key: ";
 	static const inline std::string LEFT_MESSAGE = "Left";
 	static const inline std::string PRESS_E_TO_INTERACT_MESSAGE = "Press E To Interact!";
+	static const inline std::string RESET_GAME_MESSAGE = "Reset Game";
 	static const inline std::string RIGHT_MESSAGE = "Right";
 	static const inline std::string SKIN_COLOR_MESSAGE = "Skin Color";
 	static const inline std::string START_MESSAGE = "Start";
@@ -81,7 +84,8 @@ class Files
 {
 public:
 	//Files
-	static const inline std::string GAME_DATA_FILE = "assets/save/gameData.json";
+	static const inline std::string GAME_DATA_FILE = "assets/data/gameData.json";
+	static const inline std::string BOOKS_DATA_FILE = "assets/data/books.json";
 	static const inline std::string FONT_FILE = "assets/fonts/PixelifySans-Regular.ttf";
 
 	//Standard Types
@@ -98,10 +102,11 @@ public:
 
 	//Folders
 	static const inline std::string ASSETS_FOLDER = "assets";
-	static const inline std::string ASSETS_SAVE_FOLDER = "assets/save";
+	static const inline std::string ASSETS_DATA_FOLDER = "assets/data";
 	static const inline std::string MAP_GRAPHICS_FOLDER = "assets/graphics/map/";
 	static const inline std::string MAP_FOLDER = "assets/map/";
 	static const inline std::string MAP_DETAILS_FOLDER = "assets/map/details/";
+	static const inline std::string MAP_DETAILS_INITIAL_FOLDER = "assets/map/details/initial/";
 	static const inline std::string BASE_PLAYER_GRAPHICS_FOLDER = BASE_PLAYER_GRAPHICS_SEARCH_FOLDER + SLASH;
 	static const inline std::string CLOAK_PLAYER_GRAPHICS_FOLDER = CLOAK_PLAYER_GRAPHICS_SEARCH_FOLDER + SLASH;
 	static const inline std::string FACE_ITEM_PLAYER_GRAPHICS_FOLDER = FACE_ITEM_PLAYER_GRAPHICS_SEARCH_FOLDER + SLASH;
@@ -130,18 +135,11 @@ public:
 	static const inline std::string SHY_CAMELCASE = "Shy";
 	static const inline std::string SAD_UPPERCASE = "SAD";
 	static const inline std::string SAD_CAMELCASE = "Sad";
-	static const inline std::string MAD_UPPERCASE = "MAD";
-	static const inline std::string MAD_CAMELCASE = "Mad";
-	static const inline std::string SURPRISED_UPPERCASE = "SURPRISED";
-	static const inline std::string SURPRISED_CAMELCASE = "Surprised";
-	static const inline std::string SECRECY_UPPERCASE = "SECRECY";
-	static const inline std::string SECRECY_CAMELCASE = "Secrecy";
 
 	//Interactable Types
 	static const inline std::string DOOR_UPPERCASE = "DOOR";
+	static const inline std::string PUSH_OBJECT_UPPERCASE = "PUSH-OBJECT";
 	static const inline std::string PICKUP_UPPERCASE = "PICKUP";
-	static const inline std::string NPC_UPPERCASE = "NPC";
-	static const inline std::string OBJECT_UPPERCASE = "OBJECT";
 
 	//Pickup Types
 	static const inline std::string BOOK_UPPERCASE = "BOOK";
@@ -154,7 +152,6 @@ public:
 
 	//Door Types
 	static const inline std::string SIMPLE_UPPERCASE = "SIMPLE";
-	static const inline std::string TRAPDOOR_UPPERCASE = "TRAPDOOR";
 
 	//Map
 	static constexpr int STANDARD_TILE_SIZE = 16;

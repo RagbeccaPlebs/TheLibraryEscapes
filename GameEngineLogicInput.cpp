@@ -11,7 +11,10 @@ void GameEngineLogic::Input(RenderWindow& mainWindow, bool& isPlaying, bool& isP
 		m_PlayerCustomization.Input(mainWindow, b_PlayerCustomizationSelectorEnabled, isPlaying, m_PlayerSpawnLocation, isEscapePressed);
 		return;
 	}
-
+	if (b_FinishingCondition)
+	{
+		return;
+	}
 	if (isEscapePressed)
 	{
 		isPaused = !isPaused;

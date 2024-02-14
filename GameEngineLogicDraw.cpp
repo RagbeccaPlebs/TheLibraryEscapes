@@ -12,6 +12,10 @@ void GameEngineLogic::Draw(RenderWindow& mainWindow)
 		m_PlayerCustomization.Draw(mainWindow);
 		return;
 	}
+	if (b_FinishingCondition)
+	{
+		return;
+	}
 
 	mainWindow.setView(m_GameView);
 

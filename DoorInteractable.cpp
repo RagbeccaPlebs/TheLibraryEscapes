@@ -48,23 +48,3 @@ void DoorInteractable::Update(const float& dtAsSeconds, Player& player)
 {
 	//No animation/update yet
 }
-
-//Check if door is active from the Game Data File, if there: true otherwise false.
-bool DoorInteractable::CheckIfDoorIsActive(const int& id)
-{
-	const string itemToLoad = Files::GAME_DATA_FILE;
-	ifstream file(itemToLoad);
-	nlohmann::json data = json::parse(file);
-	file.close();
-
-	bool isSame = false;
-
-	for (auto& idContainer : data.at(Keywords::DOOR_KEYWORD))
-	{
-		if (idContainer.at(Keywords::ID_KEYWORD) == id)
-		{
-			isSame = true;
-		}
-	}
-	return isSame;
-}

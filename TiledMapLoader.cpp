@@ -157,15 +157,18 @@ vector<Interactable*> TiledMapLoader::LoadAllInteractables(const string& nameOfF
 
 
 	if (data.contains(Keywords::BOOK_KEYWORD)) {
+		ifstream booksFile(Files::BOOKS_DATA_FILE);
+		json booksFileValues = json::parse(booksFile);
+		booksFile.close();
 		for (const auto& dataValue : data.at(Keywords::BOOK_KEYWORD))
 		{
-			if (CheckIfSimpleBookIsFound(dataValue.at(Keywords::ID_KEYWORD)))
+			if (CheckIfThingIsFoundById(dataValue.at(Keywords::ID_KEYWORD), Keywords::BOOK_KEYWORD))
 			{
-				interactables.push_back(CreateSimpleBookInteractableFromData(dataValue, true));
+				interactables.push_back(CreateSimpleBookInteractableFromData(dataValue, true, booksFileValues));
 			}
 			else
 			{
-				interactables.push_back(CreateSimpleBookInteractableFromData(dataValue, false));
+				interactables.push_back(CreateSimpleBookInteractableFromData(dataValue, false, booksFileValues));
 			}
 
 		}
@@ -182,7 +185,7 @@ vector<Interactable*> TiledMapLoader::LoadAllInteractables(const string& nameOfF
 			switch (PickupInventoryInteractable::GetPickupTypeFromString(dataValue.at(Keywords::TYPE_KEYWORD)))
 			{
 			case KEY:
-				if (CheckIfKeyIsFound(dataValue.at(Keywords::ID_KEYWORD)))
+				if (CheckIfThingIsFoundById(dataValue.at(Keywords::ID_KEYWORD), Keywords::KEY_KEYWORD))
 				{
 					interactables.push_back(CreateKeyInteractableFromData(dataValue, true));
 				}
@@ -216,35 +219,15 @@ vector<Interactable*> TiledMapLoader::LoadAllInteractables(const string& nameOfF
 	return interactables;
 }
 
-bool TiledMapLoader::CheckIfSimpleBookIsFound(const int& id)
+bool TiledMapLoader::CheckIfThingIsFoundById(const int& id, const string& keyword)
 {
-	const string itemToLoad = Files::GAME_DATA_FILE;
-	ifstream file(itemToLoad);
+	ifstream file(Files::GAME_DATA_FILE);
 	json data = json::parse(file);
 	file.close();
 
 	bool isSame = false;
 
-	for (auto& idContainer : data.at(Keywords::BOOK_KEYWORD))
-	{
-		if (idContainer.at(Keywords::ID_KEYWORD) == id)
-		{
-			isSame = true;
-		}
-	}
-	return isSame;
-}
-
-bool TiledMapLoader::CheckIfKeyIsFound(const int& id)
-{
-	const string itemToLoad = Files::GAME_DATA_FILE;
-	ifstream file(itemToLoad);
-	json data = json::parse(file);
-	file.close();
-
-	bool isSame = false;
-
-	for (auto& idContainer : data.at(Keywords::KEY_KEYWORD))
+	for (auto& idContainer : data.at(keyword))
 	{
 		if (idContainer.at(Keywords::ID_KEYWORD) == id)
 		{
@@ -295,12 +278,9 @@ DoorInteractable* TiledMapLoader::CreateDoorInteractableFromData(const json& dat
 		soundLocation, inactiveSoundLocation, active);
 }
 
-SimpleBookInteractable* TiledMapLoader::CreateSimpleBookInteractableFromData(const json& data, const bool& isFound)
+SimpleBookInteractable* TiledMapLoader::CreateSimpleBookInteractableFromData(const json& data, const bool& isFound, const json& booksFile)
 {
 	const int id = data.at(Keywords::ID_KEYWORD);
-	const string textureLocation = data.at(Keywords::TEXTURE_KEYWORD);
-	const string emotionString = data.at(Keywords::EMOTION_KEYWORD);
-	const EmotionType emotion = BookInteractable::GetEmotionFromString(emotionString);
 	const float x = data.at(Keywords::X_KEYWORD);
 	const float y = data.at(Keywords::Y_KEYWORD);
 	bool active = true;
@@ -312,7 +292,20 @@ SimpleBookInteractable* TiledMapLoader::CreateSimpleBookInteractableFromData(con
 	{
 		active = false;
 	}
-	return new SimpleBookInteractable(id, textureLocation, Vector2f(x, y), emotion, active);
+
+	//Get values from the books file
+	for (const json& dataValue : booksFile.at(Keywords::BOOK_KEYWORD))
+	{
+		if (dataValue.at(Keywords::ID_KEYWORD) == id)
+		{
+			const string textureLocation = dataValue.at(Keywords::TEXTURE_KEYWORD);
+			const string emotionString = dataValue.at(Keywords::EMOTION_KEYWORD);
+			const EmotionType emotion = BookInteractable::GetEmotionFromString(emotionString);
+			return new SimpleBookInteractable(id, textureLocation, Vector2f(x, y), emotion, active);
+		}
+	}
+
+	throw exception("For some reason you didn't implement the book correctly!");
 }
 
 LocationPushInteractable* TiledMapLoader::CreateLocationPushInteractableFromData(const json& data, const string& fileName)
@@ -432,7 +425,7 @@ Interactable& TiledMapLoader::GetInteractableFromJsonDataAndVector(nlohmann::bas
 			}
 			return *interactable;
 		}
-		case OBJECT: {
+		case PUSH_OBJECT: {
 			const auto* pushInteractable = dynamic_cast<PushInteractable*>(interactable);
 			if (pushInteractable->GetPushType() != PushInteractable::GetPushTypeFromString(jsonData.at(Keywords::SUB_TYPE_KEYWORD)))
 			{
@@ -444,9 +437,6 @@ Interactable& TiledMapLoader::GetInteractableFromJsonDataAndVector(nlohmann::bas
 			}
 			return *interactable;
 		}
-		case NPC:
-			//Not implemented yet
-			break;
 		}
 	}
 	throw std::exception("You added a value which isn't present... Might be smart to change the files!");

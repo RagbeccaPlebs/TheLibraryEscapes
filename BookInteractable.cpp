@@ -39,8 +39,7 @@ string BookInteractable::Message()
 EmotionType BookInteractable::GetEmotionFromString(const string& emotion)
 {
 	unordered_map<string, EmotionType> const table =
-	{ {Constant::SHY_UPPERCASE, SHY}, {Constant::SAD_UPPERCASE, SAD}, {Constant::MAD_UPPERCASE, MAD},
-		{Constant::SURPRISED_UPPERCASE, SURPRISED}, {Constant::SECRECY_UPPERCASE, SECRECY} };
+	{ {Constant::SHY_UPPERCASE, SHY}, {Constant::SAD_UPPERCASE, SAD} };
 	const auto it = table.find(emotion);
 	if (it != table.end()) {
 		return it->second;
@@ -51,8 +50,7 @@ EmotionType BookInteractable::GetEmotionFromString(const string& emotion)
 string BookInteractable::GetStringFromEmotion(const EmotionType& emotion)
 {
 	std::unordered_map<EmotionType, string> const table =
-	{ {SHY, Constant::SHY_UPPERCASE}, {SAD, Constant::SAD_UPPERCASE},{MAD, Constant::MAD_UPPERCASE},
-		{SURPRISED, Constant::SURPRISED_UPPERCASE}, {SECRECY, Constant::SECRECY_UPPERCASE} };
+	{ {SHY, Constant::SHY_UPPERCASE}, {SAD, Constant::SAD_UPPERCASE} };
 	const auto it = table.find(emotion);
 	if (it != table.end()) {
 		return it->second;
@@ -63,8 +61,7 @@ string BookInteractable::GetStringFromEmotion(const EmotionType& emotion)
 string BookInteractable::GetStringCamelCaseFromEmotion(const EmotionType& emotion)
 {
 	std::unordered_map<EmotionType, string> const table =
-	{ {SHY, Constant::SHY_CAMELCASE}, {SAD, Constant::SAD_CAMELCASE},{MAD, Constant::MAD_CAMELCASE},
-		{SURPRISED, Constant::SURPRISED_CAMELCASE}, {SECRECY, Constant::SECRECY_CAMELCASE} };
+	{ {SHY, Constant::SHY_CAMELCASE}, {SAD, Constant::SAD_CAMELCASE} };
 	const auto it = table.find(emotion);
 	if (it != table.end()) {
 		return it->second;

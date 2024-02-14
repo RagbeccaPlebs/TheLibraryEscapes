@@ -13,7 +13,7 @@ RandomPushInteractable::RandomPushInteractable(const int id, const string& textu
 {
 	m_Id = id;
 	b_Active = isActive;
-	m_InteractableType = OBJECT;
+	m_InteractableType = PUSH_OBJECT;
 	m_PushType = RANDOM_PUSH;
 	m_OriginFile = fileOfOrigin;
 	const Texture& texture = TextureHolder::GetTexture(textureFileLocation);

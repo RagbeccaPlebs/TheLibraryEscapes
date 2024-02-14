@@ -28,7 +28,8 @@ GameEngineLogic::GameEngineLogic(const RenderWindow& mainWindow) : m_PlayerCusto
 	if (data.contains(Keywords::SETTINGS_KEYWORD))
 	{
 		m_Zoom = data.at(Keywords::SETTINGS_KEYWORD).at(Keywords::ZOOM_KEYWORD);
-	} else
+	}
+	else
 	{
 		m_Zoom = 0.4f;
 	}
@@ -77,7 +78,7 @@ void GameEngineLogic::SaveAll()
 
 	//Save location to file
 	ifstream oldFile(Files::GAME_DATA_FILE);
-	nlohmann::json data = json::parse(oldFile);
+	json data = json::parse(oldFile);
 	oldFile.close();
 	json playerLocationValues;
 
@@ -106,6 +107,29 @@ void GameEngineLogic::ClearSounds()
 	m_GameMapObjects.pushInteractables.clear();
 }
 
+void GameEngineLogic::CheckForFinishingCondition()
+{
+	ifstream booksFile(Files::BOOKS_DATA_FILE);
+	json booksTotal = json::parse(booksFile);
+	booksFile.close();
+	ifstream gameDataFile(Files::GAME_DATA_FILE);
+	json booksFound = json::parse(gameDataFile);
+	gameDataFile.close();
 
+	vector<int> idsOfFoundBooks;
 
+	for (const json& foundBooks : booksFound.at(Keywords::BOOK_KEYWORD))
+	{
+		idsOfFoundBooks.push_back(foundBooks.at(Keywords::ID_KEYWORD));
+	}
 
+	bool foundAllBooks = true;
+	for (const json& books : booksTotal.at(Keywords::BOOK_KEYWORD))
+	{
+		if (std::find(idsOfFoundBooks.begin(), idsOfFoundBooks.end(), books.at(Keywords::ID_KEYWORD)) == idsOfFoundBooks.end())
+		{
+			foundAllBooks = false;
+		}
+	}
+	if (foundAllBooks) b_FinishingCondition = foundAllBooks;
+}

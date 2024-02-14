@@ -13,7 +13,4 @@ public:
 		int keyId, const std::string& soundFileLocation, const std::string& inactiveSoundFileLocation, bool isActive);
 
 	void Update(const float& dtAsSeconds, Player& player) override;
-private:
-	//Check for Open Door
-	static bool CheckIfDoorIsActive(const int& id);
 };

@@ -25,6 +25,10 @@ class GameEngineLogic
 		std::vector<PushInteractable*> pushInteractables;
 		std::vector<TiledMapLoader::MapCondition*> mapConditions;
 	};
+
+	//Finishing Conditions
+	bool b_FinishingCondition = false;
+
 	//If interactables are loaded?
 	bool b_InteractablesLoaded = false;
 
@@ -82,6 +86,7 @@ class GameEngineLogic
 	//The Conditions Check
 	void UpdateConditions() const;
 	static void HandleOperation(const TiledMapLoader::Operation& operation);
+	void CheckForFinishingCondition();
 public:
 	//Constructors, destructors and copy assignment operators
 	GameEngineLogic(const sf::RenderWindow& mainWindow);

@@ -24,6 +24,9 @@ private:
 	bool b_LeftClicked = false;
 	bool b_EscapePressed = false;
 
+	//Reset state
+	bool b_ResetEverything = false;
+
 	//Game specific functions
 	void Input();
 	void Update(const float dtAsSeconds);
@@ -33,10 +36,13 @@ private:
 	void ClearEverything() const;
 
 	//Save game
-	void SaveAll();
+	void SaveAll() const;
 
 	//Checks and Initializers
 	static void CheckIfFilesArePresent();
+
+	//Reset all the GameEngine
+	void ResetGameEngine();
 public:
 	Engine();
 

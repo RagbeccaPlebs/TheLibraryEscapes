@@ -25,7 +25,7 @@ void Engine::ClearEverything() const
 	m_GameEngine->ClearEverything();
 }
 
-void Engine::SaveAll()
+void Engine::SaveAll() const
 {
 	m_GameEngine->SaveAll();
 }
@@ -41,6 +41,11 @@ void Engine::Run() {
 		// Make a decimal fraction from the delta time
 		const float dtAsSeconds = dt.asSeconds();
 
+		if (b_ResetEverything) {
+			ResetGameEngine();
+			b_ResetEverything = false;
+		}
+
 		Input();
 		Update(dtAsSeconds);
 		Draw();
@@ -54,7 +59,7 @@ void Engine::CheckIfFilesArePresent()
 {
 	//Folder creation
 	filesystem::create_directory(filesystem::path("./" + Files::ASSETS_FOLDER));
-	filesystem::create_directory(filesystem::path("./" + Files::ASSETS_SAVE_FOLDER));
+	filesystem::create_directory(filesystem::path("./" + Files::ASSETS_DATA_FOLDER));
 	//Game Data
 	ifstream gameDataFile(Files::GAME_DATA_FILE);
 	if (gameDataFile.is_open())
@@ -103,4 +108,10 @@ void Engine::CheckIfFilesArePresent()
 		fileOfStream << jsonData;
 		fileOfStream.flush();
 	}
+}
+
+void Engine::ResetGameEngine()
+{
+	delete m_GameEngine;
+	m_GameEngine = new GameEngine(m_Window);
 }

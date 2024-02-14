@@ -8,9 +8,14 @@ using namespace std;
 
 void GameEngineLogic::Update(const float dtAsSeconds, RenderWindow& mainWindow, const bool& isLeftClicked)
 {
+	CheckForFinishingCondition();
 	if (b_PlayerCustomizationSelectorEnabled)
 	{
 		m_PlayerCustomization.Update(dtAsSeconds, mainWindow, isLeftClicked);
+		return;
+	}
+	if (b_FinishingCondition)
+	{
 		return;
 	}
 	mainWindow.setMouseCursorVisible(false);

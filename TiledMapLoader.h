@@ -78,14 +78,13 @@ private:
 	//Creation
 	static KeyInteractable* CreateKeyInteractableFromData(const nlohmann::json& data, const bool& isFound);
 	static DoorInteractable* CreateDoorInteractableFromData(const nlohmann::json& data);
-	static SimpleBookInteractable* CreateSimpleBookInteractableFromData(const nlohmann::json& data, const bool& isFound);
+	static SimpleBookInteractable* CreateSimpleBookInteractableFromData(const nlohmann::json& data, const bool& isFound, const nlohmann::json& booksFile);
 
 	static LocationPushInteractable* CreateLocationPushInteractableFromData(const nlohmann::json& data, const std::string& fileName);
 	static RandomPushInteractable* CreateRandomPushInteractableFromData(const nlohmann::json& data, const std::string& fileName);
 
 	//Checks if objects are found to not load them
-	static bool CheckIfSimpleBookIsFound(const int& id);
-	static bool CheckIfKeyIsFound(const int& id);
+	static bool CheckIfThingIsFoundById(const int& id, const std::string& keyword);
 
 	static Interactable& GetInteractableFromJsonDataAndVector(nlohmann::basic_json<> jsonData, const std::vector<Interactable*>& interactables);
 

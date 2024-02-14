@@ -9,8 +9,7 @@
 //Types in which the Doors come in
 enum DoorInteractableType
 {
-	SIMPLE_DOOR,
-	TRAPDOOR
+	SIMPLE_DOOR
 };
 
 //A parent Door Template for Door Interactables
@@ -37,6 +36,9 @@ protected:
 	//Check for the Door their key is found (IF APPLICABLE)
 	bool CheckIfKeyIsFound() const;
 	void AddDoorToActiveDoors() const;
+
+	//Check for Open Door
+	static bool CheckIfDoorIsActive(const int& id);
 public:
 	virtual void Update(const float& dtAsSeconds, Player& player) override = 0;
 	std::pair<std::string, sf::Vector2f> Interact() override;

@@ -17,10 +17,13 @@ StartMenuEngine::StartMenuEngine()
 	const float middleHeight = (static_cast<float>(VideoMode::getDesktopMode().height) / 2.0f);
 	const Vector2f startButtonLocation((middleWidth - (sizeButtons.x / 2.f)), middleHeight - 150.f);
 	const Vector2f exitButtonLocation((middleWidth - (sizeButtons.x / 2.f)), middleHeight + 50.f);
+	const Vector2f resetGameButtonLocation(0 ,0);
 	m_StartButton = Button(startButtonLocation, sizeButtons, Files::FONT_FILE,
 		Message::START_MESSAGE, 40, idleColor, hoverColor, activeColor);
 	m_ExitButton = Button(exitButtonLocation, sizeButtons, Files::FONT_FILE,
 		Message::EXIT_MESSAGE, 40, idleColor, hoverColor, activeColor);
+	m_ResetGameButton = Button(resetGameButtonLocation, sizeButtons, Files::FONT_FILE,
+		Message::RESET_GAME_MESSAGE, 40, idleColor, hoverColor, activeColor);
 }
 
 

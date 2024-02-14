@@ -10,7 +10,7 @@ void Engine::Input() {
 	}
 	else
 	{
-		m_StartMenuEngine.Input(m_Window, b_Playing, b_EscapePressed);
+		m_StartMenuEngine.Input(m_Window, b_Playing, b_EscapePressed, b_ResetEverything);
 	}
 
 	if (b_LeftClicked)

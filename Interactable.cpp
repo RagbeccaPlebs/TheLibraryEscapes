@@ -59,7 +59,7 @@ void Interactable::Activate()
 InteractableType Interactable::GetInteractableTypeFromString(const string& interactableType)
 {
 	unordered_map<string, InteractableType> const table =
-	{ {Constant::DOOR_UPPERCASE, DOOR}, {Constant::PICKUP_UPPERCASE, PICKUP}, {Constant::NPC_UPPERCASE, NPC}, {Constant::OBJECT_UPPERCASE, OBJECT} };
+	{ {Constant::DOOR_UPPERCASE, DOOR}, {Constant::PICKUP_UPPERCASE, PICKUP},{Constant::PUSH_OBJECT_UPPERCASE, PUSH_OBJECT} };
 	const auto it = table.find(interactableType);
 	if (it != table.end()) {
 		return it->second;

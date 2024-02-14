@@ -12,7 +12,7 @@ LocationPushInteractable::LocationPushInteractable(const int id, const string& t
 {
 	m_Id = id;
 	b_Active = isActive;
-	m_InteractableType = OBJECT;
+	m_InteractableType = PUSH_OBJECT;
 	m_PushType = LOCATION_PUSH;
 	m_OriginFile = fileOfOrigin;
 	b_ConditionMet = false;

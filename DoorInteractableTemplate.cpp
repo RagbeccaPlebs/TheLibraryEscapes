@@ -119,10 +119,30 @@ bool DoorInteractableTemplate::CheckIfKeyIsFound() const
 DoorInteractableType DoorInteractableTemplate::GetDoorInteractableTypeFromString(const std::string& doorInteractableType)
 {
 	unordered_map<string, DoorInteractableType> const table =
-	{ {Constant::SIMPLE_UPPERCASE, SIMPLE_DOOR}, {Constant::TRAPDOOR_UPPERCASE, TRAPDOOR} };
+	{ {Constant::SIMPLE_UPPERCASE, SIMPLE_DOOR}};
 	const auto it = table.find(doorInteractableType);
 	if (it != table.end()) {
 		return it->second;
 	}
 	return SIMPLE_DOOR;
+}
+
+//Check if door is active from the Game Data File, if there: true otherwise false.
+bool DoorInteractableTemplate::CheckIfDoorIsActive(const int& id)
+{
+	const string itemToLoad = Files::GAME_DATA_FILE;
+	ifstream file(itemToLoad);
+	nlohmann::json data = json::parse(file);
+	file.close();
+
+	bool isSame = false;
+
+	for (auto& idContainer : data.at(Keywords::DOOR_KEYWORD))
+	{
+		if (idContainer.at(Keywords::ID_KEYWORD) == id)
+		{
+			isSame = true;
+		}
+	}
+	return isSame;
 }
