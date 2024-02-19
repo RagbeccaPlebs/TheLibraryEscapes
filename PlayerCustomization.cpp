@@ -8,71 +8,7 @@
 using namespace sf;
 using namespace std;
 
-void PlayerCustomization::TurnCharacter(const Side direction)
-{
-	m_Direction = direction;
-	switch (direction)
-	{
-	case NONE:
-		//NONE should act like DOWN
-	case DOWN:
-		m_Player.SetTextureLocation(m_PlayerMovement.GetIdleSouth().spriteLocation[0]);
-		break;
-	case LEFT:
-		m_Player.SetTextureLocation(m_PlayerMovement.GetIdleWest().spriteLocation[0]);
-		break;
-	case UP:
-		m_Player.SetTextureLocation(m_PlayerMovement.GetIdleNorth().spriteLocation[0]);
-		break;
-	case RIGHT:
-		m_Player.SetTextureLocation(m_PlayerMovement.GetIdleEast().spriteLocation[0]);
-		break;
-
-	}
-}
-
-void PlayerCustomization::TurnCharacterLeft()
-{
-	switch (m_Direction)
-	{
-	case NONE:
-		//NONE should act like DOWN
-	case DOWN:
-		TurnCharacter(LEFT);
-		break;
-	case LEFT:
-		TurnCharacter(UP);
-		break;
-	case UP:
-		TurnCharacter(RIGHT);
-		break;
-	case RIGHT:
-		TurnCharacter(DOWN);
-		break;
-	}
-}
-
-void PlayerCustomization::TurnCharacterRight()
-{
-	switch (m_Direction)
-	{
-	case NONE:
-		//NONE should act like DOWN
-	case DOWN:
-		TurnCharacter(RIGHT);
-		break;
-	case RIGHT:
-		TurnCharacter(UP);
-		break;
-	case UP:
-		TurnCharacter(LEFT);
-		break;
-	case LEFT:
-		TurnCharacter(DOWN);
-		break;
-	}
-}
-
+//CONSTRUCTORS
 PlayerCustomization::PlayerCustomization(Player& player, PlayerMovement& playerMovement, const RenderWindow& mainWindow) : m_PlayerMovement(playerMovement), m_Player(player)
 {
 	const float screenWidth = static_cast<float>(mainWindow.getSize().x);
@@ -151,3 +87,203 @@ void PlayerCustomization::InitButtons(const Vector2f& sizeButtons, const Vector2
 	m_HatLayerButton = Button(hatLayerButtonLocation, sizeCustomizationButtons, Files::FONT_FILE, Message::HAT_MESSAGE, 30, idleColor, hoverColor, activeColor);
 }
 
+//TURNING
+void PlayerCustomization::TurnCharacter(const Side direction)
+{
+	m_Direction = direction;
+	switch (direction)
+	{
+	case NONE:
+		//NONE should act like DOWN
+	case DOWN:
+		m_Player.SetTextureLocation(m_PlayerMovement.GetIdleSouth().spriteLocation[0]);
+		break;
+	case LEFT:
+		m_Player.SetTextureLocation(m_PlayerMovement.GetIdleWest().spriteLocation[0]);
+		break;
+	case UP:
+		m_Player.SetTextureLocation(m_PlayerMovement.GetIdleNorth().spriteLocation[0]);
+		break;
+	case RIGHT:
+		m_Player.SetTextureLocation(m_PlayerMovement.GetIdleEast().spriteLocation[0]);
+		break;
+
+	}
+}
+
+void PlayerCustomization::TurnCharacterLeft()
+{
+	switch (m_Direction)
+	{
+	case NONE:
+		//NONE should act like DOWN
+	case DOWN:
+		TurnCharacter(LEFT);
+		break;
+	case LEFT:
+		TurnCharacter(UP);
+		break;
+	case UP:
+		TurnCharacter(RIGHT);
+		break;
+	case RIGHT:
+		TurnCharacter(DOWN);
+		break;
+	}
+}
+
+void PlayerCustomization::TurnCharacterRight()
+{
+	switch (m_Direction)
+	{
+	case NONE:
+		//NONE should act like DOWN
+	case DOWN:
+		TurnCharacter(RIGHT);
+		break;
+	case RIGHT:
+		TurnCharacter(UP);
+		break;
+	case UP:
+		TurnCharacter(LEFT);
+		break;
+	case LEFT:
+		TurnCharacter(DOWN);
+		break;
+	}
+}
+
+//DRAW
+void PlayerCustomization::Draw(RenderWindow& mainWindow)
+{
+	mainWindow.setView(m_ClothesView);
+
+	m_TurnLeftButton.Draw(mainWindow);
+	m_TurnRightButton.Draw(mainWindow);
+	m_BackToMenuButton.Draw(mainWindow);
+	m_ContinueButton.Draw(mainWindow);
+
+	mainWindow.setView(m_PlayerView);
+
+	RectangleShape r(Vector2f(20.f, 20.f));
+
+	r.setPosition(0, 0);
+	r.setFillColor(Color::Red);
+
+	mainWindow.draw(r);
+	for (const Sprite* sprite : m_Player.GetSprites()) {
+		if (sprite->getTexture() != nullptr) {
+			mainWindow.draw(*sprite);
+		}
+	}
+
+	mainWindow.setView(m_ClothesView);
+	m_BaseLayerButton.Draw(mainWindow);
+	m_LowerLayerButton.Draw(mainWindow);
+	m_CloakLayerButton.Draw(mainWindow);
+	m_FaceItemLayerButton.Draw(mainWindow);
+	m_HairLayerButton.Draw(mainWindow);
+	m_HatLayerButton.Draw(mainWindow);
+}
+
+//INPUT
+void PlayerCustomization::Input(RenderWindow& mainWindow, bool& isPlayerCustomizationSelectorEnabled, bool& isPlaying, const Vector2f& playerSpawnLocation,
+	const bool& isEscapePressed)
+{
+	if (isEscapePressed)
+	{
+		isPlaying = false;
+	}
+
+	if (m_ContinueButton.IsPressed())
+	{
+		m_Player.Spawn(playerSpawnLocation);
+		m_Player.SaveLayers();
+		m_Player.m_PlayerTexture.CleanAllFiles();
+		b_FilesLoaded = false;
+		isPlayerCustomizationSelectorEnabled = false;
+	}
+
+	if (m_BackToMenuButton.IsPressed())
+	{
+		isPlaying = false;
+	}
+
+	if (m_TurnLeftButton.IsPressed())
+	{
+		TurnCharacterLeft();
+	}
+
+	if (m_TurnRightButton.IsPressed())
+	{
+		TurnCharacterRight();
+	}
+
+	if (m_BaseLayerButton.IsPressed())
+	{
+		m_Player.UpdatePlayerTexture(BASE);
+	}
+
+	if (m_LowerLayerButton.IsPressed())
+	{
+		m_Player.UpdatePlayerTexture(LOWER);
+	}
+
+	if (m_CloakLayerButton.IsPressed())
+	{
+		m_Player.UpdatePlayerTexture(CLOAK);
+	}
+
+	if (m_FaceItemLayerButton.IsPressed())
+	{
+		m_Player.UpdatePlayerTexture(FACE_ITEM);
+	}
+
+	if (m_HairLayerButton.IsPressed())
+	{
+		m_Player.UpdatePlayerTexture(HAIR);
+	}
+
+	if (m_HatLayerButton.IsPressed())
+	{
+		m_Player.UpdatePlayerTexture(HAT);
+	}
+}
+
+//UPDATE
+void PlayerCustomization::Update(float dtAsSeconds, RenderWindow& mainWindow, const bool& isLeftClicked)
+{
+	if (!b_FilesLoaded)
+	{
+		m_Player.m_PlayerTexture.LoadAllFiles();
+		b_FilesLoaded = true;
+	}
+	mainWindow.setMouseCursorVisible(true);
+
+	m_MousePosView = mainWindow.mapPixelToCoords(sf::Mouse::getPosition(mainWindow));
+
+	m_ContinueButton.Update(m_MousePosView, mainWindow);
+	m_BackToMenuButton.Update(m_MousePosView, mainWindow);
+	m_TurnRightButton.Update(m_MousePosView, mainWindow);
+	m_TurnLeftButton.Update(m_MousePosView, mainWindow);
+	m_BaseLayerButton.Update(m_MousePosView, mainWindow);
+	m_LowerLayerButton.Update(m_MousePosView, mainWindow);
+	m_CloakLayerButton.Update(m_MousePosView, mainWindow);
+	m_FaceItemLayerButton.Update(m_MousePosView, mainWindow);
+	m_HairLayerButton.Update(m_MousePosView, mainWindow);
+	m_HatLayerButton.Update(m_MousePosView, mainWindow);
+
+	if (isLeftClicked)
+	{
+		m_ContinueButton.Press(m_MousePosView);
+		m_BackToMenuButton.Press(m_MousePosView);
+		m_TurnRightButton.Press(m_MousePosView);
+		m_TurnLeftButton.Press(m_MousePosView);
+		m_BaseLayerButton.Press(m_MousePosView);
+		m_LowerLayerButton.Press(m_MousePosView);
+		m_CloakLayerButton.Press(m_MousePosView);
+		m_FaceItemLayerButton.Press(m_MousePosView);
+		m_HairLayerButton.Press(m_MousePosView);
+		m_HatLayerButton.Press(m_MousePosView);
+	}
+}

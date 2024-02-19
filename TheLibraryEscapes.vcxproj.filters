@@ -51,17 +51,8 @@
     <Filter Include="Header Files\Player">
       <UniqueIdentifier>{b419b2a7-cab3-4c31-938b-e23b88f51ba7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Game\Logic">
-      <UniqueIdentifier>{da10d00b-cb62-4650-9232-491e9ac7787e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Game\PauseMenu">
-      <UniqueIdentifier>{07886281-c881-4b97-8bd0-9e687472d114}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Player\PlayerCustomization">
       <UniqueIdentifier>{6d9254a4-b454-4671-a396-b85abd6771b5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Player\PlayerCustomization">
-      <UniqueIdentifier>{18ee57b9-ac9c-4b96-9733-9d9b565a325a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Game\Interactable">
       <UniqueIdentifier>{f38e5ea2-d92d-463a-9a21-8d3334671753}</UniqueIdentifier>
@@ -104,44 +95,14 @@
     <ClCompile Include="PlayerMovement.cpp">
       <Filter>Source Files\Player</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerUpdate.cpp">
-      <Filter>Source Files\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerSprite.cpp">
-      <Filter>Source Files\Player</Filter>
-    </ClCompile>
     <ClCompile Include="Map.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>
     <ClCompile Include="Engine.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="EngineDraw.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineInput.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineUpdate.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineDraw.cpp">
-      <Filter>Source Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineInput.cpp">
-      <Filter>Source Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineUpdate.cpp">
-      <Filter>Source Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineDetectCollisions.cpp">
-      <Filter>Source Files\Player</Filter>
-    </ClCompile>
     <ClCompile Include="TextureHolder.cpp">
       <Filter>Source Files\Misc</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineMapLogic.cpp">
-      <Filter>Source Files\Map</Filter>
     </ClCompile>
     <ClCompile Include="Button.cpp">
       <Filter>Source Files\Misc\Screen</Filter>
@@ -149,59 +110,8 @@
     <ClCompile Include="StartMenuEngine.cpp">
       <Filter>Source Files\StartMenu</Filter>
     </ClCompile>
-    <ClCompile Include="StartMenuEngineDraw.cpp">
-      <Filter>Source Files\StartMenu</Filter>
-    </ClCompile>
-    <ClCompile Include="StartMenuEngineInput.cpp">
-      <Filter>Source Files\StartMenu</Filter>
-    </ClCompile>
     <ClCompile Include="TiledMapLoader.cpp">
       <Filter>Source Files\Map</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineLogicUpdate.cpp">
-      <Filter>Source Files\Game\Logic</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineLogicDraw.cpp">
-      <Filter>Source Files\Game\Logic</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineLogicInput.cpp">
-      <Filter>Source Files\Game\Logic</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineLogic.cpp">
-      <Filter>Source Files\Game\Logic</Filter>
-    </ClCompile>
-    <ClCompile Include="GamePauseMenu.cpp">
-      <Filter>Source Files\Game\PauseMenu</Filter>
-    </ClCompile>
-    <ClCompile Include="GamePauseMenuDraw.cpp">
-      <Filter>Source Files\Game\PauseMenu</Filter>
-    </ClCompile>
-    <ClCompile Include="StartMenuEngineUpdate.cpp">
-      <Filter>Source Files\StartMenu</Filter>
-    </ClCompile>
-    <ClCompile Include="GamePauseMenuUpdate.cpp">
-      <Filter>Source Files\Game\PauseMenu</Filter>
-    </ClCompile>
-    <ClCompile Include="GamePauseMenuInput.cpp">
-      <Filter>Source Files\Game\PauseMenu</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerTexture.cpp">
-      <Filter>Source Files\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerCustomization.cpp">
-      <Filter>Source Files\Player\PlayerCustomization</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerCustomizationDraw.cpp">
-      <Filter>Source Files\Player\PlayerCustomization</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerCustomizationInput.cpp">
-      <Filter>Source Files\Player\PlayerCustomization</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerCustomizationUpdate.cpp">
-      <Filter>Source Files\Player\PlayerCustomization</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngine.cpp">
-      <Filter>Source Files\Game</Filter>
     </ClCompile>
     <ClCompile Include="Interactable.cpp">
       <Filter>Source Files\Game\Interactable</Filter>
@@ -232,6 +142,21 @@
     </ClCompile>
     <ClCompile Include="RandomPushInteractable.cpp">
       <Filter>Source Files\Game\Interactable\PushInteractable</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngine.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineLogic.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="EndMenu.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="GamePauseMenu.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerCustomization.cpp">
+      <Filter>Source Files\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -306,6 +231,9 @@
     </ClInclude>
     <ClInclude Include="RandomPushInteractable.h">
       <Filter>Header Files\Game\Interactable\PushInteractable</Filter>
+    </ClInclude>
+    <ClInclude Include="EndMenu.h">
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

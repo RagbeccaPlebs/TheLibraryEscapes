@@ -18,22 +18,22 @@ public:
 	};
 
 	//All functions to get specific sprite sheets e.g. looking one way
-	PlayerMovement::SpriteSheet GetIdleSouth() const;
-	PlayerMovement::SpriteSheet GetIdleNorth() const;
-	PlayerMovement::SpriteSheet GetIdleEast() const;
-	PlayerMovement::SpriteSheet GetIdleWest() const;
-	PlayerMovement::SpriteSheet GetPushingSouth() const;
-	PlayerMovement::SpriteSheet GetPushingNorth() const;
-	PlayerMovement::SpriteSheet GetPushingEast() const;
-	PlayerMovement::SpriteSheet GetPushingWest() const;
-	PlayerMovement::SpriteSheet GetWalkSouth() const;
-	PlayerMovement::SpriteSheet GetWalkNorth() const;
-	PlayerMovement::SpriteSheet GetWalkEast() const;
-	PlayerMovement::SpriteSheet GetWalkWest() const;
-	PlayerMovement::SpriteSheet GetRunningSouth() const;
-	PlayerMovement::SpriteSheet GetRunningNorth() const;
-	PlayerMovement::SpriteSheet GetRunningEast() const;
-	PlayerMovement::SpriteSheet GetRunningWest() const;
+	SpriteSheet GetIdleSouth() const;
+	SpriteSheet GetIdleNorth() const;
+	SpriteSheet GetIdleEast() const;
+	SpriteSheet GetIdleWest() const;
+	SpriteSheet GetPushingSouth() const;
+	SpriteSheet GetPushingNorth() const;
+	SpriteSheet GetPushingEast() const;
+	SpriteSheet GetPushingWest() const;
+	SpriteSheet GetWalkSouth() const;
+	SpriteSheet GetWalkNorth() const;
+	SpriteSheet GetWalkEast() const;
+	SpriteSheet GetWalkWest() const;
+	SpriteSheet GetRunningSouth() const;
+	SpriteSheet GetRunningNorth() const;
+	SpriteSheet GetRunningEast() const;
+	SpriteSheet GetRunningWest() const;
 private:
 	//All textures within a Sprite that form one generic animated look
 	std::vector<sf::Vector2i> m_IdleSouth = { { sf::Vector2i(0,0) } };

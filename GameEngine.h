@@ -1,6 +1,6 @@
 ﻿#pragma once
-#include <SFML/Graphics.hpp>
 
+#include "EndMenu.h"
 #include "GameEngineLogic.h"
 #include "GamePauseMenu.h"
 
@@ -9,13 +9,15 @@ class GameEngine
 {
 	//Game state
 	bool b_Paused = false;
+	bool b_Won = false;
 
 	//Game Logics
 	GameEngineLogic m_GameEngineLogic;
 	GamePauseMenu m_GamePausedMenu;
+	EndMenu m_EndMenu;
 public:
 	//Constructors, destructors and copy assignment operators
-	GameEngine(const sf::RenderWindow& mainWindow);
+	explicit GameEngine(const sf::RenderWindow& mainWindow);
 	GameEngine& operator=(const GameEngine& gameEngine);
 	~GameEngine();
 	GameEngine(GameEngine& gameEngine);

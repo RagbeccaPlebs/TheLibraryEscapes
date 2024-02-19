@@ -1,5 +1,4 @@
 #pragma once
-#include <SFML/Graphics.hpp>
 
 #include "Interactable.h"
 #include "TiledMapLoader.h"

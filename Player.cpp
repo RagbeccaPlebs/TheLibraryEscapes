@@ -1,9 +1,15 @@
 #include "Player.h"
 #include "TextureHolder.h"
+#include "nlohmann/json.hpp"
+#include <fstream>
+#include <filesystem>
+#include <future> 
 
-using namespace sf;
+using json = nlohmann::json;
 using namespace std;
+using namespace sf;
 
+//CONSTRUCTORS
 Player::Player()
 {
 	SetInitialTextures();
@@ -51,6 +57,7 @@ void Player::Spawn(const Vector2f startPosition)
 	SetPositionAllSprites();
 }
 
+//MOVEMENT
 void Player::HandleInput()
 {
 	if (Keyboard::isKeyPressed(Keyboard::A))
@@ -108,6 +115,7 @@ void Player::HandleInput()
 	}
 }
 
+//GETTERS
 FloatRect Player::GetPosition() const
 {
 	return m_SpriteBase.getGlobalBounds();
@@ -167,8 +175,630 @@ bool Player::GetUpPressed() const
 	return b_UpPressed;
 }
 
-
 bool Player::IsPushing() const
 {
 	return b_Pushing;
+}
+
+//TEXTURE
+void Player::SetInitialTextures()
+{
+	ifstream file(Files::GAME_DATA_FILE);
+	json data = json::parse(file);
+	file.close();
+
+	string playerBaseTextureLocation = data.at(Keywords::PLAYER_KEYWORD).at(Keywords::PLAYER_BASE_KEYWORD);
+	string playerLowerTextureLocation = data.at(Keywords::PLAYER_KEYWORD).at(Keywords::PLAYER_LOWER_LAYER_KEYWORD);
+	string playerCloakTextureLocation = data.at(Keywords::PLAYER_KEYWORD).at(Keywords::PLAYER_CLOAK_KEYWORD);
+	string playerFaceTextureLocation = data.at(Keywords::PLAYER_KEYWORD).at(Keywords::PLAYER_FACE_ITEM_KEYWORD);
+	string playerHairTextureLocation = data.at(Keywords::PLAYER_KEYWORD).at(Keywords::PLAYER_HAIR_KEYWORD);
+	string playerHatTextureLocation = data.at(Keywords::PLAYER_KEYWORD).at(Keywords::PLAYER_HAT_KEYWORD);
+
+
+	if (!playerBaseTextureLocation.empty())
+	{
+		m_TextureBaseLocation = Files::BASE_PLAYER_GRAPHICS_FOLDER + playerBaseTextureLocation;
+	}
+
+	if (!playerLowerTextureLocation.empty())
+	{
+		m_TextureLowerLayerLocation = Files::LOWER_LAYER_PLAYER_GRAPHICS_FOLDER + playerLowerTextureLocation;
+	}
+
+	if (!playerCloakTextureLocation.empty())
+	{
+		m_TextureCloakLocation = Files::CLOAK_PLAYER_GRAPHICS_FOLDER + playerCloakTextureLocation;
+	}
+
+	if (!playerFaceTextureLocation.empty())
+	{
+		m_TextureFaceItemLocation = Files::FACE_ITEM_PLAYER_GRAPHICS_FOLDER + playerFaceTextureLocation;
+	}
+
+	if (!playerHairTextureLocation.empty())
+	{
+		m_TextureHairLocation = Files::HAIR_PLAYER_GRAPHICS_FOLDER + playerHairTextureLocation;
+	}
+
+	if (!playerHatTextureLocation.empty())
+	{
+		m_TextureHatLocation = Files::HAT_ITEM_PLAYER_GRAPHICS_FOLDER + playerHatTextureLocation;
+	}
+}
+
+bool PlayerTexture::LoadAllBaseTextures()
+{
+	const string PATH = Files::BASE_PLAYER_GRAPHICS_SEARCH_FOLDER;
+	for (const auto& entry : filesystem::directory_iterator(PATH))
+	{
+		Texture tempTexture;
+		tempTexture.loadFromFile(Files::BASE_PLAYER_GRAPHICS_FOLDER + entry.path().filename().string());
+		m_BaseTextures.insert(pair<string, Texture>(Player::GetFileName(entry.path().filename().filename().generic_string()), tempTexture));
+	}
+	return true;
+}
+
+
+bool PlayerTexture::LoadAllLowerTextures()
+{
+	const string PATH = Files::LOWER_LAYER_PLAYER_GRAPHICS_SEARCH_FOLDER;
+	for (const auto& entry : filesystem::directory_iterator(PATH))
+	{
+		Texture tempTexture;
+		tempTexture.loadFromFile(Files::LOWER_LAYER_PLAYER_GRAPHICS_FOLDER + entry.path().filename().string());
+		m_LowerTextures.insert(pair<string, Texture>(entry.path().filename().filename().generic_string(), tempTexture));
+	}
+	return true;
+}
+
+bool PlayerTexture::LoadAllCloakTextures()
+{
+	const string PATH = Files::CLOAK_PLAYER_GRAPHICS_SEARCH_FOLDER;
+	for (const auto& entry : filesystem::directory_iterator(PATH))
+	{
+		Texture tempTexture;
+		tempTexture.loadFromFile(Files::CLOAK_PLAYER_GRAPHICS_FOLDER + entry.path().filename().string());
+		m_CloakTextures.insert(pair<string, Texture>(entry.path().filename().filename().generic_string(), tempTexture));
+	}
+	return true;
+}
+
+bool PlayerTexture::LoadAllFaceTextures()
+{
+	const string PATH = Files::FACE_ITEM_PLAYER_GRAPHICS_SEARCH_FOLDER;
+	for (const auto& entry : filesystem::directory_iterator(PATH))
+	{
+		Texture tempTexture;
+		tempTexture.loadFromFile(Files::FACE_ITEM_PLAYER_GRAPHICS_FOLDER + entry.path().filename().string());
+		m_FaceTextures.insert(pair<string, Texture>(entry.path().filename().filename().generic_string(), tempTexture));
+	}
+	return true;
+}
+
+bool PlayerTexture::LoadAllHairTextures()
+{
+	const string PATH = Files::HAIR_PLAYER_GRAPHICS_SEARCH_FOLDER;
+	for (const auto& entry : filesystem::directory_iterator(PATH))
+	{
+		Texture tempTexture;
+		tempTexture.loadFromFile(Files::HAIR_PLAYER_GRAPHICS_FOLDER + entry.path().filename().string());
+		m_HairTextures.insert(pair<string, Texture>(entry.path().filename().filename().generic_string(), tempTexture));
+	}
+	return true;
+}
+
+bool PlayerTexture::LoadAllHatTextures()
+{
+	const string PATH = Files::HAT_ITEM_PLAYER_GRAPHICS_SEARCH_FOLDER;
+	for (const auto& entry : filesystem::directory_iterator(PATH))
+	{
+		Texture tempTexture;
+		tempTexture.loadFromFile(Files::HAT_ITEM_PLAYER_GRAPHICS_FOLDER + entry.path().filename().string());
+		m_HatTextures.insert(pair<string, Texture>(entry.path().filename().filename().generic_string(), tempTexture));
+	}
+	return true;
+}
+
+bool PlayerTexture::LoadAllFiles()
+{
+	future<bool> isBaseLoadedFuture = std::async(&PlayerTexture::LoadAllBaseTextures, this);
+	future<bool> isLowerLayerLoadedFuture = std::async(&PlayerTexture::LoadAllLowerTextures, this);
+	future<bool> isCloakLayerLoadedFuture = std::async(&PlayerTexture::LoadAllCloakTextures, this);
+	future<bool> isFaceItemLayerLoadedFuture = std::async(&PlayerTexture::LoadAllFaceTextures, this);
+	future<bool> isHairLayerLoadedFuture = std::async(&PlayerTexture::LoadAllHairTextures, this);
+	future<bool> isHatLayerLoadedFuture = std::async(&PlayerTexture::LoadAllHatTextures, this);
+
+	return isBaseLoadedFuture.get() && isLowerLayerLoadedFuture.get() && isCloakLayerLoadedFuture.get() && isFaceItemLayerLoadedFuture.get() && isHairLayerLoadedFuture.get() && isHatLayerLoadedFuture.get();
+}
+
+void PlayerTexture::CleanAllFiles()
+{
+	m_BaseTextures.clear();
+	m_LowerTextures.clear();
+	m_CloakTextures.clear();
+	m_FaceTextures.clear();
+	m_HairTextures.clear();
+	m_HatTextures.clear();
+}
+
+const map<string, Texture>& PlayerTexture::GetBaseTextureMap() const
+{
+	return m_BaseTextures;
+}
+
+const map<string, Texture>& PlayerTexture::GetLowerTextureMap() const
+{
+	return m_LowerTextures;
+}
+
+const map<string, Texture>& PlayerTexture::GetCloakTextureMap() const
+{
+	return m_CloakTextures;
+}
+
+const map<string, Texture>& PlayerTexture::GetFaceTextureMap() const
+{
+	return m_FaceTextures;
+}
+
+const map<string, Texture>& PlayerTexture::GetHairTextureMap() const
+{
+	return m_HairTextures;
+}
+
+const map<string, Texture>& PlayerTexture::GetHatTextureMap() const
+{
+	return m_HatTextures;
+}
+
+std::pair<std::string, sf::Texture> PlayerTexture::GetNextTexture(const map<string, Texture>& textureMap, const std::string& filePath)
+{
+	if (!textureMap.empty())
+	{
+		vector<string> keys;
+		for (const pair<string, Texture> entry : textureMap) {
+			keys.push_back(entry.first);
+		}
+
+		const string fileName = Player::GetFileName(filePath);
+
+		const auto it = ranges::find(keys.begin(), keys.end(), fileName);
+
+		// If element was found 
+		if (it != keys.end())
+		{
+			const int index = it - keys.begin();
+			if (static_cast<size_t>(index) == keys.size() - 1)
+			{
+				const string newFileName = keys[0];
+				return pair<string, Texture>{newFileName, textureMap.at(newFileName)};
+			}
+			const string newFileName = keys[index + 1];
+
+			return pair<string, Texture>{newFileName, textureMap.at(newFileName)};
+		}
+	}
+	const string fileName = Player::GetFileName(filePath);
+	return pair<string, Texture>{fileName, TextureHolder::GetTexture(filePath)};
+}
+
+std::pair<std::string, sf::Texture> PlayerTexture::GetNextTextureWithNone(const map<string, Texture>& textureMap, const std::string& filePath)
+{
+	if (!textureMap.empty())
+	{
+		vector<string> keys;
+		for (const pair<string, Texture> entry : textureMap) {
+			keys.push_back(entry.first);
+		}
+
+		const string fileName = Player::GetFileName(filePath);
+
+		const auto it = ranges::find(keys.begin(), keys.end(), fileName);
+
+		// If element was found 
+		if (it != keys.end())
+		{
+			const int index = it - keys.begin();
+			if (static_cast<size_t>(index) == keys.size() - 1)
+			{
+				return pair<string, Texture>{Constant::EMPTY_STRING, textureMap.at(fileName)};
+			}
+			const string newFileName = keys[index + 1];
+
+			return pair<string, Texture>{newFileName, textureMap.at(newFileName)};
+		}
+		const string newFileName = keys[0];
+		return pair<string, Texture>{newFileName, textureMap.at(newFileName)};
+	}
+	const string fileName = Player::GetFileName(filePath);
+	return pair<string, Texture>{fileName, TextureHolder::GetTexture(filePath)};
+}
+
+void Player::UpdatePlayerTexture(const Layer layer)
+{
+	switch (layer)
+	{
+	case BASE:
+		m_TextureBaseLocation = Files::BASE_PLAYER_GRAPHICS_FOLDER + m_PlayerTexture.GetNextTexture(m_PlayerTexture.GetBaseTextureMap(), m_TextureBaseLocation).first;
+		if (!GetFileName(m_TextureBaseLocation).empty())
+		{
+			m_SpriteBase = Sprite(TextureHolder::GetTexture(m_TextureBaseLocation));
+		}
+		break;
+	case LOWER:
+		m_TextureLowerLayerLocation = Files::LOWER_LAYER_PLAYER_GRAPHICS_FOLDER + m_PlayerTexture.GetNextTexture(m_PlayerTexture.GetLowerTextureMap(), m_TextureLowerLayerLocation).first;
+		if (!GetFileName(m_TextureLowerLayerLocation).empty())
+		{
+			m_SpriteLowerLayer = Sprite(TextureHolder::GetTexture(m_TextureLowerLayerLocation));
+		}
+		break;
+	case CLOAK:
+		m_TextureCloakLocation = Files::CLOAK_PLAYER_GRAPHICS_FOLDER + m_PlayerTexture.GetNextTextureWithNone(m_PlayerTexture.GetCloakTextureMap(), m_TextureCloakLocation).first;
+		if (!GetFileName(m_TextureCloakLocation).empty())
+		{
+			m_SpriteCloak = Sprite(TextureHolder::GetTexture(m_TextureCloakLocation));
+		}
+		else
+		{
+			m_SpriteCloak = Sprite();
+		}
+		break;
+	case FACE_ITEM:
+		m_TextureFaceItemLocation = Files::FACE_ITEM_PLAYER_GRAPHICS_FOLDER + m_PlayerTexture.GetNextTextureWithNone(m_PlayerTexture.GetFaceTextureMap(), m_TextureFaceItemLocation).first;
+		if (!GetFileName(m_TextureFaceItemLocation).empty())
+		{
+			m_SpriteFaceItem = Sprite(TextureHolder::GetTexture(m_TextureFaceItemLocation));
+		}
+		else
+		{
+			m_SpriteFaceItem = Sprite();
+		}
+		break;
+	case HAIR:
+		m_TextureHairLocation = Files::HAIR_PLAYER_GRAPHICS_FOLDER + m_PlayerTexture.GetNextTextureWithNone(m_PlayerTexture.GetHairTextureMap(), m_TextureHairLocation).first;
+		if (!GetFileName(m_TextureHairLocation).empty())
+		{
+			m_SpriteHair = Sprite(TextureHolder::GetTexture(m_TextureHairLocation));
+		}
+		else
+		{
+			m_SpriteHair = Sprite();
+		}
+		break;
+	case HAT:
+		m_TextureHatLocation = Files::HAT_ITEM_PLAYER_GRAPHICS_FOLDER + m_PlayerTexture.GetNextTextureWithNone(m_PlayerTexture.GetHatTextureMap(), m_TextureHatLocation).first;
+		if (!GetFileName(m_TextureHatLocation).empty())
+		{
+			m_SpriteHat = Sprite(TextureHolder::GetTexture(m_TextureHatLocation));
+		}
+		else
+		{
+			m_SpriteHat = Sprite();
+		}
+		break;
+	}
+
+	SetPositionAllSprites();
+}
+
+void Player::SaveLayers() const
+{
+	ifstream oldFile(Files::GAME_DATA_FILE);
+	nlohmann::json data = json::parse(oldFile);
+	oldFile.close();
+	json playerValues;
+
+	data[Keywords::PLAYER_KEYWORD][Keywords::PLAYER_BASE_KEYWORD] = GetFileName(m_TextureBaseLocation);
+	data[Keywords::PLAYER_KEYWORD][Keywords::PLAYER_LOWER_LAYER_KEYWORD] = GetFileName(m_TextureLowerLayerLocation);
+	data[Keywords::PLAYER_KEYWORD][Keywords::PLAYER_CLOAK_KEYWORD] = GetFileName(m_TextureCloakLocation);
+	data[Keywords::PLAYER_KEYWORD][Keywords::PLAYER_FACE_ITEM_KEYWORD] = GetFileName(m_TextureFaceItemLocation);
+	data[Keywords::PLAYER_KEYWORD][Keywords::PLAYER_HAIR_KEYWORD] = GetFileName(m_TextureHairLocation);
+	data[Keywords::PLAYER_KEYWORD][Keywords::PLAYER_HAT_KEYWORD] = GetFileName(m_TextureHatLocation);
+
+	std::ofstream newFile(Files::GAME_DATA_FILE);
+	newFile << data;
+	newFile.flush();
+}
+
+string Player::GetFileName(const string& fileLocation)
+{
+	if (!fileLocation.empty())
+	{
+		const size_t found = fileLocation.find_last_of(Files::CHAR_SLASH);
+		return fileLocation.substr(found + 1);
+	}
+	return Constant::EMPTY_STRING;
+}
+
+//SPRITE
+void Player::SetPositionAllSprites() {
+	m_SpriteBase.setPosition(m_Position);
+	m_SpriteLowerLayer.setPosition(m_Position);
+	m_SpriteCloak.setPosition(m_Position);
+	m_SpriteFaceItem.setPosition(m_Position);
+	m_SpriteHair.setPosition(m_Position);
+	m_SpriteHat.setPosition(m_Position);
+}
+
+vector<Sprite*> Player::GetSprites()
+{
+	SetSpriteTextureLocationAllSprites();
+	vector<Sprite*> arr(6);
+
+	arr[0] = &m_SpriteBase;
+	arr[1] = &m_SpriteLowerLayer;
+	arr[2] = &m_SpriteCloak;
+	arr[3] = &m_SpriteFaceItem;
+	arr[4] = &m_SpriteHair;
+	arr[5] = &m_SpriteHat;
+
+	return arr;
+}
+
+void Player::SetSpriteTextureLocationAllSprites() {
+	SetSpriteTextureLocation(m_SpriteBase);
+	SetSpriteTextureLocation(m_SpriteLowerLayer);
+	SetSpriteTextureLocation(m_SpriteCloak);
+	SetSpriteTextureLocation(m_SpriteFaceItem);
+	SetSpriteTextureLocation(m_SpriteHair);
+	SetSpriteTextureLocation(m_SpriteHat);
+}
+
+void Player::SetSpriteTextureLocation(Sprite& sprite) const {
+	if (sprite.getTexture() != nullptr) {
+		sprite.setTextureRect(IntRect(m_TextureLocationX, m_TextureLocationY, 32, 40));
+	}
+}
+
+void Player::SetTextureLocation(const Vector2i location)
+{
+	m_TextureLocationX = location.x == 0 ? 16 : (GetSequenceWithFour(location.x) * 16 - 2);
+	m_TextureLocationY = location.y == 0 ? 8 : (GetSequenceWithEight(location.y) * 8 - 2);
+}
+
+int Player::GetSequenceWithFour(const int index) {
+	int sequenceNumber = 1;
+	for (int i = 0; i < index; i++) {
+		sequenceNumber += 4;
+	}
+	return sequenceNumber;
+}
+
+int Player::GetSequenceWithEight(const int index) {
+	int sequenceNumber = 1;
+	for (int i = 0; i < index; i++) {
+		sequenceNumber += 8;
+	}
+	return sequenceNumber;
+}
+
+//UPDATE
+void Player::Update(const float elapsedTime)
+{
+	if (b_RightPressed) {
+		m_Position.x += m_Speed * elapsedTime;
+	}
+
+	if (b_LeftPressed) {
+		m_Position.x -= m_Speed * elapsedTime;
+	}
+
+	if (b_UpPressed) {
+		m_Position.y -= m_Speed * elapsedTime;
+	}
+
+	if (b_DownPressed) {
+		m_Position.y += m_Speed * elapsedTime;
+	}
+
+	SetPositionAllSprites();
+
+	if (b_DownPressed || b_UpPressed || b_LeftPressed || b_RightPressed) {
+		m_SecondsSinceLastAnimationUpdate += elapsedTime;
+		PlayerAnimationUpdate(true);
+	}
+	else
+	{
+		m_SecondsSinceLastAnimationUpdate = 0;
+		m_LastButtonPressed = NONE;
+		PlayerAnimationUpdate(false);
+	}
+
+	// Update the rect for all body parts
+	const FloatRect r = GetPosition();
+
+	// Feet
+	m_Feet.left = static_cast<float>(r.left + (r.width * .25));
+	m_Feet.top = static_cast<float>(r.top + (r.height * .95));
+	m_Feet.width = static_cast<float>(r.width - (r.width * .5));
+	m_Feet.height = 1;
+
+	// Head
+	m_Head.left = static_cast<float>(r.left + (r.width * .25));
+	m_Head.top = static_cast<float>(r.top + (r.height * .21));
+	m_Head.width = static_cast<float>(r.width - (r.width * .5));
+	m_Head.height = 1;
+
+	// Right
+	m_Right.left = static_cast<float>(r.left + (r.width * .8));
+	m_Right.top = static_cast<float>(r.top + (r.height * .235));
+	m_Right.width = 1;
+	m_Right.height = static_cast<float>(r.height - (r.height * .3));
+
+	// Left
+	m_Left.left = static_cast<float>(r.left + (r.width * .2));
+	m_Left.top = static_cast<float>(r.top + (r.height * .25));
+	m_Left.width = 1;
+	m_Left.height = static_cast<float>(r.height - (r.height * 0.3));
+
+	//Update the Interactable Boxes
+	m_InteractableBox.left = m_Left.left;
+	m_InteractableBox.top = m_Head.top;
+	m_InteractableBox.width = (m_Right.left - m_Left.left) + m_Right.width;
+	m_InteractableBox.height = (m_Feet.top - m_Head.top) + m_Feet.height;
+}
+//Player animation
+void Player::PlayerAnimationUpdate(const bool isMoving)
+{
+	bool changedSheet = false;
+	if ((b_StartedPushing || (b_Pushing && m_OldLastButtonPressed != m_LastButtonPressed)) && m_LastButtonPressed != NONE && m_LastButtonPressed == m_SidePushing) {
+		b_Pushing = true;
+		if (b_StartedPushing) b_StartedPushing = false;
+		switch (m_LastButtonPressed)
+		{
+		case NONE:
+			//Should do nothing, otherwise breaking flow
+			break;
+		case UP:
+			m_CurrentSpriteSheet = m_PlayerMovement.GetPushingNorth();
+			break;
+		case RIGHT:
+			m_CurrentSpriteSheet = m_PlayerMovement.GetPushingEast();
+			break;
+		case LEFT:
+			m_CurrentSpriteSheet = m_PlayerMovement.GetPushingWest();
+			break;
+		case DOWN:
+			m_CurrentSpriteSheet = m_PlayerMovement.GetPushingSouth();
+			break;
+		}
+		m_OldLastButtonPressed = m_LastButtonPressed;
+		changedSheet = true;
+	}
+	else if (b_ChangeRunning || b_ChangePushing || (m_OldLastButtonPressed != m_LastButtonPressed && m_LastButtonPressed != NONE)) {
+		switch (m_LastButtonPressed)
+		{
+		case NONE:
+			//Should do nothing, otherwise breaking flow
+			break;
+		case UP:
+			if (isMoving)
+			{
+				if (b_ShiftPressed) m_CurrentSpriteSheet = m_PlayerMovement.GetRunningNorth();
+				else m_CurrentSpriteSheet = m_PlayerMovement.GetWalkNorth();
+			}
+			else m_CurrentSpriteSheet = m_PlayerMovement.GetIdleNorth();
+			break;
+		case RIGHT:
+			if (isMoving)
+			{
+				if (b_ShiftPressed) m_CurrentSpriteSheet = m_PlayerMovement.GetRunningEast();
+				else m_CurrentSpriteSheet = m_PlayerMovement.GetWalkEast();
+			}
+			else m_CurrentSpriteSheet = m_PlayerMovement.GetIdleEast();
+			break;
+		case LEFT:
+			if (isMoving)
+			{
+				if (b_ShiftPressed) m_CurrentSpriteSheet = m_PlayerMovement.GetRunningWest();
+				else m_CurrentSpriteSheet = m_PlayerMovement.GetWalkWest();
+			}
+			else m_CurrentSpriteSheet = m_PlayerMovement.GetIdleWest();
+			break;
+		case DOWN:
+			if (isMoving)
+			{
+				if (b_ShiftPressed) m_CurrentSpriteSheet = m_PlayerMovement.GetRunningSouth();
+				else m_CurrentSpriteSheet = m_PlayerMovement.GetWalkSouth();
+			}
+			else m_CurrentSpriteSheet = m_PlayerMovement.GetIdleSouth();
+			break;
+		}
+		if (b_ChangeRunning) b_ChangeRunning = false;
+		if (b_ChangePushing) b_ChangePushing = false;
+		m_OldLastButtonPressed = m_LastButtonPressed;
+		changedSheet = true;
+	}
+	else if (m_LastButtonPressed == NONE) {
+		switch (m_OldLastButtonPressed)
+		{
+		case NONE:
+			//Should do nothing, otherwise breaking flow
+			break;
+		case UP:
+			m_CurrentSpriteSheet = m_PlayerMovement.GetIdleNorth();
+			break;
+		case RIGHT:
+			m_CurrentSpriteSheet = m_PlayerMovement.GetIdleEast();
+			break;
+		case LEFT:
+			m_CurrentSpriteSheet = m_PlayerMovement.GetIdleWest();
+			break;
+		case DOWN:
+			m_CurrentSpriteSheet = m_PlayerMovement.GetIdleSouth();
+			break;
+		}
+		m_OldLastButtonPressed = m_LastButtonPressed;
+		changedSheet = true;
+	}
+	PlayerMovement::SingleSprite& currentSprite = { m_CurrentSprite };
+
+	if (changedSheet) {
+		if (m_SecondsSinceLastAnimationUpdate >= m_CurrentSpriteSheet.animationSpeed[0] && m_CurrentSpriteSheet.spriteLocation.size() > 1) {
+			currentSprite.animationSpeed = m_CurrentSpriteSheet.animationSpeed[1];
+			currentSprite.spriteLocation = m_CurrentSpriteSheet.spriteLocation[1];
+			currentSprite.index = 1;
+		}
+		else {
+			currentSprite.animationSpeed = m_CurrentSpriteSheet.animationSpeed[0];
+			currentSprite.spriteLocation = m_CurrentSpriteSheet.spriteLocation[0];
+			currentSprite.index = 0;
+		}
+	}
+	else {
+		if (m_SecondsSinceLastAnimationUpdate >= currentSprite.animationSpeed &&
+			m_CurrentSpriteSheet.spriteLocation.size() > static_cast<unsigned long long>(currentSprite.index) + 1) {
+			m_SecondsSinceLastAnimationUpdate = 0;
+			currentSprite.animationSpeed = m_CurrentSpriteSheet.animationSpeed[currentSprite.index + 1];
+			currentSprite.spriteLocation = m_CurrentSpriteSheet.spriteLocation[currentSprite.index + 1];
+			currentSprite.index += currentSprite.index + 1;
+		}
+		else if (m_SecondsSinceLastAnimationUpdate >= currentSprite.animationSpeed) {
+			m_SecondsSinceLastAnimationUpdate = 0;
+			currentSprite.animationSpeed = m_CurrentSpriteSheet.animationSpeed[0];
+			currentSprite.spriteLocation = m_CurrentSpriteSheet.spriteLocation[0];
+			currentSprite.index = 0;
+		}
+	}
+	SetTextureLocation(currentSprite.spriteLocation);
+}
+
+//Stop versions
+void Player::StopDown(const float position)
+{
+	m_Position.y = position;
+	SetPositionAllSprites();
+}
+
+void Player::StopRight(const float position)
+{
+	m_Position.x = position;
+	SetPositionAllSprites();
+}
+
+void Player::StopLeft(const float position)
+{
+	m_Position.x = position;
+	SetPositionAllSprites();
+}
+
+void Player::StopUp(const float position)
+{
+	m_Position.y = position;
+	SetPositionAllSprites();
+}
+
+void Player::SetPushing(const Side& side)
+{
+	m_SidePushing = side;
+	if (!b_Pushing) b_StartedPushing = true;
+}
+
+void Player::StopPushing()
+{
+	if (b_Pushing)
+	{
+		b_Pushing = false;
+		b_ChangePushing = true;
+	}
 }

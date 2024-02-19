@@ -1,6 +1,5 @@
 ﻿#pragma once
 
-#include <SFML/Graphics.hpp>
 #include "Interactable.h"
 
 //Types in which the Pickups come in
@@ -31,3 +30,5 @@ public:
 	//Getter from String to PickupType
 	static PickupType GetPickupTypeFromString(const std::string& pickupType);
 };
+
+

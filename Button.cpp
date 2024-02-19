@@ -76,7 +76,7 @@ void Button::Update(const Vector2f mousePosition, RenderWindow& mainWindow) {
 	}
 }
 
-void Button::Draw(RenderWindow& window)
+void Button::Draw(RenderWindow& window) const
 {
 	window.draw(m_Shape);
 	window.draw(m_Text);

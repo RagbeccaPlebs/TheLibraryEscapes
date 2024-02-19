@@ -115,3 +115,85 @@ void Engine::ResetGameEngine()
 	delete m_GameEngine;
 	m_GameEngine = new GameEngine(m_Window);
 }
+
+//DRAWING
+void Engine::Draw()
+{
+	// Clear the last frame
+	m_Window.clear();
+
+	//If playing use the Game Engine draw, if not see it asif the start menu is open
+	if (b_Playing)
+	{
+		m_GameEngine->Draw(m_Window);
+	}
+	else
+	{
+		m_StartMenuEngine.Draw(m_Window);
+	}
+
+	m_Window.display();
+}
+
+//INPUT
+void Engine::Input() {
+
+	if (b_Playing)
+	{
+		m_GameEngine->Input(m_Window, b_Playing, b_WasPlaying, b_EscapePressed);
+	}
+	else
+	{
+		m_StartMenuEngine.Input(m_Window, b_Playing, b_EscapePressed, b_ResetEverything);
+	}
+
+	if (b_LeftClicked)
+	{
+		b_LeftClicked = false;
+	}
+
+	if (b_EscapePressed)
+	{
+		b_EscapePressed = false;
+	}
+
+	Event event;
+	while (m_Window.pollEvent(event))
+	{
+		if (event.type == Event::MouseButtonPressed)
+		{
+			if (event.mouseButton.button == Mouse::Left)
+			{
+				b_LeftClicked = true;
+			}
+		}
+		if (event.type == Event::KeyPressed)
+		{
+			if (event.key.code == Keyboard::Escape)
+			{
+				b_EscapePressed = true;
+			}
+		}
+	}
+}
+
+//UPDATE
+void Engine::Update(const float dtAsSeconds)
+{
+	if (b_WasPlaying && !b_Playing)
+	{
+		b_WasPlaying = false;
+		m_GameEngine->ClearEverything();
+		sleep(milliseconds(2));
+		m_GameEngine = new GameEngine(m_Window);
+	}
+
+	if (b_Playing)
+	{
+		m_GameEngine->Update(dtAsSeconds, m_Window, b_LeftClicked);
+	}
+	else
+	{
+		m_StartMenuEngine.Update(dtAsSeconds, m_Window, b_LeftClicked);
+	}
+}

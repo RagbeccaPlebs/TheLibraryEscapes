@@ -1,5 +1,7 @@
 ﻿#pragma once
+
 #include "PushInteractable.h"
+
 
 //A key interactable that can be picked up and is stored in the virtual inventory
 class RandomPushInteractable final : public PushInteractable

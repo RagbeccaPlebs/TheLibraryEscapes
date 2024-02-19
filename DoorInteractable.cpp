@@ -3,7 +3,6 @@
 #include "TextureHolder.h"
 #include "TiledMapLoader.h"
 #include "nlohmann/json.hpp"
-#include <fstream>
 
 #include "Constants.h"
 
@@ -11,6 +10,7 @@ using namespace sf;
 using namespace std;
 using json = nlohmann::json;
 
+//CONSTRUCTOR
 DoorInteractable::DoorInteractable(int id, Vector2f position, const string& mapToMoveTo, Vector2f mapPositionToMoveTo,
 	const string& textureFileLocation, const string& inactiveTextureFileLocation, int keyId,
 	const string& soundFileLocation, const string& inactiveSoundFileLocation, bool isActive)

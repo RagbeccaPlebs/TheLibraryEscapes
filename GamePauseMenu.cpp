@@ -6,6 +6,7 @@
 using namespace sf;
 using namespace std;
 
+//CONSTRUCTORS
 GamePauseMenu::GamePauseMenu(const RenderWindow& mainWindow)
 {
 	const float screenWidth = static_cast<float>(mainWindow.getSize().x);
@@ -38,8 +39,58 @@ GamePauseMenu& GamePauseMenu::operator=(const GamePauseMenu& gamePauseMenu)
 	return *this;
 }
 
+//DESTRUCTORS
 void GamePauseMenu::ClearSounds()
 {
 	//NO SOUNDS YET
+}
+
+//DRAW
+void GamePauseMenu::Draw(RenderWindow& mainWindow)
+{
+	RectangleShape screenDarkener;
+	const Color darkerColor(0, 0, 0, 127);
+	screenDarkener.setSize(Vector2f(static_cast<float>(mainWindow.getSize().x), static_cast<float>(mainWindow.getSize().y)));
+	screenDarkener.setFillColor(darkerColor);
+	mainWindow.setView(m_GamePauseView);
+	mainWindow.draw(screenDarkener);
+	m_BackToMenuButton.Draw(mainWindow);
+	m_ContinueButton.Draw(mainWindow);
+}
+
+//INPUT
+void GamePauseMenu::Input(RenderWindow& mainWindow, bool& isPlayingState, bool& isPausedState, bool& wasPlaying, const bool& isEscapePressed)
+{
+	if (isEscapePressed)
+	{
+		isPausedState = false;
+	}
+
+	if (m_ContinueButton.IsPressed())
+	{
+		isPausedState = false;
+	}
+
+	if (m_BackToMenuButton.IsPressed())
+	{
+		isPlayingState = false;
+		wasPlaying = true;
+	}
+}
+
+//UPDATE
+void GamePauseMenu::Update(float dtAsSeconds, RenderWindow& mainWindow, const bool& isLeftClicked)
+{
+	mainWindow.setMouseCursorVisible(true);
+
+	m_MousePosView = mainWindow.mapPixelToCoords(Mouse::getPosition(mainWindow));
+	m_ContinueButton.Update(m_MousePosView, mainWindow);
+	m_BackToMenuButton.Update(m_MousePosView, mainWindow);
+
+	if (isLeftClicked)
+	{
+		m_ContinueButton.Press(m_MousePosView);
+		m_BackToMenuButton.Press(m_MousePosView);
+	}
 }
 

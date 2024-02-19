@@ -1,6 +1,5 @@
 ﻿#pragma once
 
-#include <SFML/Graphics.hpp>
 #include "DoorInteractableTemplate.h"
 
 //A Door interactable that can be locked, opened and 'closed but open'
@@ -14,3 +13,4 @@ public:
 
 	void Update(const float& dtAsSeconds, Player& player) override;
 };
+

@@ -1,5 +1,4 @@
 ﻿#pragma once
-#include <SFML/Graphics.hpp>
 
 #include "Button.h"
 
@@ -17,9 +16,8 @@ class GamePauseMenu
 public:
 	//Constructors, destructors and copy assignment operators
 	GamePauseMenu() = default;
-	GamePauseMenu(const sf::RenderWindow& mainWindow);
+	explicit GamePauseMenu(const sf::RenderWindow& mainWindow);
 	GamePauseMenu& operator=(const GamePauseMenu& gamePauseMenu);
-	~GamePauseMenu() = default;
 
 	//The Game Runners
 	void Draw(sf::RenderWindow& mainWindow);

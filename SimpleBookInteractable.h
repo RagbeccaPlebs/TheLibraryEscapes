@@ -1,6 +1,5 @@
 ﻿#pragma once
 
-#include <SFML/Graphics.hpp>
 #include "BookInteractable.h"
 
 //A Simple book interactable that can be picked up and is stored in the virtual inventory

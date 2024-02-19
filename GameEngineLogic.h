@@ -1,5 +1,4 @@
 ﻿#pragma once
-#include <SFML/Graphics.hpp>
 
 #include "DoorInteractable.h"
 #include "Player.h"
@@ -25,9 +24,6 @@ class GameEngineLogic
 		std::vector<PushInteractable*> pushInteractables;
 		std::vector<TiledMapLoader::MapCondition*> mapConditions;
 	};
-
-	//Finishing Conditions
-	bool b_FinishingCondition = false;
 
 	//If interactables are loaded?
 	bool b_InteractablesLoaded = false;
@@ -64,7 +60,7 @@ class GameEngineLogic
 
 	//The Game Interactables Runners
 	void UpdateInteractable(float dtAsSeconds);
-	void InputInteractable();
+	void InputInteractable(bool& hasWon);
 	void DrawInteractable(sf::RenderWindow& mainWindow) const;
 	void ClearInteractables();
 
@@ -86,10 +82,9 @@ class GameEngineLogic
 	//The Conditions Check
 	void UpdateConditions() const;
 	static void HandleOperation(const TiledMapLoader::Operation& operation);
-	void CheckForFinishingCondition();
 public:
 	//Constructors, destructors and copy assignment operators
-	GameEngineLogic(const sf::RenderWindow& mainWindow);
+	explicit GameEngineLogic(const sf::RenderWindow& mainWindow);
 	GameEngineLogic& operator=(const GameEngineLogic& gameEngineLogic);
 	~GameEngineLogic() = default;
 	GameEngineLogic(GameEngineLogic& gameEngineLogic);
@@ -97,7 +92,7 @@ public:
 	//The Game Runners
 	void Draw(sf::RenderWindow& mainWindow);
 	void Update(float dtAsSeconds, sf::RenderWindow& mainWindow, const bool& isLeftClicked);
-	void Input(sf::RenderWindow& mainWindow, bool& isPlaying, bool& isPaused, const bool& isEscapePressed);
+	void Input(sf::RenderWindow& mainWindow, bool& isPlaying, bool& isPaused, const bool& isEscapePressed, bool& hasWon);
 
 	//Load the map from the mapName and the location where the player should spawn
 	void LoadMap(const std::string& mapName, sf::Vector2f spawnLocation);
@@ -108,4 +103,6 @@ public:
 	void UnloadAll() const;
 	//Saving of Game
 	void SaveAll();
+	//Finish Check
+	static bool CheckForFinishingCondition();
 };

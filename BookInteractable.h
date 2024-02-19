@@ -1,6 +1,5 @@
 ﻿#pragma once
 
-#include <SFML/Graphics.hpp>
 #include "PickupInventoryInteractable.h"
 
 //Types in which the Books come in
@@ -28,7 +27,7 @@ protected:
 	EmotionType m_Emotion = SHY;
 
 	//Virtual Functions to pass along to child classes
-	virtual void SavePickupToFile() override = 0;
+	void SavePickupToFile() override = 0;
 public:
 	//Interaction with Interactable
 	std::pair<std::string, sf::Vector2f> Interact() override;

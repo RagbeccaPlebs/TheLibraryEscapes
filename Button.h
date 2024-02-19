@@ -1,5 +1,7 @@
 #pragma once
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Text.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 
 //States in which the Buttons come in
 enum ButtonState
@@ -37,5 +39,5 @@ public:
 
 	//Functions
 	void Update(sf::Vector2f mousePosition, sf::RenderWindow& mainWindow);
-	void Draw(sf::RenderWindow& window);
+	void Draw(sf::RenderWindow& window) const;
 };
