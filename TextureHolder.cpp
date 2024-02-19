@@ -1,3 +1,5 @@
+//This is copied from Beginning C++ Game Programming by John Horton (2nd edition). As this book influenced this code a lot.
+
 #include "TextureHolder.h"
 #include <cassert>
 
@@ -18,10 +20,9 @@ Texture& TextureHolder::GetTexture(string const& filename) {
 	const auto keyValuePair = m.find(filename);
 
 	if (keyValuePair != m.end()) {
-		//Found! So return
 		return keyValuePair->second;
 	}
-	//Load file
+	//Load file since not found yet
 	Texture& texture = m[filename];
 	texture.loadFromFile(filename);
 
