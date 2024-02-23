@@ -46,7 +46,7 @@ class PlayerCustomization
 	bool b_FilesLoaded = false;
 
 	//Initialise the buttons and place them in the correct position
-	void InitButtons(const sf::Vector2f& sizeButtons, const sf::Vector2f& sizeCustomizationButtons, const sf::Color& hoverColor, const sf::Color& idleColor, const  sf::Color& activeColor, float screenWidth, float screenHeight);
+	void InitButtons(const sf::Vector2f& paddingButtons, const sf::Vector2f& paddingCustomizationButtons, const sf::Color& hoverColor, const sf::Color& idleColor, const  sf::Color& activeColor, float screenWidth, float screenHeight);
 public:
 	//Constructors, destructors and copy assignment operators
 	PlayerCustomization() = default;

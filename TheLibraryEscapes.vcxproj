@@ -158,6 +158,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerCustomization.cpp" />
     <ClCompile Include="PlayerMovement.cpp" />
+    <ClCompile Include="PlayerTexture.cpp" />
     <ClCompile Include="PushInteractable.cpp" />
     <ClCompile Include="RandomPushInteractable.cpp" />
     <ClCompile Include="SimpleBookInteractable.cpp" />

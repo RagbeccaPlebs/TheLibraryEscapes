@@ -25,9 +25,9 @@ PlayerCustomization::PlayerCustomization(Player& player, PlayerMovement& playerM
 	const Color hoverColor(100, 100, 100);
 	const Color idleColor(70, 70, 70);
 	const Color activeColor(20, 20, 100);
-	const Vector2f sizeButtons(300.f, 100.f);
-	const Vector2f sizeCustomizationButtons(200.f, 100.f);
-	InitButtons(sizeButtons, sizeCustomizationButtons, hoverColor, idleColor, activeColor, screenWidth, screenHeight);
+	const Vector2f paddingButtons(100.f, 100.f);
+	const Vector2f paddingCustomizationButtons(50.f,50.f);
+	InitButtons(paddingButtons, paddingCustomizationButtons, hoverColor, idleColor, activeColor, screenWidth, screenHeight);
 	m_Player.Spawn(Vector2f(m_PlayerView.getCenter().x - (m_PlayerView.getSize().x / 12.0f), m_PlayerView.getCenter().y));
 }
 
@@ -58,33 +58,33 @@ PlayerCustomization::PlayerCustomization(PlayerCustomization& playerCustomizatio
 	m_TurnRightButton = playerCustomization.m_TurnRightButton;
 }
 
-void PlayerCustomization::InitButtons(const Vector2f& sizeButtons, const Vector2f& sizeCustomizationButtons, const Color& hoverColor, const Color& idleColor, const Color& activeColor, const float screenWidth, const float screenHeight)
+void PlayerCustomization::InitButtons(const Vector2f& paddingButtons, const Vector2f& paddingCustomizationButtons, const Color& hoverColor, const Color& idleColor, const Color& activeColor, const float screenWidth, const float screenHeight)
 {
-	const Vector2f continueButtonLocation(((screenWidth / 4.f) * 3.f - (sizeButtons.x / 2.f)), (screenHeight / 4.f) * 3.f);
-	const Vector2f rightButtonLocation(((screenWidth / 4.f) * 3.f - (sizeButtons.x / 2.f)), (screenHeight / 2.f) + 100.f);
-	const Vector2f leftButtonLocation(((screenWidth / 4.f) - (sizeButtons.x / 2.f)), (screenHeight / 2.f) + 100.f);
-	const Vector2f backToMenuButtonLocation(((screenWidth / 4.f) - (sizeButtons.x / 2.f)), (screenHeight / 4.f) * 3.f);
-	m_TurnLeftButton = Button(leftButtonLocation, sizeButtons, Files::FONT_FILE,
-		Message::LEFT_MESSAGE, 40, idleColor, hoverColor, activeColor);
-	m_TurnRightButton = Button(rightButtonLocation, sizeButtons, Files::FONT_FILE,
-		Message::RIGHT_MESSAGE, 40, idleColor, hoverColor, activeColor);
-	m_ContinueButton = Button(continueButtonLocation, sizeButtons, Files::FONT_FILE,
-		Message::CONTINUE_MESSAGE, 40, idleColor, hoverColor, activeColor);
-	m_BackToMenuButton = Button(backToMenuButtonLocation, sizeButtons, Files::FONT_FILE,
-		Message::EXIT_TO_MENU_MESSAGE, 40, idleColor, hoverColor, activeColor);
+	const Vector2f continueButtonLocation(((screenWidth / 4.f) * 3.f), (screenHeight / 4.f) * 3.f);
+	const Vector2f rightButtonLocation(((screenWidth / 4.f) * 3.f), (screenHeight / 2.f) + 100.f);
+	const Vector2f leftButtonLocation(((screenWidth / 4.f)), (screenHeight / 2.f) + 100.f);
+	const Vector2f backToMenuButtonLocation(((screenWidth / 4.f)), (screenHeight / 4.f) * 3.f);
+	m_TurnLeftButton = Button(leftButtonLocation, paddingButtons, Files::FONT_FILE,
+		Message::LEFT_MESSAGE, 70, idleColor, hoverColor, activeColor, true);
+	m_TurnRightButton = Button(rightButtonLocation, paddingButtons, Files::FONT_FILE,
+		Message::RIGHT_MESSAGE, 70, idleColor, hoverColor, activeColor, true);
+	m_ContinueButton = Button(continueButtonLocation, paddingButtons, Files::FONT_FILE,
+		Message::CONTINUE_MESSAGE, 70, idleColor, hoverColor, activeColor, true);
+	m_BackToMenuButton = Button(backToMenuButtonLocation, paddingButtons, Files::FONT_FILE,
+		Message::EXIT_TO_MENU_MESSAGE, 70, idleColor, hoverColor, activeColor, true);
 
-	const Vector2f baseLayerButtonLocation((((screenWidth / 16.f) * 3.f) - (sizeCustomizationButtons.x / 2.f)), (screenHeight / 4.f));
-	const Vector2f lowerLayerButtonLocation((((screenWidth / 16.f) * 5.f) - (sizeCustomizationButtons.x / 2.f)), (screenHeight / 4.f));
-	const Vector2f cloakLayerButtonLocation((((screenWidth / 16.f) * 7.f) - (sizeCustomizationButtons.x / 2.f)), (screenHeight / 4.f));
-	const Vector2f faceItemLayerButtonLocation((((screenWidth / 16.f) * 9.f) - (sizeCustomizationButtons.x / 2.f)), (screenHeight / 4.f));
-	const Vector2f hairLayerButtonLocation((((screenWidth / 16.f) * 11.f) - (sizeCustomizationButtons.x / 2.f)), (screenHeight / 4.f));
-	const Vector2f hatLayerButtonLocation((((screenWidth / 16.f) * 13.f) - (sizeCustomizationButtons.x / 2.f)), (screenHeight / 4.f));
-	m_BaseLayerButton = Button(baseLayerButtonLocation, sizeCustomizationButtons, Files::FONT_FILE, Message::SKIN_COLOR_MESSAGE, 30, idleColor, hoverColor, activeColor);
-	m_LowerLayerButton = Button(lowerLayerButtonLocation, sizeCustomizationButtons, Files::FONT_FILE, Message::CLOTHES_MESSAGE, 30, idleColor, hoverColor, activeColor);
-	m_CloakLayerButton = Button(cloakLayerButtonLocation, sizeCustomizationButtons, Files::FONT_FILE, Message::CLOAK_MESSAGE, 30, idleColor, hoverColor, activeColor);
-	m_FaceItemLayerButton = Button(faceItemLayerButtonLocation, sizeCustomizationButtons, Files::FONT_FILE, Message::FACE_ITEM_MESSAGE, 30, idleColor, hoverColor, activeColor);
-	m_HairLayerButton = Button(hairLayerButtonLocation, sizeCustomizationButtons, Files::FONT_FILE, Message::HAIR_MESSAGE, 30, idleColor, hoverColor, activeColor);
-	m_HatLayerButton = Button(hatLayerButtonLocation, sizeCustomizationButtons, Files::FONT_FILE, Message::HAT_MESSAGE, 30, idleColor, hoverColor, activeColor);
+	const Vector2f baseLayerButtonLocation((((screenWidth / 16.f) * 3.f)), (screenHeight / 4.f));
+	const Vector2f lowerLayerButtonLocation((((screenWidth / 16.f) * 5.f)), (screenHeight / 4.f));
+	const Vector2f cloakLayerButtonLocation((((screenWidth / 16.f) * 7.f)), (screenHeight / 4.f));
+	const Vector2f faceItemLayerButtonLocation((((screenWidth / 16.f) * 9.f)), (screenHeight / 4.f));
+	const Vector2f hairLayerButtonLocation((((screenWidth / 16.f) * 11.f)), (screenHeight / 4.f));
+	const Vector2f hatLayerButtonLocation((((screenWidth / 16.f) * 13.f)), (screenHeight / 4.f));
+	m_BaseLayerButton = Button(baseLayerButtonLocation, paddingCustomizationButtons, Files::FONT_FILE, Message::SKIN_COLOR_MESSAGE, 30, idleColor, hoverColor, activeColor, true);
+	m_LowerLayerButton = Button(lowerLayerButtonLocation, paddingCustomizationButtons, Files::FONT_FILE, Message::CLOTHES_MESSAGE, 30, idleColor, hoverColor, activeColor, true);
+	m_CloakLayerButton = Button(cloakLayerButtonLocation, paddingCustomizationButtons, Files::FONT_FILE, Message::CLOAK_MESSAGE, 30, idleColor, hoverColor, activeColor, true);
+	m_FaceItemLayerButton = Button(faceItemLayerButtonLocation, paddingCustomizationButtons, Files::FONT_FILE, Message::FACE_ITEM_MESSAGE, 30, idleColor, hoverColor, activeColor, true);
+	m_HairLayerButton = Button(hairLayerButtonLocation, paddingCustomizationButtons, Files::FONT_FILE, Message::HAIR_MESSAGE, 30, idleColor, hoverColor, activeColor, true);
+	m_HatLayerButton = Button(hatLayerButtonLocation, paddingCustomizationButtons, Files::FONT_FILE, Message::HAT_MESSAGE, 30, idleColor, hoverColor, activeColor, true);
 }
 
 //TURNING

@@ -18,10 +18,15 @@ EndMenu::EndMenu(const RenderWindow& mainWindow)
 	const Color hoverColor(100, 100, 100);
 	const Color idleColor(70, 70, 70);
 	const Color activeColor(20, 20, 100);
-	const Vector2f sizeButtons(300.f, 100.f);
-	const Vector2f backButtonLocation(((screenWidth / 2.f) - (sizeButtons.x / 2.f)), (screenHeight / 2.f) - 50.f);
-	m_BackButton = Button(backButtonLocation, sizeButtons, Files::FONT_FILE,
-		Message::EXIT_TO_MENU_MESSAGE, 40, idleColor, hoverColor, activeColor);
+	const Color idleDarkerColor(0, 0, 0, 50);
+	const Vector2f paddingButton(50.f, 50.f);
+	const Vector2f paddingTextBox(50.f, 50.f);
+	const Vector2f backButtonLocation(((screenWidth / 2.f)), (screenHeight / 2.f) - 50.f);
+	const Vector2f textBoxLocation(((screenWidth / 2.f)), (screenHeight / 4.f));
+	m_BackButton = Button(backButtonLocation, paddingButton, Files::FONT_FILE,
+		Message::EXIT_TO_MENU_MESSAGE, 70, idleColor, hoverColor, activeColor, true);
+	m_TextBoxButton = Button(textBoxLocation, paddingTextBox, Files::FONT_FILE,
+		Message::WON_MESSAGE, 50, idleDarkerColor, idleDarkerColor, idleDarkerColor, true);
 }
 
 EndMenu& EndMenu::operator=(const EndMenu& end)
@@ -51,6 +56,7 @@ void EndMenu::Draw(RenderWindow& mainWindow) const
 	mainWindow.setView(m_EndView);
 	mainWindow.draw(screenDarkener);
 	m_BackButton.Draw(mainWindow);
+	m_TextBoxButton.Draw(mainWindow);
 }
 
 //INPUT

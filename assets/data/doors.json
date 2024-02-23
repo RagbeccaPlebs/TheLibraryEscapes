@@ -1,0 +1,11 @@
+{
+    "door": [
+        {
+            "id": 1,
+            "inactive-sound": "assets/sound/interactable/door-locked.wav",
+            "inactive-texture": "assets/graphics/interactable/castle-door-closed.png",
+            "sound": "assets/sound/interactable/door-open.wav",
+            "texture": "assets/graphics/interactable/castle-door-open.png"
+        }
+    ]
+}

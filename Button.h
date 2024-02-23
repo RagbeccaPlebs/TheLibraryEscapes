@@ -28,8 +28,8 @@ class Button
 public:
 	//Constructors
 	Button() = default;
-	Button(const sf::Vector2f& position, const sf::Vector2f& dimension, const std::string& fontPath, const std::string& text,
-		int fontSize, const sf::Color& idleColor, const sf::Color& hoverColor, const sf::Color& activeColor);
+	Button(const sf::Vector2f& position, const sf::Vector2f& padding, const std::string& fontPath, const std::string& text,
+		int fontSize, const sf::Color& idleColor, const sf::Color& hoverColor, const sf::Color& activeColor, bool shouldBeCentered);
 
 	//Getters
 	bool IsPressed();

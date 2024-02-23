@@ -44,6 +44,7 @@ public:
 	static const inline std::string SETTINGS_KEYWORD = "settings";
 	static const inline std::string SOUND_KEYWORD = "sound";
 	static const inline std::string SUB_TYPE_KEYWORD = "sub-type";
+	static const inline std::string TEMPLATE_ID_KEYWORD = "template-id";
 	static const inline std::string TEXTURE_KEYWORD = "texture";
 	static const inline std::string TEXTURE_LOCATION_KEYWORD = "texture-location";
 	static const inline std::string TILEWIDTH_KEYWORD = "tilewidth";
@@ -78,6 +79,7 @@ public:
 	static const inline std::string RIGHT_MESSAGE = "Right";
 	static const inline std::string SKIN_COLOR_MESSAGE = "Skin Color";
 	static const inline std::string START_MESSAGE = "Start";
+	static const inline std::string WON_MESSAGE = "You have won the game! Click reset in the main menu to restart!";
 };
 
 class Files
@@ -86,6 +88,7 @@ public:
 	//Files
 	static const inline std::string GAME_DATA_FILE = "assets/data/gameData.json";
 	static const inline std::string BOOKS_DATA_FILE = "assets/data/books.json";
+	static const inline std::string DOORS_DATA_FILE = "assets/data/doors.json";
 	static const inline std::string FONT_FILE = "assets/fonts/PixelifySans-Regular.ttf";
 
 	//Standard Types
@@ -115,8 +118,9 @@ public:
 	static const inline std::string LOWER_LAYER_PLAYER_GRAPHICS_FOLDER = LOWER_LAYER_PLAYER_GRAPHICS_SEARCH_FOLDER + SLASH;
 
 	//Extensions
+	static const inline std::string DOT_JSON_EXTENSION = ".json";
 	static const inline std::string JSON_EXTENSION = ".json";
-	static const inline std::string PNG_EXTENSION = ".png";
+	static const inline std::string DOT_PNG_EXTENSION = ".png";
 };
 
 class Constant

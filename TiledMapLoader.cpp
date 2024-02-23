@@ -84,7 +84,7 @@ TiledMapLoader::MapValues TiledMapLoader::MapLoader(const std::string& name)
 	// Load the appropriate level from a text file
 	string itemToLoad = Files::MAP_FOLDER;
 
-	itemToLoad += name + Files::JSON_EXTENSION;
+	itemToLoad += name + Files::DOT_JSON_EXTENSION;
 
 	ifstream file(itemToLoad);
 	json data = json::parse(file);
@@ -95,7 +95,7 @@ TiledMapLoader::MapValues TiledMapLoader::MapLoader(const std::string& name)
 	auto** collisionsMap = new int* [1];
 	MapValues mapValues;
 
-	m_Texture = TextureHolder::GetTexture(Files::MAP_GRAPHICS_FOLDER + name + Files::PNG_EXTENSION);
+	m_Texture = TextureHolder::GetTexture(Files::MAP_GRAPHICS_FOLDER + name + Files::DOT_PNG_EXTENSION);
 
 	int tileSize = data.at(Keywords::TILEWIDTH_KEYWORD);
 
@@ -150,7 +150,7 @@ vector<Interactable*> TiledMapLoader::LoadAllInteractables(const string& nameOfF
 	vector<Interactable*> interactables;
 
 	string itemToLoad = Files::MAP_DETAILS_FOLDER;
-	itemToLoad += nameOfFile + Files::JSON_EXTENSION;
+	itemToLoad += nameOfFile + Files::DOT_JSON_EXTENSION;
 	ifstream file(itemToLoad);
 	json data = json::parse(file);
 	file.close();
@@ -258,10 +258,10 @@ KeyInteractable* TiledMapLoader::CreateKeyInteractableFromData(const json& data,
 DoorInteractable* TiledMapLoader::CreateDoorInteractableFromData(const json& data)
 {
 	const int id = data.at(Keywords::ID_KEYWORD);
-	const string textureLocation = data.at(Keywords::TEXTURE_KEYWORD);
-	const string inactiveTextureLocation = data.at(Keywords::INACTIVE_TEXTURE_KEYWORD);
-	const string soundLocation = data.at(Keywords::SOUND_KEYWORD);
-	const string inactiveSoundLocation = data.at(Keywords::INACTIVE_SOUND_KEYWORD);
+	const int templateId = data.at(Keywords::TEMPLATE_ID_KEYWORD);
+	ifstream file(Files::DOORS_DATA_FILE);
+	json doorsFileData = json::parse(file);
+	file.close();
 	const int keyId = data.at(Keywords::KEY_ID_KEYWORD);
 	const float x = data.at(Keywords::X_KEYWORD);
 	const float y = data.at(Keywords::Y_KEYWORD);
@@ -273,9 +273,21 @@ DoorInteractable* TiledMapLoader::CreateDoorInteractableFromData(const json& dat
 	{
 		active = data.at(Keywords::ACTIVATED_KEYWORD);
 	}
-	return new DoorInteractable(id, Vector2f(x, y), mapToMoveTo, Vector2f(mapX, mapY),
-		textureLocation, inactiveTextureLocation, keyId,
-		soundLocation, inactiveSoundLocation, active);
+	for (auto& doorTemplate : doorsFileData.at(Keywords::DOOR_KEYWORD))
+	{
+		if (doorTemplate.at(Keywords::ID_KEYWORD) == templateId)
+		{
+			const string textureLocation = doorTemplate.at(Keywords::TEXTURE_KEYWORD);
+			const string inactiveTextureLocation = doorTemplate.at(Keywords::INACTIVE_TEXTURE_KEYWORD);
+			const string soundLocation = doorTemplate.at(Keywords::SOUND_KEYWORD);
+			const string inactiveSoundLocation = doorTemplate.at(Keywords::INACTIVE_SOUND_KEYWORD);
+			return new DoorInteractable(id, Vector2f(x, y), mapToMoveTo, Vector2f(mapX, mapY),
+				textureLocation, inactiveTextureLocation, keyId,
+				soundLocation, inactiveSoundLocation, active);
+		}
+	}
+	const string exceptionMessage = "You used the templateId: " + std::to_string(templateId) + " which isn't implemented!";
+	throw exception(exceptionMessage.c_str());
 }
 
 SimpleBookInteractable* TiledMapLoader::CreateSimpleBookInteractableFromData(const json& data, const bool& isFound, const json& booksFile)
@@ -357,7 +369,7 @@ vector<TiledMapLoader::MapCondition*> TiledMapLoader::LoadAllMapConditions(const
 	vector<MapCondition*> mapConditions;
 
 	string itemToLoad = Files::MAP_DETAILS_FOLDER;
-	itemToLoad += nameOfFile + Files::JSON_EXTENSION;
+	itemToLoad += nameOfFile + Files::DOT_JSON_EXTENSION;
 	ifstream file(itemToLoad);
 	json data = json::parse(file);
 	file.close();
@@ -439,7 +451,7 @@ Interactable& TiledMapLoader::GetInteractableFromJsonDataAndVector(nlohmann::bas
 		}
 		}
 	}
-	throw std::exception("You added a value which isn't present... Might be smart to change the files!");
+	throw exception("You added a value which isn't present... Might be smart to change the files!");
 }
 
 TiledMapLoader::Action TiledMapLoader::GetActionFromString(const std::string& action)

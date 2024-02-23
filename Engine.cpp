@@ -108,6 +108,30 @@ void Engine::CheckIfFilesArePresent()
 		fileOfStream << jsonData;
 		fileOfStream.flush();
 	}
+
+	//Copy the initial map files to the real folder
+	const string pathIntialFolder = Files::MAP_DETAILS_INITIAL_FOLDER;
+	const string pathMapFolder = Files::MAP_DETAILS_FOLDER;
+	vector<string> entriesInMapFolder;
+	for (const auto& entry : filesystem::directory_iterator(pathMapFolder))
+	{
+		if (entry.path().extension() == Files::JSON_EXTENSION)
+		{
+			entriesInMapFolder.push_back(entry.path().filename().string());
+		}
+	}
+	for (const auto& entry : filesystem::directory_iterator(pathIntialFolder))
+	{
+		if (std::find(entriesInMapFolder.begin(), entriesInMapFolder.end(), entry.path().filename().string()) == entriesInMapFolder.end())
+		{
+			ifstream file(entry.path());
+			json data = json::parse(file);
+			file.close();
+			ofstream fileToMapDetails(Files::MAP_DETAILS_FOLDER + entry.path().filename().string());
+			fileToMapDetails << data;
+			fileToMapDetails.flush();
+		}
+	}
 }
 
 void Engine::ResetGameEngine()

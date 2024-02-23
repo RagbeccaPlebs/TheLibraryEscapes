@@ -18,13 +18,13 @@ GamePauseMenu::GamePauseMenu(const RenderWindow& mainWindow)
 	const Color hoverColor(100, 100, 100);
 	const Color idleColor(70, 70, 70);
 	const Color activeColor(20, 20, 100);
-	const Vector2f sizeButtons(300.f, 100.f);
-	const Vector2f continueButtonLocation(((screenWidth / 2.f) - (sizeButtons.x / 2.f)), (screenHeight / 2.f) - 100.f);
-	const Vector2f backToMenuButtonLocation(((screenWidth / 2.f) - (sizeButtons.x / 2.f)), (screenHeight / 2.f) + 100.f);
-	m_ContinueButton = Button(continueButtonLocation, sizeButtons, Files::FONT_FILE,
-		Message::CONTINUE_MESSAGE, 40, idleColor, hoverColor, activeColor);
-	m_BackToMenuButton = Button(backToMenuButtonLocation, sizeButtons, Files::FONT_FILE,
-		Message::EXIT_TO_MENU_MESSAGE, 40, idleColor, hoverColor, activeColor);
+	const Vector2f paddingButtons(70.f, 70.f);
+	const Vector2f continueButtonLocation((screenWidth / 2.f), screenHeight - (screenHeight / 6.f * 4.f));
+	const Vector2f backToMenuButtonLocation((screenWidth / 2.f), screenHeight - (screenHeight / 6.f * 2.5f));
+	m_ContinueButton = Button(continueButtonLocation, paddingButtons, Files::FONT_FILE,
+		Message::CONTINUE_MESSAGE, 80, idleColor, hoverColor, activeColor, true);
+	m_BackToMenuButton = Button(backToMenuButtonLocation, paddingButtons, Files::FONT_FILE,
+		Message::EXIT_TO_MENU_MESSAGE, 80, idleColor, hoverColor, activeColor, true);
 }
 
 GamePauseMenu& GamePauseMenu::operator=(const GamePauseMenu& gamePauseMenu)

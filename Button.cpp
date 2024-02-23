@@ -5,11 +5,10 @@
 using namespace sf;
 using namespace std;
 
-Button::Button(const Vector2f& position, const Vector2f& dimension, const string& fontPath, const string& text, const int fontSize, const Color& idleColor, const Color& hoverColor, const Color& activeColor)
+Button::Button(const Vector2f& position, const Vector2f& padding, const string& fontPath, const string& text,
+	const int fontSize, const Color& idleColor, const Color& hoverColor, const Color& activeColor, bool shouldBeCentered)
 {
 	m_ButtonState = BTN_IDLE;
-	m_Shape.setSize(dimension);
-	m_Shape.setPosition(position);
 	m_Text.setString(text);
 
 	m_Font = new Font();
@@ -18,8 +17,17 @@ Button::Button(const Vector2f& position, const Vector2f& dimension, const string
 	m_Text.setFont(*m_Font);
 	m_Text.setFillColor(Color::White);
 	m_Text.setCharacterSize(fontSize);
-	const float positionX = ((position.x + (dimension.x / 2.0f)) - (m_Text.getGlobalBounds().width / 2.0f));
-	const float positionY = ((position.y + (dimension.y / 2.0f)) - (m_Text.getGlobalBounds().height));
+	m_Shape.setSize(Vector2f(m_Text.getGlobalBounds().getSize().x + padding.x, m_Text.getGlobalBounds().getSize().y + padding.y));
+	if (shouldBeCentered)
+	{
+		m_Shape.setPosition(Vector2f(position.x - (m_Shape.getSize().x / 2.0f), position.y));
+	}
+	else
+	{
+		m_Shape.setPosition(Vector2f(position.x, position.y));
+	}
+	const float positionX = ((m_Shape.getPosition().x + (m_Shape.getSize().x / 2.0f)) - (m_Text.getGlobalBounds().width / 2.0f));
+	const float positionY = ((position.y + (m_Shape.getSize().y / 2.0f)) - (m_Text.getGlobalBounds().height));
 	m_Text.setPosition(positionX, positionY);
 
 	//Colors

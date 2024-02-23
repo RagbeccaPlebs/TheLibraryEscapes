@@ -10,6 +10,7 @@ class EndMenu
 
 	//Buttons
 	Button m_BackButton;
+	Button m_TextBoxButton;
 
 	//Game pause specific View
 	sf::View m_EndView;

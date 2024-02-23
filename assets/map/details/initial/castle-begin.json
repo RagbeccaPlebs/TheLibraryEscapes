@@ -22,15 +22,11 @@
     "door": [
         {
             "id": 2,
-            "inactive-sound": "assets/sound/interactable/door-locked.wav",
-            "inactive-texture": "assets/graphics/interactable/castle-door-closed.png",
+            "template-id": 1,
             "key-id": 1,
             "map": "bridge",
             "map-x": 784,
             "map-y": 920,
-            "sound": "assets/sound/interactable/door-open.wav",
-            "texture": "assets/graphics/interactable/castle-door-open.png",
-            "type": "SIMPLE",
             "x": 800,
             "y": 800
         }
