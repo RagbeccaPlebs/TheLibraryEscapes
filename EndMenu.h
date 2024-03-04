@@ -11,13 +11,17 @@ class EndMenu
 	//Buttons
 	Button m_BackButton;
 	Button m_TextBoxButton;
+	Button m_InfoButton;
 
 	//Game pause specific View
 	sf::View m_EndView;
+
+	bool b_IsLostType = false;
+	bool b_IsInitialUpdate = true;
 public:
 	//Constructors, destructors and copy assignment operators
 	EndMenu() = default;
-	explicit EndMenu(const sf::RenderWindow& mainWindow);
+	explicit EndMenu(const sf::RenderWindow& mainWindow, bool isLostMenu);
 	EndMenu& operator=(const EndMenu& end);
 
 	//The Game Runners

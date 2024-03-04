@@ -7,7 +7,7 @@ using namespace sf;
 using namespace std;
 
 //CONSTRUCTORS
-EndMenu::EndMenu(const RenderWindow& mainWindow)
+EndMenu::EndMenu(const RenderWindow& mainWindow, bool isLostMenu)
 {
 	const float screenWidth = static_cast<float>(mainWindow.getSize().x);
 	const float screenHeight = static_cast<float>(mainWindow.getSize().y);
@@ -25,8 +25,22 @@ EndMenu::EndMenu(const RenderWindow& mainWindow)
 	const Vector2f textBoxLocation(((screenWidth / 2.f)), (screenHeight / 4.f));
 	m_BackButton = Button(backButtonLocation, paddingButton, Files::FONT_FILE,
 		Message::EXIT_TO_MENU_MESSAGE, 70, idleColor, hoverColor, activeColor, true);
-	m_TextBoxButton = Button(textBoxLocation, paddingTextBox, Files::FONT_FILE,
-		Message::WON_MESSAGE, 50, idleDarkerColor, idleDarkerColor, idleDarkerColor, true);
+
+	if (isLostMenu)
+	{
+		b_IsLostType = true;
+		m_TextBoxButton = Button(textBoxLocation, paddingTextBox, Files::FONT_FILE,
+			Message::LOST_MESSAGE, 50, idleDarkerColor, idleDarkerColor, idleDarkerColor, true);
+		const Vector2f infoLocation(((screenWidth / 2.f)), (screenHeight / 3.f));
+		const string text = "You found " + to_string(0) + " out of " + to_string(GameEngine::GetAmountOfBooksTotal()) + " books";
+		m_InfoButton = Button(infoLocation, paddingTextBox, Files::FONT_FILE,
+			text, 40, idleDarkerColor, idleDarkerColor, idleDarkerColor, true);
+	} else
+	{
+		m_TextBoxButton = Button(textBoxLocation, paddingTextBox, Files::FONT_FILE,
+			Message::WON_MESSAGE, 50, idleDarkerColor, idleDarkerColor, idleDarkerColor, true);
+
+	}
 }
 
 EndMenu& EndMenu::operator=(const EndMenu& end)
@@ -57,6 +71,11 @@ void EndMenu::Draw(RenderWindow& mainWindow) const
 	mainWindow.draw(screenDarkener);
 	m_BackButton.Draw(mainWindow);
 	m_TextBoxButton.Draw(mainWindow);
+
+	if (b_IsLostType)
+	{
+		m_InfoButton.Draw(mainWindow);
+	}
 }
 
 //INPUT
@@ -79,6 +98,12 @@ void EndMenu::Input(bool& isPlayingState, bool& wasPlaying, const bool& isEscape
 void EndMenu::Update(float dtAsSeconds, RenderWindow& mainWindow, const bool& isLeftClicked)
 {
 	mainWindow.setMouseCursorVisible(true);
+
+	if (b_IsLostType && b_IsInitialUpdate)
+	{
+		b_IsInitialUpdate = false;
+		m_InfoButton.UpdateText("You found " + to_string(GameEngine::GetAmountOfFoundBooks()) + " out of " + to_string(GameEngine::GetAmountOfBooksTotal()) + " books");
+	}
 
 	m_MousePosView = mainWindow.mapPixelToCoords(Mouse::getPosition(mainWindow));
 	m_BackButton.Update(m_MousePosView, mainWindow);

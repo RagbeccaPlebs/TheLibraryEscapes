@@ -77,6 +77,8 @@ void StartMenuEngine::ResetGame(bool& resetEverything)
 	jsonData[Keywords::PLAYER_KEYWORD][Keywords::PLAYER_HAIR_KEYWORD] = Constant::EMPTY_STRING;
 	jsonData[Keywords::PLAYER_KEYWORD][Keywords::PLAYER_HAT_KEYWORD] = Constant::INITIAL_HAT_LAYER;
 
+	jsonData[Keywords::TIME_LEFT_KEYWORD] = Constant::INITIAL_TIMER;
+
 	ofstream fileOfStream(Files::GAME_DATA_FILE);
 	fileOfStream << jsonData;
 	fileOfStream.flush();

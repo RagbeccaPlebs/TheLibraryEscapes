@@ -68,22 +68,23 @@ void Engine::CheckIfFilesArePresent()
 		gameDataFile.close();
 		//Reset whole file
 		if (!data.contains(Keywords::BOOK_KEYWORD) || !data.contains(Keywords::DOOR_KEYWORD)
-			|| !data.contains(Keywords::KEY_KEYWORD) || !data.contains(Keywords::PLAYER_KEYWORD))
+			|| !data.contains(Keywords::KEY_KEYWORD) || !data.contains(Keywords::PLAYER_KEYWORD)
+			|| !data.contains(Keywords::TIME_LEFT_KEYWORD))
 		{
 			json jsonData;
 			jsonData[Keywords::BOOK_KEYWORD] = json::array();
 			jsonData[Keywords::KEY_KEYWORD] = json::array();
 			jsonData[Keywords::DOOR_KEYWORD] = json::array();
 
-			json playerLayers;
-			playerLayers[Keywords::PLAYER_BASE_KEYWORD] = Constant::INITIAL_BASE_LAYER;
-			playerLayers[Keywords::PLAYER_LOWER_LAYER_KEYWORD] = Constant::INITIAL_LOWER_LAYER_LAYER;
-			playerLayers[Keywords::PLAYER_CLOAK_KEYWORD] = Constant::INITIAL_CLOAK_LAYER;
-			playerLayers[Keywords::PLAYER_FACE_ITEM_KEYWORD] = Constant::EMPTY_STRING;
-			playerLayers[Keywords::PLAYER_HAIR_KEYWORD] = Constant::EMPTY_STRING;
-			playerLayers[Keywords::PLAYER_HAT_KEYWORD] = Constant::INITIAL_HAT_LAYER;
+			jsonData[Keywords::PLAYER_KEYWORD][Keywords::PLAYER_BASE_KEYWORD] = Constant::INITIAL_BASE_LAYER;
+			jsonData[Keywords::PLAYER_KEYWORD][Keywords::PLAYER_LOWER_LAYER_KEYWORD] = Constant::INITIAL_LOWER_LAYER_LAYER;
+			jsonData[Keywords::PLAYER_KEYWORD][Keywords::PLAYER_CLOAK_KEYWORD] = Constant::INITIAL_CLOAK_LAYER;
+			jsonData[Keywords::PLAYER_KEYWORD][Keywords::PLAYER_FACE_ITEM_KEYWORD] = Constant::EMPTY_STRING;
+			jsonData[Keywords::PLAYER_KEYWORD][Keywords::PLAYER_HAIR_KEYWORD] = Constant::EMPTY_STRING;
+			jsonData[Keywords::PLAYER_KEYWORD][Keywords::PLAYER_HAT_KEYWORD] = Constant::INITIAL_HAT_LAYER;
 
-			jsonData[Keywords::PLAYER_KEYWORD].push_back(playerLayers);
+			jsonData[Keywords::TIME_LEFT_KEYWORD] = Constant::INITIAL_TIMER;
+
 			ofstream fileOfStream(Files::GAME_DATA_FILE);
 			fileOfStream << jsonData;
 			fileOfStream.flush();
@@ -103,6 +104,8 @@ void Engine::CheckIfFilesArePresent()
 		jsonData[Keywords::PLAYER_KEYWORD][Keywords::PLAYER_FACE_ITEM_KEYWORD] = Constant::EMPTY_STRING;
 		jsonData[Keywords::PLAYER_KEYWORD][Keywords::PLAYER_HAIR_KEYWORD] = Constant::EMPTY_STRING;
 		jsonData[Keywords::PLAYER_KEYWORD][Keywords::PLAYER_HAT_KEYWORD] = Constant::INITIAL_HAT_LAYER;
+
+		jsonData[Keywords::TIME_LEFT_KEYWORD] = Constant::INITIAL_TIMER;
 
 		ofstream fileOfStream(Files::GAME_DATA_FILE);
 		fileOfStream << jsonData;

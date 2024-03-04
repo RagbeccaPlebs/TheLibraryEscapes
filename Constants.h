@@ -48,6 +48,7 @@ public:
 	static const inline std::string TEXTURE_KEYWORD = "texture";
 	static const inline std::string TEXTURE_LOCATION_KEYWORD = "texture-location";
 	static const inline std::string TILEWIDTH_KEYWORD = "tilewidth";
+	static const inline std::string TIME_LEFT_KEYWORD = "time-left";
 	static const inline std::string TYPE_KEYWORD = "type";
 	static const inline std::string WIDTH_KEYWORD = "width";
 	static const inline std::string X_KEYWORD = "x";
@@ -74,6 +75,7 @@ public:
 	static const inline std::string HAT_MESSAGE = "Hat";
 	static const inline std::string KEY_FOUND_MESSAGE_1 = "You found key: ";
 	static const inline std::string LEFT_MESSAGE = "Left";
+	static const inline std::string LOST_MESSAGE = "You have lost the game :/";
 	static const inline std::string PRESS_E_TO_INTERACT_MESSAGE = "Press E To Interact!";
 	static const inline std::string RESET_GAME_MESSAGE = "Reset Game";
 	static const inline std::string RIGHT_MESSAGE = "Right";
@@ -176,6 +178,9 @@ public:
 	static const inline std::string INITIAL_LOWER_LAYER_LAYER = "char_a_p1_1out_pfpn_v01.png";
 	static const inline std::string INITIAL_CLOAK_LAYER = "char_a_p1_2clo_lnpl_v07.png";
 	static const inline std::string INITIAL_HAT_LAYER = "char_a_p1_5hat_pnty_v03.png";
+
+	//TImer
+	static const inline float INITIAL_TIMER = 120.f;
 };
 
 enum Side

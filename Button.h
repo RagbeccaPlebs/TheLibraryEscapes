@@ -40,4 +40,6 @@ public:
 	//Functions
 	void Update(sf::Vector2f mousePosition, sf::RenderWindow& mainWindow);
 	void Draw(sf::RenderWindow& window) const;
+
+	void UpdateText(const std::string& text);
 };

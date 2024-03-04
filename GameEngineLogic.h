@@ -28,6 +28,9 @@ class GameEngineLogic
 	//If interactables are loaded?
 	bool b_InteractablesLoaded = false;
 
+	//Time left
+	float m_TimeLeft = FLT_MAX;
+
 	//PlayerMovement
 	PlayerMovement m_PlayerMovement;
 
@@ -71,6 +74,8 @@ class GameEngineLogic
 	sf::Uint8 m_Opacity = 255;
 	float m_SecondsSinceCenterOverlayActive = 0.f;
 
+	sf::Text m_Timer;
+
 	//Checks for Interactables and Interaction Range
 	void PressEToInteractCheck();
 
@@ -82,6 +87,10 @@ class GameEngineLogic
 	//The Conditions Check
 	void UpdateConditions() const;
 	static void HandleOperation(const TiledMapLoader::Operation& operation);
+
+	//Update the timer
+	void UpdateTimer(float dtAsSeconds, bool& hasLost);
+	void SetInitialTimer();
 public:
 	//Constructors, destructors and copy assignment operators
 	explicit GameEngineLogic(const sf::RenderWindow& mainWindow);
@@ -91,7 +100,7 @@ public:
 
 	//The Game Runners
 	void Draw(sf::RenderWindow& mainWindow);
-	void Update(float dtAsSeconds, sf::RenderWindow& mainWindow, const bool& isLeftClicked);
+	void Update(float dtAsSeconds, sf::RenderWindow& mainWindow, const bool& isLeftClicked, bool& hasLost);
 	void Input(sf::RenderWindow& mainWindow, bool& isPlaying, bool& isPaused, const bool& isEscapePressed, bool& hasWon);
 
 	//Load the map from the mapName and the location where the player should spawn

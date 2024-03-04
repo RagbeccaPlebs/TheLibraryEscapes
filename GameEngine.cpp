@@ -2,13 +2,17 @@
 #include "EndMenu.h"
 
 #include "nlohmann/json.hpp"
+#include <fstream>
 
 using json = nlohmann::json;
 using namespace std;
 using namespace sf;
 
 //CONSTRUCTORS
-GameEngine::GameEngine(const sf::RenderWindow& mainWindow) : m_GameEngineLogic(GameEngineLogic(mainWindow)), m_GamePausedMenu(GamePauseMenu(mainWindow)), m_EndMenu(EndMenu(mainWindow))
+GameEngine::GameEngine(const RenderWindow& mainWindow) : m_GameEngineLogic(GameEngineLogic(mainWindow)),
+                                                         m_GamePausedMenu(GamePauseMenu(mainWindow)),
+                                                         m_EndWonMenu(EndMenu(mainWindow, false)),
+                                                         m_EndLostMenu(EndMenu(mainWindow, true))
 {
 	b_Won = GameEngineLogic::CheckForFinishingCondition();
 }
@@ -21,14 +25,14 @@ GameEngine& GameEngine::operator=(const GameEngine& gameEngine)
 	}
 	this->m_GamePausedMenu = gameEngine.m_GamePausedMenu;
 	this->m_GameEngineLogic = gameEngine.m_GameEngineLogic;
-	this->m_EndMenu = gameEngine.m_EndMenu;
+	this->m_EndWonMenu = gameEngine.m_EndWonMenu;
 	return *this;
 }
 
 GameEngine::GameEngine(GameEngine& gameEngine) : m_GameEngineLogic(gameEngine.m_GameEngineLogic)
 {
 	m_GamePausedMenu = gameEngine.m_GamePausedMenu;
-	m_EndMenu = gameEngine.m_EndMenu;
+	m_EndWonMenu = gameEngine.m_EndWonMenu;
 }
 
 //DESTRUCTORS
@@ -54,11 +58,15 @@ void GameEngine::SaveAll()
 void GameEngine::Draw(RenderWindow& mainWindow)
 {
 	m_GameEngineLogic.Draw(mainWindow);
-	if (b_Won)
+	if (b_Lost)
 	{
-		m_EndMenu.Draw(mainWindow);
+		m_EndLostMenu.Draw(mainWindow);
 	}
-	if (b_Paused)
+	else if (b_Won)
+	{
+		m_EndWonMenu.Draw(mainWindow);
+	}
+	else if (b_Paused)
 	{
 		m_GamePausedMenu.Draw(mainWindow);
 	}
@@ -67,9 +75,13 @@ void GameEngine::Draw(RenderWindow& mainWindow)
 //INPUT
 void GameEngine::Input(RenderWindow& mainWindow, bool& isPlaying, bool& wasPlaying, const bool& isEscapePressed)
 {
-	if (b_Won)
+	if (b_Lost)
 	{
-		m_EndMenu.Input(isPlaying, wasPlaying, isEscapePressed);
+		m_EndLostMenu.Input(isPlaying, wasPlaying, isEscapePressed);
+	}
+	else if (b_Won)
+	{
+		m_EndWonMenu.Input(isPlaying, wasPlaying, isEscapePressed);
 	}
 	else if (b_Paused)
 	{
@@ -79,15 +91,18 @@ void GameEngine::Input(RenderWindow& mainWindow, bool& isPlaying, bool& wasPlayi
 	{
 		m_GameEngineLogic.Input(mainWindow, isPlaying, b_Paused, isEscapePressed, b_Won);
 	}
-
 }
 
 //UPDATE
 void GameEngine::Update(const float dtAsSeconds, RenderWindow& mainWindow, const bool& isLeftClicked)
 {
-	if (b_Won)
+	if (b_Lost)
 	{
-		m_EndMenu.Update(dtAsSeconds, mainWindow, isLeftClicked);
+		m_EndLostMenu.Update(dtAsSeconds, mainWindow, isLeftClicked);
+	}
+	else if (b_Won)
+	{
+		m_EndWonMenu.Update(dtAsSeconds, mainWindow, isLeftClicked);
 	}
 	else if (b_Paused)
 	{
@@ -95,6 +110,25 @@ void GameEngine::Update(const float dtAsSeconds, RenderWindow& mainWindow, const
 	}
 	else
 	{
-		m_GameEngineLogic.Update(dtAsSeconds, mainWindow, isLeftClicked);
+		m_GameEngineLogic.Update(dtAsSeconds, mainWindow, isLeftClicked, b_Lost);
 	}
+}
+
+//Getter
+int GameEngine::GetAmountOfBooksTotal()
+{
+	ifstream file(Files::BOOKS_DATA_FILE);
+	json data = json::parse(file);
+	file.close();
+
+	return static_cast<int>(data.at(Keywords::BOOK_KEYWORD).size());
+}
+
+int GameEngine::GetAmountOfFoundBooks()
+{
+	ifstream file(Files::GAME_DATA_FILE);
+	json data = json::parse(file);
+	file.close();
+
+	return static_cast<int>(data.at(Keywords::BOOK_KEYWORD).size());
 }

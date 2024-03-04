@@ -10,11 +10,13 @@ class GameEngine
 	//Game state
 	bool b_Paused = false;
 	bool b_Won = false;
+	bool b_Lost = false;
 
 	//Game Logics
 	GameEngineLogic m_GameEngineLogic;
 	GamePauseMenu m_GamePausedMenu;
-	EndMenu m_EndMenu;
+	EndMenu m_EndWonMenu;
+	EndMenu m_EndLostMenu;
 public:
 	//Constructors, destructors and copy assignment operators
 	explicit GameEngine(const sf::RenderWindow& mainWindow);
@@ -32,4 +34,7 @@ public:
 
 	//Save game
 	void SaveAll();
+
+	static int GetAmountOfBooksTotal();
+	static int GetAmountOfFoundBooks();
 };

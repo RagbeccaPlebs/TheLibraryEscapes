@@ -89,3 +89,8 @@ void Button::Draw(RenderWindow& window) const
 	window.draw(m_Shape);
 	window.draw(m_Text);
 }
+
+void Button::UpdateText(const string& text)
+{
+	m_Text.setString(text);
+}

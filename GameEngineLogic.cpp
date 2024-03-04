@@ -35,6 +35,13 @@ GameEngineLogic::GameEngineLogic(const RenderWindow& mainWindow) : m_PlayerCusto
 		m_Zoom = 0.4f;
 	}
 	m_GameView.zoom(m_Zoom);
+	SetInitialTimer();
+
+	Font* font = new Font();
+	font->loadFromFile(Files::FONT_FILE);
+
+	m_Timer = Text(format("{}", floor(m_TimeLeft)), *font, 40);
+	m_Timer.setPosition(0, 0);
 }
 
 GameEngineLogic& GameEngineLogic::operator=(const GameEngineLogic& gameEngineLogic)
@@ -104,6 +111,8 @@ void GameEngineLogic::SaveAll()
 	data[Keywords::PLAYER_LOCATION_KEYWORD][Keywords::MAP_KEYWORD] = m_Map->GetMapName();
 	data[Keywords::PLAYER_LOCATION_KEYWORD][Keywords::MAP_X_KEYWORD] = m_Player.GetPosition().left;
 	data[Keywords::PLAYER_LOCATION_KEYWORD][Keywords::MAP_Y_KEYWORD] = m_Player.GetPosition().top;
+
+	data[Keywords::TIME_LEFT_KEYWORD] = m_TimeLeft;
 
 	std::ofstream newFile(Files::GAME_DATA_FILE);
 	newFile << data;
@@ -180,6 +189,9 @@ void GameEngineLogic::Draw(RenderWindow& mainWindow)
 	{
 		TextOverlay(mainWindow, m_OverlayCenterText, CENTER, 60, true);
 	}
+
+	m_Timer.setString(format("{}", floor(m_TimeLeft)));
+	mainWindow.draw(m_Timer);
 }
 
 void GameEngineLogic::DrawInteractable(RenderWindow& mainWindow) const
@@ -339,7 +351,7 @@ void GameEngineLogic::InputInteractable(bool& hasWon)
 }
 
 //UPDATE
-void GameEngineLogic::Update(const float dtAsSeconds, RenderWindow& mainWindow, const bool& isLeftClicked)
+void GameEngineLogic::Update(const float dtAsSeconds, RenderWindow& mainWindow, const bool& isLeftClicked, bool& hasLost)
 {
 	if (b_PlayerCustomizationSelectorEnabled)
 	{
@@ -347,6 +359,8 @@ void GameEngineLogic::Update(const float dtAsSeconds, RenderWindow& mainWindow, 
 		return;
 	}
 	mainWindow.setMouseCursorVisible(false);
+
+	UpdateTimer(dtAsSeconds, hasLost);
 
 	m_Player.Update(dtAsSeconds);
 
@@ -467,6 +481,48 @@ void GameEngineLogic::HandleOperation(const TiledMapLoader::Operation& operation
 	}
 	}
 }
+
+void GameEngineLogic::SetInitialTimer()
+{
+	ifstream file(Files::GAME_DATA_FILE);
+	json data = json::parse(file);
+	file.close();
+	m_TimeLeft = data.at(Keywords::TIME_LEFT_KEYWORD);
+}
+
+void GameEngineLogic::UpdateTimer(const float dtAsSeconds, bool& hasLost)
+{
+	m_TimeLeft -= dtAsSeconds;
+
+	if (m_TimeLeft < 0)
+	{
+		ifstream file(Files::GAME_DATA_FILE);
+		json data = json::parse(file);
+		file.close();
+		data.at(Keywords::TIME_LEFT_KEYWORD) = 0;
+		std::ofstream newFile(Files::GAME_DATA_FILE);
+		newFile << data;
+		newFile.flush();
+
+		//Set to 0 for looks
+		m_TimeLeft = 0;
+		hasLost = true;
+		return;
+	}
+
+	// Saving part, every ~5 seconds
+	if (static_cast<int>(std::floor(m_TimeLeft)) % 5 == 0)
+	{
+		ifstream file(Files::GAME_DATA_FILE);
+		json data = json::parse(file);
+		file.close();
+		data.at(Keywords::TIME_LEFT_KEYWORD) = m_TimeLeft;
+		std::ofstream newFile(Files::GAME_DATA_FILE);
+		newFile << data;
+		newFile.flush();
+	}
+}
+
 
 //COLLISION DETECTION
 void GameEngineLogic::DetectCollisions(Player& player) const

@@ -63,7 +63,7 @@ public:
 	MapValues MapLoader(const std::string& name);
 private:
 	//Load interactables from map file
-	std::vector<Interactable*> LoadAllInteractables(const std::string& nameOfFile);
+	static std::vector<Interactable*> LoadAllInteractables(const std::string& nameOfFile);
 	//Load conditions from map file
 	static std::vector<MapCondition*> LoadAllMapConditions(const std::vector<Interactable*>& interactables, const std::string& nameOfFile);
 	//Get the Vertex Array from int vector data
