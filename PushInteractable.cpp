@@ -57,21 +57,26 @@ void PushInteractable::Update(const float& dtAsSeconds, Player& player)
 	if (b_Interacting)
 	{
 		b_Interacting = false;
+		bool changed = false;
 		const Vector2f oldPosition = m_Position;
 		if (player.GetRightPressed() && m_SidePlayerIsOn == RIGHT) {
 			m_Position.x += m_Speed * dtAsSeconds;
+			changed = true;
 		}
 
 		if (player.GetLeftPressed() && m_SidePlayerIsOn == LEFT) {
 			m_Position.x -= m_Speed * dtAsSeconds;
+			changed = true;
 		}
 
 		if (player.GetUpPressed() && m_SidePlayerIsOn == UP) {
 			m_Position.y -= m_Speed * dtAsSeconds;
+			changed = true;
 		}
 
 		if (player.GetDownPressed() && m_SidePlayerIsOn == DOWN) {
 			m_Position.y += m_Speed * dtAsSeconds;
+			changed = true;
 		}
 
 		const auto box = FloatRect(m_Position.x, m_Position.y, m_Sprite.getGlobalBounds().width, m_Sprite.getGlobalBounds().height);
@@ -82,11 +87,26 @@ void PushInteractable::Update(const float& dtAsSeconds, Player& player)
 			m_InteractionBox = FloatRect(m_Position.x - 1.f, m_Position.y - 1.f,
 				m_Sprite.getGlobalBounds().width + 2.f, m_Sprite.getGlobalBounds().height + 2.f);
 			m_CollisionBox = box;
+			if (changed)
+			{
+				PlaySoundOfNotPlaying();
+			}
+			else
+			{
+				if (GetPushSoundStatus() == SoundSource::Playing)
+				{
+					StopPushSound();
+				}
+			}
 		}
 		else
 		{
 			m_Position = oldPosition;
 		}
+	}
+	else
+	{
+		int i = 0;
 	}
 }
 
@@ -183,6 +203,10 @@ bool PushInteractable::CanInteract(Player& player)
 		return true;
 	}
 	player.StopPushing();
+	if (GetPushSoundStatus() == SoundSource::Playing)
+	{
+		StopPushSound();
+	}
 	return false;
 }
 
@@ -215,6 +239,14 @@ void PushInteractable::PlayPushSound()
 void PushInteractable::StopPushSound()
 {
 	m_PushSound.stop();
+}
+
+void PushInteractable::PlaySoundOfNotPlaying()
+{
+	if (GetPushSoundStatus() != SoundSource::Playing)
+	{
+		PlayPushSound();
+	}
 }
 
 SoundSource::Status PushInteractable::GetPushSoundStatus() const

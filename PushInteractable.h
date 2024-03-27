@@ -33,6 +33,7 @@ public:
 	//Sound interaction
 	void PlayPushSound();
 	void StopPushSound();
+	void PlaySoundOfNotPlaying();
 	sf::SoundSource::Status GetPushSoundStatus() const;
 	void PlayAlternativeSound();
 

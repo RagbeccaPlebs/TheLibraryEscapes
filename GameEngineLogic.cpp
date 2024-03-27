@@ -291,10 +291,6 @@ void GameEngineLogic::Input(RenderWindow& mainWindow, bool& isPlaying, bool& isP
 				b_CenterOverlayActive = true;
 				pushInteractable->PlayAlternativeSound();
 			}
-			else if (pushInteractableReturn.first == Keywords::PUSHABLE_OBJECT_KEYWORD)
-			{
-				pushInteractable->PlayPushSound();
-			}
 		}
 		else
 		{
