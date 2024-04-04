@@ -17,7 +17,6 @@ DoorInteractable::DoorInteractable(int id, Vector2f position, const string& mapT
 {
 	m_Id = id;
 	m_InteractableType = DOOR;
-	m_DoorInteractableType = SIMPLE_DOOR;
 	b_IsOpen = CheckIfDoorIsActive(id);
 	b_Active = isActive;
 
@@ -38,10 +37,18 @@ DoorInteractable::DoorInteractable(int id, Vector2f position, const string& mapT
 	m_InteractionBox = FloatRect(position.x - (Constant::STANDARD_TILE_SIZE / 2.f), position.y - (Constant::STANDARD_TILE_SIZE / 2.f),
 		textureWidth + (Constant::STANDARD_TILE_SIZE), textureHeight + (Constant::STANDARD_TILE_SIZE));
 
-	m_TextureLocation = textureFileLocation;
-	m_InactiveTextureLocation = inactiveTextureFileLocation;
-	m_SoundLocation = soundFileLocation;
-	m_InactiveSoundLocation = inactiveSoundFileLocation;
+	if (!b_IsOpen && !b_Active)
+	{
+		m_TextureLocation = textureFileLocation;
+		m_InactiveTextureLocation = inactiveTextureFileLocation;
+		m_SoundLocation = soundFileLocation;
+		m_InactiveSoundLocation = inactiveSoundFileLocation;
+	} else
+	{
+		m_TextureLocation = textureFileLocation;
+		m_SoundLocation = soundFileLocation;
+	}
+
 }
 
 void DoorInteractable::Update(const float& dtAsSeconds, Player& player)

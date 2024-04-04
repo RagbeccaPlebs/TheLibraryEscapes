@@ -718,10 +718,7 @@ void GameEngineLogic::AddInteractableToCorrectVector(const vector<Interactable*>
 		else if (interactable->GetInteractableType() == DOOR)
 		{
 			auto* doorInteractableTemplate = dynamic_cast<DoorInteractableTemplate*>(interactable);
-			if (doorInteractableTemplate->GetDoorInteractableType() == SIMPLE_DOOR)
-			{
-				m_GameMapObjects.doorInteractables.push_back(dynamic_cast<DoorInteractable*>(doorInteractableTemplate));
-			}
+			m_GameMapObjects.doorInteractables.push_back(dynamic_cast<DoorInteractable*>(doorInteractableTemplate));
 		}
 		else if (interactable->GetInteractableType() == PUSH_OBJECT)
 		{

@@ -72,7 +72,10 @@ VertexArray TiledMapLoader::GetVertexArrayFromData(const vector<int>& data, cons
 			currentVertex += Constant::VERTS_IN_QUAD;
 		}
 	}
-	rVa.resize(currentVertex - Constant::VERTS_IN_QUAD);
+	if (currentVertex > 0)
+	{
+		rVa.resize(currentVertex - Constant::VERTS_IN_QUAD);
+	}
 	return rVa;
 }
 
@@ -422,10 +425,6 @@ Interactable& TiledMapLoader::GetInteractableFromJsonDataAndVector(nlohmann::bas
 		{
 		case DOOR: {
 			const auto* doorInteractableTemplate = dynamic_cast<DoorInteractableTemplate*>(interactable);
-			if (doorInteractableTemplate->GetDoorInteractableType() != DoorInteractableTemplate::GetDoorInteractableTypeFromString(jsonData.at(Keywords::SUB_TYPE_KEYWORD)))
-			{
-				break;
-			}
 			if (doorInteractableTemplate->GetId() != id)
 			{
 				break;

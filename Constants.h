@@ -156,9 +156,6 @@ public:
 	static const inline std::string LOCATION_UPPERCASE = "LOCATION";
 	static constexpr float MAX_DISTANCE_FROM_FINAL_POSITION = 2.f;
 
-	//Door Types
-	static const inline std::string SIMPLE_UPPERCASE = "SIMPLE";
-
 	//Map
 	static constexpr int STANDARD_TILE_SIZE = 16;
 	static constexpr int VERTS_IN_QUAD = 4;

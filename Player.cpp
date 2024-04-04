@@ -337,6 +337,8 @@ vector<Sprite*> Player::GetSprites()
 	SetSpriteTextureLocationAllSprites();
 	vector<Sprite*> arr(6);
 
+	printf("x: %f, y: %f\n", m_Position.x, m_Position.y);
+
 	arr[0] = &m_SpriteBase;
 	arr[1] = &m_SpriteLowerLayer;
 	arr[2] = &m_SpriteCloak;

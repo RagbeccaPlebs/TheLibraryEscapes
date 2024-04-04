@@ -5,12 +5,6 @@
 
 #include "Interactable.h"
 
-//Types in which the Doors come in
-enum DoorInteractableType
-{
-	SIMPLE_DOOR
-};
-
 //A parent Door Template for Door Interactables
 class DoorInteractableTemplate : public Interactable
 {
@@ -19,8 +13,6 @@ protected:
 	bool b_IsOpen;
 	int m_KeyId;
 
-	//Interaction Values
-	DoorInteractableType m_DoorInteractableType;
 	std::string m_MapToMoveToName;
 	sf::Vector2f m_MapToMoveToPosition;
 
@@ -57,10 +49,6 @@ public:
 	//Getters
 	bool GetOpen() const;
 	int GetKeyId() const;
-	DoorInteractableType GetDoorInteractableType() const;
 
 	void Unload() override;
-
-	//Getter from String to DoorInteractableType
-	static DoorInteractableType GetDoorInteractableTypeFromString(const std::string& doorInteractableType);
 };

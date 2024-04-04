@@ -67,11 +67,6 @@ int DoorInteractableTemplate::GetKeyId() const
 	return m_KeyId;
 }
 
-DoorInteractableType DoorInteractableTemplate::GetDoorInteractableType() const
-{
-	return m_DoorInteractableType;
-}
-
 void DoorInteractableTemplate::Unload()
 {
 	m_Sound.resetBuffer();
@@ -114,17 +109,6 @@ bool DoorInteractableTemplate::CheckIfKeyIsFound() const
 		}
 	}
 	return isSame;
-}
-
-DoorInteractableType DoorInteractableTemplate::GetDoorInteractableTypeFromString(const std::string& doorInteractableType)
-{
-	unordered_map<string, DoorInteractableType> const table =
-	{ {Constant::SIMPLE_UPPERCASE, SIMPLE_DOOR}};
-	const auto it = table.find(doorInteractableType);
-	if (it != table.end()) {
-		return it->second;
-	}
-	return SIMPLE_DOOR;
 }
 
 //Check if door is active from the Game Data File, if there: true otherwise false.
