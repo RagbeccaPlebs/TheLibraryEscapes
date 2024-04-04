@@ -16,6 +16,7 @@ Map::Map(const string& name)
 	m_TextureTiles.setSmooth(false);
 	m_Interactables = mapValues.interactables;
 	m_MapConditions = mapValues.mapConditions;
+	m_TileSize = mapValues.tileSize;
 }
 
 Map::Map(const Map& m) {
@@ -42,6 +43,7 @@ Map& Map::operator=(const Map& other)
 		this->m_TextureTiles = other.m_TextureTiles;
 		this->m_MapSize = other.m_MapSize;
 		this->m_Interactables = other.m_Interactables;
+		this->m_TileSize = other.m_TileSize;
 	}
 	return *this;
 }
@@ -80,4 +82,9 @@ std::vector<Interactable*> Map::GetInteractables()
 vector<TiledMapLoader::MapCondition*> Map::GetMapConditions()
 {
 	return m_MapConditions;
+}
+
+int Map::GetTileSize() const
+{
+	return m_TileSize;
 }

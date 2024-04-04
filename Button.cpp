@@ -5,16 +5,13 @@
 using namespace sf;
 using namespace std;
 
-Button::Button(const Vector2f& position, const Vector2f& padding, const string& fontPath, const string& text,
+Button::Button(const Vector2f& position, const Vector2f& padding, const Font& font, const string& text,
 	const int fontSize, const Color& idleColor, const Color& hoverColor, const Color& activeColor, bool shouldBeCentered)
 {
 	m_ButtonState = BTN_IDLE;
 	m_Text.setString(text);
 
-	m_Font = new Font();
-	m_Font->loadFromFile(fontPath);
-
-	m_Text.setFont(*m_Font);
+	m_Text.setFont(font);
 	m_Text.setFillColor(Color::White);
 	m_Text.setCharacterSize(fontSize);
 	m_Shape.setSize(Vector2f(m_Text.getGlobalBounds().getSize().x + padding.x, m_Text.getGlobalBounds().getSize().y + padding.y));

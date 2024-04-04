@@ -19,13 +19,13 @@ class GameEngine
 	EndMenu m_EndLostMenu;
 public:
 	//Constructors, destructors and copy assignment operators
-	explicit GameEngine(const sf::RenderWindow& mainWindow);
+	explicit GameEngine(const sf::RenderWindow& mainWindow, const sf::Font& font);
 	GameEngine& operator=(const GameEngine& gameEngine);
 	~GameEngine();
 	GameEngine(GameEngine& gameEngine);
 
 	//Game Logic Runners
-	void Draw(sf::RenderWindow& mainWindow);
+	void Draw(sf::RenderWindow& mainWindow, const sf::Font& font);
 	void Update(float dtAsSeconds, sf::RenderWindow& mainWindow, const bool& isLeftClicked);
 	void Input(sf::RenderWindow& mainWindow, bool& isPlaying, bool& wasPlaying, const bool& isEscapePressed);
 

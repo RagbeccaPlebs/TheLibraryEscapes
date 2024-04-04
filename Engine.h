@@ -43,6 +43,9 @@ private:
 
 	//Reset all the GameEngine
 	void ResetGameEngine();
+
+	//Font for text
+	sf::Font m_Font;
 public:
 	Engine();
 

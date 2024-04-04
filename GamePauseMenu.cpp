@@ -7,7 +7,7 @@ using namespace sf;
 using namespace std;
 
 //CONSTRUCTORS
-GamePauseMenu::GamePauseMenu(const RenderWindow& mainWindow)
+GamePauseMenu::GamePauseMenu(const RenderWindow& mainWindow, const Font& font)
 {
 	const float screenWidth = static_cast<float>(mainWindow.getSize().x);
 	const float screenHeight = static_cast<float>(mainWindow.getSize().y);
@@ -21,9 +21,9 @@ GamePauseMenu::GamePauseMenu(const RenderWindow& mainWindow)
 	const Vector2f paddingButtons(70.f, 70.f);
 	const Vector2f continueButtonLocation((screenWidth / 2.f), screenHeight - (screenHeight / 6.f * 4.f));
 	const Vector2f backToMenuButtonLocation((screenWidth / 2.f), screenHeight - (screenHeight / 6.f * 2.5f));
-	m_ContinueButton = Button(continueButtonLocation, paddingButtons, Files::FONT_FILE,
+	m_ContinueButton = Button(continueButtonLocation, paddingButtons, font,
 		Message::CONTINUE_MESSAGE, 80, idleColor, hoverColor, activeColor, true);
-	m_BackToMenuButton = Button(backToMenuButtonLocation, paddingButtons, Files::FONT_FILE,
+	m_BackToMenuButton = Button(backToMenuButtonLocation, paddingButtons, font,
 		Message::EXIT_TO_MENU_MESSAGE, 80, idleColor, hoverColor, activeColor, true);
 }
 

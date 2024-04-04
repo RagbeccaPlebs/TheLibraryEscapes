@@ -9,10 +9,10 @@ using namespace std;
 using namespace sf;
 
 //CONSTRUCTORS
-GameEngine::GameEngine(const RenderWindow& mainWindow) : m_GameEngineLogic(GameEngineLogic(mainWindow)),
-                                                         m_GamePausedMenu(GamePauseMenu(mainWindow)),
-                                                         m_EndWonMenu(EndMenu(mainWindow, false)),
-                                                         m_EndLostMenu(EndMenu(mainWindow, true))
+GameEngine::GameEngine(const RenderWindow& mainWindow, const Font& font) : m_GameEngineLogic(GameEngineLogic(mainWindow, font)),
+                                                         m_GamePausedMenu(GamePauseMenu(mainWindow, font)),
+                                                         m_EndWonMenu(EndMenu(mainWindow, false, font)),
+                                                         m_EndLostMenu(EndMenu(mainWindow, true, font))
 {
 	b_Won = GameEngineLogic::CheckForFinishingCondition();
 }
@@ -55,9 +55,9 @@ void GameEngine::SaveAll()
 }
 
 //DRAW
-void GameEngine::Draw(RenderWindow& mainWindow)
+void GameEngine::Draw(RenderWindow& mainWindow, const Font& font)
 {
-	m_GameEngineLogic.Draw(mainWindow);
+	m_GameEngineLogic.Draw(mainWindow, font);
 	if (b_Lost)
 	{
 		m_EndLostMenu.Draw(mainWindow);

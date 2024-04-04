@@ -9,7 +9,7 @@ using namespace std;
 using json = nlohmann::json;
 
 //CONSTRUCTOR
-StartMenuEngine::StartMenuEngine()
+StartMenuEngine::StartMenuEngine(const Font& font)
 {
 	m_StartMenuView.setSize(static_cast<float>(VideoMode::getDesktopMode().width), static_cast<float>(VideoMode::getDesktopMode().height));
 
@@ -22,11 +22,11 @@ StartMenuEngine::StartMenuEngine()
 	const Vector2f startButtonLocation((middleWidth), middleHeight - 150.f);
 	const Vector2f exitButtonLocation((middleWidth), middleHeight + 50.f);
 	const Vector2f resetGameButtonLocation(0, 0);
-	m_StartButton = Button(startButtonLocation, paddingButtons, Files::FONT_FILE,
+	m_StartButton = Button(startButtonLocation, paddingButtons, font,
 		Message::START_MESSAGE, 80, idleColor, hoverColor, activeColor, true);
-	m_ExitButton = Button(exitButtonLocation, paddingButtons, Files::FONT_FILE,
+	m_ExitButton = Button(exitButtonLocation, paddingButtons, font,
 		Message::EXIT_MESSAGE, 80, idleColor, hoverColor, activeColor, true);
-	m_ResetGameButton = Button(resetGameButtonLocation, paddingButtons, Files::FONT_FILE,
+	m_ResetGameButton = Button(resetGameButtonLocation, paddingButtons, font,
 		Message::RESET_GAME_MESSAGE, 40, idleColor, hoverColor, activeColor, false);
 }
 

@@ -51,12 +51,12 @@ public:
 	struct MapValues {
 		int** collisionsMap;
 		sf::Vector2i mapSize;
-		std::map<std::string, sf::Vector2f> playerSpawnLocations;
 		std::string mapName;
 		std::vector<MapLayer> mapLayers;
 		sf::Texture texture;
 		std::vector<Interactable*> interactables;
 		std::vector<MapCondition*> mapConditions;
+		int tileSize;
 	};
 
 	//Get Map

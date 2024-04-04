@@ -9,7 +9,7 @@ using namespace std;
 using namespace sf;
 
 //CONSTRUCTORS
-GameEngineLogic::GameEngineLogic(const RenderWindow& mainWindow) : m_PlayerCustomization(PlayerCustomization(m_Player, m_PlayerMovement, mainWindow))
+GameEngineLogic::GameEngineLogic(const RenderWindow& mainWindow, const Font& font) : m_PlayerCustomization(PlayerCustomization(m_Player, m_PlayerMovement, mainWindow, font))
 {
 	b_InteractablesLoaded = false;
 	ifstream oldFile(Files::GAME_DATA_FILE);
@@ -22,7 +22,7 @@ GameEngineLogic::GameEngineLogic(const RenderWindow& mainWindow) : m_PlayerCusto
 	}
 	else
 	{
-		LoadMap("bridge", Vector2f(784.f, 920.f));
+		LoadMap("bridge", Vector2f(800.f, 900.f));
 	}
 	m_GameView.setSize(Vector2f(static_cast<float>(mainWindow.getSize().x), static_cast<float>(mainWindow.getSize().y)));
 	m_OverlayView.setSize(Vector2f(static_cast<float>(mainWindow.getSize().x), static_cast<float>(mainWindow.getSize().y)));
@@ -37,10 +37,7 @@ GameEngineLogic::GameEngineLogic(const RenderWindow& mainWindow) : m_PlayerCusto
 	m_GameView.zoom(m_Zoom);
 	SetInitialTimer();
 
-	Font* font = new Font();
-	font->loadFromFile(Files::FONT_FILE);
-
-	m_Timer = Text(format("{}", floor(m_TimeLeft)), *font, 40);
+	m_Timer = Text(format("{}", floor(m_TimeLeft)), font, 40);
 	m_Timer.setPosition(0, 0);
 }
 
@@ -148,7 +145,7 @@ bool GameEngineLogic::CheckForFinishingCondition()
 }
 
 //DRAW
-void GameEngineLogic::Draw(RenderWindow& mainWindow)
+void GameEngineLogic::Draw(RenderWindow& mainWindow, const Font& font)
 {
 
 	if (b_PlayerCustomizationSelectorEnabled)
@@ -159,12 +156,12 @@ void GameEngineLogic::Draw(RenderWindow& mainWindow)
 
 	mainWindow.setView(m_GameView);
 
-	const int amountOfMapLayers = static_cast<int>(m_Map->GetMapLayers().size());
+	const int amountOfMapLayers = static_cast<int>(m_ViewableMapLayers.size());
 	for (int i = 0; i < amountOfMapLayers; i++)
 	{
-		for (TiledMapLoader::MapLayer& mapLayer : m_Map->GetMapLayers())
+		for (TiledMapLoader::MapLayer& mapLayer : m_ViewableMapLayers)
 		{
-			if (mapLayer.id == i + 1 && mapLayer.name != Constant::MAP_COLLISION_LEVEL_NAME)
+			if (mapLayer.id == i + 1)
 			{
 				mainWindow.draw(mapLayer.rVa, &m_Map->GetTextureTiles());
 			}
@@ -183,11 +180,11 @@ void GameEngineLogic::Draw(RenderWindow& mainWindow)
 	mainWindow.setView(m_OverlayView);
 	if (b_BottomOverlayActive)
 	{
-		TextOverlay(mainWindow, Message::PRESS_E_TO_INTERACT_MESSAGE, BOTTOM, 40, false);
+		TextOverlay(mainWindow, Message::PRESS_E_TO_INTERACT_MESSAGE, BOTTOM, 40, false, font);
 	}
 	if (b_CenterOverlayActive)
 	{
-		TextOverlay(mainWindow, m_OverlayCenterText, CENTER, 60, true);
+		TextOverlay(mainWindow, m_OverlayCenterText, CENTER, 60, true, font);
 	}
 
 	m_Timer.setString(format("{}", floor(m_TimeLeft)));
@@ -213,14 +210,11 @@ void GameEngineLogic::DrawInteractable(RenderWindow& mainWindow) const
 	}
 }
 
-void GameEngineLogic::TextOverlay(RenderWindow& mainWindow, const string& writtenText, const OverlayLocationInView locationInView, int fontSize, bool useOpacity) const
+void GameEngineLogic::TextOverlay(RenderWindow& mainWindow, const string& writtenText, const OverlayLocationInView locationInView, int fontSize, bool useOpacity, const Font& font) const
 {
 	RectangleShape shape;
 	Text text;
 	text.setString(writtenText);
-
-	Font font;
-	font.loadFromFile(Files::FONT_FILE);
 
 	text.setFont(font);
 
@@ -365,6 +359,8 @@ void GameEngineLogic::Update(const float dtAsSeconds, RenderWindow& mainWindow, 
 
 	m_GameView.setCenter(m_Player.GetCenter());
 
+	UpdateMapView();
+
 	UpdateInteractable(dtAsSeconds);
 
 	PressEToInteractCheck();
@@ -376,6 +372,74 @@ void GameEngineLogic::Update(const float dtAsSeconds, RenderWindow& mainWindow, 
 
 	UpdateConditions();
 }
+
+void GameEngineLogic::UpdateMapView()
+{
+	//If true do nothing
+	Vector2i minBounds = Vector2i(static_cast<int>(m_GameView.getCenter().x - (m_GameView.getSize().x / 2)),
+		static_cast<int>(m_GameView.getCenter().y - (m_GameView.getSize().y / 2)));
+	Vector2i maxBounds = Vector2i(static_cast<int>(m_GameView.getCenter().x + (m_GameView.getSize().x / 2)),
+		static_cast<int>(m_GameView.getCenter().y + (m_GameView.getSize().y / 2)));
+	if (m_OldMinBoundTiles.x == minBounds.x && m_OldMinBoundTiles.y == minBounds.y
+		&& m_OldMaxBoundTiles.x == maxBounds.x && m_OldMaxBoundTiles.y == maxBounds.y)
+	{
+		//Do nothing
+	}
+	else
+	{
+		UpdateCompleteMapView(minBounds, maxBounds);
+	}
+}
+
+void GameEngineLogic::UpdateCompleteMapView(Vector2i minBounds, Vector2i maxBounds)
+{
+	vector<TiledMapLoader::MapLayer> mapLayers;
+	int amountOfTilesNeededX = (maxBounds.x / m_Map->GetTileSize()) - (minBounds.x / m_Map->GetTileSize());
+	int amountOfTilesNeededY = (maxBounds.y / m_Map->GetTileSize()) - (minBounds.y / m_Map->GetTileSize());
+	for (TiledMapLoader::MapLayer mapLayer : m_Map->GetMapLayers())
+	{
+		if (mapLayer.name == Constant::MAP_COLLISION_LEVEL_NAME)
+		{
+			continue;
+		}
+		VertexArray tempVertexArray;
+		tempVertexArray.setPrimitiveType(Quads);
+		tempVertexArray.resize(amountOfTilesNeededX * amountOfTilesNeededY * Constant::VERTS_IN_QUAD);
+		for (int i = 0; i < mapLayer.rVa.getVertexCount(); i += Constant::VERTS_IN_QUAD)
+		{
+			const Vector2f pos1 = mapLayer.rVa[i].position;
+			const Vector2f pos2 = mapLayer.rVa[i + 1].position;
+			const Vector2f pos3 = mapLayer.rVa[i + 2].position;
+			const Vector2f pos4 = mapLayer.rVa[i + 3].position;
+			if (CheckIfPositionsAreInBounds(minBounds, maxBounds, pos1, pos2, pos3, pos4))
+			{
+				tempVertexArray.append(mapLayer.rVa[i]);
+				tempVertexArray.append(mapLayer.rVa[i + 1]);
+				tempVertexArray.append(mapLayer.rVa[i + 2]);
+				tempVertexArray.append(mapLayer.rVa[i + 3]);
+			}
+		}
+		TiledMapLoader::MapLayer tempMapLayer{ tempVertexArray, mapLayer.id, mapLayer.name };
+		mapLayers.push_back(tempMapLayer);
+	}
+	m_ViewableMapLayers = mapLayers;
+	m_OldMinBoundTiles = minBounds;
+	m_OldMaxBoundTiles = maxBounds;
+}
+
+bool GameEngineLogic::CheckIfPositionsAreInBounds(sf::Vector2i minBounds, sf::Vector2i maxBounds, sf::Vector2f pos1, sf::Vector2f pos2, sf::Vector2f pos3, sf::Vector2f pos4)
+{
+	const auto minBoundsFloat = Vector2f(static_cast<float>(minBounds.x), static_cast<float>(minBounds.y));
+	const auto maxBoundsFloat = Vector2f(static_cast<float>(maxBounds.x), static_cast<float>(maxBounds.y));
+	if ((minBoundsFloat.x < pos1.x && maxBoundsFloat.x > pos1.x && minBoundsFloat.y < pos1.y && maxBoundsFloat.y > pos1.y) ||
+		(minBoundsFloat.x < pos2.x && maxBoundsFloat.x > pos2.x && minBoundsFloat.y < pos2.y && maxBoundsFloat.y > pos2.y) ||
+		(minBoundsFloat.x < pos3.x && maxBoundsFloat.x > pos3.x && minBoundsFloat.y < pos3.y && maxBoundsFloat.y > pos3.y) ||
+		(minBoundsFloat.x < pos4.x && maxBoundsFloat.x > pos4.x && minBoundsFloat.y < pos4.y && maxBoundsFloat.y > pos4.y)) {
+		return true;
+	}
+	return false;
+}
+
 
 void GameEngineLogic::UpdateInteractable(const float dtAsSeconds)
 {
@@ -411,7 +475,10 @@ void GameEngineLogic::PressEToInteractCheck()
 		}
 	}
 
-	b_BottomOverlayActive = isOverlayApplicable;
+	if (isOverlayApplicable)
+	{
+		b_BottomOverlayActive = true;
+	}
 }
 
 void GameEngineLogic::UpdateCenterOverlay(const float dtAsSeconds)

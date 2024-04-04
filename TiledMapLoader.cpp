@@ -26,6 +26,19 @@ VertexArray TiledMapLoader::GetVertexArrayFromData(const vector<int>& data, cons
 	{
 		for (int y = 0; y < mapSize.x; y++)
 		{
+			const int dataIndex = (mapSize.x * x) + y;
+			//Adjust with -1 otherwise it will grab the data 1 too far, but only if bigger than 0
+			const int correctData = data[dataIndex] > 0 ? data[dataIndex] - 1 : 0;
+
+			// Which tile from the sprite sheet should we use
+			const int horizontalOffset = static_cast<int>((correctData * tileSize) % m_Texture.getSize().x);
+			const int verticalOffset = static_cast<int>((correctData * tileSize) / m_Texture.getSize().x);
+
+			if (horizontalOffset == 0 && verticalOffset == 0)
+			{
+				continue;
+			}
+
 			// Position each vertex in the current quad
 			rVa[static_cast<size_t>(currentVertex)].position =
 				Vector2f(static_cast<float>(y * tileSize),
@@ -43,14 +56,6 @@ VertexArray TiledMapLoader::GetVertexArrayFromData(const vector<int>& data, cons
 				Vector2f(static_cast<float>((y * tileSize)),
 					static_cast<float>((x * tileSize) + tileSize));
 
-			const int dataIndex = (mapSize.x * x) + y;
-			//Adjust with -1 otherwise it will grab the data 1 too far, but only if bigger than 0
-			const int correctData = data[dataIndex] > 0 ? data[dataIndex] - 1 : 0;
-
-			// Which tile from the sprite sheet should we use
-			const int horizontalOffset = static_cast<int>((correctData * tileSize) % m_Texture.getSize().x);
-			const int verticalOffset = static_cast<int>((correctData * tileSize) / m_Texture.getSize().x);
-
 			rVa[currentVertex].texCoords =
 				Vector2f(static_cast<float>(horizontalOffset), static_cast<float>(tileSize * verticalOffset));
 
@@ -67,6 +72,7 @@ VertexArray TiledMapLoader::GetVertexArrayFromData(const vector<int>& data, cons
 			currentVertex += Constant::VERTS_IN_QUAD;
 		}
 	}
+	rVa.resize(currentVertex - Constant::VERTS_IN_QUAD);
 	return rVa;
 }
 
@@ -138,6 +144,7 @@ TiledMapLoader::MapValues TiledMapLoader::MapLoader(const std::string& name)
 	ranges::sort(mapLayers.begin(), mapLayers.end(), greater<>());
 	mapValues.mapLayers = mapLayers;
 	mapValues.texture = m_Texture;
+	mapValues.tileSize = tileSize;
 
 	mapValues.interactables = LoadAllInteractables(name);
 	mapValues.mapConditions = LoadAllMapConditions(mapValues.interactables, name);

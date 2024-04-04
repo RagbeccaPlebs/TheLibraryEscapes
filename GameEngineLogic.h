@@ -42,7 +42,13 @@ class GameEngineLogic
 
 	//Map & Values
 	Map* m_Map;
+	std::vector<TiledMapLoader::MapLayer> m_ViewableMapLayers;
 	sf::Vector2f m_PlayerSpawnLocation;
+	sf::Vector2i m_OldMinBoundTiles = sf::Vector2i(-1, -1);
+	sf::Vector2i m_OldMaxBoundTiles = sf::Vector2i(-1, -1);
+	void UpdateMapView();
+	void UpdateCompleteMapView(sf::Vector2i minBounds, sf::Vector2i maxBounds);
+	bool CheckIfPositionsAreInBounds(sf::Vector2i minBounds, sf::Vector2i maxBounds, sf::Vector2f pos1, sf::Vector2f pos2, sf::Vector2f pos3, sf::Vector2f pos4);
 
 	//Game play specific View
 	sf::View m_GameView;
@@ -80,7 +86,7 @@ class GameEngineLogic
 	void PressEToInteractCheck();
 
 	//Overlay Specific Functions
-	void TextOverlay(sf::RenderWindow& mainWindow, const std::string& writtenText, const OverlayLocationInView locationInView, int fontSize, bool useOpacity) const;
+	void TextOverlay(sf::RenderWindow& mainWindow, const std::string& writtenText, const OverlayLocationInView locationInView, int fontSize, bool useOpacity, const sf::Font& font) const;
 	void UpdateCenterOverlay(float dtAsSeconds);
 	void ResetCenterOverlay();
 
@@ -93,13 +99,13 @@ class GameEngineLogic
 	void SetInitialTimer();
 public:
 	//Constructors, destructors and copy assignment operators
-	explicit GameEngineLogic(const sf::RenderWindow& mainWindow);
+	explicit GameEngineLogic(const sf::RenderWindow& mainWindow, const sf::Font& font);
 	GameEngineLogic& operator=(const GameEngineLogic& gameEngineLogic);
 	~GameEngineLogic() = default;
 	GameEngineLogic(GameEngineLogic& gameEngineLogic);
 
 	//The Game Runners
-	void Draw(sf::RenderWindow& mainWindow);
+	void Draw(sf::RenderWindow& mainWindow, const sf::Font& font);
 	void Update(float dtAsSeconds, sf::RenderWindow& mainWindow, const bool& isLeftClicked, bool& hasLost);
 	void Input(sf::RenderWindow& mainWindow, bool& isPlaying, bool& isPaused, const bool& isEscapePressed, bool& hasWon);
 

@@ -16,8 +16,12 @@ Engine::Engine()
 	//Check if all files are there, otherwise add them
 	CheckIfFilesArePresent();
 
+	m_Font.loadFromFile(Files::FONT_FILE);
+
+	m_StartMenuEngine = StartMenuEngine(m_Font);
+
 	delete m_GameEngine;
-	m_GameEngine = new GameEngine(m_Window);
+	m_GameEngine = new GameEngine(m_Window, m_Font);
 }
 
 void Engine::ClearEverything() const
@@ -140,7 +144,7 @@ void Engine::CheckIfFilesArePresent()
 void Engine::ResetGameEngine()
 {
 	delete m_GameEngine;
-	m_GameEngine = new GameEngine(m_Window);
+	m_GameEngine = new GameEngine(m_Window, m_Font);
 }
 
 //DRAWING
@@ -152,7 +156,7 @@ void Engine::Draw()
 	//If playing use the Game Engine draw, if not see it asif the start menu is open
 	if (b_Playing)
 	{
-		m_GameEngine->Draw(m_Window);
+		m_GameEngine->Draw(m_Window, m_Font);
 	}
 	else
 	{
@@ -212,7 +216,7 @@ void Engine::Update(const float dtAsSeconds)
 		b_WasPlaying = false;
 		m_GameEngine->ClearEverything();
 		sleep(milliseconds(2));
-		m_GameEngine = new GameEngine(m_Window);
+		m_GameEngine = new GameEngine(m_Window, m_Font);
 	}
 
 	if (b_Playing)

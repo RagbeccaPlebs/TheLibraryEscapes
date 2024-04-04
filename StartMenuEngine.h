@@ -19,7 +19,8 @@ class StartMenuEngine {
 	static void ResetGame(bool& resetEverything);
 public:
 	//Constructor
-	StartMenuEngine();
+	StartMenuEngine() = default;
+	explicit StartMenuEngine(const sf::Font& font);
 
 	//The Game Runners
 	void Draw(sf::RenderWindow& mainWindow);

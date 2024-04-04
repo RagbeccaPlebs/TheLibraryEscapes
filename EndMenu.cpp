@@ -7,7 +7,7 @@ using namespace sf;
 using namespace std;
 
 //CONSTRUCTORS
-EndMenu::EndMenu(const RenderWindow& mainWindow, bool isLostMenu)
+EndMenu::EndMenu(const RenderWindow& mainWindow, bool isLostMenu, const Font& font)
 {
 	const float screenWidth = static_cast<float>(mainWindow.getSize().x);
 	const float screenHeight = static_cast<float>(mainWindow.getSize().y);
@@ -23,21 +23,21 @@ EndMenu::EndMenu(const RenderWindow& mainWindow, bool isLostMenu)
 	const Vector2f paddingTextBox(50.f, 50.f);
 	const Vector2f backButtonLocation(((screenWidth / 2.f)), (screenHeight / 2.f) - 50.f);
 	const Vector2f textBoxLocation(((screenWidth / 2.f)), (screenHeight / 4.f));
-	m_BackButton = Button(backButtonLocation, paddingButton, Files::FONT_FILE,
+	m_BackButton = Button(backButtonLocation, paddingButton, font,
 		Message::EXIT_TO_MENU_MESSAGE, 70, idleColor, hoverColor, activeColor, true);
 
 	if (isLostMenu)
 	{
 		b_IsLostType = true;
-		m_TextBoxButton = Button(textBoxLocation, paddingTextBox, Files::FONT_FILE,
+		m_TextBoxButton = Button(textBoxLocation, paddingTextBox, font,
 			Message::LOST_MESSAGE, 50, idleDarkerColor, idleDarkerColor, idleDarkerColor, true);
 		const Vector2f infoLocation(((screenWidth / 2.f)), (screenHeight / 3.f));
 		const string text = "You found " + to_string(0) + " out of " + to_string(GameEngine::GetAmountOfBooksTotal()) + " books";
-		m_InfoButton = Button(infoLocation, paddingTextBox, Files::FONT_FILE,
+		m_InfoButton = Button(infoLocation, paddingTextBox, font,
 			text, 40, idleDarkerColor, idleDarkerColor, idleDarkerColor, true);
 	} else
 	{
-		m_TextBoxButton = Button(textBoxLocation, paddingTextBox, Files::FONT_FILE,
+		m_TextBoxButton = Button(textBoxLocation, paddingTextBox, font,
 			Message::WON_MESSAGE, 50, idleDarkerColor, idleDarkerColor, idleDarkerColor, true);
 
 	}

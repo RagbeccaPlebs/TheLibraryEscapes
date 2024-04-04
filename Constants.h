@@ -179,9 +179,10 @@ public:
 	static const inline std::string INITIAL_CLOAK_LAYER = "char_a_p1_2clo_lnpl_v07.png";
 	static const inline std::string INITIAL_HAT_LAYER = "char_a_p1_5hat_pnty_v03.png";
 
-	//TImer
+	//Timer
 	static const inline float INITIAL_TIMER = 120.f;
 };
+
 
 enum Side
 {

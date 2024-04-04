@@ -16,7 +16,7 @@ class GamePauseMenu
 public:
 	//Constructors, destructors and copy assignment operators
 	GamePauseMenu() = default;
-	explicit GamePauseMenu(const sf::RenderWindow& mainWindow);
+	explicit GamePauseMenu(const sf::RenderWindow& mainWindow, const sf::Font& font);
 	GamePauseMenu& operator=(const GamePauseMenu& gamePauseMenu);
 
 	//The Game Runners

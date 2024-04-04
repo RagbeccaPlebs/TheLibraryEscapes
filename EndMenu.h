@@ -21,7 +21,7 @@ class EndMenu
 public:
 	//Constructors, destructors and copy assignment operators
 	EndMenu() = default;
-	explicit EndMenu(const sf::RenderWindow& mainWindow, bool isLostMenu);
+	explicit EndMenu(const sf::RenderWindow& mainWindow, bool isLostMenu, const sf::Font& font);
 	EndMenu& operator=(const EndMenu& end);
 
 	//The Game Runners
