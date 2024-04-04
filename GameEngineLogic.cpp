@@ -22,7 +22,7 @@ GameEngineLogic::GameEngineLogic(const RenderWindow& mainWindow, const Font& fon
 	}
 	else
 	{
-		LoadMap("bridge", Vector2f(800.f, 900.f));
+		LoadMap("bridge", Vector2f(780.f, 1230.f));
 	}
 	m_GameView.setSize(Vector2f(static_cast<float>(mainWindow.getSize().x), static_cast<float>(mainWindow.getSize().y)));
 	m_OverlayView.setSize(Vector2f(static_cast<float>(mainWindow.getSize().x), static_cast<float>(mainWindow.getSize().y)));
