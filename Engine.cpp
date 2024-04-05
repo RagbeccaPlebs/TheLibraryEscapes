@@ -160,7 +160,7 @@ void Engine::Draw()
 	}
 	else
 	{
-		m_StartMenuEngine.Draw(m_Window);
+		m_StartMenuEngine.Draw(m_Window, m_Font);
 	}
 
 	m_Window.display();

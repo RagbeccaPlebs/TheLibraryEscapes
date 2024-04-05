@@ -2,6 +2,8 @@
 
 #include "Constants.h"
 #include <fstream>
+#include <iostream>
+#include <random>
 #include "nlohmann/json.hpp"
 
 using namespace sf;
@@ -31,16 +33,21 @@ StartMenuEngine::StartMenuEngine(const Font& font)
 }
 
 //DRAW
-void StartMenuEngine::Draw(RenderWindow& mainWindow)
+void StartMenuEngine::Draw(RenderWindow& mainWindow, const Font& font)
 {
 	mainWindow.setView(m_StartMenuView);
 	m_ExitButton.Draw(mainWindow);
 	m_StartButton.Draw(mainWindow);
 	m_ResetGameButton.Draw(mainWindow);
+	if (b_ShouldShowTip)
+	{
+		b_ShouldShowTip = false;
+		ShowResetTip(mainWindow, font);
+	}
 }
 
 //INPUT
-void StartMenuEngine::Input(sf::RenderWindow& mainWindow, bool& isPlayingState, const bool& isEscapePressed, bool& resetEverything)
+void StartMenuEngine::Input(RenderWindow& mainWindow, bool& isPlayingState, const bool& isEscapePressed, bool& resetEverything)
 {
 	if (isEscapePressed)
 	{
@@ -59,8 +66,34 @@ void StartMenuEngine::Input(sf::RenderWindow& mainWindow, bool& isPlayingState, 
 
 	if (m_ResetGameButton.IsPressed())
 	{
+		b_ShouldShowTip = true;
 		ResetGame(resetEverything);
 	}
+}
+
+void StartMenuEngine::ShowResetTip(RenderWindow& mainWindow, const Font& font) const
+{
+	mainWindow.setView(m_StartMenuView);
+	//Make background faded
+	RectangleShape screenDarkener;
+	const Color darkerColor(0, 0, 0, 100);
+	screenDarkener.setSize(Vector2f(static_cast<float>(mainWindow.getSize().x), static_cast<float>(mainWindow.getSize().y)));
+	screenDarkener.setFillColor(darkerColor);
+	mainWindow.draw(screenDarkener);
+
+	const Color color(0, 0, 0, 50);
+	const Color textColor(255, 0, 255, 255);
+
+	vector<string> tips = { Message::TIP_ONE ,Message::TIP_TWO ,Message::TIP_THREE,Message::TIP_FOUR };
+	const int index = static_cast<int>(rand() % tips.size());
+
+	//Show text
+	const float middleWidth = (static_cast<float>(VideoMode::getDesktopMode().width) / 2.0f);
+	const float middleHeight = (static_cast<float>(VideoMode::getDesktopMode().height) / 2.0f);
+	const Vector2f paddingButtons(100.f, 100.f);
+	const auto text = Button{ Vector2f{ middleWidth,middleHeight }, paddingButtons, font,
+		tips[index], 120, color, color, color, textColor, true };
+	text.Draw(mainWindow);
 }
 
 void StartMenuEngine::ResetGame(bool& resetEverything)

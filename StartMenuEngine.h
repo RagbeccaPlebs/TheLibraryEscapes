@@ -16,6 +16,10 @@ class StartMenuEngine {
 	//Start menu specific Views
 	sf::View m_StartMenuView;
 
+	//Reset Tip
+	void ShowResetTip(sf::RenderWindow& mainWindow, const sf::Font& font) const;
+	bool b_ShouldShowTip = false;
+
 	static void ResetGame(bool& resetEverything);
 public:
 	//Constructor
@@ -23,7 +27,7 @@ public:
 	explicit StartMenuEngine(const sf::Font& font);
 
 	//The Game Runners
-	void Draw(sf::RenderWindow& mainWindow);
+	void Draw(sf::RenderWindow& mainWindow, const sf::Font& font);
 	void Update(float dtAsSeconds, sf::RenderWindow& mainWindow, const bool& isLeftClicked);
 	void Input(sf::RenderWindow& mainWindow, bool& isPlayingState, const bool& isEscapePressed, bool& resetEverything);
 };

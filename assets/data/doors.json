@@ -6,6 +6,20 @@
             "inactive-texture": "assets/graphics/interactable/castle-door-closed.png",
             "sound": "assets/sound/interactable/door-open.wav",
             "texture": "assets/graphics/interactable/castle-door-open.png"
+        },
+        {
+            "id": 2,
+            "inactive-sound": "assets/sound/interactable/door-locked.wav",
+            "inactive-texture": "assets/graphics/interactable/door-shadow.png",
+            "sound": "assets/sound/interactable/door-open.wav",
+            "texture": "assets/graphics/interactable/door-shadow.png"
+        },
+        {
+            "id": 3,
+            "inactive-sound": "assets/sound/interactable/door-locked.wav",
+            "inactive-texture": "assets/graphics/interactable/castle-door-indoors-closed.png",
+            "sound": "assets/sound/interactable/door-open.wav",
+            "texture": "assets/graphics/interactable/castle-door-indoors-open.png"
         }
     ]
 }

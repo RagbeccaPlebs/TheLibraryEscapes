@@ -3,12 +3,7 @@
         {
             "id": 1,
             "x": 800,
-            "y": 920
-        },
-        {
-            "id": 2,
-            "x": 816,
-            "y": 920
+            "y": 320
         }
     ],
     "door": [
@@ -16,36 +11,20 @@
             "id": 1,
             "template-id": 1,
             "key-id": -1,
-            "map": "castle-begin",
-            "map-x": 784,
-            "map-y": 920,
+            "map": "entrance",
+            "map-x": 40,
+            "map-y": 200,
             "x": 784,
-            "y": 176
+            "y": 160
         }
     ],
     "pickup": [
         {
             "id": 1,
-            "texture": "assets/graphics/interactable/mad-book-1.png",
+            "texture": "assets/graphics/interactable/key.png",
             "type": "KEY",
-            "x": 800,
-            "y": 900
-        }
-    ],
-    "pushable-object": [
-        {
-            "id": 1,
-            "max-x": 850,
-            "max-y": 950,
-            "min-x": 750,
-            "min-y": 900,
-            "movable-speed": 40,
-            "push-sound": "assets/sound/interactable/pushing.wav",
-            "sound": "assets/sound/interactable/pushing.wav",
-            "texture": "assets/graphics/interactable/box.png",
-            "type": "RANDOM",
-            "x": 800,
-            "y": 930
+            "x": 1250,
+            "y": 1215
         }
     ]
 }

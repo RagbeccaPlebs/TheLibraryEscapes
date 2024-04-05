@@ -5,14 +5,18 @@
 using namespace sf;
 using namespace std;
 
+Button::Button(const sf::Vector2f& position, const sf::Vector2f& padding, const sf::Font& font, const std::string& text, int fontSize, const sf::Color& idleColor, const sf::Color& hoverColor, const sf::Color& activeColor, bool shouldBeCentered)
+	: Button(position, padding, font, text, fontSize, idleColor, hoverColor, activeColor, Color::White, shouldBeCentered)
+{}
+
 Button::Button(const Vector2f& position, const Vector2f& padding, const Font& font, const string& text,
-	const int fontSize, const Color& idleColor, const Color& hoverColor, const Color& activeColor, bool shouldBeCentered)
+	const int fontSize, const Color& idleColor, const Color& hoverColor, const Color& activeColor, const Color& fontColor, bool shouldBeCentered)
 {
 	m_ButtonState = BTN_IDLE;
 	m_Text.setString(text);
 
 	m_Text.setFont(font);
-	m_Text.setFillColor(Color::White);
+	m_Text.setFillColor(fontColor);
 	m_Text.setCharacterSize(fontSize);
 	m_Shape.setSize(Vector2f(m_Text.getGlobalBounds().getSize().x + padding.x, m_Text.getGlobalBounds().getSize().y + padding.y));
 	if (shouldBeCentered)

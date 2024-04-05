@@ -478,6 +478,9 @@ void GameEngineLogic::PressEToInteractCheck()
 	if (isOverlayApplicable)
 	{
 		b_BottomOverlayActive = true;
+	} else
+	{
+		b_BottomOverlayActive = false;
 	}
 }
 

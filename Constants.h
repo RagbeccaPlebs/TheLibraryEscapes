@@ -81,6 +81,10 @@ public:
 	static const inline std::string RIGHT_MESSAGE = "Right";
 	static const inline std::string SKIN_COLOR_MESSAGE = "Skin Color";
 	static const inline std::string START_MESSAGE = "Start";
+	static const inline std::string TIP_ONE = "You can run by using SHIFT";
+	static const inline std::string TIP_TWO = "Don't forget to grab keys!";
+	static const inline std::string TIP_THREE = "Press E to interact";
+	static const inline std::string TIP_FOUR = "Basics: WASD for movement";
 	static const inline std::string WON_MESSAGE = "You have won the game! Click reset in the main menu to restart!";
 };
 

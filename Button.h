@@ -18,7 +18,6 @@ class Button
 	bool b_IsEnabled = false;
 	sf::RectangleShape m_Shape;
 	sf::Text m_Text;
-	sf::Font* m_Font;
 
 	//Colors of the button
 	sf::Color m_IdleColor;
@@ -30,6 +29,8 @@ public:
 	Button() = default;
 	Button(const sf::Vector2f& position, const sf::Vector2f& padding, const sf::Font& font, const std::string& text,
 		int fontSize, const sf::Color& idleColor, const sf::Color& hoverColor, const sf::Color& activeColor, bool shouldBeCentered);
+	Button(const sf::Vector2f& position, const sf::Vector2f& padding, const sf::Font& font, const std::string& text,
+		int fontSize, const sf::Color& idleColor, const sf::Color& hoverColor, const sf::Color& activeColor, const sf::Color& textColor, bool shouldBeCentered);
 
 	//Getters
 	bool IsPressed();

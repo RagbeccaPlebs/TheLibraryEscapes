@@ -58,6 +58,20 @@
             "type": "LOCATION",
             "x": 800.0,
             "y": 920.0
+        },
+        {
+            "id": 2,
+            "max-x": 850,
+            "max-y": 950,
+            "min-x": 750,
+            "min-y": 900,
+            "movable-speed": 40,
+            "push-sound": "assets/sound/interactable/pushing.wav",
+            "sound": "assets/sound/interactable/pushing.wav",
+            "texture": "assets/graphics/interactable/box.png",
+            "type": "RANDOM",
+            "x": 800,
+            "y": 930
         }
     ]
 }
