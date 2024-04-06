@@ -11,7 +11,7 @@ protected:
 	void SavePickupToFile() override;
 public:
 	//Constructor
-	SimpleBookInteractable(int id, const std::string& textureFileLocation, sf::Vector2f position, EmotionType emotion, bool isActive);
+	SimpleBookInteractable(int id, const std::string& textureFileLocation, sf::Vector2f position, bool isActive);
 
 	void Update(const float& dtAsSeconds, Player& player) override;
 };

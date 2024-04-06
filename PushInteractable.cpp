@@ -200,12 +200,25 @@ bool PushInteractable::CanInteract(Player& player)
 	if (m_InteractionBox.intersects(player.GetInteractableBox()))
 	{
 		player.SetPushing(m_SidePlayerIsOn);
+		b_BeingPushed = true;
 		return true;
 	}
-	player.StopPushing();
-	if (GetPushSoundStatus() == SoundSource::Playing)
+	if (b_WasBeingPushed)
 	{
-		StopPushSound();
+		player.StopPushing();
+		if (GetPushSoundStatus() == SoundSource::Playing)
+		{
+			StopPushSound();
+		}
+		b_WasBeingPushed = false;
+	}
+
+	if (b_BeingPushed)
+	{
+		player.SetPushing(m_SidePlayerIsOn);
+		b_BeingPushed = false;
+		b_WasBeingPushed = true;
+		return true;
 	}
 	return false;
 }

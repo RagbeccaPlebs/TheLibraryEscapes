@@ -66,6 +66,10 @@ protected:
 	sf::Sound m_PushSound;
 	std::string m_SoundLocation;
 	std::string m_PushSoundLocation;
+
+	//Push check
+	bool b_BeingPushed = false;
+	bool b_WasBeingPushed = false;
 private:
 	static float CheckForDistance(const sf::Vector2f& playerCenter, const sf::Vector2f& comparisonPosition);
 	static Side CheckSideWithPositions(const float& topLeft, const float& bottomLeft, const float& topRight, const float& bottomRight);

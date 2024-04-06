@@ -42,6 +42,8 @@ class GameEngineLogic
 
 	//Map & Values
 	Map* m_Map;
+	bool b_IsMapLoading = false;
+	int m_FramesMapLoadingState = 0;
 	std::vector<TiledMapLoader::MapLayer> m_ViewableMapLayers;
 	sf::Vector2f m_PlayerSpawnLocation;
 	sf::Vector2i m_OldMinBoundTiles = sf::Vector2i(-1, -1);

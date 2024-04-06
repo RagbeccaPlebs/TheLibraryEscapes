@@ -74,7 +74,7 @@ VertexArray TiledMapLoader::GetVertexArrayFromData(const vector<int>& data, cons
 	}
 	if (currentVertex > 0)
 	{
-		rVa.resize(currentVertex - Constant::VERTS_IN_QUAD);
+		rVa.resize(currentVertex);
 	}
 	return rVa;
 }
@@ -321,9 +321,7 @@ SimpleBookInteractable* TiledMapLoader::CreateSimpleBookInteractableFromData(con
 		if (dataValue.at(Keywords::ID_KEYWORD) == id)
 		{
 			const string textureLocation = dataValue.at(Keywords::TEXTURE_KEYWORD);
-			const string emotionString = dataValue.at(Keywords::EMOTION_KEYWORD);
-			const EmotionType emotion = BookInteractable::GetEmotionFromString(emotionString);
-			return new SimpleBookInteractable(id, textureLocation, Vector2f(x, y), emotion, active);
+			return new SimpleBookInteractable(id, textureLocation, Vector2f(x, y), active);
 		}
 	}
 

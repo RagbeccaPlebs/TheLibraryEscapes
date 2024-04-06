@@ -69,11 +69,10 @@ public:
 	static const inline std::string EXIT_MESSAGE = "Exit";
 	static const inline std::string EXIT_TO_MENU_MESSAGE = "Exit To Menu";
 	static const inline std::string FACE_ITEM_MESSAGE = "Face Item";
-	static const inline std::string FOUND_BOOK_MESSAGE_1 =  "You found a ";
-	static const inline std::string FOUND_BOOK_MESSAGE_2 = " book!";
+	static const inline std::string FOUND_BOOK_MESSAGE =  "You found a book!";
 	static const inline std::string HAIR_MESSAGE = "Hair";
 	static const inline std::string HAT_MESSAGE = "Hat";
-	static const inline std::string KEY_FOUND_MESSAGE_1 = "You found key: ";
+	static const inline std::string KEY_FOUND_MESSAGE_1 = "You found key ";
 	static const inline std::string LEFT_MESSAGE = "Left";
 	static const inline std::string LOST_MESSAGE = "You have lost the game :/";
 	static const inline std::string PRESS_E_TO_INTERACT_MESSAGE = "Press E To Interact!";
@@ -181,7 +180,7 @@ public:
 	static const inline std::string INITIAL_HAT_LAYER = "char_a_p1_5hat_pnty_v03.png";
 
 	//Timer
-	static const inline float INITIAL_TIMER = 120.f;
+	static constexpr inline float INITIAL_TIMER = 230.f;
 };
 
 

@@ -337,8 +337,6 @@ vector<Sprite*> Player::GetSprites()
 	SetSpriteTextureLocationAllSprites();
 	vector<Sprite*> arr(6);
 
-	printf("x: %f, y: %f\n", m_Position.x, m_Position.y);
-
 	arr[0] = &m_SpriteBase;
 	arr[1] = &m_SpriteLowerLayer;
 	arr[2] = &m_SpriteCloak;
@@ -554,6 +552,7 @@ void Player::PlayerAnimationUpdate(const bool isMoving)
 			currentSprite.index = 1;
 		}
 		else {
+			m_SecondsSinceLastAnimationUpdate = 0;
 			currentSprite.animationSpeed = m_CurrentSpriteSheet.animationSpeed[0];
 			currentSprite.spriteLocation = m_CurrentSpriteSheet.spriteLocation[0];
 			currentSprite.index = 0;
@@ -561,11 +560,11 @@ void Player::PlayerAnimationUpdate(const bool isMoving)
 	}
 	else {
 		if (m_SecondsSinceLastAnimationUpdate >= currentSprite.animationSpeed &&
-			m_CurrentSpriteSheet.spriteLocation.size() > static_cast<unsigned long long>(currentSprite.index) + 1) {
+			static_cast<int>(m_CurrentSpriteSheet.spriteLocation.size()) > (currentSprite.index + 1)) {
 			m_SecondsSinceLastAnimationUpdate = 0;
 			currentSprite.animationSpeed = m_CurrentSpriteSheet.animationSpeed[currentSprite.index + 1];
 			currentSprite.spriteLocation = m_CurrentSpriteSheet.spriteLocation[currentSprite.index + 1];
-			currentSprite.index += currentSprite.index + 1;
+			currentSprite.index = currentSprite.index + 1;
 		}
 		else if (m_SecondsSinceLastAnimationUpdate >= currentSprite.animationSpeed) {
 			m_SecondsSinceLastAnimationUpdate = 0;

@@ -29,13 +29,13 @@ PlayerMovement::SpriteSheet PlayerMovement::GetIdleWest() const
 
 PlayerMovement::SpriteSheet PlayerMovement::GetPushingSouth() const
 {
-	static SpriteSheet spriteSheet(m_PushingSouth, m_PushAnimationSpeed);
+	static SpriteSheet spriteSheet{ m_PushingSouth, m_PushAnimationSpeed };
 	return spriteSheet;
 }
 
 PlayerMovement::SpriteSheet PlayerMovement::GetPushingNorth() const
 {
-	static SpriteSheet spriteSheet(m_PushingNorth, m_PushAnimationSpeed);
+	static SpriteSheet spriteSheet{ m_PushingNorth, m_PushAnimationSpeed };
 	return spriteSheet;
 }
 

@@ -2,13 +2,19 @@
     "book": [
         {
             "id": 1,
-            "emotion": "SHY",
-            "texture": "assets/graphics/interactable/shy-book-1.png"
+            "texture": "assets/graphics/interactable/book-1.png"
         },
         {
             "id": 2,
-            "emotion": "SHY",
-            "texture": "assets/graphics/interactable/shy-book-2.png"
+            "texture": "assets/graphics/interactable/book-2.png"
+        },
+        {
+            "id": 3,
+            "texture": "assets/graphics/interactable/book-3.png"
+        },
+        {
+            "id": 4,
+            "texture": "assets/graphics/interactable/book-4.png"
         }
     ]
 }

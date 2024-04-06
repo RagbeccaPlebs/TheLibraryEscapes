@@ -1,0 +1,94 @@
+{
+    "conditions": [
+        {
+            "conditions": [
+                {
+                    "id": 2,
+                    "sub-type": "LOCATION",
+                    "type": "PUSH-OBJECT"
+                }
+            ],
+            "id": 1,
+            "operations": [
+                {
+                    "id": 2,
+                    "operation": "SHOW",
+                    "sub-type": "KEY",
+                    "type": "PICKUP"
+                }
+            ]
+        }
+    ],
+    "door": [
+        {
+            "id": 4,
+            "template-id": 2,
+            "key-id": 1,
+            "map": "entrance",
+            "map-x": 224,
+            "map-y": 64,
+            "x": 816,
+            "y": 752
+        },
+        {
+            "id": 5,
+            "template-id": 3,
+            "key-id": 2,
+            "map": "room2",
+            "map-x": 144,
+            "map-y": 432,
+            "x": 96,
+            "y": 32
+        }
+    ],
+    "pickup": [
+        {
+            "activated": false,
+            "id": 2,
+            "texture": "assets/graphics/interactable/key.png",
+            "type": "KEY",
+            "x": 368,
+            "y": 136
+        }
+    ],
+    "pushable-object": [
+        {
+            "id": 1,
+            "max-x": 496,
+            "max-y": 577,
+            "min-x": 336,
+            "min-y": 544,
+            "movable-speed": 40,
+            "push-sound": "assets/sound/interactable/pushing.wav",
+            "sound": "assets/sound/interactable/pushing.wav",
+            "texture": "assets/graphics/interactable/vertical-push.png",
+            "type": "RANDOM",
+            "x": 458,
+            "y": 576
+        },
+        {
+            "id": 2,
+            "map-x": 576,
+            "map-y": 192,
+            "max-x": 870,
+            "max-y": 210,
+            "min-x": 570,
+            "min-y": 180,
+            "movable-speed": 40,
+            "push-sound": "assets/sound/interactable/pushing.wav",
+            "sound": "assets/sound/interactable/pushing.wav",
+            "texture": "assets/graphics/interactable/box.png",
+            "texture-location": "assets/graphics/interactable/box-location.png",
+            "type": "LOCATION",
+            "x": 864.0,
+            "y": 192.0
+        }
+    ],
+    "book": [
+        {
+            "id": 3,
+            "x": 40,
+            "y": 734
+        }
+    ]
+}

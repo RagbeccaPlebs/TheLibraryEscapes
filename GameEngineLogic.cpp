@@ -309,6 +309,7 @@ void GameEngineLogic::InputInteractable(bool& hasWon)
 					ClearInteractables();
 					LoadMap(mapValue.first, mapValue.second);
 					m_Player.Spawn(m_PlayerSpawnLocation);
+					b_IsMapLoading = true;
 				}
 				else
 				{
@@ -352,6 +353,16 @@ void GameEngineLogic::Update(const float dtAsSeconds, RenderWindow& mainWindow, 
 
 	UpdateTimer(dtAsSeconds, hasLost);
 
+	if (b_IsMapLoading)
+	{
+		if (m_FramesMapLoadingState > 5)
+		{
+			b_IsMapLoading = false;
+			m_FramesMapLoadingState = 0;
+		}
+		m_FramesMapLoadingState++;
+		return;
+	}
 	m_Player.Update(dtAsSeconds);
 
 	//Detect collisions
@@ -376,9 +387,9 @@ void GameEngineLogic::Update(const float dtAsSeconds, RenderWindow& mainWindow, 
 void GameEngineLogic::UpdateMapView()
 {
 	//If true do nothing
-	Vector2i minBounds = Vector2i(static_cast<int>(m_GameView.getCenter().x - (m_GameView.getSize().x / 2)),
+	const auto minBounds = Vector2i(static_cast<int>(m_GameView.getCenter().x - (m_GameView.getSize().x / 2)),
 		static_cast<int>(m_GameView.getCenter().y - (m_GameView.getSize().y / 2)));
-	Vector2i maxBounds = Vector2i(static_cast<int>(m_GameView.getCenter().x + (m_GameView.getSize().x / 2)),
+	const auto maxBounds = Vector2i(static_cast<int>(m_GameView.getCenter().x + (m_GameView.getSize().x / 2)),
 		static_cast<int>(m_GameView.getCenter().y + (m_GameView.getSize().y / 2)));
 	if (m_OldMinBoundTiles.x == minBounds.x && m_OldMinBoundTiles.y == minBounds.y
 		&& m_OldMaxBoundTiles.x == maxBounds.x && m_OldMaxBoundTiles.y == maxBounds.y)
@@ -394,8 +405,8 @@ void GameEngineLogic::UpdateMapView()
 void GameEngineLogic::UpdateCompleteMapView(Vector2i minBounds, Vector2i maxBounds)
 {
 	vector<TiledMapLoader::MapLayer> mapLayers;
-	int amountOfTilesNeededX = (maxBounds.x / m_Map->GetTileSize()) - (minBounds.x / m_Map->GetTileSize());
-	int amountOfTilesNeededY = (maxBounds.y / m_Map->GetTileSize()) - (minBounds.y / m_Map->GetTileSize());
+	const int amountOfTilesNeededX = (maxBounds.x / m_Map->GetTileSize()) - (minBounds.x / m_Map->GetTileSize());
+	const int amountOfTilesNeededY = (maxBounds.y / m_Map->GetTileSize()) - (minBounds.y / m_Map->GetTileSize());
 	for (TiledMapLoader::MapLayer mapLayer : m_Map->GetMapLayers())
 	{
 		if (mapLayer.name == Constant::MAP_COLLISION_LEVEL_NAME)
@@ -478,7 +489,8 @@ void GameEngineLogic::PressEToInteractCheck()
 	if (isOverlayApplicable)
 	{
 		b_BottomOverlayActive = true;
-	} else
+	}
+	else
 	{
 		b_BottomOverlayActive = false;
 	}

@@ -10,14 +10,12 @@ using namespace std;
 using namespace sf;
 using json = nlohmann::json;
 
-SimpleBookInteractable::SimpleBookInteractable(const int id, const string& textureFileLocation, Vector2f position, EmotionType emotion, bool isActive)
+SimpleBookInteractable::SimpleBookInteractable(const int id, const string& textureFileLocation, Vector2f position, bool isActive)
 {
 	m_Id = id;
 	b_Active = isActive;
 	m_InteractableType = PICKUP;
 	m_PickupType = BOOK;
-	m_BookInteractableType = SIMPLE;
-	m_Emotion = emotion;
 	const Texture& texture = TextureHolder::GetTexture(textureFileLocation);
 	m_Texture = texture;
 	m_Sprite = Sprite(texture);
@@ -39,7 +37,7 @@ void SimpleBookInteractable::SavePickupToFile()
 
 	for (auto jsonData : data.at(Keywords::BOOK_KEYWORD))
 	{
-		if (jsonData.at(Keywords::ID_KEYWORD) == m_Id && jsonData.at(Keywords::EMOTION_KEYWORD) == GetStringFromEmotion(m_Emotion))  isBookNotFound = false;
+		if (jsonData.at(Keywords::ID_KEYWORD) == m_Id)  isBookNotFound = false;
 	}
 
 	if (!isBookNotFound)
@@ -49,7 +47,6 @@ void SimpleBookInteractable::SavePickupToFile()
 
 	json jsonData;
 	jsonData[Keywords::ID_KEYWORD] = m_Id;
-	jsonData[Keywords::EMOTION_KEYWORD] = GetStringFromEmotion(m_Emotion);
 	data.at(Keywords::BOOK_KEYWORD).push_back(jsonData);
 
 	ofstream fileOut(Files::GAME_DATA_FILE);

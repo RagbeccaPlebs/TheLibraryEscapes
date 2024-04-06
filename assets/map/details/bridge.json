@@ -1,1 +1,1 @@
-{"book":[{"id":1,"x":800,"y":320}],"door":[{"id":1,"key-id":-1,"map":"entrance","map-x":40,"map-y":200,"template-id":1,"x":784,"y":160}],"pickup":[{"id":1,"texture":"assets/graphics/interactable/key.png","type":"KEY","x":1250,"y":1215}]}
+{"book":[{"id":1,"x":800,"y":320}],"door":[{"id":1,"key-id":-1,"map":"entrance","map-x":40,"map-y":200,"template-id":1,"x":784,"y":160}],"pickup":[{"id":1,"texture":"assets/graphics/interactable/key.png","type":"KEY","x":1140,"y":1220}]}

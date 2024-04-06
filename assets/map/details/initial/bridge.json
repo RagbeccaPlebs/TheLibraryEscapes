@@ -23,8 +23,8 @@
             "id": 1,
             "texture": "assets/graphics/interactable/key.png",
             "type": "KEY",
-            "x": 1250,
-            "y": 1215
+            "x": 1140,
+            "y": 1220
         }
     ]
 }
