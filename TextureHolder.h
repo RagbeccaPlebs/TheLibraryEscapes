@@ -1,5 +1,7 @@
 #pragma once
 
+//This is copied from Beginning C++ Game Programming by John Horton (2nd edition).
+
 #include <SFML/Graphics.hpp>
 #include <map>
 

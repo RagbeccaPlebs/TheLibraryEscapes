@@ -1,4 +1,4 @@
-//This is copied from Beginning C++ Game Programming by John Horton (2nd edition). As this book influenced this code a lot.
+//This is copied from Beginning C++ Game Programming by John Horton (2nd edition).
 
 #include "TextureHolder.h"
 #include <cassert>
