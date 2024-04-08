@@ -275,12 +275,25 @@ void GameEngineLogic::Input(RenderWindow& mainWindow, bool& isPlaying, bool& isP
 	m_Player.HandleInput();
 	for (PushInteractable* pushInteractable : m_GameMapObjects.pushInteractables)
 	{
-		if (pushInteractable->CanInteract(m_Player))
+		const bool areOtherActive = std::any_of(m_GameMapObjects.pushInteractables.begin(), m_GameMapObjects.pushInteractables.end(),
+			[pushInteractable](PushInteractable* pInteractable) -> bool
+			{
+				if (pInteractable->GetActive() && pInteractable->GetId() != pushInteractable->GetId())
+				{
+					return true;
+				}
+				return false;
+			});
+
+		if (pushInteractable->CanInteract(m_Player, !areOtherActive))
 		{
 			pair<string, Vector2f> pushInteractableReturn = pushInteractable->Interact();
 			if (pushInteractableReturn.first == Message::CORRECT_LOCATION_MESSAGE)
 			{
-				if (pushInteractable->GetPushSoundStatus() == SoundSource::Playing) pushInteractable->StopPushSound();
+				if (pushInteractable->GetPushSoundStatus() == SoundSource::Playing)
+				{
+					pushInteractable->StopPushSound();
+				}
 				m_OverlayCenterText = pushInteractable->Message();
 				b_CenterOverlayActive = true;
 				pushInteractable->PlayAlternativeSound();
@@ -288,7 +301,10 @@ void GameEngineLogic::Input(RenderWindow& mainWindow, bool& isPlaying, bool& isP
 		}
 		else
 		{
-			if (pushInteractable->GetPushSoundStatus() == SoundSource::Playing) pushInteractable->StopPushSound();
+			if (pushInteractable->GetPushSoundStatus() == SoundSource::Playing)
+			{
+				pushInteractable->StopPushSound();
+			}
 		}
 	}
 	InputInteractable(hasWon);
@@ -301,7 +317,7 @@ void GameEngineLogic::InputInteractable(bool& hasWon)
 	{
 		for (DoorInteractable* doorInteractable : m_GameMapObjects.doorInteractables)
 		{
-			if (doorInteractable->CanInteract(m_Player))
+			if (doorInteractable->CanInteract(m_Player, true))
 			{
 				if (doorInteractable->GetOpen())
 				{
@@ -326,7 +342,7 @@ void GameEngineLogic::InputInteractable(bool& hasWon)
 		}
 		for (PickupInventoryInteractable* pickupInventoryInteractable : m_GameMapObjects.pickupInventoryInteractables)
 		{
-			if (pickupInventoryInteractable->CanInteract(m_Player))
+			if (pickupInventoryInteractable->CanInteract(m_Player, true))
 			{
 				pickupInventoryInteractable->Interact();
 				ResetCenterOverlay();
@@ -473,14 +489,14 @@ void GameEngineLogic::PressEToInteractCheck()
 	bool isOverlayApplicable = false;
 	for (DoorInteractable* doorInteractable : m_GameMapObjects.doorInteractables)
 	{
-		if (doorInteractable->CanInteract(m_Player))
+		if (doorInteractable->CanInteract(m_Player, true))
 		{
 			isOverlayApplicable = true;
 		}
 	}
 	for (PickupInventoryInteractable* pickupInventoryInteractable : m_GameMapObjects.pickupInventoryInteractables)
 	{
-		if (pickupInventoryInteractable->CanInteract(m_Player))
+		if (pickupInventoryInteractable->CanInteract(m_Player, true))
 		{
 			isOverlayApplicable = true;
 		}
@@ -600,7 +616,6 @@ void GameEngineLogic::UpdateTimer(const float dtAsSeconds, bool& hasLost)
 		newFile.flush();
 	}
 }
-
 
 //COLLISION DETECTION
 void GameEngineLogic::DetectCollisions(Player& player) const

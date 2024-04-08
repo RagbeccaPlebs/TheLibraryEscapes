@@ -24,6 +24,7 @@ The Library Escapes is a timed collection game. You have to find all 4 books bef
 
 ### Sounds
 - [Door Sounds](https://sound-works-12.itch.io/doors-small-sound-pack)
+- [Extra Sounds](https://coffeevalenbat.itch.io/sweet-sounds-sfx-pack)
 
 ### Fonts
 - [Google Font - Pixelfy Sans](https://fonts.google.com/specimen/Pixelify+Sans)

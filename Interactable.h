@@ -27,7 +27,7 @@ public:
 	//Virtual Functions to pass along to child classes
 	virtual void Update(const float& dtAsSeconds, Player& player) = 0;
 	virtual std::pair<std::string, sf::Vector2f> Interact() = 0;
-	virtual bool CanInteract(Player& player);
+	virtual bool CanInteract(Player& player, bool isOnlyOneActive);
 	virtual ~Interactable() = default;
 	virtual std::string Message() = 0;
 

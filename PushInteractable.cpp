@@ -104,10 +104,6 @@ void PushInteractable::Update(const float& dtAsSeconds, Player& player)
 			m_Position = oldPosition;
 		}
 	}
-	else
-	{
-		int i = 0;
-	}
 }
 
 float PushInteractable::CheckForDistance(const Vector2f& playerCenter, const Vector2f& comparisonPosition)
@@ -185,16 +181,21 @@ float PushInteractable::CheckForLeastDistance(std::vector<float> distances)
 }
 
 //If true change player to pushing type into the direction of the box
-bool PushInteractable::CanInteract(Player& player)
+bool PushInteractable::CanInteract(Player& player, const bool isOnlyOneActive)
 {
 	if (!b_Active)
 	{
-		if (player.IsPushing()) player.StopPushing();
+		if (player.IsPushing() && isOnlyOneActive)
+		{
+			player.StopPushing();
+		}
 		return false;
 	}
 	if (!b_Movable)
 	{
-		if (player.IsPushing()) player.StopPushing();
+		if (player.IsPushing() && isOnlyOneActive) {
+			player.StopPushing();
+		}
 		return false;
 	}
 	if (m_InteractionBox.intersects(player.GetInteractableBox()))

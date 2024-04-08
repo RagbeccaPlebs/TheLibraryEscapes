@@ -30,7 +30,7 @@ InteractableType Interactable::GetInteractableType() const
 	return m_InteractableType;
 }
 
-bool Interactable::CanInteract(Player& player)
+bool Interactable::CanInteract(Player& player, bool isOnlyOneActive)
 {
 	if (!b_Active) return false;
 	return m_InteractionBox.intersects(player.GetInteractableBox());
