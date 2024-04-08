@@ -68,9 +68,7 @@ class Player
 
 	//Pushing Variables
 	Side m_SidePushing;
-	bool b_Pushing = false;
-	bool b_StartedPushing = false;
-	bool b_ChangePushing = false;
+	GameState m_PushingState = STOPPED;
 
 	//Running Variables
 	bool b_ChangeRunning = false;

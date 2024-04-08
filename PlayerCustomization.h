@@ -59,6 +59,6 @@ public:
 	//Game Logic Runners
 	void Draw(sf::RenderWindow& mainWindow);
 	void Update(float dtAsSeconds, sf::RenderWindow& mainWindow, const bool& isLeftClicked);
-	void Input(sf::RenderWindow& mainWindow, bool& isPlayerCustomizationSelectorEnabled, bool& isPlaying, const sf::Vector2f& playerSpawnLocation,
+	void Input(sf::RenderWindow& mainWindow, bool& isPlayerCustomizationSelectorEnabled, GameState& gameState, const sf::Vector2f& playerSpawnLocation,
 		const bool& isEscapePressed);
 };

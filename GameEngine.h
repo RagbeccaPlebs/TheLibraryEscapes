@@ -27,7 +27,7 @@ public:
 	//Game Logic Runners
 	void Draw(sf::RenderWindow& mainWindow, const sf::Font& font);
 	void Update(float dtAsSeconds, sf::RenderWindow& mainWindow, const bool& isLeftClicked);
-	void Input(sf::RenderWindow& mainWindow, bool& isPlaying, bool& wasPlaying, const bool& isEscapePressed);
+	void Input(sf::RenderWindow& mainWindow, GameState& gameState, const bool& isEscapePressed);
 
 	//Destructor
 	void ClearEverything();

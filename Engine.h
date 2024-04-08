@@ -17,8 +17,7 @@ private:
 	StartMenuEngine m_StartMenuEngine;
 
 	//Game states
-	bool b_Playing = false;
-	bool b_WasPlaying = false;
+	GameState m_GameState;
 
 	//Input states
 	bool b_LeftClicked = false;

@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "Button.h"
+#include "Constants.h"
 
 
 class EndMenu
@@ -27,7 +28,7 @@ public:
 	//The Game Runners
 	void Draw(sf::RenderWindow& mainWindow) const;
 	void Update(float dtAsSeconds, sf::RenderWindow& mainWindow, const bool& isLeftClicked);
-	void Input(bool& isPlayingState, bool& wasPlaying, const bool& isEscapePressed);
+	void Input(GameState& gameState, const bool& isEscapePressed);
 
 	//Destructor for sounds
 	void ClearSounds();

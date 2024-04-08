@@ -192,3 +192,12 @@ enum Side
 	DOWN,
 	NONE
 };
+
+enum GameState
+{
+	STARTED,
+	DOING,
+	CHANGED,
+	STOPPED,
+	NOTHING
+};

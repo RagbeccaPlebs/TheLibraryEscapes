@@ -260,11 +260,11 @@ void GameEngineLogic::TextOverlay(RenderWindow& mainWindow, const string& writte
 }
 
 //INPUT
-void GameEngineLogic::Input(RenderWindow& mainWindow, bool& isPlaying, bool& isPaused, const bool& isEscapePressed, bool& hasWon)
+void GameEngineLogic::Input(RenderWindow& mainWindow, GameState& gameState, bool& isPaused, const bool& isEscapePressed, bool& hasWon)
 {
 	if (b_PlayerCustomizationSelectorEnabled)
 	{
-		m_PlayerCustomization.Input(mainWindow, b_PlayerCustomizationSelectorEnabled, isPlaying, m_PlayerSpawnLocation, isEscapePressed);
+		m_PlayerCustomization.Input(mainWindow, b_PlayerCustomizationSelectorEnabled, gameState, m_PlayerSpawnLocation, isEscapePressed);
 		return;
 	}
 	if (isEscapePressed)

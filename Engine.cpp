@@ -154,7 +154,7 @@ void Engine::Draw()
 	m_Window.clear();
 
 	//If playing use the Game Engine draw, if not see it asif the start menu is open
-	if (b_Playing)
+	if (m_GameState == DOING)
 	{
 		m_GameEngine->Draw(m_Window, m_Font);
 	}
@@ -169,13 +169,13 @@ void Engine::Draw()
 //INPUT
 void Engine::Input() {
 
-	if (b_Playing)
+	if (m_GameState == DOING)
 	{
-		m_GameEngine->Input(m_Window, b_Playing, b_WasPlaying, b_EscapePressed);
+		m_GameEngine->Input(m_Window, m_GameState, b_EscapePressed);
 	}
 	else
 	{
-		m_StartMenuEngine.Input(m_Window, b_Playing, b_EscapePressed, b_ResetEverything);
+		m_StartMenuEngine.Input(m_Window, m_GameState, b_EscapePressed, b_ResetEverything);
 	}
 
 	if (b_LeftClicked)
@@ -211,15 +211,15 @@ void Engine::Input() {
 //UPDATE
 void Engine::Update(const float dtAsSeconds)
 {
-	if (b_WasPlaying && !b_Playing)
+	if (m_GameState == CHANGED)
 	{
-		b_WasPlaying = false;
+		m_GameState = STOPPED;
 		m_GameEngine->ClearEverything();
 		sleep(milliseconds(2));
 		m_GameEngine = new GameEngine(m_Window, m_Font);
 	}
 
-	if (b_Playing)
+	if (m_GameState == DOING)
 	{
 		m_GameEngine->Update(dtAsSeconds, m_Window, b_LeftClicked);
 	}

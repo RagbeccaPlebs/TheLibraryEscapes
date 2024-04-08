@@ -47,7 +47,7 @@ void StartMenuEngine::Draw(RenderWindow& mainWindow, const Font& font)
 }
 
 //INPUT
-void StartMenuEngine::Input(RenderWindow& mainWindow, bool& isPlayingState, const bool& isEscapePressed, bool& resetEverything)
+void StartMenuEngine::Input(RenderWindow& mainWindow, GameState& gameState, const bool& isEscapePressed, bool& resetEverything)
 {
 	if (isEscapePressed)
 	{
@@ -56,7 +56,7 @@ void StartMenuEngine::Input(RenderWindow& mainWindow, bool& isPlayingState, cons
 
 	if (m_StartButton.IsPressed())
 	{
-		isPlayingState = true;
+		gameState = DOING;
 	}
 
 	if (m_ExitButton.IsPressed())

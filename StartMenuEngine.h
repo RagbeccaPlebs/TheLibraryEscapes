@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Button.h"
+#include "Constants.h"
 
 class StartMenuEngine {
 
@@ -29,5 +30,5 @@ public:
 	//The Game Runners
 	void Draw(sf::RenderWindow& mainWindow, const sf::Font& font);
 	void Update(float dtAsSeconds, sf::RenderWindow& mainWindow, const bool& isLeftClicked);
-	void Input(sf::RenderWindow& mainWindow, bool& isPlayingState, const bool& isEscapePressed, bool& resetEverything);
+	void Input(sf::RenderWindow& mainWindow, GameState& gameState, const bool& isEscapePressed, bool& resetEverything);
 };

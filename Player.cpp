@@ -177,7 +177,7 @@ bool Player::GetUpPressed() const
 
 bool Player::IsPushing() const
 {
-	return b_Pushing;
+	return m_PushingState == DOING;
 }
 
 //TEXTURE
@@ -453,9 +453,9 @@ void Player::Update(const float elapsedTime)
 void Player::PlayerAnimationUpdate(const bool isMoving)
 {
 	bool changedSheet = false;
-	if ((b_StartedPushing || (b_Pushing && m_OldLastButtonPressed != m_LastButtonPressed)) && m_LastButtonPressed != NONE && m_LastButtonPressed == m_SidePushing) {
-		b_Pushing = true;
-		if (b_StartedPushing) b_StartedPushing = false;
+	if ((m_PushingState == STARTED || (m_PushingState == DOING && m_OldLastButtonPressed != m_LastButtonPressed)) && m_LastButtonPressed != NONE && m_LastButtonPressed == m_SidePushing) {
+		m_PushingState = DOING;
+
 		switch (m_LastButtonPressed)
 		{
 		case NONE:
@@ -477,7 +477,7 @@ void Player::PlayerAnimationUpdate(const bool isMoving)
 		m_OldLastButtonPressed = m_LastButtonPressed;
 		changedSheet = true;
 	}
-	else if (b_ChangeRunning || b_ChangePushing || (m_OldLastButtonPressed != m_LastButtonPressed && m_LastButtonPressed != NONE)) {
+	else if (b_ChangeRunning || m_PushingState == CHANGED || (m_OldLastButtonPressed != m_LastButtonPressed && m_LastButtonPressed != NONE)) {
 		switch (m_LastButtonPressed)
 		{
 		case NONE:
@@ -516,8 +516,14 @@ void Player::PlayerAnimationUpdate(const bool isMoving)
 			else m_CurrentSpriteSheet = m_PlayerMovement.GetIdleSouth();
 			break;
 		}
-		if (b_ChangeRunning) b_ChangeRunning = false;
-		if (b_ChangePushing) b_ChangePushing = false;
+		if (b_ChangeRunning)
+		{
+			b_ChangeRunning = false;
+		}
+		if (m_PushingState == CHANGED)
+		{
+			m_PushingState = DOING;
+		}
 		m_OldLastButtonPressed = m_LastButtonPressed;
 		changedSheet = true;
 	}
@@ -604,14 +610,16 @@ void Player::StopUp(const float position)
 void Player::SetPushing(const Side& side)
 {
 	m_SidePushing = side;
-	if (!b_Pushing) b_StartedPushing = true;
+	if (m_PushingState != DOING)
+	{
+		m_PushingState = STARTED;
+	}
 }
 
 void Player::StopPushing()
 {
-	if (b_Pushing)
+	if (m_PushingState != STOPPED)
 	{
-		b_Pushing = false;
-		b_ChangePushing = true;
+		m_PushingState = STOPPED;
 	}
 }

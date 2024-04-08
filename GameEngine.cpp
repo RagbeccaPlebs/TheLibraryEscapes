@@ -73,23 +73,23 @@ void GameEngine::Draw(RenderWindow& mainWindow, const Font& font)
 }
 
 //INPUT
-void GameEngine::Input(RenderWindow& mainWindow, bool& isPlaying, bool& wasPlaying, const bool& isEscapePressed)
+void GameEngine::Input(RenderWindow& mainWindow, GameState& gameState, const bool& isEscapePressed)
 {
 	if (b_Lost)
 	{
-		m_EndLostMenu.Input(isPlaying, wasPlaying, isEscapePressed);
+		m_EndLostMenu.Input(gameState, isEscapePressed);
 	}
 	else if (b_Won)
 	{
-		m_EndWonMenu.Input(isPlaying, wasPlaying, isEscapePressed);
+		m_EndWonMenu.Input(gameState, isEscapePressed);
 	}
 	else if (b_Paused)
 	{
-		m_GamePausedMenu.Input(mainWindow, isPlaying, b_Paused, wasPlaying, isEscapePressed);
+		m_GamePausedMenu.Input(mainWindow, gameState, b_Paused, isEscapePressed);
 	}
 	else
 	{
-		m_GameEngineLogic.Input(mainWindow, isPlaying, b_Paused, isEscapePressed, b_Won);
+		m_GameEngineLogic.Input(mainWindow, gameState, b_Paused, isEscapePressed, b_Won);
 	}
 }
 

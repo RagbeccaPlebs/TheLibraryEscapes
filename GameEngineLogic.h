@@ -112,7 +112,7 @@ public:
 	//The Game Runners
 	void Draw(sf::RenderWindow& mainWindow, const sf::Font& font);
 	void Update(float dtAsSeconds, sf::RenderWindow& mainWindow, const bool& isLeftClicked, bool& hasLost);
-	void Input(sf::RenderWindow& mainWindow, bool& isPlaying, bool& isPaused, const bool& isEscapePressed, bool& hasWon);
+	void Input(sf::RenderWindow& mainWindow, GameState& gameState, bool& isPaused, const bool& isEscapePressed, bool& hasWon);
 
 	//Load the map from the mapName and the location where the player should spawn
 	void LoadMap(const std::string& mapName, sf::Vector2f spawnLocation);

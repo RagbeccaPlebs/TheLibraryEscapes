@@ -59,7 +59,7 @@ void GamePauseMenu::Draw(RenderWindow& mainWindow)
 }
 
 //INPUT
-void GamePauseMenu::Input(RenderWindow& mainWindow, bool& isPlayingState, bool& isPausedState, bool& wasPlaying, const bool& isEscapePressed)
+void GamePauseMenu::Input(RenderWindow& mainWindow, GameState& gameState, bool& isPausedState, const bool& isEscapePressed)
 {
 	if (isEscapePressed)
 	{
@@ -73,8 +73,7 @@ void GamePauseMenu::Input(RenderWindow& mainWindow, bool& isPlayingState, bool& 
 
 	if (m_BackToMenuButton.IsPressed())
 	{
-		isPlayingState = false;
-		wasPlaying = true;
+		gameState = CHANGED;
 	}
 }
 

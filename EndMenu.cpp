@@ -79,18 +79,16 @@ void EndMenu::Draw(RenderWindow& mainWindow) const
 }
 
 //INPUT
-void EndMenu::Input(bool& isPlayingState, bool& wasPlaying, const bool& isEscapePressed)
+void EndMenu::Input(GameState& gameState, const bool& isEscapePressed)
 {
 	if (isEscapePressed)
 	{
-		isPlayingState = false;
-		wasPlaying = true;
+		gameState = CHANGED;
 	}
 
 	if (m_BackButton.IsPressed())
 	{
-		isPlayingState = false;
-		wasPlaying = true;
+		gameState = DOING;
 	}
 }
 

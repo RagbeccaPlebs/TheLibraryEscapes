@@ -187,12 +187,12 @@ void PlayerCustomization::Draw(RenderWindow& mainWindow)
 }
 
 //INPUT
-void PlayerCustomization::Input(RenderWindow& mainWindow, bool& isPlayerCustomizationSelectorEnabled, bool& isPlaying, const Vector2f& playerSpawnLocation,
+void PlayerCustomization::Input(RenderWindow& mainWindow, bool& isPlayerCustomizationSelectorEnabled, GameState& gameState, const Vector2f& playerSpawnLocation,
 	const bool& isEscapePressed)
 {
 	if (isEscapePressed)
 	{
-		isPlaying = false;
+		gameState = STOPPED;
 	}
 
 	if (m_ContinueButton.IsPressed())
@@ -206,7 +206,7 @@ void PlayerCustomization::Input(RenderWindow& mainWindow, bool& isPlayerCustomiz
 
 	if (m_BackToMenuButton.IsPressed())
 	{
-		isPlaying = false;
+		gameState = STOPPED;
 	}
 
 	if (m_TurnLeftButton.IsPressed())
