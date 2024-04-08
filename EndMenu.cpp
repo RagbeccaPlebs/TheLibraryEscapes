@@ -88,7 +88,7 @@ void EndMenu::Input(GameState& gameState, const bool& isEscapePressed)
 
 	if (m_BackButton.IsPressed())
 	{
-		gameState = DOING;
+		gameState = CHANGED;
 	}
 }
 
