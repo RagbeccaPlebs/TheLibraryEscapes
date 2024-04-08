@@ -181,11 +181,11 @@ float PushInteractable::CheckForLeastDistance(std::vector<float> distances)
 }
 
 //If true change player to pushing type into the direction of the box
-bool PushInteractable::CanInteract(Player& player, const bool isOnlyOneActive)
+bool PushInteractable::CanInteract(Player& player, const bool isOnlyOneActive, const bool isClosest)
 {
 	if (!b_Active)
 	{
-		if (player.IsPushing() && isOnlyOneActive)
+		if (player.IsPushing() && (isOnlyOneActive || isClosest))
 		{
 			player.StopPushing();
 		}
@@ -193,7 +193,7 @@ bool PushInteractable::CanInteract(Player& player, const bool isOnlyOneActive)
 	}
 	if (!b_Movable)
 	{
-		if (player.IsPushing() && isOnlyOneActive) {
+		if (player.IsPushing() && (isOnlyOneActive || isClosest)) {
 			player.StopPushing();
 		}
 		return false;

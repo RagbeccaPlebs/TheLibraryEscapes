@@ -19,7 +19,7 @@ class PushInteractable : public Interactable
 public:
 	//Virtual Functions to pass along to child classes
 	void Update(const float& dtAsSeconds, Player& player) override;
-	bool CanInteract(Player& player, bool isOnlyOneActive) override;
+	bool CanInteract(Player& player, bool isOnlyOneActive, bool isClosest) override;
 
 	//Getters
 	PushType GetPushType() const;

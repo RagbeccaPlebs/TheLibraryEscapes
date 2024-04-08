@@ -87,6 +87,9 @@ class GameEngineLogic
 	//Checks for Interactables and Interaction Range
 	void PressEToInteractCheck();
 
+	//Least Distance Check
+	bool FindLeastDistanceBetweenPushInteractables(PushInteractable* pushInteractable);
+
 	//Overlay Specific Functions
 	void TextOverlay(sf::RenderWindow& mainWindow, const std::string& writtenText, const OverlayLocationInView locationInView, int fontSize, bool useOpacity, const sf::Font& font) const;
 	void UpdateCenterOverlay(float dtAsSeconds);

@@ -284,8 +284,8 @@ void GameEngineLogic::Input(RenderWindow& mainWindow, bool& isPlaying, bool& isP
 				}
 				return false;
 			});
-
-		if (pushInteractable->CanInteract(m_Player, !areOtherActive))
+		const bool isLeastDistance = FindLeastDistanceBetweenPushInteractables(pushInteractable);
+		if (pushInteractable->CanInteract(m_Player, !areOtherActive, isLeastDistance))
 		{
 			pair<string, Vector2f> pushInteractableReturn = pushInteractable->Interact();
 			if (pushInteractableReturn.first == Message::CORRECT_LOCATION_MESSAGE)
@@ -310,6 +310,34 @@ void GameEngineLogic::Input(RenderWindow& mainWindow, bool& isPlaying, bool& isP
 	InputInteractable(hasWon);
 }
 
+bool GameEngineLogic::FindLeastDistanceBetweenPushInteractables(PushInteractable* pushInteractable)
+{
+	vector<float> distances;
+	float mainCheckDistance;
+
+	const float x = m_Player.GetCenter().x;
+	const float y = m_Player.GetCenter().y;
+
+	mainCheckDistance = (abs((pushInteractable->GetInteractionBox().left - x)) + abs((pushInteractable->GetInteractionBox().top - y)));
+
+	for (PushInteractable* tempPush : m_GameMapObjects.pushInteractables)
+	{
+		if (tempPush->GetId() == pushInteractable->GetId())
+		{
+			continue;
+		}
+		distances.push_back(abs((tempPush->GetInteractionBox().left - x)) + abs((tempPush->GetInteractionBox().top - y)));
+	}
+
+	vector<bool> minChecks = vector<bool>();
+	for (float distance : distances)
+	{
+		minChecks.push_back( fabs(min(distance, mainCheckDistance) - mainCheckDistance) < FLT_EPSILON);
+	}
+
+	return std::ranges::any_of(minChecks.begin(), minChecks.end(), [](const bool v) {return v; });
+}
+
 
 void GameEngineLogic::InputInteractable(bool& hasWon)
 {
@@ -317,7 +345,7 @@ void GameEngineLogic::InputInteractable(bool& hasWon)
 	{
 		for (DoorInteractable* doorInteractable : m_GameMapObjects.doorInteractables)
 		{
-			if (doorInteractable->CanInteract(m_Player, true))
+			if (doorInteractable->CanInteract(m_Player, true, true))
 			{
 				if (doorInteractable->GetOpen())
 				{
@@ -342,7 +370,7 @@ void GameEngineLogic::InputInteractable(bool& hasWon)
 		}
 		for (PickupInventoryInteractable* pickupInventoryInteractable : m_GameMapObjects.pickupInventoryInteractables)
 		{
-			if (pickupInventoryInteractable->CanInteract(m_Player, true))
+			if (pickupInventoryInteractable->CanInteract(m_Player, true, true))
 			{
 				pickupInventoryInteractable->Interact();
 				ResetCenterOverlay();
@@ -489,14 +517,14 @@ void GameEngineLogic::PressEToInteractCheck()
 	bool isOverlayApplicable = false;
 	for (DoorInteractable* doorInteractable : m_GameMapObjects.doorInteractables)
 	{
-		if (doorInteractable->CanInteract(m_Player, true))
+		if (doorInteractable->CanInteract(m_Player, true, true))
 		{
 			isOverlayApplicable = true;
 		}
 	}
 	for (PickupInventoryInteractable* pickupInventoryInteractable : m_GameMapObjects.pickupInventoryInteractables)
 	{
-		if (pickupInventoryInteractable->CanInteract(m_Player, true))
+		if (pickupInventoryInteractable->CanInteract(m_Player, true, true))
 		{
 			isOverlayApplicable = true;
 		}
