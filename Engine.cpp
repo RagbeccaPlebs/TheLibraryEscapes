@@ -12,6 +12,7 @@ using json = nlohmann::json;
 Engine::Engine()
 {
 	m_Window.create(VideoMode(VideoMode::getDesktopMode().width, VideoMode::getDesktopMode().height), Constant::GAME_TITLE, Style::Fullscreen);
+	m_Window.setVerticalSyncEnabled(true);
 
 	//Check if all files are there, otherwise add them
 	CheckIfFilesArePresent();

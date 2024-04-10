@@ -102,16 +102,16 @@ void Player::HandleInput()
 
 	if (Keyboard::isKeyPressed(Keyboard::LShift))
 	{
-		if (!b_ShiftPressed) b_ChangeRunning = true;
-		b_ShiftPressed = true;
+		if (b_ShiftPressed) b_ChangeRunning = true;
+		b_ShiftPressed = false;
 
-		m_Speed = Constant::PLAYER_RUN_SPEED;
+		m_Speed = Constant::PLAYER_WALK_SPEED;
 	}
 	else
 	{
-		if (b_ShiftPressed) b_ChangeRunning = true;
-		b_ShiftPressed = false;
-		m_Speed = Constant::PLAYER_WALK_SPEED;
+		if (!b_ShiftPressed) b_ChangeRunning = true;
+		b_ShiftPressed = true;
+		m_Speed = Constant::PLAYER_RUN_SPEED;
 	}
 }
 
