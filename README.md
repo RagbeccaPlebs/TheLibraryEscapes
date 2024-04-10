@@ -8,7 +8,7 @@ The Library Escapes is a timed collection game. You have to find all 4 books bef
 
 ## Controls
 - Movement: WASD
-- Running: Holding Shift while Moving
+- Walking: Holding Shift while Moving
 - Interact: E
 - Pause: Escape (While in game)
 - Quit Game: Escape (While in main-menu)
