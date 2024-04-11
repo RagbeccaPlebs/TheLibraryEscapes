@@ -188,11 +188,18 @@
     <ClInclude Include="PlayerTexture.h" />
     <ClInclude Include="PushInteractable.h" />
     <ClInclude Include="RandomPushInteractable.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="SimpleBookInteractable.h" />
     <ClInclude Include="DoorInteractable.h" />
     <ClInclude Include="StartMenuEngine.h" />
     <ClInclude Include="TextureHolder.h" />
     <ClInclude Include="TiledMapLoader.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="TheLibraryEscapes.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\icon.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -427,21 +427,21 @@ void Player::Update(const float elapsedTime)
 
 	// Head
 	m_Head.left = static_cast<float>(r.left + (r.width * .25));
-	m_Head.top = static_cast<float>(r.top + (r.height * .21));
+	m_Head.top = static_cast<float>(r.top + (r.height * .19));
 	m_Head.width = static_cast<float>(r.width - (r.width * .5));
 	m_Head.height = 1;
 
 	// Right
 	m_Right.left = static_cast<float>(r.left + (r.width * .8));
-	m_Right.top = static_cast<float>(r.top + (r.height * .235));
+	m_Right.top = static_cast<float>(r.top + (r.height * .23));
 	m_Right.width = 1;
-	m_Right.height = static_cast<float>(r.height - (r.height * .3));
+	m_Right.height = static_cast<float>(r.height - (r.height * .29));
 
 	// Left
 	m_Left.left = static_cast<float>(r.left + (r.width * .2));
-	m_Left.top = static_cast<float>(r.top + (r.height * .25));
+	m_Left.top = static_cast<float>(r.top + (r.height * .23));
 	m_Left.width = 1;
-	m_Left.height = static_cast<float>(r.height - (r.height * 0.3));
+	m_Left.height = static_cast<float>(r.height - (r.height * 0.29));
 
 	//Update the Interactable Boxes
 	m_InteractableBox.left = m_Left.left;
