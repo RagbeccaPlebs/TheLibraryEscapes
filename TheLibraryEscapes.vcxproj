@@ -110,13 +110,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)external\SFML\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);include;src;$(SolutionDir)external\SFML\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)external\SFML\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir);include;src;$(SolutionDir)external\SFML\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;sfml-network-d.lib;sfml-audio-d.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -128,7 +128,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)external\SFML\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);include;src;$(SolutionDir)external\SFML\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -136,64 +136,64 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)external\SFML\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir);include;src;$(SolutionDir)external\SFML\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-system.lib;sfml-network.lib;sfml-audio.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BookInteractable.cpp" />
-    <ClCompile Include="Button.cpp" />
-    <ClCompile Include="DoorInteractable.cpp" />
-    <ClCompile Include="DoorInteractableTemplate.cpp" />
-    <ClCompile Include="EndMenu.cpp" />
-    <ClCompile Include="GameEngine.cpp" />
-    <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="GameEngineLogic.cpp" />
-    <ClCompile Include="GamePauseMenu.cpp" />
-    <ClCompile Include="Interactable.cpp" />
-    <ClCompile Include="KeyInteractable.cpp" />
-    <ClCompile Include="LocationPushInteractable.cpp" />
-    <ClCompile Include="Map.cpp" />
-    <ClCompile Include="PickupInventoryInteractable.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PlayerCustomization.cpp" />
-    <ClCompile Include="PlayerMovement.cpp" />
-    <ClCompile Include="PlayerTexture.cpp" />
-    <ClCompile Include="PushInteractable.cpp" />
-    <ClCompile Include="RandomPushInteractable.cpp" />
-    <ClCompile Include="SimpleBookInteractable.cpp" />
-    <ClCompile Include="StartMenuEngine.cpp" />
-    <ClCompile Include="TextureHolder.cpp" />
-    <ClCompile Include="TheLibraryEscapes.cpp" />
-    <ClCompile Include="TiledMapLoader.cpp" />
+    <ClCompile Include="src/BookInteractable.cpp" />
+    <ClCompile Include="src/Button.cpp" />
+    <ClCompile Include="src/DoorInteractable.cpp" />
+    <ClCompile Include="src/DoorInteractableTemplate.cpp" />
+    <ClCompile Include="src/EndMenu.cpp" />
+    <ClCompile Include="src/GameEngine.cpp" />
+    <ClCompile Include="src/Engine.cpp" />
+    <ClCompile Include="src/GameEngineLogic.cpp" />
+    <ClCompile Include="src/GamePauseMenu.cpp" />
+    <ClCompile Include="src/Interactable.cpp" />
+    <ClCompile Include="src/KeyInteractable.cpp" />
+    <ClCompile Include="src/LocationPushInteractable.cpp" />
+    <ClCompile Include="src/Map.cpp" />
+    <ClCompile Include="src/PickupInventoryInteractable.cpp" />
+    <ClCompile Include="src/Player.cpp" />
+    <ClCompile Include="src/PlayerCustomization.cpp" />
+    <ClCompile Include="src/PlayerMovement.cpp" />
+    <ClCompile Include="src/PlayerTexture.cpp" />
+    <ClCompile Include="src/PushInteractable.cpp" />
+    <ClCompile Include="src/RandomPushInteractable.cpp" />
+    <ClCompile Include="src/SimpleBookInteractable.cpp" />
+    <ClCompile Include="src/StartMenuEngine.cpp" />
+    <ClCompile Include="src/TextureHolder.cpp" />
+    <ClCompile Include="src/TheLibraryEscapes.cpp" />
+    <ClCompile Include="src/TiledMapLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BookInteractable.h" />
-    <ClInclude Include="Button.h" />
-    <ClInclude Include="DoorInteractableTemplate.h" />
-    <ClInclude Include="EndMenu.h" />
-    <ClInclude Include="Engine.h" />
-    <ClInclude Include="GameEngine.h" />
-    <ClInclude Include="GameEngineLogic.h" />
-    <ClInclude Include="GamePauseMenu.h" />
-    <ClInclude Include="Interactable.h" />
-    <ClInclude Include="Constants.h" />
-    <ClInclude Include="KeyInteractable.h" />
-    <ClInclude Include="LocationPushInteractable.h" />
-    <ClInclude Include="Map.h" />
-    <ClInclude Include="PickupInventoryInteractable.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayerCustomization.h" />
-    <ClInclude Include="PlayerMovement.h" />
-    <ClInclude Include="PlayerTexture.h" />
-    <ClInclude Include="PushInteractable.h" />
-    <ClInclude Include="RandomPushInteractable.h" />
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="SimpleBookInteractable.h" />
-    <ClInclude Include="DoorInteractable.h" />
-    <ClInclude Include="StartMenuEngine.h" />
-    <ClInclude Include="TextureHolder.h" />
-    <ClInclude Include="TiledMapLoader.h" />
+    <ClInclude Include="include/BookInteractable.h" />
+    <ClInclude Include="include/Button.h" />
+    <ClInclude Include="include/DoorInteractableTemplate.h" />
+    <ClInclude Include="include/EndMenu.h" />
+    <ClInclude Include="include/Engine.h" />
+    <ClInclude Include="include/GameEngine.h" />
+    <ClInclude Include="include/GameEngineLogic.h" />
+    <ClInclude Include="include/GamePauseMenu.h" />
+    <ClInclude Include="include/Interactable.h" />
+    <ClInclude Include="include/Constants.h" />
+    <ClInclude Include="include/KeyInteractable.h" />
+    <ClInclude Include="include/LocationPushInteractable.h" />
+    <ClInclude Include="include/Map.h" />
+    <ClInclude Include="include/PickupInventoryInteractable.h" />
+    <ClInclude Include="include/Player.h" />
+    <ClInclude Include="include/PlayerCustomization.h" />
+    <ClInclude Include="include/PlayerMovement.h" />
+    <ClInclude Include="include/PlayerTexture.h" />
+    <ClInclude Include="include/PushInteractable.h" />
+    <ClInclude Include="include/RandomPushInteractable.h" />
+    <ClInclude Include="include/resource.h" />
+    <ClInclude Include="include/SimpleBookInteractable.h" />
+    <ClInclude Include="include/DoorInteractable.h" />
+    <ClInclude Include="include/StartMenuEngine.h" />
+    <ClInclude Include="include/TextureHolder.h" />
+    <ClInclude Include="include/TiledMapLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="TheLibraryEscapes.rc" />
