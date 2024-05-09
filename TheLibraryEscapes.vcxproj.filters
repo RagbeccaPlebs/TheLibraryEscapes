@@ -36,23 +36,14 @@
     <Filter Include="Header Files\Map">
       <UniqueIdentifier>{d55913df-ddcc-4e3d-8c56-446edc0f8fee}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Misc\Screen">
-      <UniqueIdentifier>{86100f8b-976a-4fa7-a3b4-7d64d6ac2bfd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Misc">
       <UniqueIdentifier>{de375a04-190b-4b24-8b0a-11b4f22041bd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Misc\Screen">
-      <UniqueIdentifier>{c05b1f03-cedd-4724-ad93-c8046f2c02c1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\StartMenu">
       <UniqueIdentifier>{8914100f-cac1-48cd-84fd-dad3cf3fece0}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Player">
       <UniqueIdentifier>{b419b2a7-cab3-4c31-938b-e23b88f51ba7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Player\PlayerCustomization">
-      <UniqueIdentifier>{6d9254a4-b454-4671-a396-b85abd6771b5}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Game\Interactable">
       <UniqueIdentifier>{f38e5ea2-d92d-463a-9a21-8d3334671753}</UniqueIdentifier>
@@ -84,162 +75,168 @@
     <Filter Include="Source Files\Game\Interactable\PushInteractable">
       <UniqueIdentifier>{f440de67-d32e-4d95-b77d-a5da8dcfaeb8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Game\Menu">
+      <UniqueIdentifier>{afc2c4ce-47db-4e01-a554-5420d6d9b806}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\Menu">
+      <UniqueIdentifier>{f350932c-d933-4be0-b741-b9f1fc7a6d13}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="TheLibraryEscapes.cpp">
+    <ClCompile Include="src/TheLibraryEscapes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files\Player</Filter>
+    <ClCompile Include="src/BookInteractable.cpp">
+      <Filter>Source Files\Game\Interactable\PickupInteractable\Book</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerMovement.cpp">
-      <Filter>Source Files\Player</Filter>
+    <ClCompile Include="src/SimpleBookInteractable.cpp">
+      <Filter>Source Files\Game\Interactable\PickupInteractable\Book</Filter>
     </ClCompile>
-    <ClCompile Include="Map.cpp">
-      <Filter>Source Files\Map</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="TextureHolder.cpp">
+    <ClCompile Include="src/Button.cpp">
       <Filter>Source Files\Misc</Filter>
     </ClCompile>
-    <ClCompile Include="Button.cpp">
-      <Filter>Source Files\Misc\Screen</Filter>
+    <ClCompile Include="src/DoorInteractable.cpp">
+      <Filter>Source Files\Game\Interactable\Door</Filter>
     </ClCompile>
-    <ClCompile Include="StartMenuEngine.cpp">
-      <Filter>Source Files\StartMenu</Filter>
+    <ClCompile Include="src/DoorInteractableTemplate.cpp">
+      <Filter>Source Files\Game\Interactable\Door</Filter>
     </ClCompile>
-    <ClCompile Include="TiledMapLoader.cpp">
-      <Filter>Source Files\Map</Filter>
+    <ClCompile Include="src/EndMenu.cpp">
+      <Filter>Source Files\Game\Menu</Filter>
     </ClCompile>
-    <ClCompile Include="Interactable.cpp">
+    <ClCompile Include="src/Engine.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src/GameEngine.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src/GameEngineLogic.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src/GamePauseMenu.cpp">
+      <Filter>Source Files\Game\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src/Interactable.cpp">
       <Filter>Source Files\Game\Interactable</Filter>
     </ClCompile>
-    <ClCompile Include="BookInteractable.cpp">
-      <Filter>Source Files\Game\Interactable\PickupInteractable\Book</Filter>
-    </ClCompile>
-    <ClCompile Include="SimpleBookInteractable.cpp">
-      <Filter>Source Files\Game\Interactable\PickupInteractable\Book</Filter>
-    </ClCompile>
-    <ClCompile Include="DoorInteractableTemplate.cpp">
-      <Filter>Source Files\Game\Interactable\Door</Filter>
-    </ClCompile>
-    <ClCompile Include="DoorInteractable.cpp">
-      <Filter>Source Files\Game\Interactable\Door</Filter>
-    </ClCompile>
-    <ClCompile Include="PickupInventoryInteractable.cpp">
+    <ClCompile Include="src/KeyInteractable.cpp">
       <Filter>Source Files\Game\Interactable\PickupInteractable</Filter>
     </ClCompile>
-    <ClCompile Include="KeyInteractable.cpp">
+    <ClCompile Include="src/LocationPushInteractable.cpp">
+      <Filter>Source Files\Game\Interactable\PushInteractable</Filter>
+    </ClCompile>
+    <ClCompile Include="src/Map.cpp">
+      <Filter>Source Files\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="src/PickupInventoryInteractable.cpp">
       <Filter>Source Files\Game\Interactable\PickupInteractable</Filter>
     </ClCompile>
-    <ClCompile Include="PushInteractable.cpp">
-      <Filter>Source Files\Game\Interactable\PushInteractable</Filter>
-    </ClCompile>
-    <ClCompile Include="LocationPushInteractable.cpp">
-      <Filter>Source Files\Game\Interactable\PushInteractable</Filter>
-    </ClCompile>
-    <ClCompile Include="RandomPushInteractable.cpp">
-      <Filter>Source Files\Game\Interactable\PushInteractable</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngine.cpp">
-      <Filter>Source Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineLogic.cpp">
-      <Filter>Source Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="EndMenu.cpp">
-      <Filter>Source Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="GamePauseMenu.cpp">
-      <Filter>Source Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerCustomization.cpp">
+    <ClCompile Include="src/Player.cpp">
       <Filter>Source Files\Player</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerTexture.cpp">
+    <ClCompile Include="src/PlayerCustomization.cpp">
       <Filter>Source Files\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="src/PlayerMovement.cpp">
+      <Filter>Source Files\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="src/PlayerTexture.cpp">
+      <Filter>Source Files\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="src/PushInteractable.cpp">
+      <Filter>Source Files\Game\Interactable\PushInteractable</Filter>
+    </ClCompile>
+    <ClCompile Include="src/RandomPushInteractable.cpp">
+      <Filter>Source Files\Game\Interactable\PushInteractable</Filter>
+    </ClCompile>
+    <ClCompile Include="src/StartMenuEngine.cpp">
+      <Filter>Source Files\StartMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="src/TextureHolder.cpp">
+      <Filter>Source Files\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="src/TiledMapLoader.cpp">
+      <Filter>Source Files\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Engine.h">
+    <ClInclude Include="include/resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include/BookInteractable.h">
+      <Filter>Header Files\Game\Interactable\PickupInteractable\Book</Filter>
+    </ClInclude>
+    <ClInclude Include="include/Button.h">
+      <Filter>Header Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="include/Constants.h">
+      <Filter>Header Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="include/DoorInteractable.h">
+      <Filter>Header Files\Game\Interactable\Door</Filter>
+    </ClInclude>
+    <ClInclude Include="include/DoorInteractableTemplate.h">
+      <Filter>Header Files\Game\Interactable\Door</Filter>
+    </ClInclude>
+    <ClInclude Include="include/EndMenu.h">
+      <Filter>Header Files\Game\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="include/Engine.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="GameEngine.h">
+    <ClInclude Include="include/GameEngine.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>Header Files\Map</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureHolder.h">
-      <Filter>Header Files\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>Header Files\Misc\Screen</Filter>
-    </ClInclude>
-    <ClInclude Include="StartMenuEngine.h">
-      <Filter>Header Files\StartMenu</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerMovement.h">
-      <Filter>Header Files\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="TiledMapLoader.h">
-      <Filter>Header Files\Map</Filter>
-    </ClInclude>
-    <ClInclude Include="GameEngineLogic.h">
+    <ClInclude Include="include/GameEngineLogic.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="GamePauseMenu.h">
-      <Filter>Header Files\Game</Filter>
+    <ClInclude Include="include/GamePauseMenu.h">
+      <Filter>Header Files\Game\Menu</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerTexture.h">
-      <Filter>Header Files\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerCustomization.h">
-      <Filter>Header Files\Player\PlayerCustomization</Filter>
-    </ClInclude>
-    <ClInclude Include="Interactable.h">
+    <ClInclude Include="include/Interactable.h">
       <Filter>Header Files\Game\Interactable</Filter>
     </ClInclude>
-    <ClInclude Include="BookInteractable.h">
+    <ClInclude Include="include/KeyInteractable.h">
+      <Filter>Header Files\Game\Interactable\PickupInteractable</Filter>
+    </ClInclude>
+    <ClInclude Include="include/LocationPushInteractable.h">
+      <Filter>Header Files\Game\Interactable\PushInteractable</Filter>
+    </ClInclude>
+    <ClInclude Include="include/Map.h">
+      <Filter>Header Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="include/PickupInventoryInteractable.h">
+      <Filter>Header Files\Game\Interactable\PickupInteractable</Filter>
+    </ClInclude>
+    <ClInclude Include="include/Player.h">
+      <Filter>Header Files\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="include/PlayerCustomization.h">
+      <Filter>Header Files\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="include/PlayerMovement.h">
+      <Filter>Header Files\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="include/PlayerTexture.h">
+      <Filter>Header Files\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="include/PushInteractable.h">
+      <Filter>Header Files\Game\Interactable\PushInteractable</Filter>
+    </ClInclude>
+    <ClInclude Include="include/RandomPushInteractable.h">
+      <Filter>Header Files\Game\Interactable\PushInteractable</Filter>
+    </ClInclude>
+    <ClInclude Include="include/SimpleBookInteractable.h">
       <Filter>Header Files\Game\Interactable\PickupInteractable\Book</Filter>
     </ClInclude>
-    <ClInclude Include="SimpleBookInteractable.h">
-      <Filter>Header Files\Game\Interactable\PickupInteractable\Book</Filter>
+    <ClInclude Include="include/StartMenuEngine.h">
+      <Filter>Header Files\StartMenu</Filter>
     </ClInclude>
-    <ClInclude Include="DoorInteractable.h">
-      <Filter>Header Files\Game\Interactable\Door</Filter>
-    </ClInclude>
-    <ClInclude Include="DoorInteractableTemplate.h">
-      <Filter>Header Files\Game\Interactable\Door</Filter>
-    </ClInclude>
-    <ClInclude Include="Constants.h">
+    <ClInclude Include="include/TextureHolder.h">
       <Filter>Header Files\Misc</Filter>
     </ClInclude>
-    <ClInclude Include="PickupInventoryInteractable.h">
-      <Filter>Header Files\Game\Interactable\PickupInteractable</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyInteractable.h">
-      <Filter>Header Files\Game\Interactable\PickupInteractable</Filter>
-    </ClInclude>
-    <ClInclude Include="PushInteractable.h">
-      <Filter>Header Files\Game\Interactable\PushInteractable</Filter>
-    </ClInclude>
-    <ClInclude Include="LocationPushInteractable.h">
-      <Filter>Header Files\Game\Interactable\PushInteractable</Filter>
-    </ClInclude>
-    <ClInclude Include="RandomPushInteractable.h">
-      <Filter>Header Files\Game\Interactable\PushInteractable</Filter>
-    </ClInclude>
-    <ClInclude Include="EndMenu.h">
-      <Filter>Header Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include/TiledMapLoader.h">
+      <Filter>Header Files\Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
